@@ -25,7 +25,7 @@ namespace dotNet5781_01_4484_2389
                 {
                     if (value < 0)     //Negative distance cannot be added
                         throw new SomeException("Kilometerage cannot be reduced\n");
-                    kilometerage = value; 
+                    kilometerage = value;
                 }
             }
 
@@ -75,7 +75,7 @@ namespace dotNet5781_01_4484_2389
         }
 
     
-        enum Choice { addBus = 1, busToDrive, fuelCare, showKmLastCare, exit, /*Default=exit*/ }
+        enum Choice { addBus = 1, busToDrive, fuelCare, showKmLastCare, exit }
 
         static void Main(string[] args)
         {
@@ -84,7 +84,7 @@ namespace dotNet5781_01_4484_2389
             Random rndKm = new Random(DateTime.Now.Millisecond); //random Km for drive
             int myChoice;
             List<Bus> buses = new List<Bus>(); //list of buses
-            Console.WriteLine("1: add bus\n2: bus to drive\n3: refuel or Care\n4: show Km from last care\n5: exit\n");   //Print menu selection
+            Console.WriteLine("1: add bus\n2: bus to drive\n3: refuel or Care\n4: show Km from last care\n5: exit\n");   //Print selection menu 
 
             do
             {

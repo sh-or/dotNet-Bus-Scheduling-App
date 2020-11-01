@@ -174,7 +174,6 @@ namespace dotNet5781_01_4484_2389
                                     Console.WriteLine("Bus number: {0}-{1}-{2} , kilometerage from last care: {3}\n", A, B, C, b.kmOfLastCare);
                                 }
                             }
-                            //הודעה לרשימה ריקה?
                         }
                         break;
 

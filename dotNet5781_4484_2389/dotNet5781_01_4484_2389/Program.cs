@@ -97,6 +97,15 @@ namespace dotNet5781_01_4484_2389
                         Console.WriteLine("Enter licence number and date of beginning in format [day/month/year]");
                         lcNum = int.Parse(Console.ReadLine()); //cin license number
                         dt = DateTime.Parse(Console.ReadLine());  //cin date beggining
+                        
+                        string v = lcNum.ToString();
+                        while ((v.Length != 7 && dt.Year<2018) || (v.Length != 8 && dt.Year>=2018))
+                        {
+                            Console.WriteLine("illegal number. enter again");
+                            lcNum = int.Parse(Console.ReadLine()); //cin license number
+                            v = lcNum.ToString();
+                        }
+
                         buses.Add(new Bus(lcNum, dt));   //add bus to list
                         break;
 
@@ -112,7 +121,8 @@ namespace dotNet5781_01_4484_2389
                                 if (wantedBus.isReady(numOfKm))
                                 {
                                     wantedBus.Kilometerage += numOfKm;
-                                    Console.WriteLine("Bus number {0} went on a ride of {1} km\n", wantedBus.licenseNum, numOfKm);  //המספר צריך להיות מודפס בפורמט??
+                                    // Console.WriteLine("Bus number {0} went on a ride of {1} km\n", wantedBus.licenseNum, numOfKm);
+                                    Console.WriteLine("The bus went on a ride of {0} km\n", numOfKm);
                                 }
                             }
                         }
@@ -132,19 +142,16 @@ namespace dotNet5781_01_4484_2389
                                 Console.WriteLine("Enter 1 for refuel or 2 for care");
                                 tmp1 = int.Parse(Console.ReadLine());   //cin choice for refuel/care.
 
-                                //if (tmp1!=1||tmp1!=2)     //להחליט מה עושים אם הקלט שונה מ1 או 2
-                                //   throw "Your coice does not exist"
-
                                 if (tmp1 == 1) //refuel
                                 {
                                     wantedBus.kmOfLastRefuel = wantedBus.Kilometerage;
-                                    Console.WriteLine("The treatment was performed successfully\n");
+                                    Console.WriteLine("Refueling was performed successfully\n");
                                 }
                                 if (tmp1 == 2)  //care
                                 {
                                     wantedBus.kmOfLastCare = wantedBus.Kilometerage;
                                     wantedBus.lastCare = DateTime.Now;
-                                    Console.WriteLine("Refueling was successful\n");
+                                    Console.WriteLine("The treatment was performed successfully\n");
                                 }
                             }
                             catch (SomeException ex)
@@ -156,15 +163,16 @@ namespace dotNet5781_01_4484_2389
 
                     case Choice.showKmLastCare:
                         {
+                           // if (buses.isEmpty)
                             foreach (Bus b in buses)
                             {
-                                string v = b.licenseNum.ToString();
+                                v = b.licenseNum.ToString();
                                 if (v.Length == 8)
                                 {
                                     int A = b.licenseNum / 100000;
                                     int B = b.licenseNum / 1000 % 100;
                                     int C = b.licenseNum % 1000;
-                                    Console.WriteLine("Bus number: {0}-{1}-{2} , kilometerage from last care: {3}\n", A, B, C, b.kmOfLastCare);
+                                    Console.WriteLine("Bus number: {0}-{1}-{2} , kilometerage from last care: {3}\n", A, B, C, b.Kilometerage - b.kmOfLastCare);
                                 }
 
                                 else
@@ -172,7 +180,7 @@ namespace dotNet5781_01_4484_2389
                                     int A = b.licenseNum / 100000;
                                     int B = b.licenseNum / 100 % 1000;
                                     int C = b.licenseNum % 100;
-                                    Console.WriteLine("Bus number: {0}-{1}-{2} , kilometerage from last care: {3}\n", A, B, C, b.kmOfLastCare);
+                                    Console.WriteLine("Bus number: {0}-{1}-{2} , kilometerage from last care: {3}\n", A, B, C, b.Kilometerage - b.kmOfLastCare);
                                 }
                             }
                         }
@@ -184,7 +192,6 @@ namespace dotNet5781_01_4484_2389
                     default:
                         Console.WriteLine("wrong input\n");
                         break;
-                        //default: ->auotomatic throw?
                 }
             } while (myChoice != 5);
             Console.WriteLine("end\n");

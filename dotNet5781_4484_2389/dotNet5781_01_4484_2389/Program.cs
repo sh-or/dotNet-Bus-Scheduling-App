@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//yehudit
 namespace dotNet5781_01_4484_2389
 {
     class Program
@@ -76,7 +75,7 @@ namespace dotNet5781_01_4484_2389
         }
 
 
-        enum Choice { addBus = 1, busToDrive, fuelCare, showKmLastCare, exit, /*Default=exit*/ }
+        enum Choice { addBus = 1, busToDrive, fuelCare, showKmLastCare, exit}
 
         static void Main(string[] args)
         {
@@ -99,7 +98,7 @@ namespace dotNet5781_01_4484_2389
                         dt = DateTime.Parse(Console.ReadLine());  //cin date beggining
                         
                         string v = lcNum.ToString();
-                        while ((v.Length != 7 && dt.Year<2018) || (v.Length != 8 && dt.Year>=2018))
+                        while ((v.Length != 7 && dt.Year<2018) || (v.Length != 8 && dt.Year>=2018))  //check license number
                         {
                             Console.WriteLine("illegal number. enter again");
                             lcNum = int.Parse(Console.ReadLine()); //cin license number

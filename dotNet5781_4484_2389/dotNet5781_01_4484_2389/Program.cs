@@ -11,23 +11,25 @@ namespace dotNet5781_01_4484_2389
     {
         class Bus
         {
-            public int licenseNum;
-            public DateTime beginning;
+            public int licenseNum;   // save license number 
+            public DateTime beginning;  //Save the date the bus was added
             public DateTime lastCare; //save the date of last care
-            public int kmOfLastCare; //save the kilometerage of last care
-            public int kmOfLastRefuel; //save the kilometerage of last refuel
-            private int kilometerage;
-            public int Kilometerage
+            public int kmOfLastCare;  //save the kilometerage from last care
+            public int kmOfLastRefuel; //save the kilometerage from last refuel
+            private int kilometerage;  //save the general kilometerage
+            
+            public int Kilometerage  //"set/get" of general kilometerage
             {
                 get { return kilometerage; }
                 set
                 {
-                    if (value < 0)
+                    if (value < 0)     //Negative distance cannot be added
                         throw new SomeException("Kilometerage cannot be reduced\n");
                     kilometerage = value; 
                 }
             }
-            public Bus(int liceNum, DateTime begin) //can get more?
+
+            public Bus(int liceNum, DateTime begin)  //constructor bus
             {
                 licenseNum = liceNum;
                 beginning = begin;
@@ -36,8 +38,9 @@ namespace dotNet5781_01_4484_2389
                 kmOfLastRefuel = 0;
                 kilometerage = 0;
             }
-            public bool isReady(int numOfKm)
-            {//check the fuel and care of the asked bus and ride
+
+            public bool isReady(int numOfKm)   //check the fuel and care of asked bus and ride
+            {
                 DateTime dt = DateTime.Now;
                 if (!((dt.AddYears(-1)) < this.lastCare)) //the time from last care
                 {
@@ -58,8 +61,9 @@ namespace dotNet5781_01_4484_2389
                 return flag;
             }
         }
-        private static Bus findBus(int lcNum, List<Bus> buses)
-        {//find bus in buses' list by lcNum
+
+        private static Bus findBus(int lcNum, List<Bus> buses) //find bus in buses' list by license number
+        {
             foreach (Bus b in buses)
             {
                 if (lcNum == b.licenseNum)
@@ -69,14 +73,19 @@ namespace dotNet5781_01_4484_2389
             }
             throw new SomeException("The bus is not exist\n");
         }
+
+    
         enum Choice { addBus = 1, busToDrive, fuelCare, showKmLastCare, exit, /*Default=exit*/ }
+
         static void Main(string[] args)
         {
             DateTime dt;
             int lcNum, tmp1, numOfKm;
-            Random rndKm = new Random(DateTime.Now.Millisecond); //random Km
+            Random rndKm = new Random(DateTime.Now.Millisecond); //random Km for drive
             int myChoice;
             List<Bus> buses = new List<Bus>(); //list of buses
+            Console.WriteLine("1: add bus\n2: bus to drive\n3: refuel or Care\n4: show Km from last care\n5: exit\n");   //Print menu selection
+
             do
             {
                 Console.WriteLine("Enter your choice");
@@ -85,19 +94,19 @@ namespace dotNet5781_01_4484_2389
                 {
                     case Choice.addBus:
                         Console.WriteLine("Enter licence number and date of beginning in format [day/month/year]");
-                        lcNum = int.Parse(Console.ReadLine()); //cin lcNum. להוסיף חריגות 7-8 ספרות לפי שנה
-                        dt = DateTime.Parse(Console.ReadLine());
-                        buses.Add(new Bus(lcNum, dt));
+                        lcNum = int.Parse(Console.ReadLine()); //cin license number
+                        dt = DateTime.Parse(Console.ReadLine());  //cin date beggining
+                        buses.Add(new Bus(lcNum, dt));   //add bus to list
                         break;
+
                     case Choice.busToDrive:
-                        Console.WriteLine("Enter licence number\n");
-                        lcNum = int.Parse(Console.ReadLine());
-                        numOfKm = rndKm.Next(1201); //the longest possible rout
+                        Console.WriteLine("Enter licence number");
+                        lcNum = int.Parse(Console.ReadLine());  //cin license number
+                        numOfKm = rndKm.Next(1201);  // random Km for this drive. (1200 is the longest possible rout)
                         try
                         {
                             Bus wantedBus = findBus(lcNum, buses);
-                            //return Bus;
-                            if (wantedBus != null)
+                            if (wantedBus != null)  //the bus exists in list
                             {
                                 if (wantedBus.isReady(numOfKm))
                                 {
@@ -111,25 +120,31 @@ namespace dotNet5781_01_4484_2389
                             Console.WriteLine(ex);
                         }
                         break;
+
                     case Choice.fuelCare:
                         {
                             try
                             {
-                                Console.WriteLine("Enter licence number\n");
-                                lcNum = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Enter licence number");
+                                lcNum = int.Parse(Console.ReadLine());  //cin license number
                                 Bus wantedBus = findBus(lcNum, buses);
-                                Console.WriteLine("Enter 1 for refuel and 2 for care\n");
-                                tmp1 = int.Parse(Console.ReadLine());
-                                if (tmp1 == 1)
+                                Console.WriteLine("Enter 1 for refuel or 2 for care");
+                                tmp1 = int.Parse(Console.ReadLine());   //cin choice for refuel/care.
+
+                                //if (tmp1!=1||tmp1!=2)     //להחליט מה עושים אם הקלט שונה מ1 או 2
+                                //   throw "Your coice does not exist"
+
+                                if (tmp1 == 1) //refuel
                                 {
-                                    wantedBus.kmOfLastRefuel = wantedBus.Kilometerage;
+                                    wantedBus.kmOfLastRefuel = wantedBus.Kilometerage; 
+                                    Console.WriteLine("The treatment was performed successfully");
                                 }
-                                if(tmp1==2)
+                                if (tmp1 == 2)  //care
                                 {
                                     wantedBus.kmOfLastCare = wantedBus.Kilometerage;
                                     wantedBus.lastCare = DateTime.Now;
+                                    Console.WriteLine("Refueling was successful");
                                 }
-                                //להחליט מה עושים אם הקלט שונה מ1 או 2
                             }
                             catch (SomeException ex)
                             {
@@ -137,17 +152,20 @@ namespace dotNet5781_01_4484_2389
                             }
                         }
                         break;
+
                     case Choice.showKmLastCare:
                         {
                             foreach (Bus b in buses)
                             {
-                                Console.WriteLine("Bus number {0} with kilometerage {1}", b.licenseNum, b.Kilometerage);
+                                Console.WriteLine("Bus number: {0} , kilometerage from last care: {1}", b.licenseNum, b.kmOfLastCare);
                             }
                             //הודעה לרשימה ריקה?
                         }
                         break;
+
                     case Choice.exit:
                         break;
+
                     default:
                         Console.WriteLine("wrong input\n");
                         break;

@@ -17,7 +17,7 @@ namespace dotNet5781_01_4484_2389
             public int kmOfLastCare;  //save the kilometerage from last care
             public int kmOfLastRefuel; //save the kilometerage from last refuel
             private int kilometerage;  //save the general kilometerage
-            
+
             public int Kilometerage  //"set/get" of general kilometerage
             {
                 get { return kilometerage; }
@@ -25,7 +25,7 @@ namespace dotNet5781_01_4484_2389
                 {
                     if (value < 0)     //Negative distance cannot be added
                         throw new SomeException("Kilometerage cannot be reduced\n");
-                    kilometerage = value; 
+                    kilometerage = value;
                 }
             }
 
@@ -74,7 +74,7 @@ namespace dotNet5781_01_4484_2389
             throw new SomeException("The bus is not exist\n");
         }
 
-    
+
         enum Choice { addBus = 1, busToDrive, fuelCare, showKmLastCare, exit, /*Default=exit*/ }
 
         static void Main(string[] args)
@@ -111,13 +111,13 @@ namespace dotNet5781_01_4484_2389
                                 if (wantedBus.isReady(numOfKm))
                                 {
                                     wantedBus.Kilometerage += numOfKm;
-                                    Console.WriteLine("Bus number {0} went on a ride of {1} km\n",wantedBus.licenseNum, numOfKm);
+                                    Console.WriteLine("Bus number {0} went on a ride of {1} km\n", wantedBus.licenseNum, numOfKm);  //המספר צריך להיות מודפס בפורמט??
                                 }
                             }
                         }
                         catch (SomeException ex)
                         {
-                            Console.WriteLine(ex);
+                            Console.WriteLine(ex.Message);
                         }
                         break;
 
@@ -136,19 +136,19 @@ namespace dotNet5781_01_4484_2389
 
                                 if (tmp1 == 1) //refuel
                                 {
-                                    wantedBus.kmOfLastRefuel = wantedBus.Kilometerage; 
-                                    Console.WriteLine("The treatment was performed successfully");
+                                    wantedBus.kmOfLastRefuel = wantedBus.Kilometerage;
+                                    Console.WriteLine("The treatment was performed successfully\n");
                                 }
                                 if (tmp1 == 2)  //care
                                 {
                                     wantedBus.kmOfLastCare = wantedBus.Kilometerage;
                                     wantedBus.lastCare = DateTime.Now;
-                                    Console.WriteLine("Refueling was successful");
+                                    Console.WriteLine("Refueling was successful\n");
                                 }
                             }
                             catch (SomeException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                         }
                         break;
@@ -157,7 +157,22 @@ namespace dotNet5781_01_4484_2389
                         {
                             foreach (Bus b in buses)
                             {
-                                Console.WriteLine("Bus number: {0} , kilometerage from last care: {1}", b.licenseNum, b.kmOfLastCare);
+                                string v = b.licenseNum.ToString();
+                                if (v.Length == 8)
+                                {
+                                    int A = b.licenseNum / 100000;
+                                    int B = b.licenseNum / 1000 % 100;
+                                    int C = b.licenseNum % 1000;
+                                    Console.WriteLine("Bus number: {0}-{1}-{2} , kilometerage from last care: {3}\n", A, B, C, b.kmOfLastCare);
+                                }
+
+                                else
+                                {
+                                    int A = b.licenseNum / 100000;
+                                    int B = b.licenseNum / 100 % 1000;
+                                    int C = b.licenseNum % 100;
+                                    Console.WriteLine("Bus number: {0}-{1}-{2} , kilometerage from last care: {3}\n", A, B, C, b.kmOfLastCare);
+                                }
                             }
                             //הודעה לרשימה ריקה?
                         }
@@ -169,7 +184,7 @@ namespace dotNet5781_01_4484_2389
                     default:
                         Console.WriteLine("wrong input\n");
                         break;
-                    //default: ->auotomatic throw?
+                        //default: ->auotomatic throw?
                 }
             } while (myChoice != 5);
             Console.WriteLine("end\n");

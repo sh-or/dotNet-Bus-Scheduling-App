@@ -8,21 +8,46 @@ namespace dotNet5781_02_4484_2389
 {
     class BusLine
     {
-        private class Station : BusStation
+        private class Station //: BusStation
         {
+            public int stKey;
             public double distance;
-            //timeLast;
-            //public Station(){};
+            //public timeLast;
+            public Station(int key) { stKey = key; }
         }
-        private static int busLine = 0;
-        List<Station> stations; //bus lines stations list
-        Station st;
-        BusStation bs;
-        int a=bs.BusStationKey;
-        int FirstStation() {return stations.BusStationKey;}
-        int LastStation() { return stations[stations.Capacity].Bus; }
-        string Area;
+        /*static*/ List<BusStation> allSt; //the all-stations list with the details
+        private static int counter = 0; //running line number
+        public int line;
+        List<Station> stations; //bus line stations list
+        string area;
+        int FirstStation() {return stations[0].stKey;}
+        int LastStation() { return stations[stations.Capacity].stKey; }
+        public static int Counter { get => counter; set => counter = value; }
 
-        public static int BusLine { get => busLine; set => busLine = value; }
+        BusLine(string area1,/**/ List<BusStation> allSt1) 
+        {
+            line = counter++;
+            area = area1; //enum?
+            allSt = allSt1; //connect to the main stations list
+            stations = new List<Station>();
+        }
+        ~BusLine()
+        {
+            stations.Clear();
+        }
+        //tostring
+        bool addStation(int stKey, int index)
+        {
+            foreach(BusStation bs in allSt)
+                if(bs.busStationKey==stKey)
+                {
+                    if(index>stations.Capacity)
+                        stations.Add(new Station(stKey));
+                    stations.Insert(index-1, new Station(stKey));
+                    return true;
+                }
+            return false;
+        }
+
     }
 }

@@ -23,6 +23,11 @@ namespace dotNet5781_02_4484_2389
             return ("Bus Station Code: "+ BusStationKey+", "+ Latitude+"°N "+ Longitude+"°E" );
         }
 
+        public BusStation (string add)
+        {
+
+        }
+
 
 
     }

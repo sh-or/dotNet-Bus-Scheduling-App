@@ -28,8 +28,8 @@ namespace dotNet5781_02_4484_2389
         {
             busStationKey= Count++;
             Random r = new Random(DateTime.Now.Millisecond);
-            latitude = r.Next(3100, 3331) / 10.0;
-            longitude = r.Next(3430, 3551) / 10.0;
+            latitude = r.Next(3100, 3331) / 100.0;
+            longitude = r.Next(3430, 3551) / 100.0;
             address = add;
         }
 

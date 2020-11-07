@@ -10,7 +10,7 @@ namespace dotNet5781_02_4484_2389
     {
         static void Main(string[] args)
         {
-            List<BusStation> allBusStations;
+            List<BusStation> allBusStations; //the main list
 
         }
     }

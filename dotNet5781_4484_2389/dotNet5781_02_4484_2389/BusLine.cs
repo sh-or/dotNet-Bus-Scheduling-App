@@ -49,5 +49,45 @@ namespace dotNet5781_02_4484_2389
             return false;
         }
 
+        public override string ToString()
+        {
+            string str = ("Bus Line: " + line + " area: " + area + "stations list:");
+            foreach (Station st in stations)
+                str += (" " + st.stKey);
+            return str;
+        }
+
+        public Station findSt(int stNum) //find and return a station
+        {
+
+        }
+
+        public double stDistance(int st1, int st2) //return distance between 2 stations
+        {
+            if (st1 == st2)
+                return 0;
+            double sum = 0;
+            bool flag = false; 
+            reverse foreach
+            foreach (Station st in stations)
+            {
+                if (st.stKey == st1)
+                    flag = true;
+                if (st.stKey == st2)
+                    break;
+                if (flag)
+                    sum += st.distance;
+            }
+            return sum;
+
+        }
+
+        public TimeSpan stTime(int st1, int st2)//return time between 2 stations
+            {
+            if (st1 == st2)
+                return TimeSpan.Parse(0:00:00);
+
+        }
+
     }
 }

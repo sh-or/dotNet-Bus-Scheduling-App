@@ -89,5 +89,55 @@ namespace dotNet5781_02_4484_2389
 
         }
 
+
+        bool deleteStation(int stationKey)
+        {
+            foreach (Station bs in stations)
+                if (bs.stKey == stationKey)
+                {
+                    stations.Remove(bs);
+                    return true;
+                }
+            return false;
+        }
+
+        bool searchStation(int stationKey)
+        {
+            foreach (Station bs in stations)
+                if (bs.stKey == stationKey)
+                {
+                    return true;
+                }
+            return false;
+        }
+
+
+        BusLine subRout(BusStation bs1, BusStation bs2)
+        {
+            List<Station> ssss;  //רשימה של תחנות אוטובוס או תחנו תקו?
+            ssss = new List<Station>();
+
+            foreach (Station bs in stations)
+                if (bs.stKey == bs1.busStationKey)
+                {
+                    iterator it1 = bs;   //בניית איטרטור
+                }
+
+            foreach (Station bs in stations)
+                if (bs.stKey == bs2.busStationKey)
+                {
+                    iterator it2 = bs;
+                }
+
+
+            while (it1 <= 1t2)
+                {
+                ssss.Add(it1);
+            }
+
+            BusLine linebus = new BusLine(this.area, ssss);   //מקבל רק ליסט של תחנות אוטובוס (או תחנות קו)
+            return linebus;
+        }
+
     }
 }

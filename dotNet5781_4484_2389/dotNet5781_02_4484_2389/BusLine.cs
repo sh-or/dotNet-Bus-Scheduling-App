@@ -15,16 +15,17 @@ namespace dotNet5781_02_4484_2389
             //public timeLast;
             public Station(int key) { stKey = key; }
         }
-        /*static*/ List<BusStation> allSt; //the all-stations list with the details
+        /*static*/
+        List<BusStation> allSt; //the all-stations list with the details
         private static int counter = 0; //running line number
         public int line;
         List<Station> stations; //bus line stations list
         string area;
-        int FirstStation() {return stations[0].stKey;}
+        int FirstStation() { return stations[0].stKey; }
         int LastStation() { return stations[stations.Capacity].stKey; }
         public static int Counter { get => counter; set => counter = value; }
 
-        BusLine(string area1,/**/ List<BusStation> allSt1) 
+        BusLine(string area1,/**/ List<BusStation> allSt1)
         {
             line = counter++;
             area = area1; //enum?
@@ -36,18 +37,20 @@ namespace dotNet5781_02_4484_2389
             stations.Clear();
         }
         //tostring
+
         bool addStation(int stKey, int index)
         {
-            foreach(BusStation bs in allSt)
-                if(bs.busStationKey==stKey)
+            foreach (BusStation bs in allSt)
+                if (bs.busStationKey == stKey)
                 {
-                    if(index>stations.Capacity)
+                    if (index > stations.Capacity)
                         stations.Add(new Station(stKey));
-                    stations.Insert(index-1, new Station(stKey));
+                    stations.Insert(index - 1, new Station(stKey));
                     return true;
                 }
             return false;
         }
 
+       
     }
 }

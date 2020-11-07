@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,9 @@ namespace dotNet5781_02_4484_2389
             allSt = allSt1; //connect to the main stations list
             stations = new List<Station>();
         }
+
+     
+
         ~BusLine()
         {
             stations.Clear();
@@ -114,29 +118,32 @@ namespace dotNet5781_02_4484_2389
 
         BusLine subRout(BusStation bs1, BusStation bs2)
         {
-            List<Station> ssss;  //רשימה של תחנות אוטובוס או תחנו תקו?
-            ssss = new List<Station>();
 
-            foreach (Station bs in stations)
-                if (bs.stKey == bs1.busStationKey)
-                {
-                    iterator it1 = bs;   //בניית איטרטור
-                }
+            BusLine subLine= new BusLine(area, allSt);
+            int temp = 0;
+            
 
-            foreach (Station bs in stations)
-                if (bs.stKey == bs2.busStationKey)
-                {
-                    iterator it2 = bs;
-                }
+            //foreach (Station bs in stations)
+            //    if (bs.stKey == bs1.busStationKey)
+            //    {
+            //        iterator it1 = bs;   //בניית איטרטור
+            //    }
+
+            //foreach (Station bs in stations)
+            //    if (bs.stKey == bs2.busStationKey)
+            //    {
+            //        iterator it2 = bs;
+            //    }
 
 
             while (it1 <= 1t2)
                 {
-                ssss.Add(it1);
+                subLine.addStation(it1, temp);
+                temp++;
             }
 
-            BusLine linebus = new BusLine(this.area, ssss);   //מקבל רק ליסט של תחנות אוטובוס (או תחנות קו)
-            return linebus;
+           // BusLine linebus = new BusLine(this.area, subLine);   //מקבל רק ליסט של תחנות אוטובוס (או תחנות קו)
+            return subLine;
         }
 
     }

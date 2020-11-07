@@ -61,9 +61,14 @@ namespace dotNet5781_02_4484_2389
             return str;
         }
 
-        public Station findSt(int stNum) //find and return a station
+        Station findSt(int stNum) //find and return a station in the line
         {
-
+            foreach (Station bs in stations)
+                if (bs.stKey == stNum)
+                {
+                    return bs;
+                }
+            //exeption if not found...
         }
 
         public double stDistance(int st1, int st2) //return distance between 2 stations
@@ -90,7 +95,7 @@ namespace dotNet5781_02_4484_2389
             {
             if (st1 == st2)
                 return TimeSpan.Parse(0:00:00);
-
+            yjjfx
         }
 
 
@@ -105,7 +110,7 @@ namespace dotNet5781_02_4484_2389
             return false;
         }
 
-        bool searchStation(int stationKey)
+        bool searchStation(int stationKey) //check if a station exist in the line
         {
             foreach (Station bs in stations)
                 if (bs.stKey == stationKey)
@@ -116,13 +121,12 @@ namespace dotNet5781_02_4484_2389
         }
 
 
-        BusLine subRout(BusStation bs1, BusStation bs2)
+        BusLine subRout(int st1, int st2)//return sub line between 2 stations
         {
 
             BusLine subLine= new BusLine(area, allSt);
-            int temp = 0;
-            
-
+            int mone = 0;
+            bool flag = false;
             //foreach (Station bs in stations)
             //    if (bs.stKey == bs1.busStationKey)
             //    {
@@ -134,15 +138,18 @@ namespace dotNet5781_02_4484_2389
             //    {
             //        iterator it2 = bs;
             //    }
-
-
-            while (it1 <= 1t2)
+            if (searchStation(st1) && searchStation(st2)) //אולי לעשות פונק' שתכניס תחנה ותחזיר את אינדקס המיקום שלה ואז לולאה רק בין האינדקסים
+            {
+                foreach (Station it in stations)
                 {
-                subLine.addStation(it1, temp);
-                temp++;
+                    if (it.stKey == st1) //reached to the first station
+                        flag = true;
+                    if(flag)
+                        subLine.addStation(it.stKey, mone++);
+                    if (it.stKey == st2) //reached to the second station
+                        break;
+                }
             }
-
-           // BusLine linebus = new BusLine(this.area, subLine);   //מקבל רק ליסט של תחנות אוטובוס (או תחנות קו)
             return subLine;
         }
 

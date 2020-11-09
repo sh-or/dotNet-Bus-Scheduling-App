@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Device.Location;
+using System.Device.dll;
 
 namespace dotNet5781_02_4484_2389
 {
@@ -39,15 +42,19 @@ namespace dotNet5781_02_4484_2389
         {
             stations.Clear();
         }
-        //tostring
-        bool addStation(int stKey, int index)
+        private const int x = 1;
+        bool addStation(int stKey, int index) //לתת לו להכניס מס' תחנה שאחריה יוכנס איבר חדש?
         {
-            foreach(BusStation bs in allSt)
-                if(bs.busStationKey==stKey)
+            TimeSpan sec=TimeSpan.Zero;
+            foreach (BusStation bs in allSt)
+                if (bs.busStationKey==stKey)
                 {
-                    if(index>stations.Capacity)
+                    if(index==stations.Capacity+1)
                         stations.Add(new Station(stKey));
-                    stations.Insert(index-1, new Station(stKey));
+                    else
+                        stations.Insert(index, new Station(stKey));
+                    //stations[index].distance =; //distance calculating
+                    //stations[index].timeLast= TimeSpan.Parse(stations[index].distance) * sec; //the bus cross meter for second
                     return true;
                 }
             return false;
@@ -71,7 +78,7 @@ namespace dotNet5781_02_4484_2389
             //exeption if not found...
         }
 
-        public double distanceGap(int st1, int st2) //return distance gap between 2 stations
+        public double distanceGap(int st1, int st2) //return distance gap between 2 stations(according to the route)
         {
             if (st1 == st2)
                 return 0;

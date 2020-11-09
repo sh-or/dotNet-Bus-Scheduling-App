@@ -13,7 +13,7 @@ namespace dotNet5781_02_4484_2389
         {
             public int stKey;
             public double distance;
-            //public timeLast;
+            public TimeSpan timeLast;
             public Station(int key) { stKey = key; }
         }
         /*static*/ List<BusStation> allSt; //the all-stations list with the details
@@ -71,31 +71,44 @@ namespace dotNet5781_02_4484_2389
             //exeption if not found...
         }
 
-        public double stDistance(int st1, int st2) //return distance between 2 stations
+        public double distanceGap(int st1, int st2) //return distance gap between 2 stations
         {
             if (st1 == st2)
                 return 0;
             double sum = 0;
-            bool flag = false; 
-            reverse foreach
+            bool flag = false;
+            stations.Reverse(); //reverse the list
             foreach (Station st in stations)
             {
-                if (st.stKey == st1)
-                    flag = true;
                 if (st.stKey == st2)
+                        flag = true;
+                if (st.stKey == st1) 
                     break;
                 if (flag)
                     sum += st.distance;
             }
+            stations.Reverse(); //reverse the list back
             return sum;
-
         }
 
-        public TimeSpan stTime(int st1, int st2)//return time between 2 stations
+        public TimeSpan timeGap(int st1, int st2)//return time gap between 2 stations
             {
             if (st1 == st2)
-                return TimeSpan.Parse(0:00:00);
-            yjjfx
+                return TimeSpan.Zero;
+            TimeSpan sum = TimeSpan.Zero;
+            bool flag = false;
+            stations.Reverse(); //reverse the list
+            foreach (Station st in stations)
+            {
+                if (st.stKey == st2)
+                    flag = true;
+                if (st.stKey == st1)
+                    break;
+                if (flag)
+                    sum += st.timeLast;
+            }
+            stations.Reverse();  //reverse the list back
+            return sum;
         }
 
 

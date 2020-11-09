@@ -11,7 +11,7 @@ namespace dotNet5781_02_4484_2389
 {
     class BusLine
     {
-        public double GetDistanceTo(System.Device.Location.GeoCoordinate other);
+        //public double GetDistanceTo(System.Device.Location.GeoCoordinate other);
 
         private class Station //: BusStation
         {
@@ -45,17 +45,39 @@ namespace dotNet5781_02_4484_2389
         }
         private const int x = 1;
         bool addStation(int stKey, int index) //לתת לו להכניס מס' תחנה שאחריה יוכנס איבר חדש?
-        {
+        {//עצרתי באמצע כי אם נחליף אתזה לקלט מספר תחנה נצטרך לשנות הכל שם. נשאל את נורית ונמשיך בע"ה:)
+            BusStation lastSt, nextSt;
             TimeSpan sec=TimeSpan.Zero;
+            GeoCoordinate local1, local2;
             foreach (BusStation bs in allSt)
                 if (bs.busStationKey==stKey)
                 {
-                    if(index==stations.Capacity+1)
+                    if (index == stations.Capacity)
                         stations.Add(new Station(stKey));
                     else
                         stations.Insert(index, new Station(stKey));
-                    //stations[index].distance =; //distance calculating
-                    //stations[index].timeLast= TimeSpan.Parse(stations[index].distance) * sec; //the bus cross meter for second
+
+                    if (index == 0) //updates after adding first bus to the list
+                    {
+                        stations[index].distance = 0;
+                        stations[index].timeLast = TimeSpan.Zero;
+                    }
+                    else //update time&distance from last station
+                    {
+                        lastSt = allSt.Find(x => x.busStationKey == stations[index - 1].stKey);
+                        local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
+                        local2 = new GeoCoordinate(lastSt.Latitude, lastSt.Longitude);
+                        stations[index].distance = local1.GetDistanceTo(local2); //distance calculating
+                        stations[index].timeLast = TimeSpan.Parse(stations[index].distance) * sec; //the bus cross meter for second
+                    }
+                    if(index == stations.Capacity-1) //update the next station time&distance
+                    {
+                        nextSt = allSt.Find(x => x.busStationKey == stations[index+1].stKey);
+                        local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
+                        local2 = new GeoCoordinate(nextSt.Latitude, nextSt.Longitude);
+                        stations[index + 1].distance = local1.GetDistanceTo(local2); //distance calculating
+                        stations[index + 1].timeLast = TimeSpan.Parse(stations[index+1].distance) * sec; //the bus cross meter for second
+                    }
                     return true;
                 }
             return false;

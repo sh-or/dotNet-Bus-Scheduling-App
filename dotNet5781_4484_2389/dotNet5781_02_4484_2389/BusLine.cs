@@ -6,12 +6,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Device.Location;
-using System.Device.dll;
 
 namespace dotNet5781_02_4484_2389
 {
     class BusLine
     {
+        public double GetDistanceTo(System.Device.Location.GeoCoordinate other);
+
         private class Station //: BusStation
         {
             public int stKey;

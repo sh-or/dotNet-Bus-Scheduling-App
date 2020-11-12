@@ -17,7 +17,6 @@ namespace dotNet5781_02_4484_2389
             busLinesList = new List<BusLine>();
         }
 
-
         public IEnumerator GetEnumerator()
         {
             return busLinesList.GetEnumerator();
@@ -32,10 +31,20 @@ namespace dotNet5781_02_4484_2389
         {
             get { return busLinesList.Find(x => x.line == busKey); } 
             //ex if not found
-
         }
 
+        public void addLine(BusLine bus)  //add line to the list
+        {
+            //check the stations?
+            busLinesList.Add(bus);
+        }
+
+        public bool deletedLine(BusLine bus) //remove line from the list. return false if not found.
+        {
+            return busLinesList.Remove(bus);
+        }
         
+       
 
 
 

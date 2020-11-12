@@ -8,6 +8,7 @@ using System.Device.Location;
 
 namespace dotNet5781_02_4484_2389
 {
+    public enum Area { General=1, North, South, Center, Jerusalem}
     class BusLine : IComparable
     {
         public int CompareTo(object obj) //compare 2 lines by their whole rout time
@@ -23,33 +24,36 @@ namespace dotNet5781_02_4484_2389
             public Station(int key) { stKey = key; }
         }
         /*static*/
-        List<BusStation> allSt; //the all-stations list with the details
+        private List<BusStation> allStations;
+        public List<BusStation> allSt //the all-stations list with the details
+        { 
+            get { return allStations; }
+            private set { allStations = value; }
+        } 
         private static int counter = 0; //running line number
         public int line;
         List<Station> stations; //bus line stations list
-        string area;
+        Area area;  //enum
         int FirstStation() { return stations[0].stKey; } //ex if empty. return statio?busStation?
         int LastStation() { return stations[stations.Capacity].stKey; } //ex if empty. return statio?busStation?
         public static int Counter { get => counter; private set => counter = value; }
 
-        BusLine(string area1, List<BusStation> allSt1  /*, int st1, int st2*/ )
+        public BusLine(Area area1, List<BusStation> allSt1)  /*, int st1, int st2*/ 
         {
             line = counter++;
-            area = area1; //enum?
+            area = area1;  //enum
             allSt = allSt1; //connect to the main stations list
             stations = new List<Station>();
             //stations.Add(new Station(st1));
             //stations.Add(new Station(st2));
         }
 
-
-
         ~BusLine()
         {
             stations.Clear();
         }
         private const int x = 1;
-        bool addStation(int stKey, int index) //add station to the line by station number and index *add to allSt?!
+        public bool addStation(int stKey, int index) //add station to the line by station number and index *add to allSt?!
         {
             if (searchStation(stKey)) //ex if station already in the line
                 throw new Exception("ERROR: key allready exist");
@@ -92,13 +96,13 @@ namespace dotNet5781_02_4484_2389
 
         public override string ToString()
         {
-            string str = ("Bus Line: " + line + " area: " + area + "stations list:");
+            string str = ("Bus Line: " + line + " area: " + area + " stations list:");
             foreach (Station st in stations)
                 str += (" " + st.stKey);
             return str;
         }
 
-        Station findSt(int stNum) //find and return a station in the line
+        public Station findSt(int stNum) //find and return a station in the line
         {
             foreach (Station bs in stations)
                 if (bs.stKey == stNum)
@@ -149,7 +153,7 @@ namespace dotNet5781_02_4484_2389
         }
 
 
-        bool deleteStation(int stationKey)
+        public bool deleteStation(int stationKey)
         {
             foreach (Station bs in stations)
                 if (bs.stKey == stationKey)
@@ -160,7 +164,7 @@ namespace dotNet5781_02_4484_2389
             return false;
         }
 
-        bool searchStation(int stationKey) //check if a station exist in the line
+        public bool searchStation(int stationKey) //check if a station exist in the line
         {
             foreach (Station bs in stations)
                 if (bs.stKey == stationKey)
@@ -171,7 +175,7 @@ namespace dotNet5781_02_4484_2389
         }
 
 
-        BusLine subRout(int st1, int st2)//return sub line between 2 stations
+        public BusLine subRout(int st1, int st2)//return sub line between 2 stations
         {
             BusLine subLine= new BusLine(area, allSt); //the new sub line to return
             int mone = 0;

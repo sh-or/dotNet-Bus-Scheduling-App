@@ -16,3 +16,4 @@ namespace dotNet5781_02_4484_2389
         protected MyException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
     }
+}

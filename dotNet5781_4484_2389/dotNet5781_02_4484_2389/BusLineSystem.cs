@@ -12,7 +12,7 @@ namespace dotNet5781_02_4484_2389
 
         List<BusLine> busLinesList;
 
-        BusLineSystem()
+        public BusLineSystem()
         {
             busLinesList = new List<BusLine>();
         }

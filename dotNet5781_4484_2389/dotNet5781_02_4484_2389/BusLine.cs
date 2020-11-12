@@ -34,8 +34,8 @@ namespace dotNet5781_02_4484_2389
         public int line;
         List<Station> stations; //bus line stations list
         Area area;  //enum
-        int FirstStation() { return stations[0].stKey; } //ex if empty. return statio?busStation?
-        int LastStation() { return stations[stations.Capacity].stKey; } //ex if empty. return statio?busStation?
+        public int FirstStation() { return stations[0].stKey; } //ex if empty. return statio?busStation?
+        public int LastStation() { return stations[stations.Capacity].stKey; } //ex if empty. return statio?busStation?
         public static int Counter { get => counter; private set => counter = value; }
 
         public BusLine(Area area1, List<BusStation> allSt1)  /*, int st1, int st2*/ 

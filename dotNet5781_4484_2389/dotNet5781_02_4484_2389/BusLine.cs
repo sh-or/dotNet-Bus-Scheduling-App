@@ -32,12 +32,14 @@ namespace dotNet5781_02_4484_2389
         int LastStation() { return stations[stations.Capacity].stKey; } //ex if empty. return statio?busStation?
         public static int Counter { get => counter; private set => counter = value; }
 
-        BusLine(string area1,/**/ List<BusStation> allSt1)
+        BusLine(string area1, List<BusStation> allSt1  /*, int st1, int st2*/ )
         {
             line = counter++;
             area = area1; //enum?
             allSt = allSt1; //connect to the main stations list
             stations = new List<Station>();
+            //stations.Add(new Station(st1));
+            //stations.Add(new Station(st2));
         }
 
 
@@ -49,7 +51,8 @@ namespace dotNet5781_02_4484_2389
         private const int x = 1;
         bool addStation(int stKey, int index) //add station to the line by station number and index *add to allSt?!
         {
-            //ex if station already in the line
+            if (searchStation(stKey)) //ex if station already in the line
+                throw new Exception("ERROR: key allready exist");
             BusStation lastSt, nextSt;
             //TimeSpan sec=TimeSpan.Zero;
             GeoCoordinate local1, local2;
@@ -102,7 +105,7 @@ namespace dotNet5781_02_4484_2389
                 {
                     return bs;
                 }
-            //exeption if not found...
+            throw new KeyNotFoundException("ERROR: key not found");   //exeption if not found...
         }
 
         public double distanceGap(int st1, int st2) //return distance gap between 2 stations(according to the route)

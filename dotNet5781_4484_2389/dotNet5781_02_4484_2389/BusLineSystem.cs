@@ -7,43 +7,42 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_4484_2389
 {
-    class BusLineSystem /*: IEnumerable*/
+    class BusLineSystem : IEnumerable
     {
 
-        public List<BusLine> busLinesList;
+        List<BusLine> busLinesList;
 
-        public BusLineSystem()
+        BusLineSystem()
         {
             busLinesList = new List<BusLine>();
         }
 
-        //public IEnumerator GetEnumerator()
-        //{
-        //    //foreach (var item in busLinesList)
-        //    //{
-        //    //    yield return item;
-        //    //}
-        //    return busLinesList.GetEnumerator();
-        //}
 
-        public interface IEnumerator
+        public IEnumerator GetEnumerator()
         {
-            object Current { get; }
-            bool MoveNext();
-            void Reset();
+            return busLinesList.GetEnumerator();
+
+            //foreach (var item in busLinesList)
+            //{
+            //    yield return item;
+            //}
         }
 
-        public interface IEnumerable
+        public BusLine this[int busKey]
         {
-            IEnumerator GetEnumerator();
+            get { return busLinesList.Find(x => x.line == busKey); } 
+            //ex if not found
+
         }
+
+        
+
+
+
     }
 
 }
 
 
-}
 
-
-}
 

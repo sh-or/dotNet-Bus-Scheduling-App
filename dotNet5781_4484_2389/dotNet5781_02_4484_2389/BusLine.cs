@@ -8,10 +8,13 @@ using System.Device.Location;
 
 namespace dotNet5781_02_4484_2389
 {
-    class BusLine
+    class BusLine : IComparable
     {
-        //public double GetDistanceTo(System.Device.Location.GeoCoordinate other);
-
+        public int CompareTo(object obj) //compare 2 lines by their whole rout time
+        {
+            BusLine tmp = (BusLine)obj;
+            return timeGap(FirstStation(), LastStation()).CompareTo(timeGap(tmp.FirstStation(), tmp.LastStation()));
+        }
         private class Station //: BusStation
         {
             public int stKey;
@@ -25,9 +28,9 @@ namespace dotNet5781_02_4484_2389
         public int line;
         List<Station> stations; //bus line stations list
         string area;
-        int FirstStation() { return stations[0].stKey; }
-        int LastStation() { return stations[stations.Capacity].stKey; }
-        public static int Counter { get => counter; set => counter = value; }
+        int FirstStation() { return stations[0].stKey; } //ex if empty. return statio?busStation?
+        int LastStation() { return stations[stations.Capacity].stKey; } //ex if empty. return statio?busStation?
+        public static int Counter { get => counter; private set => counter = value; }
 
         BusLine(string area1,/**/ List<BusStation> allSt1)
         {
@@ -46,6 +49,7 @@ namespace dotNet5781_02_4484_2389
         private const int x = 1;
         bool addStation(int stKey, int index) //add station to the line by station number and index *add to allSt?!
         {
+            //ex if station already in the line
             BusStation lastSt, nextSt;
             //TimeSpan sec=TimeSpan.Zero;
             GeoCoordinate local1, local2;
@@ -68,7 +72,7 @@ namespace dotNet5781_02_4484_2389
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
                         local2 = new GeoCoordinate(lastSt.Latitude, lastSt.Longitude);
                         stations[index].distance = local1.GetDistanceTo(local2); //distance calculating(in meters)
-                        stations[index].timeLast = TimeSpan.Parse(stations[index].distance)/* *sec */; //the bus cross meter for second
+                        stations[index].timeLast = TimeSpan.FromSeconds(stations[index].distance)/* *sec */; //the bus cross meter for second
                     }
                     if(index < stations.Capacity-1) //update the next station time&distance
                     {
@@ -76,7 +80,7 @@ namespace dotNet5781_02_4484_2389
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
                         local2 = new GeoCoordinate(nextSt.Latitude, nextSt.Longitude);
                         stations[index + 1].distance = local1.GetDistanceTo(local2); //distance calculating
-                        stations[index + 1].timeLast = TimeSpan.Parse(stations[index+1].distance) * sec; //the bus cross meter for second
+                        stations[index + 1].timeLast = TimeSpan.FromSeconds(stations[index+1].distance); //the bus cross meter for second
                     }
                     return true;
                 }

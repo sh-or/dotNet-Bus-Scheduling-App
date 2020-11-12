@@ -10,9 +10,9 @@ namespace dotNet5781_02_4484_2389
     class BusLineSystem /*: IEnumerable*/
     {
 
-        List<BusLine> busLinesList;
+        public List<BusLine> busLinesList;
 
-        BusLineSystem()
+        public BusLineSystem()
         {
             busLinesList = new List<BusLine>();
         }

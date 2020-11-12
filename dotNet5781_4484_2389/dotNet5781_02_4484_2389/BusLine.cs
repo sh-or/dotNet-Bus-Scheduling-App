@@ -19,16 +19,17 @@ namespace dotNet5781_02_4484_2389
             public TimeSpan timeLast;
             public Station(int key) { stKey = key; }
         }
-        /*static*/ List<BusStation> allSt; //the all-stations list with the details
+        /*static*/
+        List<BusStation> allSt; //the all-stations list with the details
         private static int counter = 0; //running line number
         public int line;
         List<Station> stations; //bus line stations list
         string area;
-        int FirstStation() {return stations[0].stKey;}
+        int FirstStation() { return stations[0].stKey; }
         int LastStation() { return stations[stations.Capacity].stKey; }
         public static int Counter { get => counter; set => counter = value; }
 
-        BusLine(string area1,/**/ List<BusStation> allSt1) 
+        BusLine(string area1,/**/ List<BusStation> allSt1)
         {
             line = counter++;
             area = area1; //enum?
@@ -36,25 +37,25 @@ namespace dotNet5781_02_4484_2389
             stations = new List<Station>();
         }
 
-     
+
 
         ~BusLine()
         {
             stations.Clear();
         }
         private const int x = 1;
-        bool addStation(int stKey, int index) //לתת לו להכניס מס' תחנה שאחריה יוכנס איבר חדש?
-        {//עצרתי באמצע כי אם נחליף אתזה לקלט מספר תחנה נצטרך לשנות הכל שם. נשאל את נורית ונמשיך בע"ה:)
+        bool addStation(int stKey, int index) //add station to the line by station number and index *add to allSt?!
+        {
             BusStation lastSt, nextSt;
-            TimeSpan sec=TimeSpan.Zero;
+            //TimeSpan sec=TimeSpan.Zero;
             GeoCoordinate local1, local2;
             foreach (BusStation bs in allSt)
                 if (bs.busStationKey==stKey)
                 {
-                    if (index == stations.Capacity)
+                    if (index == stations.Capacity) //adding last station
                         stations.Add(new Station(stKey));
                     else
-                        stations.Insert(index, new Station(stKey));
+                        stations.Insert(index, new Station(stKey)); //adding first/middle station
 
                     if (index == 0) //updates after adding first bus to the list
                     {
@@ -66,10 +67,10 @@ namespace dotNet5781_02_4484_2389
                         lastSt = allSt.Find(x => x.busStationKey == stations[index - 1].stKey);
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
                         local2 = new GeoCoordinate(lastSt.Latitude, lastSt.Longitude);
-                        stations[index].distance = local1.GetDistanceTo(local2); //distance calculating
-                        stations[index].timeLast = TimeSpan.Parse(stations[index].distance) * sec; //the bus cross meter for second
+                        stations[index].distance = local1.GetDistanceTo(local2); //distance calculating(in meters)
+                        stations[index].timeLast = TimeSpan.Parse(stations[index].distance)/* *sec */; //the bus cross meter for second
                     }
-                    if(index == stations.Capacity-1) //update the next station time&distance
+                    if(index < stations.Capacity-1) //update the next station time&distance
                     {
                         nextSt = allSt.Find(x => x.busStationKey == stations[index+1].stKey);
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
@@ -165,22 +166,10 @@ namespace dotNet5781_02_4484_2389
 
         BusLine subRout(int st1, int st2)//return sub line between 2 stations
         {
-
-            BusLine subLine= new BusLine(area, allSt);
+            BusLine subLine= new BusLine(area, allSt); //the new sub line to return
             int mone = 0;
             bool flag = false;
-            //foreach (Station bs in stations)
-            //    if (bs.stKey == bs1.busStationKey)
-            //    {
-            //        iterator it1 = bs;   //בניית איטרטור
-            //    }
-
-            //foreach (Station bs in stations)
-            //    if (bs.stKey == bs2.busStationKey)
-            //    {
-            //        iterator it2 = bs;
-            //    }
-            if (searchStation(st1) && searchStation(st2)) //אולי לעשות פונק' שתכניס תחנה ותחזיר את אינדקס המיקום שלה ואז לולאה רק בין האינדקסים
+            if (searchStation(st1) && searchStation(st2))
             {
                 foreach (Station it in stations)
                 {

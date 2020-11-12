@@ -16,7 +16,7 @@ namespace dotNet5781_02_4484_2389
             BusLine tmp = (BusLine)obj;
             return timeGap(FirstStation(), LastStation()).CompareTo(timeGap(tmp.FirstStation(), tmp.LastStation()));
         }
-        private class Station //: BusStation
+        public class Station //: BusStation
         {
             public int stKey;
             public double distance;
@@ -173,7 +173,6 @@ namespace dotNet5781_02_4484_2389
                 }
             return false;
         }
-
 
         public BusLine subRout(int st1, int st2)//return sub line between 2 stations
         {

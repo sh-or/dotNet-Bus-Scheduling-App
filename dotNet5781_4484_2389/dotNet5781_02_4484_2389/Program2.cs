@@ -16,7 +16,41 @@ namespace dotNet5781_02_4484_2389
             BusLineSystem allBusLines = new BusLineSystem();  //all the lines
             //input 10 lines
             //40 stations
-            restart(allBusStations, allBusLines);  
+            restart(allBusStations, allBusLines);
+            int ch;
+            Console.WriteLine("Enter you choice\n"); //+menu
+            do
+            {
+                ch = int.Parse(Console.ReadLine());
+                switch((Choice)ch)
+                {
+                    case Choice.Add:
+                        {
+
+                            break;
+                        }
+                    case Choice.Delete:
+                        {
+
+                            break;
+                        }
+                    case Choice.SearchLine:
+                        {
+
+                            break;
+                        }
+                    case Choice.SearchRoute:
+                        {
+
+                            break;
+                        }
+                    case Choice.Print:
+                        {
+                            break;
+                        }
+                }
+
+            } while (ch != 5);
 
         }
 

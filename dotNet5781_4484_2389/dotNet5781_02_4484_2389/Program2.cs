@@ -17,7 +17,10 @@ namespace dotNet5781_02_4484_2389
             //input 10 lines
             //40 stations
             restart(allBusStations, allBusLines);
-            int ch;
+
+            List<int> lineKeysList;
+            List<BusLine> linesList;
+            int ch, st1, st2;
             Console.WriteLine("Enter you choice\n"); //+menu
             do
             {
@@ -34,18 +37,34 @@ namespace dotNet5781_02_4484_2389
 
                             break;
                         }
+                        /*•	קווים שעוברים בתחנה ע"פ מספר תחנה
+•	הדפסת האפשרויות לנסיעה בין 2 תחנות, ללא החלפת אוטובוס
+יש לקלוט תחנת מוצא ותחנת יעד ולהחזיר את התוצאות הממוינות לפי זמן הנסיעה.
+זה העזרה לנוסע שהבטחנו. צריך לייצר רשימה חדשה של כל תתי- המסלול של הקווים */
                     case Choice.SearchLine:
                         {
-
+                            Console.WriteLine("Enter station number\n");
+                            st1 = int.Parse(Console.ReadLine());
+                            lineKeysList = allBusLines.findLinesOfStation(st);
+                            foreach(int n in lineKeysList)
+                                Console.Write(n+" ");
+                            Console.WriteLine();
+                            //ex if lst empty(with bool flag?) + try...
                             break;
                         }
                     case Choice.SearchRoute:
                         {
-
+                            Console.WriteLine("Enter first and last stations' numbers\n");
+                            st1 = int.Parse(Console.ReadLine());
+                            st2 = int.Parse(Console.ReadLine());
+                            linesList = new List<BusLine>();
+                            //linesList.sortedlines.print(); //צריך להפוך את הרשימה לטיפוס מערכת קווים...
                             break;
                         }
                     case Choice.Print:
                         {
+                            //לקלוט 1-2 לאופציות
+                            //printAll מדפיס הכל
                             break;
                         }
                 }
@@ -122,7 +141,7 @@ namespace dotNet5781_02_4484_2389
           
         
          */
-    }
+                }
 
 
-}
+            }

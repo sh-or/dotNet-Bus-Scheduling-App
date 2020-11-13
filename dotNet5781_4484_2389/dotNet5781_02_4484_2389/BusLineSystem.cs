@@ -59,13 +59,13 @@ namespace dotNet5781_02_4484_2389
             //ex if lst empty(with bool flag?)
             return lst;
         }
-        public List<int> sortedLines() //return sorrted lines' list by their time
+        public List<BusLine> sortedLines() //return sorrted lines' list by their time
         {
-            List<int> lst = new List<int>();
+          //  List<int> lst = new List<int>();
             busLinesList.Sort(); //ok to sort the original?!
-            foreach (BusLine bs in busLinesList)
-                    lst.Add(bs.line); //create lines' numbers
-            return lst;
+           // foreach (BusLine bs in busLinesList)
+             //       lst.Add(bs.line); //create lines' numbers
+            return busLinesList; //ok to sort the original?!;
         }
 
     }

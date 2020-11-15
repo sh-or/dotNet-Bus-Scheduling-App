@@ -16,14 +16,14 @@ namespace dotNet5781_02_4484_2389
             BusLine tmp = (BusLine)obj;
             return timeGap(FirstStation(), LastStation()).CompareTo(timeGap(tmp.FirstStation(), tmp.LastStation()));
         }
-        public class Station //: BusStation
+        public class Station
         {
             public int stKey;
             public double distance;
             public TimeSpan timeLast;
             public Station(int key) { stKey = key; }
         }
-        /*static*/
+        
         private List<BusStation> allStations;
         public List<BusStation> allSt //the all-stations list with the details
         { 
@@ -34,31 +34,30 @@ namespace dotNet5781_02_4484_2389
         public int line;
         public List<Station> stations; //bus line stations list
         Area area;  //enum
-        public int FirstStation() { return stations[0].stKey; } //ex if empty. return statio?busStation?
-        public int LastStation() { return stations[stations.Capacity].stKey; } //ex if empty. return statio?busStation?
+        public int FirstStation() { return stations[0].stKey; } 
+        public int LastStation() { return stations[stations.Capacity].stKey; } 
         public static int Counter { get => counter; private set => counter = value; }
 
-        public BusLine(Area area1, List<BusStation> allSt1)  /*, int st1, int st2*/ 
+        public BusLine(Area area1, List<BusStation> allSt1) 
         {
             line = ++counter;
             area = area1;  //enum
             allSt = allSt1; //connect to the main stations list
             stations = new List<Station>();
-            //stations.Add(new Station(st1));
-            //stations.Add(new Station(st2));
         }
 
         ~BusLine()
         {
             stations.Clear();
         }
-        private const int x = 1;
-        public bool addStation(int stKey, int index) //add station to the line by station number and index *add to allSt?!
+        //private const int x = 1;
+        public bool addStation(int stKey, int index) //add station to the line by station number and index 
         {
+            if (index < 0 || index > stations.Capacity)
+                throw new IndexOutOfRangeException("ERROR: " + index + " out of range");
             if (searchStation(stKey)) //ex if station already in the line
-                throw new Exception("ERROR: key allready exist");
+                throw new ArgumentException("ERROR: station " + stKey + " allready exist");
             BusStation lastSt, nextSt;
-            //TimeSpan sec=TimeSpan.Zero;
             GeoCoordinate local1, local2;
             foreach (BusStation bs in allSt)
                 if (bs.busStationKey==stKey)
@@ -66,7 +65,7 @@ namespace dotNet5781_02_4484_2389
                     if (index == stations.Capacity) //adding last station
                         stations.Add(new Station(stKey));
                     else
-                        stations.Insert(index, new Station(stKey)); //adding first/middle station
+                        stations.Insert(index, new Station(stKey)); //adding first or middle station
 
                     if (index == 0) //updates after adding first bus to the list
                     {
@@ -79,7 +78,7 @@ namespace dotNet5781_02_4484_2389
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
                         local2 = new GeoCoordinate(lastSt.Latitude, lastSt.Longitude);
                         stations[index].distance = local1.GetDistanceTo(local2); //distance calculating(in meters)
-                        stations[index].timeLast = TimeSpan.FromSeconds(stations[index].distance)/* *sec */; //the bus cross meter for second
+                        stations[index].timeLast = TimeSpan.FromSeconds(stations[index].distance); //the bus cross meter for second
                     }
                     if(index < stations.Capacity-1) //update the next station time&distance
                     {
@@ -109,13 +108,15 @@ namespace dotNet5781_02_4484_2389
                 {
                     return bs;
                 }
-            throw new KeyNotFoundException("ERROR: key not found");   //exeption if not found...
+            throw new KeyNotFoundException("ERROR: station " + stNum + " not found");   //exeption if not found
         }
 
         public double distanceGap(int st1, int st2) //return distance gap between 2 stations(according to the route)
         {
             if (st1 == st2)
                 return 0;
+            if(!(searchStation(st1) && searchStation(st2)))
+                throw new KeyNotFoundException("ERROR: station not found");   //exeption if not found
             double sum = 0;
             bool flag = false;
             stations.Reverse(); //reverse the list
@@ -129,6 +130,8 @@ namespace dotNet5781_02_4484_2389
                     sum += st.distance;
             }
             stations.Reverse(); //reverse the list back
+            if(sum == 0)
+                throw new ArgumentException("ERROR: stations are not in order");   //exeption if in  opposite order
             return sum;
         }
 
@@ -136,6 +139,8 @@ namespace dotNet5781_02_4484_2389
             {
             if (st1 == st2)
                 return TimeSpan.Zero;
+            if (!(searchStation(st1) && searchStation(st2)))
+                throw new KeyNotFoundException("ERROR: station not found");   //exeption if not found
             TimeSpan sum = TimeSpan.Zero;
             bool flag = false;
             stations.Reverse(); //reverse the list
@@ -149,6 +154,8 @@ namespace dotNet5781_02_4484_2389
                     sum += st.timeLast;
             }
             stations.Reverse();  //reverse the list back
+            if (sum == TimeSpan.Zero)
+                throw new ArgumentException("ERROR: stations are not in order");   //exeption if in  opposite order
             return sum;
         }
 
@@ -177,20 +184,20 @@ namespace dotNet5781_02_4484_2389
         public BusLine subRout(int st1, int st2)//return sub line between 2 stations
         {
             BusLine subLine= new BusLine(area, allSt); //the new sub line to return
-            int mone = 0;
             bool flag = false;
-            if (searchStation(st1) && searchStation(st2))
-            {
-                foreach (Station it in stations)
+            if (!(searchStation(st1) && searchStation(st2)))
+                throw new KeyNotFoundException("ERROR: station not found");   //exeption if not found
+            foreach (Station it in stations)
                 {
                     if (it.stKey == st1) //reached to the first station
                         flag = true;
                     if(flag)
-                        subLine.addStation(it.stKey, mone++);
+                        subLine.addStation(it.stKey, subLine.stations.Capacity);
                     if (it.stKey == st2) //reached to the second station
                         break;
                 }
-            }
+            if (subLine.stations.Capacity == 0)
+                throw new ArgumentException("ERROR: stations are not in order");   //exeption if in  opposite order
             return subLine;
         }
 

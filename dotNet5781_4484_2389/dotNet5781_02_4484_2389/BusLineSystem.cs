@@ -20,28 +20,31 @@ namespace dotNet5781_02_4484_2389
         public IEnumerator GetEnumerator()
         {
             return busLinesList.GetEnumerator();
-
-            //foreach (var item in busLinesList)
-            //{
-            //    yield return item;
-            //}
         }
 
         public BusLine this[int busKey]
         {
-            get { return busLinesList.Find(x => x.line == busKey); } 
-            //ex if not found
+            get
+            {
+                if (busKey < 0)
+                    throw new ArgumentOutOfRangeException("ERROR: no negative line numbers");
+                return busLinesList.Find(x => x.line == busKey);
+                //ex ArgumentNullExeption if not found
+            }
         }
 
         public void addLine(BusLine bus)  //add line to the list
         {
-            //check the stations?
+            //*the stations are only from the main stations' list
+            if (busLinesList.Capacity != 0 && bus.allSt != busLinesList[0].allSt)
+                    throw new ArgumentException("ERROR: not suitable stations list"); //ex if not the same main stations list
             busLinesList.Add(bus);
         }
 
         public bool deletedLine(int line1) //remove line from the list. return false if not found.
         {
             return busLinesList.Remove(busLinesList.Find(x=>x.line==line1));
+            //ex ArgumentNullExeption if not found
         }
 
         public List<int> findLinesOfStation(int stKey) //return lines' list that cross at the asked station
@@ -50,8 +53,7 @@ namespace dotNet5781_02_4484_2389
             foreach (BusLine bs in busLinesList)
                 if (bs.searchStation(stKey))
                     lst.Add(bs.line);
-            //ex if lst empty(with bool flag?)
-            return lst;
+            return lst; //if there are no stations-return empty list
         }
         public void sortedLines() // sort the lines' list by their time
         {

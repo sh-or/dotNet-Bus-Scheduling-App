@@ -8,7 +8,6 @@ namespace dotNet5781_02_4484_2389
 {
     class Program2
     {
-        //אולי להכניס מאפיין (של הרשימה הכללית) למערכת ולוודא בכל קו שמוסיפים למערכת שהרשימה הכללית של התחנות תואמת לשלו
         enum Choice { Add = 1, Delete, SearchLine, SearchRoute, Print, exit }
         static void Main(string[] args)
         {
@@ -18,7 +17,6 @@ namespace dotNet5781_02_4484_2389
             restart(allBusStations, allBusLines);  //input 10 lines & 40 stations
 
             List<int> lineKeysList;
-            List<BusLine> linesList;
             int ch, line1, stkey1, stkey2;
             string address1, address2;
 
@@ -32,141 +30,148 @@ namespace dotNet5781_02_4484_2389
             {
                 Console.WriteLine("Enter your choice"); 
                 ch = int.Parse(Console.ReadLine());
-                switch ((Choice)ch)
+                try
                 {
-                    case Choice.Add:
-                        {
-                            Console.WriteLine("enter 1 to add new line bus, enter 2 to add new station in line bus");
-                            int tmp1 = int.Parse(Console.ReadLine());   //cin choice
-                            if (tmp1 == 1)
+                    switch ((Choice)ch)
+                    {
+                        case Choice.Add:
                             {
-                                Console.WriteLine("enter area number for bus line:\n" +
-                                "1: General, 2: North, 3: South, 4: Center, 5: Jerusalem");
-                                Area area1 = (Area)int.Parse(Console.ReadLine());  
-                                allBusLines.addLine(new BusLine(area1, allBusStations));
-                                Console.WriteLine("Enter name of first and last stations");
-                                address1 = Console.ReadLine();
-                                stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
-                                allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey1, 0);
-                                address2 = Console.ReadLine();
-                                stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
-                                allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey2, 1);
-                            }
-                            if (tmp1 == 2)
-                            {
-                                Console.WriteLine("enter name of station");
-                                address1 = Console.ReadLine();
-                                stkey1 = allBusStations.Find(x=>x.address == address1).busStationKey; //ex if not found
-                                Console.WriteLine("enter number line");
-                                line1= int.Parse(Console.ReadLine());
-                                Console.WriteLine("enter index to add station in line bus");
-                                int index1 = int.Parse(Console.ReadLine());
-                                if(allBusLines[line1].addStation(stkey1, index1))
-                                    Console.WriteLine("The station was added successfully");
-                                //else
-                                //    Console.WriteLine("ERROR");   חריגה
-                            }
-
-
-
-                            break;
-                        }
-
-                    case Choice.Delete:
-                        {
-                            Console.WriteLine("enter 1 to delete line bus, enter 2 to delete station from line bus");
-                            int tmp1 = int.Parse(Console.ReadLine());   //cin choice
-
-                            if (tmp1 == 1)
-                            {
-                                Console.WriteLine("enter number line" );
-                                line1 = int.Parse(Console.ReadLine());
-                               if (allBusLines.deletedLine(line1))
-                                    Console.WriteLine("The line bus deleted"); 
-                           // else
-                            //        Console.WriteLine("ERROR");  חריגה
-                            }
-                            if (tmp1 == 2)
-                            {
-                                Console.WriteLine("enter name of station");
-                                 address1 = Console.ReadLine();
-                                Console.WriteLine("enter number line");
-                               line1 = int.Parse(Console.ReadLine());
-
-                                if (allBusLines[line1].stations.Capacity > 2)
+                                Console.WriteLine("Enter 1 to add new line bus, enter 2 to add new station in line bus");
+                                int tmp1 = int.Parse(Console.ReadLine());   //cin choice
+                                if (tmp1 == 1)
                                 {
-                                    stkey1 = allBusStations.Find(x => x.address == address1).busStationKey;  //למצוא את הקוד של התחנה
-                                    if (allBusLines[line1].deleteStation(stkey1))
-                                        Console.WriteLine("The station was deleted successfully");
+                                    Console.WriteLine("Enter area number for bus line:\n" +
+                                    "1: General, 2: North, 3: South, 4: Center, 5: Jerusalem");
+                                    Area area1 = (Area)int.Parse(Console.ReadLine());
+                                    allBusLines.addLine(new BusLine(area1, allBusStations));
+                                    Console.WriteLine("Enter name of first and last stations");
+                                    address1 = Console.ReadLine();
+                                    stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
+                                    allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey1, 0);
+                                    address2 = Console.ReadLine();
+                                    stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
+                                    allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey2, 1);
+                                }
+                                if (tmp1 == 2)
+                                {
+                                    Console.WriteLine("Enter name of station");
+                                    address1 = Console.ReadLine();
+                                    stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
+                                    Console.WriteLine("Enter number line");
+                                    line1 = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Enter index to add station in line bus");
+                                    int index1 = int.Parse(Console.ReadLine());
+                                    if (allBusLines[line1].addStation(stkey1, index1))
+                                        Console.WriteLine("The station was added successfully");
+                                    //else
+                                    //    Console.WriteLine("ERROR");   חריגה
+                                }
+
+
+
+                                break;
+                            }
+
+                        case Choice.Delete:
+                            {
+                                Console.WriteLine("Enter 1 to delete line bus, enter 2 to delete station from line bus");
+                                int tmp1 = int.Parse(Console.ReadLine());   //cin choice
+
+                                if (tmp1 == 1)
+                                {
+                                    Console.WriteLine("Enter number line");
+                                    line1 = int.Parse(Console.ReadLine());
+                                    if (allBusLines.deletedLine(line1))
+                                        Console.WriteLine("The line bus deleted");
                                     // else
                                     //        Console.WriteLine("ERROR");  חריגה
                                 }
-                                else
-                                    Console.WriteLine("Error. line can't stay with-less than 2 stations");
-                            }
-                            break;
-                        }
-
-                    case Choice.SearchLine:
-                        {
-                            Console.WriteLine("enter name of station");
-                            address1 = Console.ReadLine();
-                            stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
-                            lineKeysList = allBusLines.findLinesOfStation(stkey1); 
-                            foreach (int n in lineKeysList)
-                                Console.Write(n + " ");
-                            Console.WriteLine();
-                            //ex if lst empty(with bool flag?) + try...
-                            break;
-                        }
-
-                    case Choice.SearchRoute:
-                        {
-                            Console.WriteLine("Enter name of first and last stations");
-                            address1 = Console.ReadLine();
-                            address2 = Console.ReadLine();
-                            stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
-                            stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
-                            BusLineSystem sorting=new BusLineSystem();
-
-                            foreach(BusLine bs in allBusLines)
-                            {
-                                if (bs.searchStation(stkey1) && bs.searchStation(stkey2)&& bs.timeGap(stkey1,stkey2)>TimeSpan.Zero)
+                                if (tmp1 == 2)
                                 {
-                                    sorting.busLinesList.Add(bs.subRout(stkey1, stkey2));
+                                    Console.WriteLine("Enter name of station");
+                                    address1 = Console.ReadLine();
+                                    Console.WriteLine("Enter number line");
+                                    line1 = int.Parse(Console.ReadLine());
+
+                                    if (allBusLines[line1].stations.Capacity > 2)
+                                    {
+                                        stkey1 = allBusStations.Find(x => x.address == address1).busStationKey;  //למצוא את הקוד של התחנה
+                                        if (allBusLines[line1].deleteStation(stkey1))
+                                            Console.WriteLine("The station was deleted successfully");
+                                        // else
+                                        //        Console.WriteLine("ERROR");  חריגה
+                                    }
+                                    else
+                                        Console.WriteLine("Error. line can't stay with-less than 2 stations");
                                 }
-                            }
-                            sorting.sortedLines();
-                            sorting.printAll(); //צריך להפוך את הרשימה לטיפוס מערכת קווים...
-                            break;
-                        }
-                    case Choice.Print:
-                        {
-                            Console.WriteLine("enter 1 to print all bus line's , enter 2 to print all bus stations and bus line's in thr ststions");
-                            int tmp1 = int.Parse(Console.ReadLine());   //cin choice
-                            if (tmp1 == 1)  //printAll מדפיס הכל
-                            {
-                                allBusLines.printAll();
-                            }
-                            if (tmp1==2)
-                            {
-                                foreach (BusStation st in allBusStations)
-                                {
-                                    Console.WriteLine(st);
-                                    lineKeysList=allBusLines.findLinesOfStation(st.busStationKey);
-                                    foreach(int n in lineKeysList)
-                                        Console.Write(n+" ");
-                                    Console.WriteLine();
-                                }
-                            }
                                 break;
-                        }
-                    case Choice.exit:
-                        break;
+                            }
 
-                    default:
-                        Console.WriteLine("wrong input");
-                        break;
+                        case Choice.SearchLine:
+                            {
+                                Console.WriteLine("Enter name of station");
+                                address1 = Console.ReadLine();
+                                stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
+                                lineKeysList = allBusLines.findLinesOfStation(stkey1);
+                                foreach (int n in lineKeysList)
+                                    Console.Write(n + " ");
+                                Console.WriteLine();
+                                //ex if lst empty(with bool flag?) + try...
+                                break;
+                            }
+
+                        case Choice.SearchRoute:
+                            {
+                                Console.WriteLine("Enter name of first and last stations");
+                                address1 = Console.ReadLine();
+                                address2 = Console.ReadLine();
+                                stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
+                                stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
+                                BusLineSystem sorting = new BusLineSystem();
+
+                                foreach (BusLine bs in allBusLines)
+                                {
+                                    if (bs.searchStation(stkey1) && bs.searchStation(stkey2) && bs.timeGap(stkey1, stkey2) > TimeSpan.Zero)
+                                    {
+                                        sorting.busLinesList.Add(bs.subRout(stkey1, stkey2));
+                                    }
+                                }
+                                sorting.sortedLines();
+                                sorting.printAll();
+                                break;
+                            }
+                        case Choice.Print:
+                            {
+                                Console.WriteLine("Enter 1 to print all bus line's , enter 2 to print all bus stations and bus line's in thr ststions");
+                                int tmp1 = int.Parse(Console.ReadLine());   //cin choice
+                                if (tmp1 == 1)  //printAll 
+                                {
+                                    allBusLines.printAll();
+                                }
+                                if (tmp1 == 2)
+                                {
+                                    foreach (BusStation st in allBusStations)
+                                    {
+                                        Console.WriteLine(st);
+                                        lineKeysList = allBusLines.findLinesOfStation(st.busStationKey);
+                                        foreach (int n in lineKeysList)
+                                            Console.Write(n + " ");
+                                        Console.WriteLine();
+                                    }
+                                }
+                                break;
+                            }
+                        case Choice.exit:
+                            break;
+
+                        default:
+                            Console.WriteLine("Wrong input");
+                            break;
+                    }
+                }
+                catch(Exception ex) //catch all-kinds exeptions and print an appropriate message(then return to the switch)
+                {
+                    Console.WriteLine(ex);
                 }
 
             } while (ch != 6);  
@@ -174,11 +179,10 @@ namespace dotNet5781_02_4484_2389
         }
 
         private static void restart(List<BusStation> allBusStations, BusLineSystem allBusLines)
-        {
-            //יהודית:) יש 10 קוים ו40 תחנות. עכשיו צריך להוסיף מסלול לכל קו, לפי ההוראות שהם נתנו
+        { //restart 10 lines and 40 stations
             Console.WriteLine("There are 40 stations and 10 lines\n");
 
-            allBusLines.addLine(new BusLine(Area.Center, allBusStations));   //צריך להוסיף את האתחול בבנאי של ה2 תחנות. הוא ירוק
+            allBusLines.addLine(new BusLine(Area.Center, allBusStations));  
             allBusLines.addLine(new BusLine(Area.Center, allBusStations));
             allBusLines.addLine(new BusLine(Area.Center, allBusStations));
             allBusLines.addLine(new BusLine(Area.Jerusalem, allBusStations));

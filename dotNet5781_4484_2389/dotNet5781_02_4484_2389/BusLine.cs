@@ -32,7 +32,7 @@ namespace dotNet5781_02_4484_2389
         } 
         private static int counter = 0; //running line number
         public int line;
-        List<Station> stations; //bus line stations list
+        public List<Station> stations; //bus line stations list
         Area area;  //enum
         public int FirstStation() { return stations[0].stKey; } //ex if empty. return statio?busStation?
         public int LastStation() { return stations[stations.Capacity].stKey; } //ex if empty. return statio?busStation?
@@ -40,7 +40,7 @@ namespace dotNet5781_02_4484_2389
 
         public BusLine(Area area1, List<BusStation> allSt1)  /*, int st1, int st2*/ 
         {
-            line = counter++;
+            line = ++counter;
             area = area1;  //enum
             allSt = allSt1; //connect to the main stations list
             stations = new List<Station>();

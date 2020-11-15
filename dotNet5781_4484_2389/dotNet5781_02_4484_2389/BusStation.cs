@@ -13,7 +13,7 @@ namespace dotNet5781_02_4484_2389
         public int busStationKey;
         private double latitude;
         private double longitude;
-        private string address;
+        public string address;
 
         public static int Count { get => count; set => count = value; }
         public double Latitude { get => latitude; set => latitude = value; }
@@ -21,7 +21,7 @@ namespace dotNet5781_02_4484_2389
 
         public override string ToString  ()
         {
-            return ("Bus Station Code: "+ busStationKey+", "+ Latitude+"°N "+ Longitude+"°E" );
+            return ("Station Code: "+busStationKey+ ", Address: " + address+", "+ Latitude+"°N "+ Longitude+"°E" );
         }
 
         public BusStation (string add)

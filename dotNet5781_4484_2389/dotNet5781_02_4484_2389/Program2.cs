@@ -19,7 +19,9 @@ namespace dotNet5781_02_4484_2389
 
             List<int> lineKeysList;
             List<BusLine> linesList;
-            int ch, st1, st2;
+            int ch, line1, stkey1, stkey2;
+            string address1, address2;
+
             Console.WriteLine("1: add new line bus or station in line bus\n" +
                 "2: delete line bus or station from line bus\n" +
                 "3: search lines in station\n" +
@@ -28,7 +30,7 @@ namespace dotNet5781_02_4484_2389
 
             do
             {
-                Console.WriteLine("Enter your choice\n"); //+menu
+                Console.WriteLine("Enter your choice"); 
                 ch = int.Parse(Console.ReadLine());
                 switch ((Choice)ch)
                 {
@@ -38,26 +40,31 @@ namespace dotNet5781_02_4484_2389
                             int tmp1 = int.Parse(Console.ReadLine());   //cin choice
                             if (tmp1 == 1)
                             {
-                                Console.WriteLine("enter area for bus line:");//המשתמש מכניס? לעהציג לו תפריט?
-                                Area area1 = int.Parse(Console.ReadLine());   /// 
+                                Console.WriteLine("enter area number for bus line:\n" +
+                                "1: General, 2: North, 3: South, 4: Center, 5: Jerusalem");
+                                Area area1 = (Area)int.Parse(Console.ReadLine());  
                                 allBusLines.addLine(new BusLine(area1, allBusStations));
+                                Console.WriteLine("Enter name of first and last stations");
+                                address1 = Console.ReadLine();
+                                stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
+                                allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey1, 0);
+                                address2 = Console.ReadLine();
+                                stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
+                                allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey2, 1);
                             }
                             if (tmp1 == 2)
                             {
                                 Console.WriteLine("enter name of station");
-                                string addres = Console.ReadLine();
-                                allBusStations.Add(new BusStation(addres));  //add station to the nain station list
-                                int stkey = allBusStations.Find(BusStation.address == addres).busStationKey;  //למצוא את הקוד של התחנה שהוספנו
+                                address1 = Console.ReadLine();
+                                stkey1 = allBusStations.Find(x=>x.address == address1).busStationKey; //ex if not found
                                 Console.WriteLine("enter number line");
-                                int line1= int.Parse(Console.ReadLine());
-                                //BusLine line = new BusLine[line1];
-                                //שימוש באינדקסר. למי הוא מחזיר מופע??
-                              //  if (allBusLines[line1]) //למצוא את הקו המבוקש בתוך רשימת הקווים הכללית
-                              //  {
-                              //  }
+                                line1= int.Parse(Console.ReadLine());
                                 Console.WriteLine("enter index to add station in line bus");
-                                int index = int.Parse(Console.ReadLine());
-                                //busline.addStation(stkey, index)   //להוסיף לקו שנמצא תחנה
+                                int index1 = int.Parse(Console.ReadLine());
+                                if(allBusLines[line1].addStation(stkey1, index1))
+                                    Console.WriteLine("The station was added successfully");
+                                //else
+                                //    Console.WriteLine("ERROR");   חריגה
                             }
 
 
@@ -73,34 +80,39 @@ namespace dotNet5781_02_4484_2389
                             if (tmp1 == 1)
                             {
                                 Console.WriteLine("enter number line" );
-                                int line1 = int.Parse(Console.ReadLine());
-                                BusLine busline1 =   //חיפןש קו לפי מספר קו ברשימה הכללית של הקווים
-                               if (allBusLines.deletedLine(busline1))
+                                line1 = int.Parse(Console.ReadLine());
+                               if (allBusLines.deletedLine(line1))
                                     Console.WriteLine("The line bus deleted"); 
-                            else
-                                    Console.WriteLine("ERROR");
-                                    
+                           // else
+                            //        Console.WriteLine("ERROR");  חריגה
                             }
                             if (tmp1 == 2)
                             {
                                 Console.WriteLine("enter name of station");
-                                string addres = Console.ReadLine();
+                                 address1 = Console.ReadLine();
                                 Console.WriteLine("enter number line");
-                                int line1 = int.Parse(Console.ReadLine());
+                               line1 = int.Parse(Console.ReadLine());
 
-                                int stkey = allBusStations.Find(BusStation.address == addres).busStationKey;  //למצוא את הקוד של התחנה
-                               // BusLine busline1=allBusLines.line
-                               // deleteStation()
-
+                                if (allBusLines[line1].stations.Capacity > 2)
+                                {
+                                    stkey1 = allBusStations.Find(x => x.address == address1).busStationKey;  //למצוא את הקוד של התחנה
+                                    if (allBusLines[line1].deleteStation(stkey1))
+                                        Console.WriteLine("The station was deleted successfully");
+                                    // else
+                                    //        Console.WriteLine("ERROR");  חריגה
+                                }
+                                else
+                                    Console.WriteLine("Error. line can't stay with-less than 2 stations");
                             }
                             break;
                         }
 
                     case Choice.SearchLine:
                         {
-                            Console.WriteLine("Enter station number\n");
-                            st1 = int.Parse(Console.ReadLine());
-                            lineKeysList = allBusLines.findLinesOfStation(st1);  //st1?
+                            Console.WriteLine("enter name of station");
+                            address1 = Console.ReadLine();
+                            stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
+                            lineKeysList = allBusLines.findLinesOfStation(stkey1); 
                             foreach (int n in lineKeysList)
                                 Console.Write(n + " ");
                             Console.WriteLine();
@@ -110,11 +122,22 @@ namespace dotNet5781_02_4484_2389
 
                     case Choice.SearchRoute:
                         {
-                            Console.WriteLine("Enter first and last stations numbers\n");
-                            st1 = int.Parse(Console.ReadLine());
-                            st2 = int.Parse(Console.ReadLine());
-                            linesList = new List<BusLine>();
-                            //linesList.sortedlines.print(); //צריך להפוך את הרשימה לטיפוס מערכת קווים...
+                            Console.WriteLine("Enter name of first and last stations");
+                            address1 = Console.ReadLine();
+                            address2 = Console.ReadLine();
+                            stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
+                            stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
+                            BusLineSystem sorting=new BusLineSystem();
+
+                            foreach(BusLine bs in allBusLines)
+                            {
+                                if (bs.searchStation(stkey1) && bs.searchStation(stkey2)&& bs.timeGap(stkey1,stkey2)>TimeSpan.Zero)
+                                {
+                                    sorting.busLinesList.Add(bs.subRout(stkey1, stkey2));
+                                }
+                            }
+                            sorting.sortedLines();
+                            sorting.printAll(); //צריך להפוך את הרשימה לטיפוס מערכת קווים...
                             break;
                         }
                     case Choice.Print:
@@ -123,11 +146,18 @@ namespace dotNet5781_02_4484_2389
                             int tmp1 = int.Parse(Console.ReadLine());   //cin choice
                             if (tmp1 == 1)  //printAll מדפיס הכל
                             {
-
+                                allBusLines.printAll();
                             }
                             if (tmp1==2)
                             {
-
+                                foreach (BusStation st in allBusStations)
+                                {
+                                    Console.WriteLine(st);
+                                    lineKeysList=allBusLines.findLinesOfStation(st.busStationKey);
+                                    foreach(int n in lineKeysList)
+                                        Console.Write(n+" ");
+                                    Console.WriteLine();
+                                }
                             }
                                 break;
                         }
@@ -135,11 +165,11 @@ namespace dotNet5781_02_4484_2389
                         break;
 
                     default:
-                        Console.WriteLine("wrong input\n");
+                        Console.WriteLine("wrong input");
                         break;
                 }
 
-            } while (ch != 6);  //6 exit 
+            } while (ch != 6);  
 
         }
 
@@ -199,7 +229,63 @@ namespace dotNet5781_02_4484_2389
             allBusStations.Add(new BusStation("Dvora"));
             allBusStations.Add(new BusStation("Mapal"));
             allBusStations.Add(new BusStation("Kineret"));
-           
+
+            allBusLines[1].addStation(100000, 0);
+            allBusLines[1].addStation(100001, 0);
+            allBusLines[2].addStation(100002, 0);
+            allBusLines[2].addStation(100003, 0);
+            allBusLines[3].addStation(100004, 0);
+            allBusLines[3].addStation(100005, 0);
+            allBusLines[4].addStation(100006, 0);
+            allBusLines[4].addStation(100007, 0);
+            allBusLines[5].addStation(100008, 0);
+            allBusLines[5].addStation(100009, 0); ///
+            allBusLines[6].addStation(100010, 0);
+            allBusLines[6].addStation(100011, 0);
+            allBusLines[7].addStation(100012, 0);
+            allBusLines[7].addStation(100013, 0);
+            allBusLines[8].addStation(100014, 0);
+            allBusLines[8].addStation(100015, 0); 
+            allBusLines[9].addStation(100016, 0);
+            allBusLines[9].addStation(100017, 0);
+            allBusLines[10].addStation(100018, 0);
+            allBusLines[10].addStation(100019, 0);
+            allBusLines[1].addStation(100020, 0);
+            allBusLines[1].addStation(100021, 0);
+            allBusLines[2].addStation(100022, 0);
+            allBusLines[2].addStation(100023, 0);
+            allBusLines[3].addStation(100024, 0);
+            allBusLines[3].addStation(100025, 0);
+            allBusLines[4].addStation(100027, 0);
+            allBusLines[4].addStation(100028, 0);
+            allBusLines[5].addStation(100029, 0);
+            allBusLines[5].addStation(100030, 0); 
+            allBusLines[6].addStation(100031, 0);
+            allBusLines[6].addStation(100032, 0);
+            allBusLines[7].addStation(100033, 0);
+            allBusLines[7].addStation(100034, 0);
+            allBusLines[8].addStation(100035, 0);
+            allBusLines[8].addStation(100036, 0);
+            allBusLines[9].addStation(100037, 0);
+            allBusLines[9].addStation(100038, 0);
+            allBusLines[10].addStation(100039, 0);
+            allBusLines[10].addStation(100040, 0);
+            allBusLines[2].addStation(100000, 0);
+
+            allBusLines[2].addStation(100033, 0); //between 100001 to 100000
+
+            allBusLines[2].addStation(100001, 0);
+            allBusLines[3].addStation(100002, 0);
+            allBusLines[3].addStation(100003, 0);
+            allBusLines[4].addStation(100004, 0);
+            allBusLines[4].addStation(100005, 0);
+            allBusLines[5].addStation(100006, 0);
+            allBusLines[5].addStation(100007, 0);
+            allBusLines[6].addStation(100008, 0);
+            allBusLines[6].addStation(100009, 0);
+
+
+
         }
 
 

@@ -10,7 +10,7 @@ namespace dotNet5781_02_4484_2389
     class BusLineSystem : IEnumerable
     {
 
-        List<BusLine> busLinesList;
+       public List<BusLine> busLinesList;
 
         public BusLineSystem()
         {
@@ -39,17 +39,11 @@ namespace dotNet5781_02_4484_2389
             busLinesList.Add(bus);
         }
 
-        public bool deletedLine(BusLine bus) //remove line from the list. return false if not found.
+        public bool deletedLine(int line1) //remove line from the list. return false if not found.
         {
-            return busLinesList.Remove(bus);
+            return busLinesList.Remove(busLinesList.Find(x=>x.line==line1));
         }
 
-        /*1.	מתודה שמקבלת מספר מזהה (קוד) של תחנת אוטובוס ומחזירה את רשימת הקווים העוברים בתחנה זו.
-         * במידה ואין קווים שעוברים בתחנה תיזרק חריגה.
-
-2.	מתודה שמחזירה רשימת כל הקוים הממוינת לפי משך הנסיעה הכולל,
-        מהקצר לארוך (ראה גם סעיף 7 ברשימת המתודות של המחלקה קו אוטובוס)
-*/
         public List<int> findLinesOfStation(int stKey) //return lines' list that cross at the asked station
         {
             List<int> lst = new List<int>();
@@ -59,13 +53,17 @@ namespace dotNet5781_02_4484_2389
             //ex if lst empty(with bool flag?)
             return lst;
         }
-        public List<BusLine> sortedLines() //return sorrted lines' list by their time
+        public void sortedLines() // sort the lines' list by their time
         {
-          //  List<int> lst = new List<int>();
-            busLinesList.Sort(); //ok to sort the original?!
-           // foreach (BusLine bs in busLinesList)
-             //       lst.Add(bs.line); //create lines' numbers
-            return busLinesList; //ok to sort the original?!;
+            busLinesList.Sort();
+        }
+
+       public void printAll()
+        {
+            foreach(BusLine bs in busLinesList)
+            {
+                Console.WriteLine(bs);
+            }
         }
 
     }

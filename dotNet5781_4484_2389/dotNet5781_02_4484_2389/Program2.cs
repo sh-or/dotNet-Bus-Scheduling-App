@@ -47,10 +47,11 @@ namespace dotNet5781_02_4484_2389
                                     Console.WriteLine("Enter name of first and last stations");
                                     address1 = Console.ReadLine();
                                     stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
-                                    allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey1, 0);
+                                    allBusLines[allBusLines.busLinesList.Count - 1].addStation(stkey1, 0);
                                     address2 = Console.ReadLine();
                                     stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
-                                    allBusLines[allBusLines.busLinesList.Capacity - 1].addStation(stkey2, 1);
+                                    allBusLines[allBusLines.busLinesList.Count - 1].addStation(stkey2, 1);
+                                    Console.WriteLine("line " + allBusLines[allBusLines.busLinesList.Count - 1].line + " added");
                                 }
                                 if (tmp1 == 2)
                                 {
@@ -63,8 +64,7 @@ namespace dotNet5781_02_4484_2389
                                     int index1 = int.Parse(Console.ReadLine());
                                     if (allBusLines[line1].addStation(stkey1, index1))
                                         Console.WriteLine("The station was added successfully");
-                                    //else
-                                    //    Console.WriteLine("ERROR");   חריגה
+                                    //else -ex if not found in the main stations list
                                 }
 
 
@@ -83,8 +83,7 @@ namespace dotNet5781_02_4484_2389
                                     line1 = int.Parse(Console.ReadLine());
                                     if (allBusLines.deletedLine(line1))
                                         Console.WriteLine("The line bus deleted");
-                                    // else
-                                    //        Console.WriteLine("ERROR");  חריגה
+                                    // else -ex if not found in the main list
                                 }
                                 if (tmp1 == 2)
                                 {
@@ -93,16 +92,15 @@ namespace dotNet5781_02_4484_2389
                                     Console.WriteLine("Enter number line");
                                     line1 = int.Parse(Console.ReadLine());
 
-                                    if (allBusLines[line1].stations.Capacity > 2)
+                                    if (allBusLines[line1].stations.Count > 2)
                                     {
                                         stkey1 = allBusStations.Find(x => x.address == address1).busStationKey;  //למצוא את הקוד של התחנה
                                         if (allBusLines[line1].deleteStation(stkey1))
-                                            Console.WriteLine("The station was deleted successfully");
-                                        // else
-                                        //        Console.WriteLine("ERROR");  חריגה
+                                            Console.WriteLine("The station was deleted");
+                                        // else ex if not found in the line
                                     }
                                     else
-                                        Console.WriteLine("Error. line can't stay with-less than 2 stations");
+                                        Console.WriteLine("Error: line can't stay with-less than 2 stations");
                                 }
                                 break;
                             }
@@ -113,10 +111,9 @@ namespace dotNet5781_02_4484_2389
                                 address1 = Console.ReadLine();
                                 stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
                                 lineKeysList = allBusLines.findLinesOfStation(stkey1);
-                                foreach (int n in lineKeysList)
+                                foreach (int n in lineKeysList)  //if there are no lines, print empty line
                                     Console.Write(n + " ");
                                 Console.WriteLine();
-                                //ex if lst empty(with bool flag?) + try...
                                 break;
                             }
 
@@ -137,12 +134,15 @@ namespace dotNet5781_02_4484_2389
                                     }
                                 }
                                 sorting.sortedLines();
-                                sorting.printAll();
+                                Console.Write("Lines list, sorted by time: ");
+                                foreach(BusLine bs in sorting.busLinesList)
+                                    Console.Write(bs.originalLine+ " ");
+                                Console.WriteLine();
                                 break;
                             }
                         case Choice.Print:
                             {
-                                Console.WriteLine("Enter 1 to print all bus line's , enter 2 to print all bus stations and bus line's in thr ststions");
+                                Console.WriteLine("Enter 1 to print all bus line's , enter 2 to print all bus stations and bus line's in the stations");
                                 int tmp1 = int.Parse(Console.ReadLine());   //cin choice
                                 if (tmp1 == 1)  //printAll 
                                 {
@@ -155,7 +155,7 @@ namespace dotNet5781_02_4484_2389
                                         Console.WriteLine(st);
                                         lineKeysList = allBusLines.findLinesOfStation(st.busStationKey);
                                         foreach (int n in lineKeysList)
-                                            Console.Write(n + " ");
+                                            Console.Write("lines: "+n + " ");
                                         Console.WriteLine();
                                     }
                                 }
@@ -169,9 +169,14 @@ namespace dotNet5781_02_4484_2389
                             break;
                     }
                 }
+                catch(NullReferenceException)  //catch all the faild "find" errors
+                {
+                    throw new KeyNotFoundException("ERROR: key not found");
+                }
+
                 catch(Exception ex) //catch all-kinds exeptions and print an appropriate message(then return to the switch)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
 
             } while (ch != 6);  
@@ -180,7 +185,6 @@ namespace dotNet5781_02_4484_2389
 
         private static void restart(List<BusStation> allBusStations, BusLineSystem allBusLines)
         { //restart 10 lines and 40 stations
-            Console.WriteLine("There are 40 stations and 10 lines\n");
 
             allBusLines.addLine(new BusLine(Area.Center, allBusStations));  
             allBusLines.addLine(new BusLine(Area.Center, allBusStations));
@@ -273,7 +277,8 @@ namespace dotNet5781_02_4484_2389
             allBusLines[9].addStation(100037, 0);
             allBusLines[9].addStation(100038, 0);
             allBusLines[10].addStation(100039, 0);
-            allBusLines[10].addStation(100040, 0);
+            allBusLines[10].addStation(100026, 0);
+
             allBusLines[2].addStation(100000, 0);
 
             allBusLines[2].addStation(100033, 0); //between 100001 to 100000
@@ -289,19 +294,10 @@ namespace dotNet5781_02_4484_2389
             allBusLines[6].addStation(100009, 0);
 
 
+            Console.WriteLine("There are 40 stations and 10 lines\n");
 
         }
 
-
-        /*
-        addNewBus
-        addSt
-        delLine
-        delStation
-
-          
-        
-         */
     }
 
 

@@ -35,8 +35,9 @@ namespace dotNet5781_02_4484_2389
         public List<Station> stations; //bus line stations list
         Area area;  //enum
         public int FirstStation() { return stations[0].stKey; } 
-        public int LastStation() { return stations[stations.Capacity].stKey; } 
+        public int LastStation() { return stations[stations.Count-1].stKey; } 
         public static int Counter { get => counter; private set => counter = value; }
+        public int originalLine; //for sublines
 
         public BusLine(Area area1, List<BusStation> allSt1) 
         {
@@ -44,6 +45,7 @@ namespace dotNet5781_02_4484_2389
             area = area1;  //enum
             allSt = allSt1; //connect to the main stations list
             stations = new List<Station>();
+            originalLine = line;
         }
 
         ~BusLine()
@@ -53,7 +55,7 @@ namespace dotNet5781_02_4484_2389
         //private const int x = 1;
         public bool addStation(int stKey, int index) //add station to the line by station number and index 
         {
-            if (index < 0 || index > stations.Capacity)
+            if (index < 0 || index > stations.Count)
                 throw new IndexOutOfRangeException("ERROR: " + index + " out of range");
             if (searchStation(stKey)) //ex if station already in the line
                 throw new ArgumentException("ERROR: station " + stKey + " allready exist");
@@ -62,7 +64,7 @@ namespace dotNet5781_02_4484_2389
             foreach (BusStation bs in allSt)
                 if (bs.busStationKey==stKey)
                 {
-                    if (index == stations.Capacity) //adding last station
+                    if (index == stations.Count) //adding last station
                         stations.Add(new Station(stKey));
                     else
                         stations.Insert(index, new Station(stKey)); //adding first or middle station
@@ -80,7 +82,7 @@ namespace dotNet5781_02_4484_2389
                         stations[index].distance = local1.GetDistanceTo(local2); //distance calculating(in meters)
                         stations[index].timeLast = TimeSpan.FromSeconds(stations[index].distance); //the bus cross meter for second
                     }
-                    if(index < stations.Capacity-1) //update the next station time&distance
+                    if(index < stations.Count-1) //update the next station time&distance
                     {
                         nextSt = allSt.Find(x => x.busStationKey == stations[index+1].stKey);
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
@@ -90,12 +92,13 @@ namespace dotNet5781_02_4484_2389
                     }
                     return true;
                 }
-            return false;
+            throw new KeyNotFoundException("ERROR: station " + stKey + " not found in the main list");
+           // return false;
         }
 
         public override string ToString()
         {
-            string str = ("Bus Line: " + line + " area: " + area + " stations list:");
+            string str = ("Bus Line: " + line + " area: " + area + "   stations list:");
             foreach (Station st in stations)
                 str += (" " + st.stKey);
             return str;
@@ -168,7 +171,8 @@ namespace dotNet5781_02_4484_2389
                     stations.Remove(bs);
                     return true;
                 }
-            return false;
+            throw new KeyNotFoundException("ERROR: station " + stationKey + " not found in the line");
+            // return false;
         }
 
         public bool searchStation(int stationKey) //check if a station exist in the line
@@ -192,12 +196,13 @@ namespace dotNet5781_02_4484_2389
                     if (it.stKey == st1) //reached to the first station
                         flag = true;
                     if(flag)
-                        subLine.addStation(it.stKey, subLine.stations.Capacity);
+                        subLine.addStation(it.stKey, subLine.stations.Count);
                     if (it.stKey == st2) //reached to the second station
                         break;
                 }
-            if (subLine.stations.Capacity == 0)
+            if (subLine.stations.Count == 0)
                 throw new ArgumentException("ERROR: stations are not in order");   //exeption if in  opposite order
+            subLine.originalLine = this.line;
             return subLine;
         }
 

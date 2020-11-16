@@ -36,7 +36,7 @@ namespace dotNet5781_02_4484_2389
         public void addLine(BusLine bus)  //add line to the list
         {
             //*the stations are only from the main stations' list
-            if (busLinesList.Capacity != 0 && bus.allSt != busLinesList[0].allSt)
+            if (busLinesList.Count != 0 && bus.allSt != busLinesList[0].allSt)
                     throw new ArgumentException("ERROR: not suitable stations list"); //ex if not the same main stations list
             busLinesList.Add(bus);
         }

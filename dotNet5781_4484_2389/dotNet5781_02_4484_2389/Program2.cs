@@ -8,7 +8,7 @@ namespace dotNet5781_02_4484_2389
 {
     class Program2
     {
-        enum Choice { Add = 1, Delete, SearchLine, SearchRoute, Print, exit }
+        enum Choice { Add = 1, Delete, SearchLines, SearchRoute, Print, exit }
         static void Main(string[] args)
         {
             List<BusStation> allBusStations = new List<BusStation>();  //the main stations list
@@ -20,8 +20,8 @@ namespace dotNet5781_02_4484_2389
             int ch, line1, stkey1, stkey2;
             string address1, address2;
 
-            Console.WriteLine("1: add new line bus or station in line bus\n" +
-                "2: delete line bus or station from line bus\n" +
+            Console.WriteLine("1: add new line bus or station in bus line\n" +
+                "2: delete line bus or station from bus line\n" +
                 "3: search lines in station\n" +
                 "4: search route\n" +
                 "5: print all line's bus or lines in stations\n");
@@ -47,11 +47,11 @@ namespace dotNet5781_02_4484_2389
                                     Console.WriteLine("Enter name of first and last stations");
                                     address1 = Console.ReadLine();
                                     stkey1 = allBusStations.Find(x => x.address == address1).busStationKey; //ex if not found
-                                    allBusLines[allBusLines.busLinesList.Count - 1].addStation(stkey1, 0);
+                                    allBusLines[allBusLines.busLinesList.Count].addStation(stkey1, 0);
                                     address2 = Console.ReadLine();
                                     stkey2 = allBusStations.Find(x => x.address == address2).busStationKey; //ex if not found
-                                    allBusLines[allBusLines.busLinesList.Count - 1].addStation(stkey2, 1);
-                                    Console.WriteLine("line " + allBusLines[allBusLines.busLinesList.Count - 1].line + " added");
+                                    allBusLines[allBusLines.busLinesList.Count].addStation(stkey2, 1);
+                                    Console.WriteLine("line " + allBusLines[allBusLines.busLinesList.Count].line + " added");
                                 }
                                 if (tmp1 == 2)
                                 {
@@ -105,7 +105,7 @@ namespace dotNet5781_02_4484_2389
                                 break;
                             }
 
-                        case Choice.SearchLine:
+                        case Choice.SearchLines:
                             {
                                 Console.WriteLine("Enter name of station");
                                 address1 = Console.ReadLine();
@@ -169,18 +169,18 @@ namespace dotNet5781_02_4484_2389
                             break;
                     }
                 }
-                catch(NullReferenceException)  //catch all the faild "find" errors
+                //catch(NullReferenceException)  //catch all the faild "find" errors
+                //{
+                //    throw new KeyNotFoundException("ERROR: key not found");
+                //}
+
+                catch(Exception ex) //catch all-kinds exeptions and print an appropriate message(then continue to the switch)
                 {
-                    throw new KeyNotFoundException("ERROR: key not found");
+                    Console.WriteLine(ex.Message); //some will be printed in Hebrew
                 }
 
-                catch(Exception ex) //catch all-kinds exeptions and print an appropriate message(then return to the switch)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-            } while (ch != 6);  
-
+            } while (ch != 6);
+            Console.WriteLine("BYE"); 
         }
 
         private static void restart(List<BusStation> allBusStations, BusLineSystem allBusLines)

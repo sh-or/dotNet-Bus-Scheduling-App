@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_02_4484_2389
 {
-    class BusLineSystem : IEnumerable
+    public class BusLineSystem : IEnumerable
     {
 
        public List<BusLine> busLinesList;

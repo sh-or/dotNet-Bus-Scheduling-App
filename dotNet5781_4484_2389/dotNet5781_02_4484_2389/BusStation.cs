@@ -7,7 +7,7 @@ using System.Runtime.Serialization; //exeptions
 
 namespace dotNet5781_02_4484_2389
 {
-    class BusStation
+    public class BusStation
     {
         private static int count=100000;
         public int busStationKey;

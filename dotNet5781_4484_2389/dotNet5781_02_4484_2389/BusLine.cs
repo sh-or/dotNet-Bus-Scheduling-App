@@ -9,7 +9,7 @@ using System.Device.Location;
 namespace dotNet5781_02_4484_2389
 {
     public enum Area { General=1, North, South, Center, Jerusalem}
-    class BusLine : IComparable
+    public class BusLine : IComparable
     {
         public int CompareTo(object obj) //compare 2 lines by their whole rout time
         {
@@ -33,6 +33,11 @@ namespace dotNet5781_02_4484_2389
         private static int counter = 0; //running line number
         public int line;
         public List<Station> stations; //bus line stations list
+        public List<Station> Stations //the all-stations list with the details
+        {
+            get { return stations; }
+            set { stations = value; }
+        }
         Area area;  //enum
         public int FirstStation() { return stations[0].stKey; } 
         public int LastStation() { return stations[stations.Count-1].stKey; } 

@@ -22,6 +22,18 @@ namespace dotNet5781_02_4484_2389
             public double distance;
             public TimeSpan timeLast;
             public Station(int key) { stKey = key; }
+
+            public override string ToString()
+            {
+                string str = ("Station Code: ");
+                //foreach (BusStation st1 in allSt)
+                //{
+                //    if (st1.busStationKey == stKey)
+                //        str += (" " + st1.busStationKey + ", " + st1.Latitude + "°N " + st1.Longitude + "°E " + /*st1. +*/ "\n");
+                //}
+                return str;
+                
+            }
         }
         
         private List<BusStation> allStations;

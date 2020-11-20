@@ -24,6 +24,7 @@ namespace WpfApp2
         private BusLine currentDisplayBusLine;
         private List<BusStation> allBusStations;
         private BusLineSystem allBusLines;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -142,18 +143,26 @@ namespace WpfApp2
             cbBusLines.DisplayMemberPath = " BusLineNum ";
             cbBusLines.SelectedIndex = 0;
         }
+
         private void ShowBusLine(int index)
         {
             currentDisplayBusLine = allBusLines[index];
             UpGrid.DataContext = currentDisplayBusLine;
             lbBusLineStations.DataContext = currentDisplayBusLine.Stations;
         }
+
+
         private void cbBusLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
                ShowBusLine((cbBusLines.SelectedValue as BusLine).line);
         }
 
         private void tbArea_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void lbBusLineStations_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

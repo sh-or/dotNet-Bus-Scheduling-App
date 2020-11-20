@@ -31,7 +31,7 @@
                 <Label Content="Bus Line" HorizontalAlignment="Right" FontFamily="Rockwell Extra Bold" FontSize="24" FontStretch="Condensed" TextOptions.TextHintingMode="Fixed" VerticalAlignment="Center"/>
                 <Label Content="Area" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="24"/>
             </Grid>
-            <ListBox Name="lbBusLineStations" ItemsSource="{Binding}" HorizontalAlignment="Stretch" Height="479" Margin="54,31,56,32.667" Grid.Row="1" VerticalAlignment="Stretch" Width="683"/>
+            <ListBox Name="lbBusLineStations" ItemsSource="{Binding}" HorizontalAlignment="Stretch" Height="479" Margin="54,31,56,32.667" Grid.Row="1" VerticalAlignment="Stretch" Width="683" SelectionChanged="lbBusLineStations_SelectionChanged"/>
         </Grid>
     </Grid>
 </Window>

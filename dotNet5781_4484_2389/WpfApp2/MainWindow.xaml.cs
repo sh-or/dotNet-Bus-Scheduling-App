@@ -139,8 +139,8 @@ namespace WpfApp2
                 allBusLines[6].addStation(100008, 0);
                 allBusLines[6].addStation(100009, 0);
             }
-            cbBusLines.ItemsSource = allBusLines;
-            cbBusLines.DisplayMemberPath = " BusLineNum ";
+            cbBusLines.ItemsSource = allBusLines.BusLinesList;
+            cbBusLines.DisplayMemberPath = "line";
             cbBusLines.SelectedIndex = 0;
         }
 

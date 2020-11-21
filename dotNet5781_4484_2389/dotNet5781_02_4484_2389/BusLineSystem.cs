@@ -12,6 +12,11 @@ namespace dotNet5781_02_4484_2389
 
        public List<BusLine> busLinesList;
 
+        public List<BusLine> BusLinesList //property
+        {
+            get { return busLinesList; }
+        }
+
         public BusLineSystem()
         {
             busLinesList = new List<BusLine>();

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="640" Width="800">
+        Title="OurFirstApp" Height="640" Width="800" Icon= "C:\Users\שירה\source\repos\sh-or\dotNet5781_4484_2389\dotNet5781_4484_2389\WpfApp2\סמיילי.jpg">
     <Grid>
         <Grid Name="MainGrid" Margin="0,0,0.333,-0.333" Grid.RowSpan="5" Grid.Row="2">
             <Grid.Background>
@@ -19,6 +19,7 @@
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="400*"/>
             </Grid.RowDefinitions>
+            <ListBox Name="lbBusLineStations" ItemsSource="{Binding}" HorizontalAlignment="Stretch" Height="479" Margin="54,31,56,32.667" Grid.Row="1" VerticalAlignment="Stretch" Width="683" SelectionChanged="lbBusLineStations_SelectionChanged"/>
             <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -31,7 +32,6 @@
                 <Label Content="Bus Line" HorizontalAlignment="Right" FontFamily="Rockwell Extra Bold" FontSize="24" FontStretch="Condensed" TextOptions.TextHintingMode="Fixed" VerticalAlignment="Center"/>
                 <Label Content="Area" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="24"/>
             </Grid>
-            <ListBox Name="lbBusLineStations" ItemsSource="{Binding}" HorizontalAlignment="Stretch" Height="479" Margin="54,31,56,32.667" Grid.Row="1" VerticalAlignment="Stretch" Width="683" SelectionChanged="lbBusLineStations_SelectionChanged"/>
         </Grid>
     </Grid>
 </Window>

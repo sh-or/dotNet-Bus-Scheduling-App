@@ -32,7 +32,7 @@ namespace dotNet5781_02_4484_2389
                 //        str += (" " + st1.busStationKey + ", " + st1.Latitude + "°N " + st1.Longitude + "°E " + /*st1. +*/ "\n");
                 //}
                 return str;
-                
+                //return allSt.Find(stKey).ToString();
             }
         }
         

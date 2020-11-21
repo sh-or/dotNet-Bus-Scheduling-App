@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="OurFirstApp" Height="640" Width="800" Icon= "C:\Users\שירה\source\repos\sh-or\dotNet5781_4484_2389\dotNet5781_4484_2389\WpfApp2\bin\Debug\סמיילי.jpg">
+        Title="OurFirstApp" Height="640" Width="800" Icon= "https://s3.eu-central-1.amazonaws.com/prod-prog-site-s3/data/attachments/313/313183-1befe8ebd68bfc9d34f2d24f8ddfac72.jpg">
     <Grid>
         <Grid Name="MainGrid" Margin="0,0,0.333,-0.333" Grid.RowSpan="5" Grid.Row="2">
             <Grid.Background>

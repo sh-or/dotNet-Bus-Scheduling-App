@@ -27,7 +27,6 @@ namespace WpfApp2
 
         public MainWindow()
         {
-            InitializeComponent();
             allBusStations = new List<BusStation>();
             allBusLines = new BusLineSystem();
             { //restart 10 lines and 40 stations
@@ -139,16 +138,18 @@ namespace WpfApp2
                 allBusLines[6].addStation(100008, 0);
                 allBusLines[6].addStation(100009, 0);
             }
+            InitializeComponent();
             cbBusLines.ItemsSource = allBusLines.BusLinesList;
             cbBusLines.DisplayMemberPath = "line";
             cbBusLines.SelectedIndex = 0;
+            ShowBusLine((cbBusLines.SelectedItem as BusLine).line);
         }
 
         private void ShowBusLine(int index)
         {
             currentDisplayBusLine = allBusLines[index];
             UpGrid.DataContext = currentDisplayBusLine;
-            lbBusLineStations.DataContext = currentDisplayBusLine.Stations;
+            lbBusLineStations.DataContext = currentDisplayBusLine.helpConnect();
         }
 
 

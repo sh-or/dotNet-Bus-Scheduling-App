@@ -22,18 +22,6 @@ namespace dotNet5781_02_4484_2389
             public double distance;
             public TimeSpan timeLast;
             public Station(int key) { stKey = key; }
-
-            public override string ToString()
-            {
-                string str = ("Station Code: ");
-                //foreach (BusStation st1 in allSt)
-                //{
-                //    if (st1.busStationKey == stKey)
-                //        str += (" " + st1.busStationKey + ", " + st1.Latitude + "°N " + st1.Longitude + "°E " + /*st1. +*/ "\n");
-                //}
-                return str;
-                //return allSt.Find(stKey).ToString();
-            }
         }
         
         private List<BusStation> allStations;
@@ -43,14 +31,14 @@ namespace dotNet5781_02_4484_2389
             private set { allStations = value; }
         } 
         private static int counter = 0; //running line number
-        public int line;
+        public int line { get; set; }
         public List<Station> stations; //bus line stations list
         public List<Station> Stations //the all-stations list with the details
         {
             get { return stations; }
             set { stations = value; }
         }
-        Area area;  //enum
+        public Area area { get; set; }  //enum
         public int FirstStation() { return stations[0].stKey; } 
         public int LastStation() { return stations[stations.Count-1].stKey; } 
         public static int Counter { get => counter; private set => counter = value; }
@@ -99,7 +87,7 @@ namespace dotNet5781_02_4484_2389
                         stations[index].distance = local1.GetDistanceTo(local2); //distance calculating(in meters)
                         stations[index].timeLast = TimeSpan.FromSeconds(stations[index].distance); //the bus cross meter for second
                     }
-                    if(index < stations.Count-1) //update the next station time&distance
+                    if(stations.Count>1 && index < stations.Count) //update the next station time&distance
                     {
                         nextSt = allSt.Find(x => x.busStationKey == stations[index+1].stKey);
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
@@ -119,6 +107,20 @@ namespace dotNet5781_02_4484_2389
             foreach (Station st in stations)
                 str += (" " + st.stKey);
             return str;
+        }
+        public List<string> helpConnect() //for ex 3A.connect the stations with the full detailed stations list
+        {
+            List<string> lst = new List<string>();
+            foreach (Station st in stations)
+            {
+                foreach (BusStation bs in allSt)
+                    if (bs.busStationKey == st.stKey)
+                    {
+                        lst.Add(bs +" "+ st.timeLast +" "+ st.distance);
+                        break;
+                    }
+            }
+            return lst;
         }
 
         public Station findSt(int stNum) //find and return a station in the line
@@ -178,7 +180,6 @@ namespace dotNet5781_02_4484_2389
                 throw new ArgumentException("ERROR: stations are not in order");   //exeption if in  opposite order
             return sum;
         }
-
 
         public bool deleteStation(int stationKey)
         {

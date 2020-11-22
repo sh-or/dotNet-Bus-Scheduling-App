@@ -93,7 +93,8 @@ namespace dotNet5781_02_4484_2389
                         local1 = new GeoCoordinate(bs.Latitude, bs.Longitude);
                         local2 = new GeoCoordinate(nextSt.Latitude, nextSt.Longitude);
                         stations[index + 1].distance = local1.GetDistanceTo(local2); //distance calculating
-                        stations[index + 1].timeLast = TimeSpan.FromSeconds((stations[index+1].distance)/13.88); //the bus cross 50 KM for hour(13.88 m/s)
+
+                        stations[index + 1].timeLast = TimeSpan.FromSeconds((stations[index+1].distance/13.88));     //the bus cross 50 KM for hour(13.88 m/s)
                     }
                     return true;
                 }
@@ -116,7 +117,7 @@ namespace dotNet5781_02_4484_2389
                 foreach (BusStation bs in allSt)
                     if (bs.busStationKey == st.stKey)
                     {
-                        lst.Add(bs +"   "+ st.timeLast);
+                        lst.Add(bs + "   " + st.timeLast.ToString(@"hh\:mm\:ss"));
                         break;
                     }
             }

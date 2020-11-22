@@ -28,7 +28,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox Name="cbBusLines" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="cbBusLines_SelectionChanged" FontFamily="Felix Titling" FontSize="36"/>
-                <TextBox Name="tbArea" Grid.Column="2" HorizontalAlignment="Stretch" Text="{Binding Path=area}" VerticalAlignment="Stretch" FontFamily="Arial" FontWeight="Bold" FontSize="24" Grid.ColumnSpan="2" Margin="197.667,0,10.333,0" TextChanged="tbArea_TextChanged" SelectionTextBrush="#FF1A4CF1" Background="#FFE7EAEA"/>
+                <TextBox Name="tbArea" Grid.Column="2" HorizontalAlignment="Stretch" Text="{Binding Path=area}" VerticalAlignment="Stretch" FontFamily="Arial" FontWeight="Bold" FontSize="24" Grid.ColumnSpan="2" Margin="197.667,0,10.333,0" TextChanged="tbArea_TextChanged" SelectionTextBrush="#FF1A4CF1" Background="#FFE7EAEA" RenderTransformOrigin="0.5,0.5"/>
                 <Label Content="Bus Line" HorizontalAlignment="Right" FontFamily="Rockwell Extra Bold" FontSize="24" FontStretch="Condensed" TextOptions.TextHintingMode="Fixed" VerticalAlignment="Center"/>
                 <Label Content="Area" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="24"/>
             </Grid>

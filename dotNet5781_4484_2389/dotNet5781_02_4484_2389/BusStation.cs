@@ -14,6 +14,8 @@ namespace dotNet5781_02_4484_2389
         private double latitude;
         private double longitude;
         public string address;
+        public static Random r = new Random(DateTime.Now.Millisecond);
+
 
         public static int Count { get => count; set => count = value; }
         public double Latitude { get => latitude; set => latitude = value; }
@@ -21,15 +23,14 @@ namespace dotNet5781_02_4484_2389
 
         public override string ToString  ()
         {
-            return ("Station Code: "+busStationKey+ ", Address: " + address+", "+ Latitude+"°N "+ Longitude+"°E" );
+            return ("Station Code: "+busStationKey+ ", Address: " + address+",   "+ Latitude+"°N "+ Longitude+"°E" );
         }
 
         public BusStation (string add)
         {
             busStationKey= Count++;
-            Random r = new Random(DateTime.Now.Millisecond);
-            latitude = r.Next(3100, 3331) / 100.0;
-            longitude = r.Next(3430, 3551) / 100.0;
+            latitude = r.NextDouble()*(33.31-31.00)+31.0;
+            longitude = r.NextDouble()*(35.51-34.30)+34.3;
             address = add;
         }
 

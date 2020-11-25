@@ -39,6 +39,16 @@ namespace dotNet5781_3B_4484_2389
             lst.Add(new Bus1(10000011, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 19800, 0, 19800)); //km of care
             lst.Add(new Bus1(10000012, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 0, 1100, 19800)); //close to refuel
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void AddBus_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

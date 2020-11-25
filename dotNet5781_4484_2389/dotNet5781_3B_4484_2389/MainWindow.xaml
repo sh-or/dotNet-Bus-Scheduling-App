@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNet5781_3B_4484_2389"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Bus System" Height="450" Width="800" Icon="https://softwares.center/wp-content/uploads/2017/02/54455454325-300x300.png">
     <Grid>
-        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF6ED8F7" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="350*"/>
+            <RowDefinition Height="60*"/>
+        </Grid.RowDefinitions>
+        <ListBox HorizontalAlignment="Center" Height="292" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Top" Width="772" SelectionChanged="ListBox_SelectionChanged"/>
+        <Button Name="AddBus" Content="Add Bus" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="102" Height="33" Click="AddBus_Click" Background="#FF74DAF0" BorderBrush="#FF0F0303" FontFamily="Georgia" FontSize="20"/>
+        <Label Content="Welcome!" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="44" Width="186" FontFamily="Lucida Handwriting" FontSize="30" FontWeight="Bold"/>
+
     </Grid>
 </Window>

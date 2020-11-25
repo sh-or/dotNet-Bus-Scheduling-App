@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_3B_4484_2389
 {
+    public enum Status { Ready = 1, InDrive, InRefuel, InCare }
+
     public class Bus1
     {
         public int licenseNum;   // save license number 
         public DateTime beginning;  //Save the date the bus was added
         public DateTime lastCare; //save the date of last care
-        public int kmOfLastCare;  //save the kilometerage from last care
-        public int kmOfLastRefuel; //save the kilometerage from last refuel
+        public int kmOfLastCare;  //save the kilometers from last care
+        public int kmOfLastRefuel; //save the kilometers from last refuel
         private int kilometerage;  //save the general kilometerage
+        public Status status { get; set; }  //enum
 
         public int Kilometerage  //"set/get" of general kilometerage
         {
@@ -40,6 +43,7 @@ namespace dotNet5781_3B_4484_2389
                 kilometerage = Math.Max(kmLastCare, kmLastRefuel);
             else
                 kilometerage = km;
+         //   status=  //יש מצב של לא מוכן לנסיעה?? צריך לבדוק בבנאי אם מוכן לנסיעה??
         }
 
         public bool isReady(int numOfKm)   //check the fuel and care of asked bus and ride
@@ -51,12 +55,12 @@ namespace dotNet5781_3B_4484_2389
                 return false;
             }
             bool flag = true;
-            if ((this.Kilometerage + numOfKm - this.kmOfLastCare) > 20000) //the km from last care
+            if ((numOfKm + this.kmOfLastCare) > 20000) //the km from last care
             {
                 Console.WriteLine("This ride requires a care\n");
                 flag = false;
             }
-            if ((this.Kilometerage + numOfKm - this.kmOfLastRefuel) > 1200) //the km from last refuel
+            if ((numOfKm + this.kmOfLastRefuel) > 1200) //the km from last refuel
             {
                 Console.WriteLine("This ride requires refuel\n");
                 flag = false;

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace dotNet5781_3B_4484_2389
 {
-    public enum Status { Ready = 1, InDrive, InRefuel, InCare }
+    public enum Status { Ready = 1,NeedCare, NeedRefeul, InDrive, InCare, InRefuel }
 
     public class Bus1
     {
-        public int licenseNum;   // save license number 
-        public DateTime beginning;  //Save the date the bus was added
-        public DateTime lastCare; //save the date of last care
-        public int kmOfLastCare;  //save the kilometers from last care
-        public int kmOfLastRefuel; //save the kilometers from last refuel
+        public int licenseNum { get; set; }   // save license number 
+        public DateTime beginning { get; set; }  //Save the date the bus was added
+        public DateTime lastCare { get; set; } //save the date of last care
+        public int kmOfLastCare { get; set; }  //save the kilometers from last care
+        public int kmOfLastRefuel { get; set; } //save the kilometers from last refuel
         private int kilometerage;  //save the general kilometerage
         public Status status { get; set; }  //enum
 
@@ -43,7 +43,16 @@ namespace dotNet5781_3B_4484_2389
                 kilometerage = Math.Max(kmLastCare, kmLastRefuel);
             else
                 kilometerage = km;
-         //   status=  //יש מצב של לא מוכן לנסיעה?? צריך לבדוק בבנאי אם מוכן לנסיעה??
+            if (!((DateTime.Today.AddYears(-1)) < this.lastCare) || (kmOfLastCare) > 18500) //checking time/km from last care
+            {
+                status = (Status)2; //need care 
+            }
+            else if (kmOfLastRefuel > 1000) //checking fuel
+            {
+                status = (Status)3; //need refuel 
+            }
+            else
+                status = (Status)1; //ready
         }
 
         public bool isReady(int numOfKm)   //check the fuel and care of asked bus and ride

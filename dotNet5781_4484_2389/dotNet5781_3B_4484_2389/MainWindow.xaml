@@ -8,11 +8,28 @@
         Title="Bus System" Height="450" Width="800" Icon="https://softwares.center/wp-content/uploads/2017/02/54455454325-300x300.png">
     <Window.Resources>
         <DataTemplate x:Key="UserTemplate" >
-            <StackPanel Orientation="Horizontal" >
-                <TextBlock Text="{Binding Path=licenseNum}" Width="50" />
-                <TextBlock Text="aaaaaaa" Width="70" />
-                <Button Content="Delete" Click="cmdDeleteUser_Clicked"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ChooseBus" Content="Drive!" Grid.Column="1" Height="30" Click="ChooseBus_Click"/>
+                <TextBlock Text="{Binding Path=licenseNum}" Grid.Column="2" />
+                <TextBlock Text="{Binding Path=Kilometerage}" Grid.Column="3" />
+                <TextBlock Text="{Binding Path=kmOfLastCare}" Grid.Column="4" />
+                <TextBlock Text="{Binding Path=kmOfLastRefuel}" Grid.Column="5" />
+                <TextBlock Text="{Binding Path=lastCare}" Grid.Column="6" />
+                <TextBlock Text="{Binding Path=status}" Grid.Column="7" Width="80"/>
+                <Button Name="GoCare" Visibility="Visible" Content="Go1" Grid.Column="8" Width="80"/>
+                <Button x:Name="GoRefuel" Content="Go2" Height="30" Grid.Column="9"/>
+            </Grid>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -26,8 +43,8 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="11"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="1"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -54,11 +71,8 @@
         <Label Content="Status" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="7" Height="26" Margin="30.333,3,31,3" Width="42" />
         <Label Content="Care" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="8" Height="26" Margin="8,3" Width="34"/>
         <Label Content="Refuel" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="9" Height="26" Margin="4,3" Width="42"  />
-        <ListBox Name="list" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Center" Height="270" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="772" SelectionChanged="ListBox_SelectionChanged" Grid.ColumnSpan="10">
-            <Button x:Name="GoRefuel" Content="Go" Width="30" HorizontalAlignment="Left" Height="30"/>
-            <Button x:Name="GoCare" Content="Go" Width="30" Height="30" />
-            <Button x:Name="ChooseBus" Content="Drive!" HorizontalAlignment="Center" Height="30" Click="ChooseBus_Click"/>
-
+        <ListBox Name="busesLB" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Center" Height="270" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="772" Grid.ColumnSpan="10">
+            
         </ListBox>
     </Grid>
 

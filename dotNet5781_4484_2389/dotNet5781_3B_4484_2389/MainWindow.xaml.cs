@@ -25,22 +25,13 @@ namespace dotNet5781_3B_4484_2389
         public Random r = new Random(DateTime.Now.Millisecond);
 
 
-        public ObservableCollection<Bus1> Users;
+        public static ObservableCollection<Bus1> buses = new ObservableCollection<Bus1>();
 
         public MainWindow()
         {
             InitializeComponent();
             restart(); //restart buses, include 3 asked
-            //list.ItemsSource = lst;
-
-
-            Users = new ObservableCollection<Bus1>()
-            {
-            new Bus1(10000010, DateTime.Today.AddMonths(-15), DateTime.Today.AddMonths(-15)), //time from care
-            new Bus1(10000011, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 19800, 0, 19800), //km of care
-            new Bus1(10000012, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 0, 1100, 1100) //close to refuel};
-            };
-            list.DataContext = Users;
+            busesLB.ItemsSource = buses;
         }
         public void restart()//restart buses, include 3 asked
         {
@@ -48,16 +39,11 @@ namespace dotNet5781_3B_4484_2389
             for (int i = 0; i < 10; i++)
             {
                 bs = new Bus1(10000000 + i, DateTime.Today, DateTime.Today);
-                lst.Add(bs);
+                buses.Add(bs);
             }
-            lst.Add(new Bus1(10000010, DateTime.Today.AddMonths(-15), DateTime.Today.AddMonths(-15))); //time from care
-            lst.Add(new Bus1(10000011, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 19800, 0, 19800)); //km of care
-            lst.Add(new Bus1(10000012, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 0, 1100, 1100)); //close to refuel
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            buses.Add(new Bus1(10000010, DateTime.Today.AddMonths(-15), DateTime.Today.AddMonths(-15))); //time from care
+            buses.Add(new Bus1(10000011, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 19800, 0, 19800)); //km of care
+            buses.Add(new Bus1(10000012, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 0, 1100, 1100)); //close to refuel
         }
 
         private void AddBus_Click(object sender, RoutedEventArgs e)
@@ -65,49 +51,25 @@ namespace dotNet5781_3B_4484_2389
 
         }
 
-        private void ChooseBus_Click(object sender, RoutedEventArgs e)
+        private void ChooseBus_Click(object sender, RoutedEventArgs e) //choosing bus for a ride
         {
-            int kmToDrive = r.Next(1201);
-            if ((sender as Bus1).isReady(kmToDrive))
-            {
-                //תהליכון
-                //status+show?->timer->km+kmRefuel+kmCare->status->show?
-            }
-            else
-            {
-                //message
-                //show? for status...
-            }
-
-        }
-
-        private void cmdDeleteUser_Clicked(object sender, RoutedEventArgs e)
-        {
+            Window1 win2 = new Window1();
+            win2.Show();
+            busesLB.Items.Refresh();
+            //int kmToDrive = r.Next(1201);
+            //if ((sender as Bus1).isReady(kmToDrive))
+            //{
+            //    //תהליכון
+            //    //status+show?->timer->km+kmRefuel+kmCare->status->show?
+            //}
+            //else
+            //{
+            //    //message
+            //    //show? for status...
+            //}
 
         }
     }
 
-
-    public class User
-    {
-
-        public string Name { get; set; }
-        public int Age { get; set; }
-
-    }
 }
 
-//< ListBox.ItemTemplate >
-//    < DataTemplate >
-//        < StackPanel >
-//            < TextBlock Text = "djmk" />
-
-//             < TextBlock Text = "{Binding Path=Description}" />
-
-//              < TextBlock Text = "{Binding Path=Priority}" />
-
-//           </ StackPanel >
-
-//       </ DataTemplate >
-
-//   </ ListBox.ItemTemplate >

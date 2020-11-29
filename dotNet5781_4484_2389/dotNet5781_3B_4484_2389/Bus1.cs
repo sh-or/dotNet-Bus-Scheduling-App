@@ -10,6 +10,8 @@ namespace dotNet5781_3B_4484_2389
 
     public class Bus1
     {
+        public Random r = new Random(DateTime.Now.Millisecond);
+
         public int licenseNum { get; set; }   // save license number 
         public DateTime beginning { get; set; }  //Save the date the bus was added
         private DateTime lastCare; //save the date of last care
@@ -66,21 +68,33 @@ namespace dotNet5781_3B_4484_2389
             DateTime dt = DateTime.Now;
             if (!((dt.AddYears(-1)) < this.lastCare)) //the time from last care
             {
-                Console.WriteLine("The last care was more than a year ago\n");
+                status = (Status)2;  //need care
+                 //close window1, and message box "need care"
                 return false;
             }
-            bool flag = true;
+
             if ((numOfKm + this.kmOfLastCare) > 20000) //the km from last care
             {
-                Console.WriteLine("This ride requires a care\n");
-                flag = false;
+                //close window1, and message box "need care"
+                return false;
             }
-            if ((numOfKm + this.kmOfLastRefuel) > 1200) //the km from last refuel
+            else if ((numOfKm + this.kmOfLastRefuel) > 1200) //the km from last refuel
             {
-                Console.WriteLine("This ride requires refuel\n");
-                flag = false;
+                //close window1, and message box "need refuel"
+                return false;
             }
-            return flag;
+            return true;
+
         }
-}
+
+        public void drive(int num)
+        {
+            status = (Status)4;
+            System.Threading.Thread.Sleep((num/r.Next(20, 51))/600);
+        }
+
+
+        //           if ((numOfKm + this.kmOfLastCare) > 20000)
+
+    }
 }

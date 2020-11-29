@@ -18,7 +18,9 @@ namespace dotNet5781_3B_4484_2389
     /// Interaction logic for Window1.xaml
     /// </summary>
     public partial class Window1 : Window
-    {
+    {           
+        public Bus1 var; //sender
+
         public Window1()
         {
             InitializeComponent();
@@ -30,8 +32,12 @@ namespace dotNet5781_3B_4484_2389
             if (e == null) return;
 
             //allow get out of the text box
-            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
-                return;
+             if(e.Key == Key.Enter|| e.Key == Key.Return || e.Key == Key.Tab)
+            {
+                MainWindow.numOfKm = int.Parse(text.Text);
+               //  var.status=(Status)4;
+                this.Close();
+            }
 
             //allow list of system keys (add other key here if you want to allow)
             if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
@@ -46,18 +52,20 @@ namespace dotNet5781_3B_4484_2389
 
             //allow digits (without Shift or Alt)
             if (Char.IsDigit(c))
-                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
+                if (!(Keyboard.IsKeyDown(Key.LeftShift)|| Keyboard.IsKeyDown(Key.RightShift) || Keyboard.IsKeyDown(Key.RightAlt)))
                     return; //let this key be written inside the textbox
 
+           
             //forbid letters and signs (#,$, %, ...)
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
+
+           
         } //checking if the input contains digits only
 
         private void kmInput_TextChanged(object sender, TextChangedEventArgs e) //input km for ride(max 4 digits)
         {
             // if(e == Enter)
-
         }
     }
 }

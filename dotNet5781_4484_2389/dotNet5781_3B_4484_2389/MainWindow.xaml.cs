@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
+
 
 namespace dotNet5781_3B_4484_2389
 {
@@ -21,12 +23,11 @@ namespace dotNet5781_3B_4484_2389
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static BackgroundWorker bgw;  //main BackgroundWorker
         public static List<Bus1> lst = new List<Bus1>(); //global buses list
         public Random r = new Random(DateTime.Now.Millisecond);
-
-
-        public static ObservableCollection<Bus1> buses = new ObservableCollection<Bus1>();
-
+        public static ObservableCollection<Bus1> buses = new ObservableCollection<Bus1>();  //the buses collection
+        public static int numOfKm { get; set; } //input from the user
         public MainWindow()
         {
             InitializeComponent();
@@ -53,23 +54,49 @@ namespace dotNet5781_3B_4484_2389
 
         private void ChooseBus_Click(object sender, RoutedEventArgs e) //choosing bus for a ride
         {
-            Window1 win2 = new Window1();
-            win2.Show();
+            Window1 win1 = new Window1();
+            win1.var = (sender as Button).DataContext as Bus1;
+            win1.ShowDialog();
+            if (((sender as Button).DataContext as Bus1).isReady(numOfKm))
+            {
+                bgw = new BackgroundWorker();
+                bgw.DoWork += bgw_DoWork;
+                bgw.ProgressChanged += bgw_ProgressChanged;
+                bgw.RunWorkerCompleted += bgw_RunWorkerCompleted;
+
+                bgw.WorkerReportsProgress = true;
+                bgw.RunWorkerAsync("drive(numOfKm)");
+            }
+            else
+            {
+                //message
+            }
             busesLB.Items.Refresh();
-            //int kmToDrive = r.Next(1201);
-            //if ((sender as Bus1).isReady(kmToDrive))
-            //{
-            //    //תהליכון
-            //    //status+show?->timer->km+kmRefuel+kmCare->status->show?
-            //}
-            //else
-            //{
-            //    //message
-            //    //show? for status...
-            //}
 
         }
+
+        private void bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            object obj = e.Argument;
+
+           // bgw.ReportProgress(1); //timer?
+
+            e.Result = "result";
+        }
+
+        private void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //timer?
+        }
+
+        private void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            object result = e.Result;
+        }
+
     }
+
+
 
 }
 

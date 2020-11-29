@@ -12,7 +12,7 @@ namespace dotNet5781_3B_4484_2389
     {
         public int licenseNum { get; set; }   // save license number 
         public DateTime beginning { get; set; }  //Save the date the bus was added
-        public DateTime lastCare { get; set; } //save the date of last care
+        private DateTime lastCare; //save the date of last care
         public int kmOfLastCare { get; set; }  //save the kilometers from last care
         public int kmOfLastRefuel { get; set; } //save the kilometers from last refuel
         private int kilometerage;  //save the general kilometerage
@@ -30,6 +30,12 @@ namespace dotNet5781_3B_4484_2389
                 }
                 kilometerage = value;
             }
+        }
+
+        public string LastCare
+        {
+            get { return lastCare.ToString(@"dd\/MM\/yyyy"); }
+            set { }
         }
 
         public Bus1(int liceNum, DateTime begin, DateTime lastC, int kmLastCare=0, int kmLastRefuel=0, int km=0)  //c-tor 

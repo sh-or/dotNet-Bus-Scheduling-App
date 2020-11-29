@@ -8,7 +8,7 @@
         Title="Bus to Travel" Height="250" Width="400">
     <Grid>
         <Label Content="Enter the travel length(in km):" HorizontalAlignment="Left" Margin="42,64,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="kmInput" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" MaxLength="4" Height="30" TextWrapping="Wrap" Text=""  Width="100" FontSize="20" TextChanged="kmInput_TextChanged" Margin="234,64,59.333,126.667" />
+        <TextBox Name="kmInput" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" MaxLength="4" Height="30" TextWrapping="Wrap" Text=""  Width="100" FontSize="15" TextChanged="kmInput_TextChanged" Margin="223,60,69,129" BorderBrush="#FF13A5C5" />
     </Grid>
 
 </Window>

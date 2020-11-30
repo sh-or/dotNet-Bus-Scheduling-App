@@ -86,15 +86,5 @@ namespace dotNet5781_3B_4484_2389
             return true;
 
         }
-
-        public void drive(int num)
-        {
-            status = (Status)4;
-            System.Threading.Thread.Sleep((num/r.Next(20, 51))/600);
-        }
-
-
-        //           if ((numOfKm + this.kmOfLastCare) > 20000)
-
     }
 }

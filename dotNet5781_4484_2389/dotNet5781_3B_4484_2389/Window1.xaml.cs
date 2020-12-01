@@ -19,7 +19,7 @@ namespace dotNet5781_3B_4484_2389
     /// </summary>
     public partial class Window1 : Window
     {           
-        public Bus1 var; //sender
+        //public Bus1 var; //sender bus
 
         public Window1()
         {

@@ -55,9 +55,10 @@ namespace dotNet5781_3B_4484_2389
         private void ChooseBus_Click(object sender, RoutedEventArgs e) //choosing bus for a ride
         {
             Window1 win1 = new Window1();
-            win1.var = (sender as Button).DataContext as Bus1;
+            Bus1 b = (sender as Button).DataContext as Bus1;
+            //win1.var = b;
             win1.Show();
-            if (((sender as Button).DataContext as Bus1).isReady(numOfKm))
+            if (b.isReady(numOfKm))
             {
 
                 bgw = new BackgroundWorker();
@@ -66,15 +67,20 @@ namespace dotNet5781_3B_4484_2389
                 bgw.RunWorkerCompleted += bgw_RunWorkerCompleted;
 
                 bgw.WorkerReportsProgress = true;
-                bgw.RunWorkerAsync((sender as Button).DataContext as Bus1); //sending the current bus
+                bgw.RunWorkerAsync(b); //sending the current bus
             }
             else
-            {
-                //message
+            { //appropriate message:
+                if(b.status==(Status)2)
+                    MessageBox.Show("The bus need care");
+                else if(b.status == (Status)3)
+                    MessageBox.Show("The bus need refuel");
+                else if ((numOfKm + b.kmOfLastCare) > 20000) //the km from last care
+                    MessageBox.Show("The bus'll pass the permitted kilometerage before care");
+                else if ((numOfKm + b.kmOfLastRefuel) > 1200) //the km from last refuel
+                    MessageBox.Show("There is no enough fuel for this ride");
             }
             //busesLB.Items.Refresh();
-
-
         }
 
         private void bgw_DoWork(object sender, DoWorkEventArgs e)
@@ -83,21 +89,18 @@ namespace dotNet5781_3B_4484_2389
             Bus1 b = (Bus1)e.Argument; //get number of Km for ride
             b.status = (Status)4; //="InDrive"
             busesLB.Items.Refresh(); //to show the new status in the list
-            //            System.Threading.Thread.Sleep((num / r.Next(20, 51)) * 60/10); //wait 0.1 sec for 1 minute of ride
-            System.Threading.Thread.Sleep(3000); //example
+            System.Threading.Thread.Sleep((num / r.Next(20, 51)) * 60 * 100); //wait 0.1 sec(=sleep(100)) for 1 minute of ride
+            //System.Threading.Thread.Sleep(3000); //example 3 sec
             // bgw.ReportProgress(1); //timer?
-            //update the changes from the ride:
+
+            //update the changes from the ride: (after the ride)
             b.Kilometerage += num;
             b.kmOfLastCare += num;
             b.kmOfLastRefuel += num;
             if ((b.kmOfLastCare) > 18500) //checking km from last care
-            {
                 b.status = (Status)2; //= need care 
-            }
             else if (b.kmOfLastRefuel > 1000) //checking fuel
-            {
                 b.status = (Status)3; //= need refuel 
-            }
             else
                 b.status = (Status)1; //= ready
         }

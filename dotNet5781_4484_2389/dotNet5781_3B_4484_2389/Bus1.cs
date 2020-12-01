@@ -14,7 +14,8 @@ namespace dotNet5781_3B_4484_2389
 
         public int licenseNum { get; set; }   // save license number 
         public DateTime beginning { get; set; }  //Save the date the bus was added
-        private DateTime lastCare; //save the date of last care
+         //  private DateTime lastCare; //save the date of last care
+        public DateTime lastCare { get; set; } //save the date of last care
         public int kmOfLastCare { get; set; }  //save the kilometers from last care
         public int kmOfLastRefuel { get; set; } //save the kilometers from last refuel
         private int kilometerage;  //save the general kilometerage
@@ -34,11 +35,11 @@ namespace dotNet5781_3B_4484_2389
             }
         }
 
-        public string LastCare
-        {
-            get { return lastCare.ToString(@"dd\/MM\/yyyy"); }
-            set { }
-        }
+        //public string LastCare
+        //{
+        //    get { //return lastCare.ToString(@"dd\/MM\/yyyy"); }
+        //    set { }
+        //}
 
         public Bus1(int liceNum, DateTime begin, DateTime lastC, int kmLastCare=0, int kmLastRefuel=0, int km=0)  //c-tor 
         {
@@ -75,12 +76,14 @@ namespace dotNet5781_3B_4484_2389
 
             if ((numOfKm + this.kmOfLastCare) > 20000) //the km from last care
             {
-                //close window1, and message box "need care"
+                if(kmOfLastCare>18500)
+                    status = (Status)2; //need care
                 return false;
             }
             else if ((numOfKm + this.kmOfLastRefuel) > 1200) //the km from last refuel
             {
-                //close window1, and message box "need refuel"
+                if (kmOfLastRefuel>1000)
+                    status = (Status)3;  //need refuel
                 return false;
             }
             return true;

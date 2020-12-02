@@ -31,7 +31,7 @@ namespace dotNet5781_3B_4484_2389
             if (text == null) return;
             if (e == null) return;
 
-            //allow get out of the text box
+            //allow get out of the text box by ENTER
              if(e.Key == Key.Enter|| e.Key == Key.Return || e.Key == Key.Tab)
             {
                 MainWindow.numOfKm = int.Parse(text.Text);
@@ -50,17 +50,13 @@ namespace dotNet5781_3B_4484_2389
             //allow control system keys
             if (Char.IsControl(c)) return;
 
-            //allow digits (without Shift or Alt)
-            if (Char.IsDigit(c))
+            if (Char.IsDigit(c)) //allow digits (without Shift or Alt)
                 if (!(Keyboard.IsKeyDown(Key.LeftShift)|| Keyboard.IsKeyDown(Key.RightShift) || Keyboard.IsKeyDown(Key.RightAlt)))
                     return; //let this key be written inside the textbox
 
-           
             //forbid letters and signs (#,$, %, ...)
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            return;
-
-           
+            return; 
         } //checking if the input contains digits only
 
         private void kmInput_TextChanged(object sender, TextChangedEventArgs e) //input km for ride(max 4 digits)

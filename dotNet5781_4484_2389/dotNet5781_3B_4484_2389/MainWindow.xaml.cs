@@ -34,7 +34,6 @@ namespace dotNet5781_3B_4484_2389
         {
             InitializeComponent();
             restart(); //restart buses, include 3 asked
-            resetBGWs();//reset the backgroundWorkers(that can be called from some places...)
             busesLB.ItemsSource = buses;
         }
         public void restart()//restart buses, include 3 asked
@@ -49,24 +48,6 @@ namespace dotNet5781_3B_4484_2389
             buses.Add(new Bus1(10000011, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 19800, 0, 19800)); //km of care
             buses.Add(new Bus1(10000012, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 0, 1100, 1100)); //close to refuel
         }
-        public void resetBGWs()
-        {
-            bgw = new BackgroundWorker(); //reset the drive backgrounder
-            bgw.DoWork += bgw_DoWork;
-            bgw.ProgressChanged += bgw_ProgressChanged;
-            bgw.RunWorkerCompleted += bgw_RunWorkerCompleted;
-            bgw.WorkerReportsProgress = true;
-            bgw1 = new BackgroundWorker(); //reset the care backgrounder
-            bgw1.DoWork += bgw1_DoWork;
-            bgw1.ProgressChanged += bgw1_ProgressChanged;
-            bgw1.RunWorkerCompleted += bgw1_RunWorkerCompleted;
-            bgw1.WorkerReportsProgress = true;
-            bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
-            bgw2.DoWork += bgw2_DoWork;
-            bgw2.ProgressChanged += bgw2_ProgressChanged;
-            bgw2.RunWorkerCompleted += bgw2_RunWorkerCompleted;
-            bgw2.WorkerReportsProgress = true;
-        } //reset the backgroundWorkers(that can be called from some places...)
         private void AddBus_Click(object sender, RoutedEventArgs e)
         {
 
@@ -76,10 +57,16 @@ namespace dotNet5781_3B_4484_2389
         {
             Window1 win1 = new Window1();
             Bus1 b = (sender as Button).DataContext as Bus1;
-            //win1.var = b;
             win1.ShowDialog();
             if (b.isReady(numOfKm))
+            {
+                bgw = new BackgroundWorker(); //reset the drive backgrounder
+                bgw.DoWork += bgw_DoWork;
+                bgw.ProgressChanged += bgw_ProgressChanged;
+                bgw.RunWorkerCompleted += bgw_RunWorkerCompleted;
+                bgw.WorkerReportsProgress = true;
                 bgw.RunWorkerAsync(b); //sending the current bus to drive
+            }
             else
             { //appropriate message:
                 if (b.status == (Status)2)
@@ -91,14 +78,13 @@ namespace dotNet5781_3B_4484_2389
                 else if ((numOfKm + b.kmOfLastRefuel) > 1200) //the km from last refuel
                     MessageBox.Show("There is no enough fuel for this ride");
             }
-            //busesLB.Items.Refresh();
         }
-        private void bgw_DoWork(object sender, DoWorkEventArgs e) //going on ride
+        public void bgw_DoWork(object sender, DoWorkEventArgs e) //going on ride
         {
             int num = numOfKm; //save the current distance for this ride
             Bus1 b = (Bus1)e.Argument; //get current bus
             b.status = (Status)4; //="InDrive"
-            bgw.ReportProgress(b.licenseNum); //sending license num of the current bus //present changes
+            bgw.ReportProgress(4); //present changes
             System.Threading.Thread.Sleep((num / r.Next(20, 51)) * 60 * 100); //wait 0.1 sec(=sleep(100)) for 1 minute of ride
             //System.Threading.Thread.Sleep(3000); //example 3 sec
             //update the changes from the ride: (after the ride)
@@ -112,27 +98,28 @@ namespace dotNet5781_3B_4484_2389
             else
                 b.status = (Status)1; //= ready        
         }
-        private void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //Bus1 b = buses.Where(x => x.licenseNum == e.ProgressPercentage) as Bus1; //get current bus
-            //b.status = (Status)4; //="InDrive"
-            //change color?
             busesLB.Items.Refresh(); //to show the new status in the list
-            //timer?
-        } 
-        private void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //finishing ride
+        }
+        public void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //finishing ride
         {
             busesLB.Items.Refresh(); //to show the changes in the list
-        } 
+        }
 
-        private void GoCare_Click(object sender, RoutedEventArgs e) //going to care
+        public void GoCare_Click(object sender, RoutedEventArgs e) //going to care
         {
             Bus1 b = (sender as Button).DataContext as Bus1;
+            bgw1 = new BackgroundWorker(); //reset the care backgrounder
+            bgw1.DoWork += bgw1_DoWork;
+            bgw1.ProgressChanged += bgw1_ProgressChanged;
+            bgw1.RunWorkerCompleted += bgw1_RunWorkerCompleted;
+            bgw1.WorkerReportsProgress = true;
             bgw1.RunWorkerAsync(b); //send the current bus to care
             if (b.kmOfLastRefuel > 1000) //checking fuel
                 bgw2.RunWorkerAsync(b); //send the current bus to refuel
         }
-        private void bgw1_DoWork(object sender, DoWorkEventArgs e)
+        public void bgw1_DoWork(object sender, DoWorkEventArgs e)
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
             b.status = (Status)5; //="InCare"
@@ -144,25 +131,30 @@ namespace dotNet5781_3B_4484_2389
             //update the changes from the ride: (after the ride)
             b.lastCare = DateTime.Now;
             b.kmOfLastCare = 0;
-            if(b.kmOfLastRefuel > 1000)
+            if(b.kmOfLastRefuel < 1000)
                 b.status = (Status)1; //= Ready  (if not-will go to refuel from the calling event)
         }
-        private void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             busesLB.Items.Refresh(); //to show the new status in the list
             //timer?
         }
-        private void bgw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        public void bgw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             busesLB.Items.Refresh(); //to show the new status in the list
         }
 
-        private void GoRefuel_Click(object sender, RoutedEventArgs e) //going to refuel
+        public void GoRefuel_Click(object sender, RoutedEventArgs e) //going to refuel
         {
             Bus1 b = (sender as Button).DataContext as Bus1;
+            bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
+            bgw2.DoWork += bgw2_DoWork;
+            bgw2.ProgressChanged += bgw2_ProgressChanged;
+            bgw2.RunWorkerCompleted += bgw2_RunWorkerCompleted;
+            bgw2.WorkerReportsProgress = true;
             bgw2.RunWorkerAsync(b); //send the current bus to refuel
         }
-        private void bgw2_DoWork(object sender, DoWorkEventArgs e)
+        public void bgw2_DoWork(object sender, DoWorkEventArgs e)
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
             b.status = (Status)6; //="InRefuel"
@@ -172,16 +164,22 @@ namespace dotNet5781_3B_4484_2389
             b.kmOfLastRefuel = 0;
             b.status = (Status)1; //= Ready 
         }
-        private void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             busesLB.Items.Refresh(); //to show the new status in the list
             //timer?
         }
-        private void bgw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) 
+        public void bgw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) 
         {
             busesLB.Items.Refresh(); //to show the new status in the list
         }
 
+        private void busesLB_MouseDoubleClick(object sender, MouseButtonEventArgs e) //double click for details
+        {
+            Bus1 b = (sender as ListBox).SelectedValue as Bus1;
+            Details details = new Details(b); //send the current bus
+            details.ShowDialog();
+        }
     }
 
 

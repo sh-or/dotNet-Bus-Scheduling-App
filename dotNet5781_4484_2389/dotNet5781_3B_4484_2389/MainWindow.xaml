@@ -73,7 +73,7 @@
         <Label Content="Status" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="7"  />
         <Label Content="Care" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="8" />
         <Label Content="Refuel" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="9"   />
-        <ListBox Name="busesLB" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Center" Height="270" Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Width="772" Grid.ColumnSpan="12">
+        <ListBox Name="busesLB" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Center" Height="270" Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Width="772" Grid.ColumnSpan="12" MouseDoubleClick="busesLB_MouseDoubleClick">
             <ListBox.Resources>
             <Style TargetType="{x:Type ListBoxItem}">
                 <Setter Property="Background" Value="White"/>

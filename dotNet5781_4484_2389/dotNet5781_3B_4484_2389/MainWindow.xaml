@@ -24,10 +24,21 @@
                 <Button x:Name="ChooseBus" Content="Drive!" Grid.Column="1" Width="40" Height="30" HorizontalAlignment="Left"  Click="ChooseBus_Click"/>
                 <TextBlock Text="{Binding Path=licenseNum}" Grid.Column="2" HorizontalAlignment="Left"/>
                 <TextBlock Text="{Binding Path=Kilometerage}" Grid.Column="3" HorizontalAlignment="Center" />
-                <TextBlock Text="{Binding Path=kmOfLastCare}" Grid.Column="4" HorizontalAlignment="Center" />
+                <ProgressBar Grid.Column="4" Minimum="0" Maximum="1" Value="{Binding Fuel}" />
                 <TextBlock Text="{Binding Path=kmOfLastRefuel}" Grid.Column="5" HorizontalAlignment="Center" />
                 <TextBlock Text="{Binding Path=LastCare}" Grid.Column="6" HorizontalAlignment="Left"/>
-                <TextBlock Text="{Binding Path=status}" Grid.Column="7" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=status}" Grid.Column="7" HorizontalAlignment="Center">
+                    <TextBlock.Resources>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Background" Value="Red"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        </TextBlock.Resources>
+                </TextBlock>
                 <Button x:Name="GoCare"  Content="Go1" Height="30"  Width="40" Grid.Column="8" Click="GoCare_Click"/>
                 <Button x:Name="GoRefuel" Content="Go2" Height="30"  Width="40" Grid.Column="9" Click="GoRefuel_Click"/>
             </Grid>

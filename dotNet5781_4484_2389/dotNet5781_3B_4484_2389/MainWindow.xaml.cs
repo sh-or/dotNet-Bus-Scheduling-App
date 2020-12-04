@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 
+//                <TextBlock Text="{Binding Path=kmOfLastCare}" Grid.Column="4" HorizontalAlignment="Center" />
 
 namespace dotNet5781_3B_4484_2389
 {
@@ -65,7 +66,9 @@ namespace dotNet5781_3B_4484_2389
                 bgw.ProgressChanged += bgw_ProgressChanged;
                 bgw.RunWorkerCompleted += bgw_RunWorkerCompleted;
                 bgw.WorkerReportsProgress = true;
+                //(sender as Button).IsEnabled = false;
                 bgw.RunWorkerAsync(b); //sending the current bus to drive
+                //bgw.RunWorkerAsync(sender as Button); //sending the sender details
             }
             else
             { //appropriate message:
@@ -83,6 +86,7 @@ namespace dotNet5781_3B_4484_2389
         {
             int num = numOfKm; //save the current distance for this ride
             Bus1 b = (Bus1)e.Argument; //get current bus
+            //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
             b.status = (Status)4; //="InDrive"
             bgw.ReportProgress(4); //present changes
             System.Threading.Thread.Sleep((num / r.Next(20, 51)) * 60 * 100); //wait 0.1 sec(=sleep(100)) for 1 minute of ride
@@ -91,12 +95,14 @@ namespace dotNet5781_3B_4484_2389
             b.Kilometerage += num;
             b.kmOfLastCare += num;
             b.kmOfLastRefuel += num;
+            b.Fuel = 1 - b.kmOfLastRefuel / 1200.0;
             if (b.kmOfLastCare > 18500) //checking km from last care
                 b.status = (Status)2; //= need care 
             else if (b.kmOfLastRefuel > 1000) //checking fuel
                 b.status = (Status)3; //= need refuel 
             else
-                b.status = (Status)1; //= ready        
+                b.status = (Status)1; //= ready 
+            //(e.Argument as Button).IsEnabled = true;
         }
         public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -115,13 +121,16 @@ namespace dotNet5781_3B_4484_2389
             bgw1.ProgressChanged += bgw1_ProgressChanged;
             bgw1.RunWorkerCompleted += bgw1_RunWorkerCompleted;
             bgw1.WorkerReportsProgress = true;
+            //(sender as Button).IsEnabled = false;
             bgw1.RunWorkerAsync(b); //send the current bus to care
+            //bgw1.RunWorkerAsync(sender as Button); //sending to care with the sender details
             if (b.kmOfLastRefuel > 1000) //checking fuel
                 bgw2.RunWorkerAsync(b); //send the current bus to refuel
         }
         public void bgw1_DoWork(object sender, DoWorkEventArgs e)
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
+            //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
             b.status = (Status)5; //="InCare"
             bgw1.ReportProgress(5); //present changes
             System.Threading.Thread.Sleep(144 * 1000); //wait 24 hours of care
@@ -133,6 +142,7 @@ namespace dotNet5781_3B_4484_2389
             b.kmOfLastCare = 0;
             if(b.kmOfLastRefuel < 1000)
                 b.status = (Status)1; //= Ready  (if not-will go to refuel from the calling event)
+            //(e.Argument as Button).IsEnabled = true;
         }
         public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -158,16 +168,21 @@ namespace dotNet5781_3B_4484_2389
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
             b.status = (Status)6; //="InRefuel"
-            bgw2.ReportProgress(6); //present changes
-            System.Threading.Thread.Sleep(12 * 1000); //wait 2 hours of refuel
+            double tmp = b.Fuel;
+            for(int i=0;i<12;i++)
+            {
+                System.Threading.Thread.Sleep(1000); //wait 2 hours of refuel
+                b.Fuel += (1 - tmp) / 12.0;
+                bgw2.ReportProgress(1); //present changes
+            }
             //update the changes: (after refuel)
             b.kmOfLastRefuel = 0;
+            b.Fuel = 1200.0;
             b.status = (Status)1; //= Ready 
         }
         public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             busesLB.Items.Refresh(); //to show the new status in the list
-            //timer?
         }
         public void bgw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) 
         {

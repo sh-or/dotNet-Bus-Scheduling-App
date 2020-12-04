@@ -18,9 +18,9 @@ namespace dotNet5781_3B_4484_2389
         public DateTime lastCare { get; set; } //save the date of last care
         public int kmOfLastCare { get; set; }  //save the kilometers from last care
         public int kmOfLastRefuel { get; set; } //save the kilometers from last refuel
+        public double Fuel { get; set; } //save the fuel state according to kmOfLastRefuel
         private int kilometerage;  //save the general kilometerage
         public Status status { get; set; }  //enum
-
         public int Kilometerage  //"set/get" of general kilometerage
         {
             get { return kilometerage; }
@@ -48,6 +48,7 @@ namespace dotNet5781_3B_4484_2389
             lastCare = lastC;
             kmOfLastCare = kmLastCare;
             kmOfLastRefuel = kmLastRefuel;
+            Fuel = 1 - kmOfLastRefuel / 1200.0;
             if (km == 0)
                 kilometerage = Math.Max(kmLastCare, kmLastRefuel);
             else

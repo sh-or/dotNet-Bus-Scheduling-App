@@ -34,15 +34,15 @@ namespace dotNet5781_3B_4484_2389
 
         private void careB_Click(object sender, RoutedEventArgs e)
         {
-            Bus1 b = (sender as Button).DataContext as Bus1;
-            MainWindow.bgw1 = new BackgroundWorker(); //reset the care backgrounder
-            MainWindow.bgw1.DoWork += MainWindow.bgw1_DoWork;
-            MainWindow.bgw1.ProgressChanged += MainWindow.bgw1_ProgressChanged;
-            MainWindow.bgw1.RunWorkerCompleted += MainWindow.bgw1_RunWorkerCompleted;
-            MainWindow.bgw1.WorkerReportsProgress = true;
-            MainWindow.bgw1.RunWorkerAsync(b); //send the current bus to care
-            if (b.kmOfLastRefuel > 1000) //checking fuel
-                MainWindow.bgw2.RunWorkerAsync(b); //send the current bus to refuel
+            //Bus1 b = (sender as Button).DataContext as Bus1;
+            //MainWindow.bgw1 = new BackgroundWorker(); //reset the care backgrounder
+            //MainWindow.bgw1.DoWork += MainWindow.bgw1_DoWork;
+            //MainWindow.bgw1.ProgressChanged += MainWindow.bgw1_ProgressChanged;
+            //MainWindow.bgw1.RunWorkerCompleted += MainWindow.bgw1_RunWorkerCompleted;
+            //MainWindow.bgw1.WorkerReportsProgress = true;
+            //MainWindow.bgw1.RunWorkerAsync(b); //send the current bus to care
+            //if (b.kmOfLastRefuel > 1000) //checking fuel
+            //    MainWindow.bgw2.RunWorkerAsync(b); //send the current bus to refuel
         }
 
         private void refuelB_Click(object sender, RoutedEventArgs e)

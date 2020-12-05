@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 
-//                <TextBlock Text="{Binding Path=kmOfLastCare}" Grid.Column="4" HorizontalAlignment="Center" />
+//<TextBlock Text="{Binding Path=kmOfLastCare}" Grid.Column="4" HorizontalAlignment="Center" />
 
 namespace dotNet5781_3B_4484_2389
 {
@@ -51,6 +51,8 @@ namespace dotNet5781_3B_4484_2389
         }
         private void AddBus_Click(object sender, RoutedEventArgs e)
         {
+            AddBus addB = new AddBus();
+            addB.ShowDialog();
 
         }
 

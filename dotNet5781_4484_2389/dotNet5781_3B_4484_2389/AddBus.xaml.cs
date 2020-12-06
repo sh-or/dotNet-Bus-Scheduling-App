@@ -25,8 +25,9 @@ namespace dotNet5781_3B_4484_2389
         public int kmOfLastCare;
         public int kmOfLastRefuel;
         public int kilometerage;
+        public Bus1 bs;
 
-        public AddBus()
+            public AddBus()
         {
             InitializeComponent();
         }
@@ -80,36 +81,42 @@ namespace dotNet5781_3B_4484_2389
         //    TextBox text = sender as TextBox;
         //    kmOfLastRefuel = int.Parse(text.Text);
         //}
-               
-        private void licenceNum_TextInput(object sender, TextCompositionEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            licenseNum = int.Parse(text.Text);
-        }
 
-        private void km_TextInput(object sender, TextCompositionEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            kilometerage = int.Parse(text.Text);
-        }
+        //private void licenceNum_TextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    licenseNum = int.Parse(text.Text);
+        //}
 
-        private void KmFromLastRefuel_TextInput(object sender, TextCompositionEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            kmOfLastCare = int.Parse(text.Text);
-        }
+        //private void km_TextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    kilometerage = int.Parse(text.Text);
+        //}
 
-        private void KmFromLastCare_TextInput(object sender, TextCompositionEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            kmOfLastRefuel = int.Parse(text.Text);
-        }
+        //private void KmFromLastRefuel_TextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    kmOfLastCare = int.Parse(text.Text);
+        //}
+
+        //private void KmFromLastCare_TextInput(object sender, TextCompositionEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    kmOfLastRefuel = int.Parse(text.Text);
+        //}
         private void addBusButton_Click(object sender, RoutedEventArgs e)
         {
-            Bus1 bs = new Bus1(licenseNum, beginning, lastCare, kmOfLastCare, kmOfLastRefuel, kilometerage);
-            // buses.Add(bus);
+            licenseNum= int.Parse(licenceNum.Text);
+            beginning = DateTime.Parse(begin.Text);
+            lastCare= DateTime.Parse(care.Text);
+            kmOfLastCare= int.Parse(KmFromLastCare.Text);
+            kmOfLastRefuel = int.Parse(KmFromLastRefuel.Text);
+            kilometerage = int.Parse(km.Text);
+            bs = new Bus1(licenseNum, beginning, lastCare, kmOfLastCare, kmOfLastRefuel, kilometerage);
             this.Close();
         }
+
     }
 }
 

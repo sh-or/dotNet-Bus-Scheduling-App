@@ -25,18 +25,18 @@
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Label Content="* Licence number:" HorizontalAlignment="Right"  Grid.Row="2" VerticalAlignment="Center" />
-        <TextBox Name="licenceNum"  HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" TextInput="licenceNum_TextInput"  />
+        <TextBox Name="licenceNum"  HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"   />
         <Label Content="Kilometerage:"  HorizontalAlignment="Right"  Grid.Row="3" VerticalAlignment="Center" />
-        <TextBox Name="km" TextInput="km_TextInput"  HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
+        <TextBox Name="km"   HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
         <Label Content="* Start in:" HorizontalAlignment="Right"  Grid.Row="4" VerticalAlignment="Center" />
-        <DatePicker Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Width="100"/>
+        <DatePicker Name="begin" Grid.Column="2"  DisplayDateEnd="12.07.2020" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Width="100"/>
         <Label Content="Km from Last Care:" HorizontalAlignment="Right"  Grid.Row="5" VerticalAlignment="Center" />
-        <TextBox Name="KmFromLastCare" TextInput="KmFromLastCare_TextInput"  HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
+        <TextBox Name="KmFromLastCare"   HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
         <Label Content="* Date of Last Care:" HorizontalAlignment="Right"  Grid.Row="6" VerticalAlignment="Center" />
-        <DatePicker Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Center" Width="100"/>
+        <DatePicker Name="care" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Center" Width="100"/>
         <Label Content="Km from Last Refuel:" HorizontalAlignment="Right"  Grid.Row="7" VerticalAlignment="Center" />
-        <TextBox Name="KmFromLastRefuel"  TextInput="KmFromLastRefuel_TextInput"  HorizontalAlignment="Left"  Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
-        <Button Name="addBusButton" Grid.ColumnSpan="3" Content="Add Bus" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Bottom"  Width="75" Click="addBusButton_Click" />
+        <TextBox Name="KmFromLastRefuel"  HorizontalAlignment="Left"  Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
+        <Button Name="addBusButton"  Grid.ColumnSpan="3" Content="Add Bus" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Bottom"  Width="75" Click="addBusButton_Click" />
         <Label Content="* requird" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Row="9" VerticalAlignment="Top"/>
     </Grid>
 </Window>

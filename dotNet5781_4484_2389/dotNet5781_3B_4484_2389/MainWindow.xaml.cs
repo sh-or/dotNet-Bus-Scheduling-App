@@ -49,11 +49,19 @@ namespace dotNet5781_3B_4484_2389
             buses.Add(new Bus1(10000011, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 19800, 0, 19800)); //km of care
             buses.Add(new Bus1(10000012, DateTime.Today.AddMonths(-6), DateTime.Today.AddMonths(-6), 0, 1100, 1100)); //close to refuel
         }
-        private void AddBus_Click(object sender, RoutedEventArgs e)
+        private void AddBus_Click(object sender, RoutedEventArgs e)  //add bus
         {
             AddBus addB = new AddBus();
+            addB.Closed += AddB_Closed;
             addB.ShowDialog();
 
+        }
+
+        private void AddB_Closed(object sender, EventArgs e)  //add the new bus to list buses
+        {
+            Bus1 bus = ((AddBus)sender).bs;
+            buses.Add(bus);
+            busesLB.Items.Refresh();
         }
 
         private void ChooseBus_Click(object sender, RoutedEventArgs e) //choosing bus for a ride

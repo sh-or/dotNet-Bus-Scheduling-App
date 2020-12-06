@@ -24,6 +24,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF6ED8F7" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Label Content="* Licence number:" HorizontalAlignment="Right"  Grid.Row="2" VerticalAlignment="Center" />
         <TextBox Name="licenceNum" MaxLength="8" HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"   />
         <Label Content="Kilometerage:"  HorizontalAlignment="Right"  Grid.Row="3" VerticalAlignment="Center" />

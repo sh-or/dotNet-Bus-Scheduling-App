@@ -113,6 +113,18 @@ namespace dotNet5781_3B_4484_2389
             kmOfLastCare= int.Parse(KmFromLastCare.Text);
             kmOfLastRefuel = int.Parse(KmFromLastRefuel.Text);
             kilometerage = int.Parse(km.Text);
+
+            if (licenseNum < 1000000)
+            {
+                MessageBox.Show("ERROR! The license number is too short");
+                return;
+            }
+            if((licenseNum>9999999 && beginning.Year < 2018) || (licenseNum <10000000 && beginning.Year >= 2018))
+            {
+                MessageBox.Show("ERROR! The license number doesn't fit the beginnig date");
+                return;
+            }
+
             bs = new Bus1(licenseNum, beginning, lastCare, kmOfLastCare, kmOfLastRefuel, kilometerage);
             this.Close();
         }

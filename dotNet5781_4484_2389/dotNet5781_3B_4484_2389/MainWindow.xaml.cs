@@ -54,14 +54,18 @@ namespace dotNet5781_3B_4484_2389
             AddBus addB = new AddBus();
             addB.Closed += AddB_Closed;
             addB.ShowDialog();
-
         }
 
         private void AddB_Closed(object sender, EventArgs e)  //add the new bus to list buses
         {
             Bus1 bus = ((AddBus)sender).bs;
-            buses.Add(bus);
-            busesLB.Items.Refresh();
+            if (buses.Where(x => x.LicenseNum == bus.LicenseNum)== null)
+                MessageBox.Show("ERROR! This license number is allready exist in the system");
+            else
+            {
+                buses.Add(bus);
+                busesLB.Items.Refresh();
+            }
         }
 
         private void ChooseBus_Click(object sender, RoutedEventArgs e) //choosing bus for a ride

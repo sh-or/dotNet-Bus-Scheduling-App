@@ -12,7 +12,31 @@ namespace dotNet5781_3B_4484_2389
     {
         public Random r = new Random(DateTime.Now.Millisecond);
 
-        public int licenseNum { get; set; }   // save license number 
+        private int licenseNum;   // save license number 
+        public string LicenseNum
+        {
+            get
+            {
+                string v = licenseNum.ToString();
+                if (v.Length == 8)
+                {
+                    int A = licenseNum / 100000;
+                    int B = licenseNum / 1000 % 100;
+                    int C = licenseNum % 1000;
+                  //  v.ToString. Format(@"ccc-cc-ccc");
+                    return (A + "-" + B + "-" + C);
+                }
+
+                else
+                {
+                    int A = licenseNum / 100000;
+                    int B = licenseNum / 100 % 1000;
+                    int C = licenseNum % 100;
+                    return (A + "-" + B + "-" + C);
+                }
+            }
+            set { }
+        }
         public DateTime beginning { get; set; }  //Save the date the bus was added
          //  private DateTime lastCare; //save the date of last care
         public DateTime lastCare { get; set; } //save the date of last care
@@ -49,7 +73,7 @@ namespace dotNet5781_3B_4484_2389
             kmOfLastCare = kmLastCare;
             kmOfLastRefuel = kmLastRefuel;
             Fuel = 1 - kmOfLastRefuel / 1200.0;
-            if (km == 0)
+            if (km < kmOfLastCare|| km < kmOfLastRefuel)
                 kilometerage = Math.Max(kmLastCare, kmLastRefuel);
             else
                 kilometerage = km;

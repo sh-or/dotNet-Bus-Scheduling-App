@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="ChooseBus" Content="Drive!" Grid.Column="1" Width="40" Height="30" HorizontalAlignment="Left"  Click="ChooseBus_Click"/>
-                <TextBlock Text="{Binding Path=licenseNum}" Grid.Column="2" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding Path=LicenseNum}" Grid.Column="2" HorizontalAlignment="Left"/>
                 <TextBlock Text="{Binding Path=Kilometerage}" Grid.Column="3" HorizontalAlignment="Center" />
                 <ProgressBar Grid.Column="4" Minimum="0" Maximum="1" Value="{Binding Fuel}" />
                 <TextBlock Text="{Binding Path=kmOfLastRefuel}" Grid.Column="5" HorizontalAlignment="Center" />

@@ -39,10 +39,10 @@
         <Label Content="Date of Last Care:" HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,4.667,296.333,4.667"/>
         <Label Content="Km from Last Refuel:" HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,4.333,296.333,4.333"/>
 
-        <Button Name="careB" Content="Go Care" HorizontalAlignment="Left" Margin="58.667,6.667,0,7" Grid.Row="8" VerticalAlignment="Center" Width="75" Click="careB_Click" Grid.Column="1"/>
-        <Button x:Name="refuelB" Content="Go Refuel" HorizontalAlignment="Left" Margin="34.334,6.667,0,7" Grid.Row="8" VerticalAlignment="Center" Width="75" Click="refuelB_Click" Grid.Column="2"/>
+        <Button Name="careB" Content="Go Care" IsEnabled="{Binding Path=isAvailable}" HorizontalAlignment="Left" Margin="58.667,6.667,0,7" Grid.Row="8" VerticalAlignment="Center" Width="75" Click="careB_Click" Grid.Column="1"/>
+        <Button x:Name="refuelB" Content="Go Refuel" IsEnabled="{Binding Path=isAvailable}" HorizontalAlignment="Left" Margin="34.334,6.667,0,7" Grid.Row="8" VerticalAlignment="Center" Width="75" Click="refuelB_Click" Grid.Column="2"/>
 
-        <TextBlock Name="tb1" Text="{Binding Path=licenseNum}" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2"/>
+        <TextBlock Name="tb1" Text="{Binding Path=showLicenseNum}" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2"/>
         <TextBlock Name="tb2" Text="{Binding Path=status}" HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,10,0,9.333"/>
         <TextBlock Name="tb3" Text="{Binding Path=Kilometerage}" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.667,0,9.667"/>
         <TextBlock Name="tb4" Text="{Binding Path=beginning}" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.333,0,10"/>

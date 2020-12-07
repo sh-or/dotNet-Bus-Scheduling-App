@@ -11,35 +11,23 @@ namespace dotNet5781_3B_4484_2389
     public class Bus1
     {
         public Random r = new Random(DateTime.Now.Millisecond);
-
-        private int licenseNum;   // save license number 
-        public string LicenseNum
+        public bool isAvailable { get; set; } //is in drive/care/refuel?
+        public string timerAct { get; set; } //timer for coming back from the act
+        public int licenseNum { get; set; }   // save license number 
+        public string showLicenseNum
         {
             get
             {
                 string v = licenseNum.ToString();
                 if (v.Length == 8)
-                {
-                    int A = licenseNum / 100000;
-                    int B = licenseNum / 1000 % 100;
-                    int C = licenseNum % 1000;
-                  //  v.ToString. Format(@"ccc-cc-ccc");
-                    return (A + "-" + B + "-" + C);
-                }
-
+                    return (v[0]+v[1]+v[2] + "-" + v[3] + v[4] + "-" + v[5] + v[6] + v[7]);
                 else
-                {
-                    int A = licenseNum / 100000;
-                    int B = licenseNum / 100 % 1000;
-                    int C = licenseNum % 100;
-                    return (A + "-" + B + "-" + C);
-                }
+                    return (v[0] + v[1] + "-" + v[2] + v[3] + v[4] + "-" + v[5] + v[6]);
             }
-            set { }
         }
         public DateTime beginning { get; set; }  //Save the date the bus was added
-         //  private DateTime lastCare; //save the date of last care
-        public DateTime lastCare { get; set; } //save the date of last care
+        private DateTime LastCare; //save the date of last care
+        public DateTime lastCare { get { return LastCare; } set { LastCare = value; } } //save the date of last care
         public int kmOfLastCare { get; set; }  //save the kilometers from last care
         public int kmOfLastRefuel { get; set; } //save the kilometers from last refuel
         public double Fuel { get; set; } //save the fuel state according to kmOfLastRefuel
@@ -87,6 +75,8 @@ namespace dotNet5781_3B_4484_2389
             }
             else
                 status = (Status)1; //ready
+            isAvailable = true;
+            timerAct = "";
         }
 
         public bool isReady(int numOfKm)   //check the fuel and care of asked bus and ride

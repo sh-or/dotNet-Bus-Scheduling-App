@@ -14,6 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+// < !---< Label Content = "--" HorizontalAlignment = "Center" Grid.Row = "1" VerticalAlignment = "Center" Grid.Column = "4" Height = "26" Width = "92" Grid.ColumnSpan = "3" />              
+// < Label Content = "--" HorizontalAlignment = "Center" Grid.Row = "1" VerticalAlignment = "Center" Grid.Column = "5" Height = "26"  Width = "100" Grid.ColumnSpan = "3" /> -->
+//<TextBlock Text="{Binding Path=kmOfLastRefuel}" Grid.Column="5" HorizontalAlignment="Center" />
+//< TextBlock Text = "{Binding Path=LastCare}" Grid.Column = "6" HorizontalAlignment = "Left" />
 
 //<TextBlock Text="{Binding Path=kmOfLastCare}" Grid.Column="4" HorizontalAlignment="Center" />
 
@@ -59,12 +63,13 @@ namespace dotNet5781_3B_4484_2389
         private void AddB_Closed(object sender, EventArgs e)  //add the new bus to list buses
         {
             Bus1 bus = ((AddBus)sender).bs;
-            if (buses.Where(x => x.LicenseNum == bus.LicenseNum)== null)
+            if (buses.Contains(bus)) //Where(x => x.licenseNum == bus.licenseNum).ToList())
                 MessageBox.Show("ERROR! This license number is allready exist in the system");
             else
             {
                 buses.Add(bus);
                 busesLB.Items.Refresh();
+                MessageBox.Show("The bus was added successfully");
             }
         }
 
@@ -83,6 +88,7 @@ namespace dotNet5781_3B_4484_2389
                 //(sender as Button).IsEnabled = false;
                 bgw.RunWorkerAsync(b); //sending the current bus to drive
                 //bgw.RunWorkerAsync(sender as Button); //sending the sender details
+                MessageBox.Show("The bus left to the ride!");
             }
             else
             { //appropriate message:
@@ -102,8 +108,13 @@ namespace dotNet5781_3B_4484_2389
             Bus1 b = (Bus1)e.Argument; //get current bus
             //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
             b.status = (Status)4; //="InDrive"
-            bgw.ReportProgress(4); //present changes
-            System.Threading.Thread.Sleep((num / r.Next(20, 51)) * 60 * 100); //wait 0.1 sec(=sleep(100)) for 1 minute of ride
+            b.isAvailable = false; //not available
+            for (int i = (num / r.Next(20, 51)) * 6; i > 0; i--)
+            {
+                b.timerAct = "Coming back in " + bgwTimer(i);
+                System.Threading.Thread.Sleep(1000); //wait 0.1 sec(=sleep(100)) for 1 minute of ride
+                bgw.ReportProgress(4); //present changes
+            }
             //System.Threading.Thread.Sleep(3000); //example 3 sec
             //update the changes from the ride: (after the ride)
             b.Kilometerage += num;
@@ -116,7 +127,8 @@ namespace dotNet5781_3B_4484_2389
                 b.status = (Status)3; //= need refuel 
             else
                 b.status = (Status)1; //= ready 
-            //(e.Argument as Button).IsEnabled = true;
+            b.isAvailable = true; //available
+            b.timerAct = "";
         }
         public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -146,8 +158,13 @@ namespace dotNet5781_3B_4484_2389
             Bus1 b = (Bus1)e.Argument; //get current bus
             //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
             b.status = (Status)5; //="InCare"
-            bgw1.ReportProgress(5); //present changes
-            System.Threading.Thread.Sleep(144 * 1000); //wait 24 hours of care
+            b.isAvailable = false; //not available
+            for (int i = 144; i > 0; i--)
+            {
+                b.timerAct = "Coming back in " + bgwTimer(i);
+                System.Threading.Thread.Sleep(1000); //wait 24 hours of care
+                bgw1.ReportProgress(5); //present changes
+            }
             //System.Threading.Thread.Sleep(3000); //example 3 sec
             //bgw.ReportProgress(1); //timer?
 
@@ -156,7 +173,8 @@ namespace dotNet5781_3B_4484_2389
             b.kmOfLastCare = 0;
             if(b.kmOfLastRefuel < 1000)
                 b.status = (Status)1; //= Ready  (if not-will go to refuel from the calling event)
-            //(e.Argument as Button).IsEnabled = true;
+            b.isAvailable = true; //available
+            b.timerAct = "";
         }
         public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -182,9 +200,11 @@ namespace dotNet5781_3B_4484_2389
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
             b.status = (Status)6; //="InRefuel"
+            b.isAvailable = false; //not available
             double tmp = b.Fuel;
-            for(int i=0;i<12;i++)
+            for(int i=12;i>0;i--)
             {
+                b.timerAct = "Coming back in "+bgwTimer(i);
                 System.Threading.Thread.Sleep(1000); //wait 2 hours of refuel
                 b.Fuel += (1 - tmp) / 12.0;
                 bgw2.ReportProgress(1); //present changes
@@ -193,6 +213,8 @@ namespace dotNet5781_3B_4484_2389
             b.kmOfLastRefuel = 0;
             b.Fuel = 1200.0;
             b.status = (Status)1; //= Ready 
+            b.isAvailable = true; //available
+            b.timerAct = "";
         }
         public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -203,6 +225,21 @@ namespace dotNet5781_3B_4484_2389
             busesLB.Items.Refresh(); //to show the new status in the list
         }
 
+        public static string bgwTimer(int i) //describe the time that left to the end of the act
+        {
+            string str;
+            if (i >= 60)
+            {
+                if (i / 60 / 10 != 0)
+                    str = i / 60 + ":";
+                else str = "0" + i / 60 + ":";
+            }
+            else str = "00:";
+            if (i % 60 < 10)
+                str += "0" + i%60;
+            else str += i % 60;
+            return str;
+        }
         private void busesLB_MouseDoubleClick(object sender, MouseButtonEventArgs e) //double click for details
         {
             Bus1 b = (sender as ListBox).SelectedValue as Bus1;

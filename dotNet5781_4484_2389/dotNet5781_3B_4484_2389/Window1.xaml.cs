@@ -37,6 +37,8 @@ namespace dotNet5781_3B_4484_2389
                 MainWindow.numOfKm = int.Parse(text.Text);
                //  var.status=(Status)4;
                 this.Close();
+                e.Handled = true; 
+                return;
             }
 
             //allow list of system keys (add other key here if you want to allow)
@@ -61,7 +63,6 @@ namespace dotNet5781_3B_4484_2389
 
         private void kmInput_TextChanged(object sender, TextChangedEventArgs e) //input km for ride(max 4 digits)
         {
-            // if(e == Enter)
         }
     }
 }

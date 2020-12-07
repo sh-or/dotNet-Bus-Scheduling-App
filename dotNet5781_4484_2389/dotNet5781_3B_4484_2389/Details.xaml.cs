@@ -20,6 +20,9 @@ namespace dotNet5781_3B_4484_2389
     /// </summary>
     public partial class Details : Window
     {
+        //public static BackgroundWorker bgw1;  // BackgroundWorker care
+        //public static BackgroundWorker bgw2;  // BackgroundWorker refuel
+
         public Details(Bus1 b) //get the current bus
         {
             InitializeComponent();

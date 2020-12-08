@@ -116,12 +116,12 @@ namespace dotNet5781_3B_4484_2389
 
             if (licenseNum < 1000000)
             {
-                MessageBox.Show("ERROR! The license number is too short");
+                MessageBox.Show("ERROR! The license number is too short", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if((licenseNum>9999999 && beginning.Year < 2018) || (licenseNum <10000000 && beginning.Year >= 2018))
             {
-                MessageBox.Show("ERROR! The license number doesn't fit the beginnig date");
+                MessageBox.Show("ERROR! The license number doesn't fit the beginnig date", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

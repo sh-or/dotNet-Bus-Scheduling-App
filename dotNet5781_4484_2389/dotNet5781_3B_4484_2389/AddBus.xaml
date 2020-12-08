@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:dotNet5781_3B_4484_2389"
+
         mc:Ignorable="d"
         Title="Add Bus" Height="350" Width="500">
     <Grid>
@@ -46,4 +47,5 @@
         <Button Name="addBusButton"  Grid.ColumnSpan="3" Content="Add Bus" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Bottom"  Width="75" Click="addBusButton_Click" />
         <Label Content="* requird" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Row="9" VerticalAlignment="Top"/>
     </Grid>
+    
 </Window>

@@ -93,13 +93,13 @@ namespace dotNet5781_3B_4484_2389
             else
             { //appropriate message:
                 if (b.status == (Status)2)
-                    MessageBox.Show("The bus need care");
+                    MessageBox.Show("The bus need care", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 else if (b.status == (Status)3)
-                    MessageBox.Show("The bus need refuel");
+                    MessageBox.Show("The bus need refuel", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 else if ((numOfKm + b.kmOfLastCare) > 20000) //the km from last care
-                    MessageBox.Show("The bus will pass the permitted kilometerage before care");
+                    MessageBox.Show("The bus will pass the permitted kilometerage before care", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 else if ((numOfKm + b.kmOfLastRefuel) > 1200) //the km from last refuel
-                    MessageBox.Show("There is no enough fuel for this ride");
+                    MessageBox.Show("There is no enough fuel for this ride", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         public void bgw_DoWork(object sender, DoWorkEventArgs e) //going on ride
@@ -107,7 +107,9 @@ namespace dotNet5781_3B_4484_2389
             int num = numOfKm; //save the current distance for this ride
             Bus1 b = (Bus1)e.Argument; //get current bus
             //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
+
             b.status = (Status)4; //="InDrive"
+                                  //     busesLB.Background = SolidColorBrush.ColorProperty.Name
             b.isAvailable = false; //not available
             for (int i = (num / r.Next(20, 51)) * 6; i > 0; i--)
             {
@@ -132,6 +134,8 @@ namespace dotNet5781_3B_4484_2389
         }
         public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+           // busesLB.Background = Brushes.Blue;
+
             busesLB.Items.Refresh(); //to show the new status in the list
         }
         public void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //finishing ride

@@ -26,26 +26,7 @@
                 <TextBlock Text="{Binding Path=Kilometerage}" Grid.Column="3" HorizontalAlignment="Center" />
                 <ProgressBar Grid.Column="4" Minimum="0" Maximum="1" Value="{Binding Fuel}" />
                 <TextBlock Text="{Binding Path=timerAct}" Grid.Column="6" HorizontalAlignment="Stretch"/>
-                <TextBlock Text="{Binding Path=status}" Grid.Column="7" HorizontalAlignment="Center">
-                    <TextBlock.Resources>
-                        <Style TargetType="ListBoxItem">
-                           
-                            <Style.Triggers>
-                                <Trigger Property="ContentStringFormat" Value="InDrive" >
-                                    <Setter Property="Background" Value="LightGreen"></Setter>
-                                </Trigger>
-                                <Trigger Property="Content" Value="InDrive">
-                                    <Setter Property="Background" Value="LightPink"></Setter>
-                                </Trigger>
-                               
-                            </Style.Triggers>
-                            
-                            <Style.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
-                            </Style.Resources>
-                        </Style>
-                    </TextBlock.Resources>
-                </TextBlock>
+                <TextBlock Text="{Binding Path=status}" Grid.Column="7" HorizontalAlignment="Center"/>
                 <Button x:Name="GoCare"  Content="Go" IsEnabled="{Binding Path=isAvailable}" Height="30"  Width="40" Grid.Column="8" Click="GoCare_Click"/>
                 <Button x:Name="GoRefuel" Content="Go" IsEnabled="{Binding Path=isAvailable}" Height="30"  Width="40" Grid.Column="9" Click="GoRefuel_Click"/>
             </Grid>
@@ -94,17 +75,29 @@
         <ListBox Name="busesLB" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Center" Height="270" Margin="11,0,11,11.333" Grid.Row="2" VerticalAlignment="Bottom" Width="772" Grid.ColumnSpan="13" MouseDoubleClick="busesLB_MouseDoubleClick"  >
             <ListBox.Resources>
                 <Style TargetType="ListBoxItem">
-
                     <Style.Triggers>
-                        <Trigger Property="DataContext" Value="InCare">
-                            <Setter Property="Background" Value="LightGreen"></Setter>
-                        </Trigger>
-                        <Trigger Property="Content"  Value="InDrive">
-                            <Setter Property="Background" Value="LightPink"></Setter>
-                        </Trigger>
+                        
+                        <DataTrigger Binding="{Binding Path=status}" Value="InDrive">
+                            <Setter Property="Background" Value="#FF8DEBF0"/>
+                        </DataTrigger>
 
+                        <DataTrigger Binding="{Binding Path=status}" Value="InRefuel">
+                            <Setter Property="Background" Value="#FFCFF3CB"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Path=status}" Value="InCare">
+                            <Setter Property="Background" Value="#FF96C7CF"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Path=status}" Value="NeedRefeul">
+                            <Setter Property="Background" Value="#FFFDDE8B" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Path=status}" Value="NeedCare">
+                            <Setter Property="Background" Value="#FFFDDE8B"/>
+                        </DataTrigger>
                     </Style.Triggers>
-
+                    
                     <Style.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
                     </Style.Resources>

@@ -150,6 +150,7 @@ namespace dotNet5781_3B_4484_2389
             //(sender as Button).IsEnabled = false;
             bgw1.RunWorkerAsync(b); //send the current bus to care
             //bgw1.RunWorkerAsync(sender as Button); //sending to care with the sender details
+
             if (b.kmOfLastRefuel > 1000) //checking fuel
                 bgw2.RunWorkerAsync(b); //send the current bus to refuel
         }
@@ -247,8 +248,6 @@ namespace dotNet5781_3B_4484_2389
             details.ShowDialog();
         }
     }
-
-
 
 }
 

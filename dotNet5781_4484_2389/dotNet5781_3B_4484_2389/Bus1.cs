@@ -46,12 +46,17 @@ namespace dotNet5781_3B_4484_2389
                 kilometerage = value;
             }
         }
+        public string Begin
+        {
+            get { return beginning.ToString(@"dd\/MM\/yyyy"); }
+            set { }
+        }
 
-        //public string LastCare
-        //{
-        //    get { //return lastCare.ToString(@"dd\/MM\/yyyy"); }
-        //    set { }
-        //}
+        public string LCare
+        {
+            get { return lastCare.ToString(@"dd\/MM\/yyyy"); }
+            set { }
+        }
 
         public Bus1(int liceNum, DateTime begin, DateTime lastC, int kmLastCare=0, int kmLastRefuel=0, int km=0)  //c-tor 
         {

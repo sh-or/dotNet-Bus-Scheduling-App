@@ -45,9 +45,9 @@
         <TextBlock Name="tb1" Text="{Binding Path=showLicenseNum}" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2"/>
         <TextBlock Name="tb2" Text="{Binding Path=status}" HorizontalAlignment="Left"  Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,10,0,9.333"/>
         <TextBlock Name="tb3" Text="{Binding Path=Kilometerage}" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.667,0,9.667"/>
-        <TextBlock Name="tb4" Text="{Binding Path=beginning}" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.333,0,10"/>
+        <TextBlock Name="tb4" Text="{Binding Path=Begin}" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.333,0,10"/>
         <TextBlock Name="tb5" Text="{Binding Path=kmOfLastCare}" HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,10,0,9.333"/>
-        <TextBlock Name="tb6" Text="{Binding Path=lastCare}" HorizontalAlignment="Left"  Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.667,0,9.667"/>
+        <TextBlock Name="tb6" Text="{Binding Path=LCare}" HorizontalAlignment="Left"  Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.667,0,9.667"/>
         <TextBlock Name="tb7" Text="{Binding Path=kmOfLastRefuel}" HorizontalAlignment="Left" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Center" Grid.Column="2" Margin="0.334,9.333,0,9.333"/>
 
     </Grid>

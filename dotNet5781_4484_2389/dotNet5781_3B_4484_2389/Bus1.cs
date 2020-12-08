@@ -11,6 +11,16 @@ namespace dotNet5781_3B_4484_2389
     public class Bus1
     {
         public Random r = new Random(DateTime.Now.Millisecond);
+        //public bool timer
+        //{
+        //    get
+        //    {
+        //        if (timerAct != "")
+        //            return true;
+        //        else return false;
+        //    }
+        //    set { }
+        //}
         public bool isAvailable { get; set; } //is in drive/care/refuel?
         public string timerAct { get; set; } //timer for coming back from the act
         public int licenseNum { get; set; }   // save license number 

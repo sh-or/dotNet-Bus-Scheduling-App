@@ -28,11 +28,21 @@
                 <TextBlock Text="{Binding Path=timerAct}" Grid.Column="6" HorizontalAlignment="Stretch"/>
                 <TextBlock Text="{Binding Path=status}" Grid.Column="7" HorizontalAlignment="Center">
                     <TextBlock.Resources>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Background" Value="LightGreen"/>
+                        <Style TargetType="ListBoxItem">
+                           
                             <Style.Triggers>
+                                <Trigger Property="ContentStringFormat" Value="InDrive" >
+                                    <Setter Property="Background" Value="LightGreen"></Setter>
+                                </Trigger>
+                                <Trigger Property="Content" Value="InDrive">
+                                    <Setter Property="Background" Value="LightPink"></Setter>
+                                </Trigger>
                                
                             </Style.Triggers>
+                            
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                            </Style.Resources>
                         </Style>
                     </TextBlock.Resources>
                 </TextBlock>
@@ -82,7 +92,24 @@
         <Label Content="Care" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="9" Height="26" Margin="13.333,3,12.667,3" Width="34" />
         <Label Content="Refuel" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="10" Height="26" Margin="8.333,3,8.667,3" Width="43"   />
         <ListBox Name="busesLB" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Center" Height="270" Margin="11,0,11,11.333" Grid.Row="2" VerticalAlignment="Bottom" Width="772" Grid.ColumnSpan="13" MouseDoubleClick="busesLB_MouseDoubleClick"  >
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
 
+                    <Style.Triggers>
+                        <Trigger Property="DataContext" Value="InCare">
+                            <Setter Property="Background" Value="LightGreen"></Setter>
+                        </Trigger>
+                        <Trigger Property="Content"  Value="InDrive">
+                            <Setter Property="Background" Value="LightPink"></Setter>
+                        </Trigger>
+
+                    </Style.Triggers>
+
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                    </Style.Resources>
+                </Style>
+            </ListBox.Resources>
         </ListBox>
     </Grid>
 </Window>

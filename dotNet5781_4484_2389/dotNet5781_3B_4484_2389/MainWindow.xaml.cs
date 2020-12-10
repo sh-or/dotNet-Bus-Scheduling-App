@@ -31,9 +31,10 @@ namespace dotNet5781_3B_4484_2389
         public static BackgroundWorker bgw;  // BackgroundWorker drive
         public static BackgroundWorker bgw1;  // BackgroundWorker care
         public static BackgroundWorker bgw2;  // BackgroundWorker refuel
-        public static List<Bus1> lst = new List<Bus1>(); //global buses list
         public Random r = new Random(DateTime.Now.Millisecond);
         public static ObservableCollection<Bus1> buses = new ObservableCollection<Bus1>();  //the buses collection
+        //public static int numOfBuses() { get{ return buses.Count; } set{ } }; //sum of buses in the collection
+
         public static int numOfKm { get; set; } //input from the user
         public MainWindow()
         {
@@ -42,6 +43,7 @@ namespace dotNet5781_3B_4484_2389
                 InitializeComponent();
                 restart(); //restart buses, include 3 asked
                 busesLB.ItemsSource = buses;
+                sumBuses.DataContext = buses;
             }
             catch (Exception ex)
             {

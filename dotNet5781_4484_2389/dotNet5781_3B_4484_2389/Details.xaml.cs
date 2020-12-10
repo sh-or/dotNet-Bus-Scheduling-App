@@ -24,21 +24,32 @@ namespace dotNet5781_3B_4484_2389
         {
             InitializeComponent(); 
             tb1.DataContext = b; //lcn
-            tb2.DataContext = b.status; //status
-            tb3.DataContext = b.Kilometerage; //kms
+            tb2.DataContext = b;//.status; //status
+            tb3.DataContext = b;//.Kilometerage; //kms
             tb4.DataContext = b; //start
             tb5.DataContext = b; //km care
             tb6.DataContext = b; //date care
             tb7.DataContext = b; //km refuel
         }
 
-        private void careB_Click(object sender, RoutedEventArgs e)
+        private void careB_Click(object sender, RoutedEventArgs e)  //care button
         {
             Bus1 b = ((MainWindow)Application.Current.MainWindow).findBus(tb1.Text);
             ((MainWindow)Application.Current.MainWindow).caring(b);
+          //  NotifyPropertyChanged("status");
         }
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        private void refuelB_Click(object sender, RoutedEventArgs e)
+        //private void NotifyPropertyChanged(String propertyName = "status")
+        //{
+        //    if (PropertyChanged != null)
+        //    {
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //    }
+        //}
+
+
+        private void refuelB_Click(object sender, RoutedEventArgs e)  //refuel button
         {
             Bus1 b = ((MainWindow)Application.Current.MainWindow).findBus(tb1.Text);
             ((MainWindow)Application.Current.MainWindow).refueling(b);

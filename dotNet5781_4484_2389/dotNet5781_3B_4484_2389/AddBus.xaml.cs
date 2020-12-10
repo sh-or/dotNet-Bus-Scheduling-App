@@ -58,53 +58,6 @@ namespace dotNet5781_3B_4484_2389
             return;
         } //checking if the input contains digits only
 
-        //private void licenceNum_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    licenseNum = int.Parse(text.Text);
-        //}
-
-        //private void km_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    kilometerage = int.Parse(text.Text);
-        //}
-
-        //private void KmFromLastCare_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    kmOfLastCare = int.Parse(text.Text);
-        //}
-
-        //private void KmFromLastRefuel_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    kmOfLastRefuel = int.Parse(text.Text);
-        //}
-
-        //private void licenceNum_TextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    licenseNum = int.Parse(text.Text);
-        //}
-
-        //private void km_TextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    kilometerage = int.Parse(text.Text);
-        //}
-
-        //private void KmFromLastRefuel_TextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    kmOfLastCare = int.Parse(text.Text);
-        //}
-
-        //private void KmFromLastCare_TextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    TextBox text = sender as TextBox;
-        //    kmOfLastRefuel = int.Parse(text.Text);
-        //}
         private void addBusButton_Click(object sender, RoutedEventArgs e)
         {
             licenseNum= int.Parse(licenceNum.Text);
@@ -114,19 +67,19 @@ namespace dotNet5781_3B_4484_2389
             kmOfLastRefuel = int.Parse(KmFromLastRefuel.Text);
             kilometerage = int.Parse(km.Text);
 
-            if (licenseNum < 1000000)
+            if (licenseNum < 1000000) //license number is shorter than 7 digits
             {
                 MessageBox.Show("ERROR! The license number is too short", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if((licenseNum>9999999 && beginning.Year < 2018) || (licenseNum <10000000 && beginning.Year >= 2018))
+            if((licenseNum>9999999 && beginning.Year < 2018) || (licenseNum <10000000 && beginning.Year >= 2018)) //license number and date don't match
             {
                 MessageBox.Show("ERROR! The license number doesn't fit the beginnig date", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             bs = new Bus1(licenseNum, beginning, lastCare, kmOfLastCare, kmOfLastRefuel, kilometerage);
-            this.Close();
+            Close();
         }
 
     }

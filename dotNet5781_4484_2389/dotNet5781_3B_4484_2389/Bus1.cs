@@ -97,7 +97,8 @@ namespace dotNet5781_3B_4484_2389
             }
             else
                 status = (Status)1; //ready
-            isAvailable = true;
+            isAvailable = true/*(status== (Status)1)*/;
+
             timerAct = "";
         }
 

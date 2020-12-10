@@ -156,7 +156,9 @@ namespace dotNet5781_3B_4484_2389
             //bgw1.RunWorkerAsync(sender as Button); //sending to care with the sender details
 
             if (b.kmOfLastRefuel > 1000) //checking fuel
+            {
                 bgw2.RunWorkerAsync(b); //send the current bus to refuel
+            }
         }
         public void bgw1_DoWork(object sender, DoWorkEventArgs e)
         {

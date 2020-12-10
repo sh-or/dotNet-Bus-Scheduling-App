@@ -18,10 +18,11 @@ namespace dotNet5781_3B_4484_2389
         public string showLicenseNum
         {
             get
-            {
+            {                
                 string v = licenseNum.ToString();
                 if (v.Length == 8)
-                    return (v[0]+v[1]+v[2] + "-" + v[3] + v[4] + "-" + v[5] + v[6] + v[7]);
+
+                    return (v[0] + v[1] + v[2] + "-" + v[3] + v[4] + "-" + v[5] + v[6] + v[7]);
                 else
                     return (v[0] + v[1] + "-" + v[2] + v[3] + v[4] + "-" + v[5] + v[6]);
             }

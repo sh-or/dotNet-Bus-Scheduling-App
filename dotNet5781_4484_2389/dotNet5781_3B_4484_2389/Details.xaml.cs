@@ -20,36 +20,28 @@ namespace dotNet5781_3B_4484_2389
     /// </summary>
     public partial class Details : Window
     {
-        //public static BackgroundWorker bgw1;  // BackgroundWorker care
-        //public static BackgroundWorker bgw2;  // BackgroundWorker refuel
-
         public Details(Bus1 b) //get the current bus
         {
-            InitializeComponent();
-            tb1.DataContext = b;
-            tb2.DataContext = b;
-            tb3.DataContext = b;
-            tb4.DataContext = b;
-            tb5.DataContext = b;
-            tb6.DataContext = b;
-            tb7.DataContext = b;
+            InitializeComponent(); 
+            tb1.DataContext = b; //lcn
+            tb2.DataContext = b.status; //status
+            tb3.DataContext = b.Kilometerage; //kms
+            tb4.DataContext = b; //start
+            tb5.DataContext = b; //km care
+            tb6.DataContext = b; //date care
+            tb7.DataContext = b; //km refuel
         }
 
         private void careB_Click(object sender, RoutedEventArgs e)
         {
-            //Bus1 b = (sender as Button).DataContext as Bus1;
-            //MainWindow.bgw1 = new BackgroundWorker(); //reset the care backgrounder
-            //MainWindow.bgw1.DoWork += MainWindow.bgw1_DoWork;
-            //MainWindow.bgw1.ProgressChanged += MainWindow.bgw1_ProgressChanged;
-            //MainWindow.bgw1.RunWorkerCompleted += MainWindow.bgw1_RunWorkerCompleted;
-            //MainWindow.bgw1.WorkerReportsProgress = true;
-            //MainWindow.bgw1.RunWorkerAsync(b); //send the current bus to care
-            //if (b.kmOfLastRefuel > 1000) //checking fuel
-            //    MainWindow.bgw2.RunWorkerAsync(b); //send the current bus to refuel
+            Bus1 b = ((MainWindow)Application.Current.MainWindow).findBus(tb1.Text);
+            ((MainWindow)Application.Current.MainWindow).caring(b);
         }
 
         private void refuelB_Click(object sender, RoutedEventArgs e)
         {
+            Bus1 b = ((MainWindow)Application.Current.MainWindow).findBus(tb1.Text);
+            ((MainWindow)Application.Current.MainWindow).refueling(b);
             //Bus1 b = (sender as Button).DataContext as Bus1;
             //bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
             //bgw2.DoWork += bgw2_DoWork;

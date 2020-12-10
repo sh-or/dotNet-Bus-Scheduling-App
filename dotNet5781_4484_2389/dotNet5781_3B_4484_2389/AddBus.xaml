@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:dotNet5781_3B_4484_2389"
 
         mc:Ignorable="d"
-        Title="Add Bus" Height="350" Width="500">
+        Title="Add Bus" Height="350" Width="500" Icon="https://softwares.center/wp-content/uploads/2017/02/54455454325-300x300.png">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -37,7 +37,7 @@
         <Label Content="Kilometerage:"  HorizontalAlignment="Right"  Grid.Row="3" VerticalAlignment="Center" />
         <TextBox Name="km"   HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
         <Label Content="* Start in:" HorizontalAlignment="Right"  Grid.Row="4" VerticalAlignment="Center" />
-        <DatePicker Name="begin" Grid.Column="2"  DisplayDateEnd="12.07.2020" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Width="100"/>
+        <DatePicker Name="begin" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Width="100"/>
         <Label Content="Km from Last Care:" HorizontalAlignment="Right"  Grid.Row="5" VerticalAlignment="Center" />
         <TextBox Name="KmFromLastCare"   HorizontalAlignment="Left"  Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="100"  Grid.Column="2" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown"/>
         <Label Content="* Date of Last Care:" HorizontalAlignment="Right"  Grid.Row="6" VerticalAlignment="Center" />

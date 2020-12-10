@@ -37,9 +37,17 @@ namespace dotNet5781_3B_4484_2389
         public static int numOfKm { get; set; } //input from the user
         public MainWindow()
         {
-            InitializeComponent();
-            restart(); //restart buses, include 3 asked
-            busesLB.ItemsSource = buses;
+            try
+            {
+                InitializeComponent();
+                restart(); //restart buses, include 3 asked
+                busesLB.ItemsSource = buses;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+                
         }
         public void restart()//restart buses, include 3 asked
         {
@@ -63,17 +71,36 @@ namespace dotNet5781_3B_4484_2389
         private void AddB_Closed(object sender, EventArgs e)  //add the new bus to list buses
         {
             Bus1 bus = ((AddBus)sender).bs;
-            if (buses.Contains(bus)) //Where(x => x.licenseNum == bus.licenseNum).ToList())
-                MessageBox.Show("ERROR! This license number is allready exist in the system");
-            else
+            try
             {
-                buses.Add(bus);
-                busesLB.Items.Refresh();
-                MessageBox.Show("The bus was added successfully");
+                if (isBusExist(bus.showLicenseNum)) //checking if the bus is allready exist
+                    MessageBox.Show("ERROR! This license number is allready exist in the system", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                {
+                    buses.Add(bus);
+                    busesLB.Items.Refresh();
+                    MessageBox.Show("The bus was added successfully");
+                }
             }
+            catch (Exception)
+            { return; }
         }
-
-        private void ChooseBus_Click(object sender, RoutedEventArgs e) //choosing bus for a ride
+        public bool isBusExist(string lcn) //checking if bus exist in the list by its license number
+        {
+            foreach (Bus1 b in buses)
+                if (b.showLicenseNum == lcn)
+                    return true;
+            return false;
+        }
+        public Bus1 findBus(string lcn) //return bus from the list by its license number
+        {
+            foreach (Bus1 b in buses)
+                if (b.showLicenseNum == lcn)
+                    return b;
+            throw new Exception("Bus was not found");
+        }
+        
+        public void ChooseBus_Click(object sender, RoutedEventArgs e) //choosing bus for a ride
         {
             Window1 win1 = new Window1();
             Bus1 b = (sender as Button).DataContext as Bus1;
@@ -88,7 +115,6 @@ namespace dotNet5781_3B_4484_2389
                 //(sender as Button).IsEnabled = false;
                 bgw.RunWorkerAsync(b); //sending the current bus to drive
                 //bgw.RunWorkerAsync(sender as Button); //sending the sender details
-                MessageBox.Show("The bus left to the ride!");
             }
             else
             { //appropriate message:
@@ -105,6 +131,8 @@ namespace dotNet5781_3B_4484_2389
         public void bgw_DoWork(object sender, DoWorkEventArgs e) //going on ride
         {
             int num = numOfKm; //save the current distance for this ride
+            if(num>0)
+                MessageBox.Show("The bus left to the ride!");
             Bus1 b = (Bus1)e.Argument; //get current bus
             //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
 
@@ -146,24 +174,20 @@ namespace dotNet5781_3B_4484_2389
         public void GoCare_Click(object sender, RoutedEventArgs e) //going to care
         {
             Bus1 b = (sender as Button).DataContext as Bus1;
+            caring(b);
+        }
+        public void caring(Bus1 b) //the care(helper func for the ditails window)
+        {
             bgw1 = new BackgroundWorker(); //reset the care backgrounder
             bgw1.DoWork += bgw1_DoWork;
             bgw1.ProgressChanged += bgw1_ProgressChanged;
             bgw1.RunWorkerCompleted += bgw1_RunWorkerCompleted;
             bgw1.WorkerReportsProgress = true;
-            //(sender as Button).IsEnabled = false;
             bgw1.RunWorkerAsync(b); //send the current bus to care
-            //bgw1.RunWorkerAsync(sender as Button); //sending to care with the sender details
-
-            if (b.kmOfLastRefuel > 1000) //checking fuel
-            {
-                bgw2.RunWorkerAsync(b); //send the current bus to refuel
-            }
         }
         public void bgw1_DoWork(object sender, DoWorkEventArgs e)
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
-            //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
             b.status = (Status)5; //="InCare"
             b.isAvailable = false; //not available
             for (int i = 144; i > 0; i--)
@@ -172,16 +196,19 @@ namespace dotNet5781_3B_4484_2389
                 System.Threading.Thread.Sleep(1000); //wait 24 hours of care
                 bgw1.ReportProgress(5); //present changes
             }
-            //System.Threading.Thread.Sleep(3000); //example 3 sec
-            //bgw.ReportProgress(1); //timer?
 
             //update the changes from the ride: (after the ride)
             b.lastCare = DateTime.Now;
             b.kmOfLastCare = 0;
-            if(b.kmOfLastRefuel < 1000)
-                b.status = (Status)1; //= Ready  (if not-will go to refuel from the calling event)
+            b.status = (Status)1; //= Ready  (if not-will go to refuel...)
             b.isAvailable = true; //available
             b.timerAct = "";
+            if (b.kmOfLastRefuel > 1000) //checking fuel
+            //bgw2.RunWorkerAsync(b); //send the current bus to refuel
+            {
+                b.Fuel = 1;
+                b.kmOfLastRefuel = 0;
+            }
         }
         public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -196,6 +223,10 @@ namespace dotNet5781_3B_4484_2389
         public void GoRefuel_Click(object sender, RoutedEventArgs e) //going to refuel
         {
             Bus1 b = (sender as Button).DataContext as Bus1;
+            refueling(b);
+        }
+        public void refueling(Bus1 b) //the refuel(helper func for the ditails window)
+        {
             bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
             bgw2.DoWork += bgw2_DoWork;
             bgw2.ProgressChanged += bgw2_ProgressChanged;

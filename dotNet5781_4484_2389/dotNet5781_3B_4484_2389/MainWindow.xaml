@@ -78,11 +78,11 @@
                     <Style.Triggers>
                         
                         <DataTrigger Binding="{Binding Path=status}" Value="InDrive">
-                            <Setter Property="Background" Value="#FF8DEBF0"/>
+                            <Setter Property="Background" Value= "#FFCFF3CB"/>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding Path=status}" Value="InRefuel">
-                            <Setter Property="Background" Value="#FFCFF3CB"/>
+                            <Setter Property="Background" Value= "#FFB0E9EB"/>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding Path=status}" Value="InCare">

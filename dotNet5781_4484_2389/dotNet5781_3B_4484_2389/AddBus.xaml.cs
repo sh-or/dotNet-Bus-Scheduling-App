@@ -109,8 +109,8 @@ namespace dotNet5781_3B_4484_2389
         {
             licenseNum= int.Parse(licenceNum.Text);
             beginning = DateTime.Parse(begin.Text);
-            lastCare= DateTime.Parse(care.Text);
-            kmOfLastCare= int.Parse(KmFromLastCare.Text);
+            lastCare= DateTime.Parse(care.Text); // DisplayDateEnd="12.07.2020"
+            kmOfLastCare = int.Parse(KmFromLastCare.Text);
             kmOfLastRefuel = int.Parse(KmFromLastRefuel.Text);
             kilometerage = int.Parse(km.Text);
 

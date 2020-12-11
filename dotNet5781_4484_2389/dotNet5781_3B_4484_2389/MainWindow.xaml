@@ -26,7 +26,7 @@
                 <TextBlock Text="{Binding Path=Kilometerage}" Grid.Column="3" HorizontalAlignment="Center" />
                 <ProgressBar Grid.Column="4" Minimum="0" Maximum="1" Value="{Binding Fuel}" />
                 <TextBlock Text="{Binding Path=timerAct}" Grid.Column="6" HorizontalAlignment="Stretch"/>
-                <TextBlock Text="{Binding Path=status}" Grid.Column="7" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=Status}" Grid.Column="7" HorizontalAlignment="Center"/>
                 <Button x:Name="GoCare"  Content="Go" IsEnabled="{Binding Path=isAvailable}" Height="30"  Width="40" Grid.Column="8" Click="GoCare_Click"/>
                 <Button x:Name="GoRefuel" Content="Go" IsEnabled="{Binding Path=isAvailable}" Height="30"  Width="40" Grid.Column="9" Click="GoRefuel_Click"/>
             </Grid>
@@ -80,23 +80,23 @@
                 <Style TargetType="ListBoxItem">
                     <Style.Triggers>
                         
-                        <DataTrigger Binding="{Binding Path=status}" Value="InDrive">
+                        <DataTrigger Binding="{Binding Path=Status}" Value="InDrive">
                             <Setter Property="Background" Value= "#FFCFF3CB"/>
                         </DataTrigger>
 
-                        <DataTrigger Binding="{Binding Path=status}" Value="InRefuel">
+                        <DataTrigger Binding="{Binding Path=Status}" Value="InRefuel">
                             <Setter Property="Background" Value= "#FFB0E9EB"/>
                         </DataTrigger>
 
-                        <DataTrigger Binding="{Binding Path=status}" Value="InCare">
+                        <DataTrigger Binding="{Binding Path=Status}" Value="InCare">
                             <Setter Property="Background" Value="#FF96C7CF"/>
                         </DataTrigger>
 
-                        <DataTrigger Binding="{Binding Path=status}" Value="NeedRefeul">
+                        <DataTrigger Binding="{Binding Path=Status}" Value="NeedRefeul">
                             <Setter Property="Background" Value="#FFFDDE8B" />
                         </DataTrigger>
 
-                        <DataTrigger Binding="{Binding Path=status}" Value="NeedCare">
+                        <DataTrigger Binding="{Binding Path=Status}" Value="NeedCare">
                             <Setter Property="Background" Value="#FFEFAC6B"/>
                         </DataTrigger>
                     </Style.Triggers>

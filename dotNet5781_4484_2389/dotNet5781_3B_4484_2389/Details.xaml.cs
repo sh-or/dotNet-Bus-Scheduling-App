@@ -24,7 +24,7 @@ namespace dotNet5781_3B_4484_2389
         {
             InitializeComponent(); 
             tb1.DataContext = b; //lcn
-            tb2.DataContext = b;//.status; //status
+            tb2.DataContext = b;//.Status; //Status
             tb3.DataContext = b;//.Kilometerage; //kms
             tb4.DataContext = b; //start
             tb5.DataContext = b; //km care
@@ -36,30 +36,12 @@ namespace dotNet5781_3B_4484_2389
         {
             Bus1 b = ((MainWindow)Application.Current.MainWindow).findBus(tb1.Text);
             ((MainWindow)Application.Current.MainWindow).caring(b);
-          //  NotifyPropertyChanged("status");
         }
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //private void NotifyPropertyChanged(String propertyName = "status")
-        //{
-        //    if (PropertyChanged != null)
-        //    {
-        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        //    }
-        //}
-
 
         private void refuelB_Click(object sender, RoutedEventArgs e)  //refuel button
         {
             Bus1 b = ((MainWindow)Application.Current.MainWindow).findBus(tb1.Text);
             ((MainWindow)Application.Current.MainWindow).refueling(b);
-            //Bus1 b = (sender as Button).DataContext as Bus1;
-            //bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
-            //bgw2.DoWork += bgw2_DoWork;
-            //bgw2.ProgressChanged += bgw2_ProgressChanged;
-            //bgw2.RunWorkerCompleted += bgw2_RunWorkerCompleted;
-            //bgw2.WorkerReportsProgress = true;
-            //bgw2.RunWorkerAsync(b); //send the current bus to refuel
         }
     }
 }

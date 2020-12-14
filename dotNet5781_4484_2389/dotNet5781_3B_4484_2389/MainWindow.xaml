@@ -64,9 +64,6 @@
         </Grid.RowDefinitions>
         <Button Name="AddBus" Content="Add Bus" HorizontalAlignment="Left" Margin="10,9.667,0,0" Grid.Row="3" VerticalAlignment="Top" Width="102" Height="33" Click="AddBus_Click" Background="#FF74DAF0" BorderBrush="#FF0F0303" FontFamily="Georgia" FontSize="20" Grid.ColumnSpan="3"/>
         <Label Content="Welcome!" HorizontalAlignment="Center" Margin="13,5,1,5" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="44" Width="186" FontFamily="Lucida Handwriting" FontSize="30" FontWeight="Bold" Grid.Column="4" Grid.ColumnSpan="3"/>
-        <Label Content="There are" Grid.Column="8" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
-        <TextBlock x:Name="sumBuses" Text="{Binding Path=Count}" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
-        <Label Content="Buses" Grid.Column="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
         <Label Content="Choose" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" Height="26" Margin="0.667,3,1,3" Width="49" />
         <Label Content="License Number" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Height="26" Width="94" Margin="2,3" />
         <Label Content="Kilometrage" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Grid.Column="3" Height="26"  Width="74" Margin="12,3"  />

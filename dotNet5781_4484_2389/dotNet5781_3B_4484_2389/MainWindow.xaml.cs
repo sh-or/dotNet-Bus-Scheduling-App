@@ -28,7 +28,7 @@ namespace dotNet5781_3B_4484_2389
         public static BackgroundWorker bgw2;  // BackgroundWorker refuel
         public Random r = new Random(DateTime.Now.Millisecond);
         public static ObservableCollection<Bus1> buses = new ObservableCollection<Bus1>();  //the buses collection
-       // public static int numOfBuses() { get{ return buses.Count; } set{ } }; //sum of buses in the collection
+       //public static int numOfBuses() { get{ return buses.Count; } set{ } }; //sum of buses in the collection
 
         public static int numOfKm { get; set; } //input from the user
         public MainWindow()
@@ -38,7 +38,7 @@ namespace dotNet5781_3B_4484_2389
                 InitializeComponent();
                 restart(); //restart buses, include 3 asked
                 busesLB.ItemsSource = buses;
-                sumBuses.DataContext = buses;
+                //sumBuses.DataContext = buses;
             }
             catch (Exception ex)
             {
@@ -278,6 +278,8 @@ namespace dotNet5781_3B_4484_2389
             details.ShowDialog();
         }
     }
-
+        //<Label Content="There are" Grid.Column="8" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
+       // <TextBlock x:Name="sumBuses" Text="{Binding Path=Count}" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
+      //  <Label Content = "Buses" Grid.Column="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
 }
 

@@ -22,8 +22,8 @@ namespace dotNet5781_3B_4484_2389
         public int licenseNum;
         public DateTime beginning;
         public DateTime lastCare;
-        public int kmOfLastCare;
-        public int kmOfLastRefuel;
+        public int KmOfLastCare;
+        public int KmOfLastRefuel;
         public int kilometerage;
         public Bus1 bs;
 
@@ -63,8 +63,8 @@ namespace dotNet5781_3B_4484_2389
             licenseNum= int.Parse(licenceNum.Text);
             beginning = DateTime.Parse(begin.Text);
             lastCare= DateTime.Parse(care.Text); // DisplayDateEnd="12.07.2020"
-            kmOfLastCare = int.Parse(KmFromLastCare.Text);
-            kmOfLastRefuel = int.Parse(KmFromLastRefuel.Text);
+            KmOfLastCare = int.Parse(KmFromLastCare.Text);
+            KmOfLastRefuel = int.Parse(KmFromLastRefuel.Text);
             kilometerage = int.Parse(km.Text);
 
             if (licenseNum < 1000000) //license number is shorter than 7 digits
@@ -78,7 +78,7 @@ namespace dotNet5781_3B_4484_2389
                 return;
             }
 
-            bs = new Bus1(licenseNum, beginning, lastCare, kmOfLastCare, kmOfLastRefuel, kilometerage);
+            bs = new Bus1(licenseNum, beginning, lastCare, KmOfLastCare, KmOfLastRefuel, kilometerage);
             Close();
         }
 

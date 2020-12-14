@@ -15,13 +15,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotNet5781_3B_4484_2389", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{F0691D3F-7C60-46E3-84B3-16A352713429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{2E7C6305-5031-460F-A003-9DEBD88DBF83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DAL\DalXml.csproj", "{2E7C6305-5031-460F-A003-9DEBD88DBF83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLAPI", "DLAPI\DLAPI.csproj", "{1CB30280-F50D-44DB-BD7E-E5CDF72FA627}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{0735ADF0-96EC-498E-A2DA-8C5A1CD5116A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DS", "DS\DS.csproj", "{40927369-6DD9-4652-B91B-61CA0D01769C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalObject", "DalObject\DalObject.csproj", "{4EFE65C3-F939-4D7E-B0DF-09ABEAEBFA83}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7B3651D-2169-45A6-84D5-C392669AEF22}"
+	ProjectSection(SolutionItems) = preProject
+		config.xml = config.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +76,10 @@ Global
 		{40927369-6DD9-4652-B91B-61CA0D01769C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40927369-6DD9-4652-B91B-61CA0D01769C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40927369-6DD9-4652-B91B-61CA0D01769C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EFE65C3-F939-4D7E-B0DF-09ABEAEBFA83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EFE65C3-F939-4D7E-B0DF-09ABEAEBFA83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EFE65C3-F939-4D7E-B0DF-09ABEAEBFA83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EFE65C3-F939-4D7E-B0DF-09ABEAEBFA83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

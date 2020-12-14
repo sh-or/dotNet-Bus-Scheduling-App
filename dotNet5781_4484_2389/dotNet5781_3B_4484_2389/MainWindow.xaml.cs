@@ -14,12 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-// < !---< Label Content = "--" HorizontalAlignment = "Center" Grid.Row = "1" VerticalAlignment = "Center" Grid.Column = "4" Height = "26" Width = "92" Grid.ColumnSpan = "3" />              
-// < Label Content = "--" HorizontalAlignment = "Center" Grid.Row = "1" VerticalAlignment = "Center" Grid.Column = "5" Height = "26"  Width = "100" Grid.ColumnSpan = "3" /> -->
-//<TextBlock Text="{Binding Path=kmOfLastRefuel}" Grid.Column="5" HorizontalAlignment="Center" />
-//< TextBlock Text = "{Binding Path=LastCare}" Grid.Column = "6" HorizontalAlignment = "Left" />
 
-//<TextBlock Text="{Binding Path=kmOfLastCare}" Grid.Column="4" HorizontalAlignment="Center" />
 
 namespace dotNet5781_3B_4484_2389
 {
@@ -32,8 +27,8 @@ namespace dotNet5781_3B_4484_2389
         public static BackgroundWorker bgw1;  // BackgroundWorker care
         public static BackgroundWorker bgw2;  // BackgroundWorker refuel
         public Random r = new Random(DateTime.Now.Millisecond);
-        public static ObservableCollection<Bus1> buses{ get; set; }  //the buses collection
-        //public static int numOfBuses() { get{ return buses.Count; } set{ } }; //sum of buses in the collection
+        public static ObservableCollection<Bus1> buses = new ObservableCollection<Bus1>();  //the buses collection
+       //public static int numOfBuses() { get{ return buses.Count; } set{ } }; //sum of buses in the collection
 
         public static int numOfKm { get; set; } //input from the user
         public MainWindow()
@@ -41,10 +36,9 @@ namespace dotNet5781_3B_4484_2389
             try
             {
                 InitializeComponent();
-                buses = new ObservableCollection<Bus1>();
                 restart(); //restart buses, include 3 asked
                 busesLB.ItemsSource = buses;
-                sumBuses.DataContext = buses.Count;
+                //sumBuses.DataContext = buses;
             }
             catch (Exception ex)
             {
@@ -70,7 +64,6 @@ namespace dotNet5781_3B_4484_2389
             addB.Closed += AddB_Closed;
             addB.ShowDialog();
         }
-
         private void AddB_Closed(object sender, EventArgs e)  //add the new bus to list buses
         {
             Bus1 bus = ((AddBus)sender).bs;
@@ -121,13 +114,13 @@ namespace dotNet5781_3B_4484_2389
             }
             else
             { //appropriate message:
-                if (b.status == (Status)2)
+                if (b.Status == (Status)2)
                     MessageBox.Show("The bus need care", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                else if (b.status == (Status)3)
+                else if (b.Status == (Status)3)
                     MessageBox.Show("The bus need refuel", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                else if ((numOfKm + b.kmOfLastCare) > 20000) //the km from last care
+                else if ((numOfKm + b.KmOfLastCare) > 20000) //the km from last care
                     MessageBox.Show("The bus will pass the permitted kilometerage before care", "", MessageBoxButton.OK, MessageBoxImage.Error);
-                else if ((numOfKm + b.kmOfLastRefuel) > 1200) //the km from last refuel
+                else if ((numOfKm + b.KmOfLastRefuel) > 1200) //the km from last refuel
                     MessageBox.Show("There is no enough fuel for this ride", "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -139,7 +132,7 @@ namespace dotNet5781_3B_4484_2389
             Bus1 b = (Bus1)e.Argument; //get current bus
             //Bus1 b = (e.Argument as Button).DataContext as Bus1;//get current bus
 
-            b.status = (Status)4; //="InDrive"
+            b.Status = (Status)4; //="InDrive"
                                   //     busesLB.Background = SolidColorBrush.ColorProperty.Name
             b.isAvailable = false; //not available
             for (int i = (num / r.Next(20, 51)) * 6; i > 0; i--)
@@ -148,26 +141,24 @@ namespace dotNet5781_3B_4484_2389
                 System.Threading.Thread.Sleep(1000); //wait 0.1 sec(=sleep(100)) for 1 minute of ride
                 bgw.ReportProgress(4); //present changes
             }
-            //System.Threading.Thread.Sleep(3000); //example 3 sec
+
             //update the changes from the ride: (after the ride)
             b.Kilometerage += num;
-            b.kmOfLastCare += num;
-            b.kmOfLastRefuel += num;
-            b.Fuel = 1 - b.kmOfLastRefuel / 1200.0;
-            if (b.kmOfLastCare > 18500) //checking km from last care
-                b.status = (Status)2; //= need care 
-            else if (b.kmOfLastRefuel > 1000) //checking fuel
-                b.status = (Status)3; //= need refuel 
+            b.KmOfLastCare += num;
+            b.KmOfLastRefuel += num;
+            b.Fuel = 1 - b.KmOfLastRefuel / 1200.0;
+            if (b.KmOfLastCare > 18500) //checking km from last care
+                b.Status = (Status)2; //= need care 
+            else if (b.KmOfLastRefuel > 1000) //checking fuel
+                b.Status = (Status)3; //= need refuel 
             else
-                b.status = (Status)1; //= ready 
+                b.Status = (Status)1; //= ready 
             b.isAvailable = true; //available
             b.timerAct = "";
         }
         public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-           // busesLB.Background = Brushes.Blue;
-
-            busesLB.Items.Refresh(); //to show the new status in the list
+            busesLB.Items.Refresh(); //to show the new Status in the list
         }
         public void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //finishing ride
         {
@@ -191,7 +182,7 @@ namespace dotNet5781_3B_4484_2389
         public void bgw1_DoWork(object sender, DoWorkEventArgs e)
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
-            b.status = (Status)5; //="InCare"
+            b.Status = (Status)5; //="InCare"
             b.isAvailable = false; //not available
             for (int i = 144; i > 0; i--)
             {
@@ -202,25 +193,24 @@ namespace dotNet5781_3B_4484_2389
 
             //update the changes from the ride: (after the ride)
             b.lastCare = DateTime.Now;
-            b.kmOfLastCare = 0;
-            b.status = (Status)1; //= Ready  (if not-will go to refuel...)
+            b.KmOfLastCare = 0;
+            b.Status = (Status)1; //= Ready  (if not-will go to refuel...)
             b.isAvailable = true; //available
             b.timerAct = "";
-            if (b.kmOfLastRefuel > 1000) //checking fuel
+            if (b.KmOfLastRefuel > 1000) //checking fuel
             //bgw2.RunWorkerAsync(b); //send the current bus to refuel
             {
                 b.Fuel = 1;
-                b.kmOfLastRefuel = 0;
+                b.KmOfLastRefuel = 0;
             }
         }
         public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            busesLB.Items.Refresh(); //to show the new status in the list
-            //timer?
+            busesLB.Items.Refresh(); //to show the new Status in the list
         }
         public void bgw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            busesLB.Items.Refresh(); //to show the new status in the list
+            busesLB.Items.Refresh(); //to show the new Status in the list
         }
 
         public void GoRefuel_Click(object sender, RoutedEventArgs e) //going to refuel
@@ -240,7 +230,7 @@ namespace dotNet5781_3B_4484_2389
         public void bgw2_DoWork(object sender, DoWorkEventArgs e)
         {
             Bus1 b = (Bus1)e.Argument; //get current bus
-            b.status = (Status)6; //="InRefuel"
+            b.Status = (Status)6; //="InRefuel"
             b.isAvailable = false; //not available
             double tmp = b.Fuel;
             for(int i=12;i>0;i--)
@@ -251,19 +241,19 @@ namespace dotNet5781_3B_4484_2389
                 bgw2.ReportProgress(1); //present changes
             }
             //update the changes: (after refuel)
-            b.kmOfLastRefuel = 0;
+            b.KmOfLastRefuel = 0;
             b.Fuel = 1200.0;
-            b.status = (Status)1; //= Ready 
+            b.Status = (Status)1; //= Ready 
             b.isAvailable = true; //available
             b.timerAct = "";
         }
         public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            busesLB.Items.Refresh(); //to show the new status in the list
+            busesLB.Items.Refresh(); //to show the new Status in the list
         }
         public void bgw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) 
         {
-            busesLB.Items.Refresh(); //to show the new status in the list
+            busesLB.Items.Refresh(); //to show the new Status in the list
         }
 
         public static string bgwTimer(int i) //describe the time that left to the end of the act
@@ -288,6 +278,8 @@ namespace dotNet5781_3B_4484_2389
             details.ShowDialog();
         }
     }
-
+        //<Label Content="There are" Grid.Column="8" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
+       // <TextBlock x:Name="sumBuses" Text="{Binding Path=Count}" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
+      //  <Label Content = "Buses" Grid.Column="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Rockwell Extra Bold"/>
 }
 

@@ -15,7 +15,7 @@ namespace DO
         AreaEnum Area { get; set; }
         int FirstStation { get; set; }
         int LastStation { get; set; }
-        bool IsExist { get; set; } //flag for deleting
+       // bool IsExist { get; set; } //flag for deleting
 
     }
 }

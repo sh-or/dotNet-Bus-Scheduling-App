@@ -10,8 +10,8 @@ namespace DLAPI
 
     public interface IDAL
     {
-        double GetTemparture(int day);
-        WindDirection GetWindDirection(int day);
+        //double GetTemparture(int day);
+        //WindDirection GetWindDirection(int day);
 
     }
 }

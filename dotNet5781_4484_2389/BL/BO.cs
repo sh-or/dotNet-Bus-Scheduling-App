@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Weather
-    {
-        public int Feeling { get; set; }
-    }
+    //public class Weather
+    //{
+    //    public int Feeling { get; set; }
+    //}
 
     // public class BO
     //{

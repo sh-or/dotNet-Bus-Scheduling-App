@@ -1,16 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-
-//namespace DS
-//{
-//    public class Class1
-//    {
-//    }
-//}
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +11,12 @@ namespace DS
 {
     public static class DataSource
     {
-        public static List<WindDirection> directions;
+        //public static List<WindDirection> directions;
 
-         static DataSource()
-        {
-            directions = new List<WindDirection>();
-            directions.Add(new WindDirection());
-        }
+        // static DataSource()
+        //{
+        //    directions = new List<WindDirection>();
+        //    directions.Add(new WindDirection());
+        //}
     }
 }

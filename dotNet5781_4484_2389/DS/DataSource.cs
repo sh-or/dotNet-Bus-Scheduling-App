@@ -11,12 +11,24 @@ namespace DS
 {
     public static class DataSource
     {
-        //public static List<WindDirection> directions;
+        public static List<Bus> ExistBuses;
+        public static List<Bus> AllBuses;
 
-        // static DataSource()
+        public static List<Line> AllLines;
+
+
+        static DataSource()
+        {
+            ExistBuses = new List<Bus>();
+            AllBuses = new List <Bus>();
+            AllLines = new List<Line>();
+        }
+
+
+        //public static List<WindDirection> directions;
+        //static DataSource()
         //{
         //    directions = new List<WindDirection>();
-        //    directions.Add(new WindDirection());
         //}
     }
 }

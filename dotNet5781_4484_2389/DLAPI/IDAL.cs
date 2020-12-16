@@ -17,7 +17,8 @@ namespace DLAPI
         //string Driver(int _LicenseNumber);
         //bool IsExist(int _LicenseNumber);
         Bus GetBus(int _LicenseNumber);
-        IEnumerable<Bus> GetExistBuses();
+        List<Bus> GetExistBuses();  //מותר ?? בדוגמה בדטה סורס הם עשו ליסט
+       // IEnumerable<Bus> GetExistBuses();
         IEnumerable<Bus> GetAllBuses();
 
         void AddBus(DateTime LicensingDate, double Kilometerage, double Fuel, StatusEnum Status, string Driver);
@@ -29,6 +30,7 @@ namespace DLAPI
         void AddBusStotion(double Latitude, double Longitude, string Name, string Address, bool Accessibility);
         void DeleteBusStotion(int _StationCode);
 
+
         Line GetLine(/*int _Code,*/ int _BusLine);
         IEnumerable<Line> GetStationLines(int _StationCode);
         IEnumerable<Line> GetAllLines();
@@ -36,10 +38,11 @@ namespace DLAPI
         int GetBusCode(int _BusLine);//from busLine to busCode -how?
         void AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation);
         void DeleteLine(/*int _Code,*/ int _BusLine);
-        void AddLineStation(); //
-        void DeleteLineStation();//
-        void AddConsecutiveStations();//
+        void AddLineStation(int _LineCode, int _StationCode); 
+        void DeleteLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
+        void AddConsecutiveStations(int _StationCode1, int _StationCode2 , double _Distance, DateTime _DriveTime, bool _Regional);
         //? void DeleteConsecutiveStations();
+
        // double GetDistance();
 
         //double GetTemparture(int day);

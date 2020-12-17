@@ -8,8 +8,12 @@ using DLAPI;
 using DO;
 using DS;
 
+//clone!!!
+//singelton-explain?
+
 namespace DL
 {
+    
     public class DalObject  //: IDAL
     {
         #region singelton
@@ -19,49 +23,147 @@ namespace DL
         public static DalObject Instance => instance;
         #endregion
 
-        //public IEnumerator GetEnumerator()
-        //{
-        //    return ExistBuses.GetEnumerator();
-        //}
-
         Bus GetBus(int _LicenseNumber)
         {
-            // Bus this[_LicenseNumber];
-             return DataSource.ExistBuses.Find(x => x.LicenseNumber == _LicenseNumber); //עוד לא הגדרנו מספר רישוי לאוטובוס
+            return DataSource.AllBuses.Find(x => x.LicenseNumber == _LicenseNumber).Clone();
         }
-
-        List<Bus> GetExistBuses
+        List<Bus> GetExistBuses()
         {
-            get { return DataSource.ExistBuses; }
+            return DataSource.AllBuses.FindAll(x => x.IsExist).Clone();
         }
-
-        //IEnumerable<Bus> GetExistBuses() 
+        List<Bus> GetAllBuses() 
+        {
+            return DataSource.AllBuses.Clone();
+        }
+        void AddBus(DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver)
+        {
+            Bus b = new Bus();
+            b.LicenseNumber = ConfigurationClass.LicenseNum;
+            b.IsExist = true;
+            b.LicensingDate = _LicensingDate; //checking if exist?
+            b.Kilometerage = _Kilometerage;
+            b.Fuel = _Fuel;
+            b.Status = _Status;
+            b.Driver = _Driver;
+            DataSource.AllBuses.Add(b.Clone());
+        }
+        void DeleteBus(int _LicenseNumber) //how to update the DS??
+        {
+            Bus b = GetBus(_LicenseNumber);
+            //DataSource.AllBuses.Remove(b);
+            b.IsExist = false;
+            //AddBus(b.LicensingDate, b.Kilometerage, b.Fuel, b.Status, b.Driver);
+        }
+        BusStation GetBusStation(int _StationCode) 
+        {
+            return DataSource.AllBusStations.Find(x => x.StationCode == _StationCode).Clone();
+        }
+        List<BusStation> GetExistBusStations() 
+        {
+            return DataSource.AllBusStations.FindAll(x => x.IsExist).Clone();
+        }
+        List<BusStation> GetAllBusStations() 
+        {
+            return DataSource.AllBusStations.Clone();
+        }
+        void AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility) 
+        {
+            BusStation bs = new BusStation();
+            bs.StationCode = ConfigurationClass.StationCode;
+            bs.IsExist = true;
+            bs.Latitude = _Latitude;
+            bs.Longitude = _Longitude;
+            bs.Name = _Name;
+            bs.Address = _Address;
+            bs.Accessibility = _Accessibility;
+            DataSource.AllBusStations.Add(bs.Clone());
+        }
+        void DeleteBusStation(int _StationCode) //how to update the DS??
+        {
+            BusStation bs = GetBusStation(_StationCode);
+            //DataSource.AllBusStations.Remove(bs);
+            bs.IsExist = false;
+            //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
+        }
+        Line GetLine(int _Code)
+        {
+            return DataSource.AllLines.Find(x => (x.BusLine == _BusLine && x.Code==_Code)).Clone();
+        }
+        List<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
+        {
+            List<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode);
+            List<Line> bsLst = new List<Line>();
+            List <Line> exLines= GetExistLines();
+            foreach (Line ln in exLines)
+                bsLst.Add(exLines.Find(x => x.Code == ln.Code));
+            return bsLst.Clone(); //Clone??
+        }
+        List<Line> GetAllLines() 
+        {
+            return DataSource.AllLines.Clone();
+        }
+        List<Line> GetExistLines()
+        {
+            return DataSource.AllLines.FindAll(x => x.IsExist).Clone();
+        }
+        List<BusStation> GetStationsOfLine(int _LineCode)
+        {
+            List <LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
+            List<BusStation> bsLst = new List<BusStation>();
+            foreach(LineStation ls in lsLst)
+                bsLst.Add(GetBusStation(ls.StationCode)); //*need to check if deleted?
+            //bsLst.sortByStationNumberInLine(); //sort according to the line's rout
+            return bsLst.Clone(); //Clone??
+        }
+        //private void sortByStationNumberInLine() //or lemammesh Icompareable on BusStation
         //{
-        //    IEnumerable<Bus> ListOfExistBuses;
-        //    return ListOfExistBuses;
+
         //}
-
-        IEnumerable<Bus> GetAllBuses() { }
-
-        void AddBus(DateTime LicensingDate, double Kilometerage, double Fuel, StatusEnum Status, string Driver) { }
-        void DeleteBus(int _LicenseNumber) { }
-
-        BusStation GetBusStation(int _StationCode) { }
-        IEnumerable<BusStation> GetExistBusStations() { }
-        IEnumerable<BusStation> GetAllBusStations() { }
-        void AddBusStotion(double Latitude, double Longitude, string Name, string Address, bool Accessibility) { }
-        void DeleteBusStotion(int _StationCode) { }
-
-        Line GetLine(/*int _Code,*/ int _BusLine) { }
-        IEnumerable<Line> GetStationLines(int _StationCode) { }
-        IEnumerable<Line> GetAllLines() { }
-        IEnumerable<BusStation> GetStationsOfLine(int _BisLine) { }
-        int GetBusCode(int _BusLine);//from busLine to busCode -how?
-        void AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation) { }
-        void DeleteLine(/*int _Code,*/ int _BusLine) { }
-        void AddLineStation(int _LineCode, int _StationCode) { }
-        void DeleteLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) { }
-        void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional) { }
+        void AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation) 
+        {
+            Line bl = new Line();
+            bl.Code = ConfigurationClass.LineCode;
+            bl.IsExist = true;
+            bl.BusLine = _BusLine;
+            bl.Area = _Area;
+            bl.FirstStation = _FirstStation;
+            bl.LastStation = _LastStation;
+            DataSource.AllLines.Add(bl.Clone());
+        }
+        void DeleteLine(int _Code) //how to update the DS??
+        {
+            Line bl = GetLine(_Code);
+            //DataSource.AllBusStations.Remove(bs);
+            bl.IsExist = false;
+            //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
+        }
+        void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) 
+        {
+            LineStation ls = new LineStation();
+            ls.StationCode = _StationCode;
+            ls.LineCode = _LineCode;
+            ls.StationNumberInLine = _StationNumberInLine;
+            DataSource.AllLineStations.Add(ls.Clone());
+        }
+        LineStation GetLineStation(int _LineCode, int _StationCode) 
+        {
+            return DataSource.AllLineStations.Find(x => (x.LineCode == _LineCode && x.StationCode == _StationCode));
+        }
+        void DeleteLineStation(int _LineCode, int _StationCode)
+        {
+            LineStation ls = GetLineStation(_LineCode, _StationCode);
+            DataSource.AllLineStations.Remove(ls);
+        }
+        void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional) 
+        {
+            ConsecutiveStations cs = new ConsecutiveStations();
+            cs.StationCode1 = _StationCode1;
+            cs.StationCode2 = _StationCode2;
+            cs.Distance = _Distance;
+            cs.DriveTime = _DriveTime;
+            cs.Regional = _Regional;
+            DataSource.AllConsecutiveStations.Add(cs.Clone());
+        }
       
 
 

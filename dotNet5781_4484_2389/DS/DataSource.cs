@@ -11,19 +11,20 @@ namespace DS
 {
     public static class DataSource
     {
-        public static List<Bus> ExistBuses;
         public static List<Bus> AllBuses;
-
         public static List<Line> AllLines;
+        public static List<BusStation> AllBusStations;
+        public static List<ConsecutiveStations> AllConsecutiveStations;
+        public static List<LineStation> AllLineStations;
 
-
-        static DataSource()
+        static DataSource() //c-tor of DS
         {
-            ExistBuses = new List<Bus>();
             AllBuses = new List <Bus>();
             AllLines = new List<Line>();
-        }
-
+            AllBusStations= new List<BusStation>();
+            AllConsecutiveStations = new List<ConsecutiveStations>();
+            AllLineStations = new List<LineStation>();
+    }
 
         //public static List<WindDirection> directions;
         //static DataSource()

@@ -8,12 +8,12 @@ namespace DO
 {
     public class BusStation
     {
-        int StationCode { get; set; }
-        double Latitude { get; set; }
-        double Longitude { get; set; }
-        string Name { get; set; }
-        string Address { get; set; }
-        bool Accessibility { get; set; } //Accessibility for disabled
-        bool IsExist { get; set; } //flag for deleting
+        public int StationCode { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public bool Accessibility { get; set; } //Accessibility for disabled
+        public bool IsExist { get; set; } //flag for deleting
     }
 }

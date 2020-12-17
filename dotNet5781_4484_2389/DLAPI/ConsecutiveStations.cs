@@ -8,10 +8,10 @@ namespace DO
 {
     public class ConsecutiveStations
     {
-        int StationCode1 { get; set; }
-        int StationCode2 { get; set; }
-        double Distance { get; set; }
-        DateTime DriveTime { get; set; }
-        bool Regional { get; set; }
+        public int StationCode1 { get; set; }
+        public int StationCode2 { get; set; }
+        public double Distance { get; set; }
+        public DateTime DriveTime { get; set; }
+        public bool Regional { get; set; }
     }
 }

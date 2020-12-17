@@ -8,8 +8,8 @@ namespace DO
 {
     public class LineStation
     {
-        int LineCode { get; set; }
-        int StationCode { get; set; }
-        int StationNumberInLine { get; set; }
+        public int LineCode { get; set; }
+        public int StationCode { get; set; }
+        public int StationNumberInLine { get; set; }
     }
 }

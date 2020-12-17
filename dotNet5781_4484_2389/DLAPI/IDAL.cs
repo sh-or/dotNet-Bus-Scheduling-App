@@ -17,29 +17,29 @@ namespace DLAPI
         //string Driver(int _LicenseNumber);
         //bool IsExist(int _LicenseNumber);
         Bus GetBus(int _LicenseNumber);
-        List<Bus> GetExistBuses();  //מותר ?? בדוגמה בדטה סורס הם עשו ליסט
-       // IEnumerable<Bus> GetExistBuses();
-        IEnumerable<Bus> GetAllBuses();
+        List<Bus> GetExistBuses(); 
+        List<Bus> GetAllBuses();
 
-        void AddBus(DateTime LicensingDate, double Kilometerage, double Fuel, StatusEnum Status, string Driver);
+        void AddBus(DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver);
         void DeleteBus(int _LicenseNumber);
 
         BusStation GetBusStation(int _StationCode);
-        IEnumerable<BusStation> GetExistBusStations();
-        IEnumerable<BusStation> GetAllBusStations();
-        void AddBusStotion(double Latitude, double Longitude, string Name, string Address, bool Accessibility);
-        void DeleteBusStotion(int _StationCode);
+        List<BusStation> GetExistBusStations();
+        List<BusStation> GetAllBusStations();
+        void AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility);
+        void DeleteBusStation(int _StationCode);
 
 
-        Line GetLine(/*int _Code,*/ int _BusLine);
-        IEnumerable<Line> GetStationLines(int _StationCode);
-        IEnumerable<Line> GetAllLines();
-        IEnumerable<BusStation> GetStationsOfLine(int _BisLine);
-        int GetBusCode(int _BusLine);//from busLine to busCode -how?
+        Line GetLine(int _Code);
+        List<Line> GetStationLines(int _StationCode);
+        List<Line> GetAllLines();
+        List<Line> GetExistLines();
+        List<BusStation> GetStationsOfLine(int _LineCode);
         void AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation);
-        void DeleteLine(/*int _Code,*/ int _BusLine);
-        void AddLineStation(int _LineCode, int _StationCode); 
-        void DeleteLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
+        void DeleteLine(int _Code);
+        void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
+        LineStation GetLineStation(int _LineCode, int _StationCode);
+        void DeleteLineStation(int _LineCode, int _StationCode);
         void AddConsecutiveStations(int _StationCode1, int _StationCode2 , double _Distance, DateTime _DriveTime, bool _Regional);
         //? void DeleteConsecutiveStations();
 

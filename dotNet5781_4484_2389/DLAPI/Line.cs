@@ -10,12 +10,12 @@ namespace DO
 
     public class Line
     {
-        int Code { get; set; }
-        int BusLine { get; set; }
-        AreaEnum Area { get; set; }
-        int FirstStation { get; set; }
-        int LastStation { get; set; }
-       // bool IsExist { get; set; } //flag for deleting
+        public int Code { get; set; }
+        public int BusLine { get; set; }
+        public AreaEnum Area { get; set; }
+        public int FirstStation { get; set; }
+        public int LastStation { get; set; }
+        public bool IsExist { get; set; } //flag for deleting
 
     }
 }

@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace DS
 {
-    public class ConfigurationClass
+    public static class ConfigurationClass //contains static counters
     {
-        public static int LicenseNum = 10000000;
-        public static int StationCode = 1;
-        public static int LineCode = 1;
+        static int licenseNum = 10000000;
+        public static int LicenseNum => licenseNum++;
+        static int stationCode = 1;
+        public static int StationCode => stationCode++;
+        static int lineCode = 1;
+        public static int LineCode => lineCode++;
 
     }
 }

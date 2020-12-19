@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +9,19 @@ namespace DL
 {
     static class Cloning
     {
+        internal static T Clone<T>(this T original)//דרך שלישית - בונוס
+        {
+            T target = (T)Activator.CreateInstance(original.GetType());
+            //...
+            target = original; //+copy c-tor for each class  ??
+            return target;
+        }
+
         //internal static IClonable Clone(this IClonable original)//דרך שניה - בונוס (יש להשתמש בממשק)
         //{
         //    IClonable target = (IClonable)Activator.CreateInstance(original.GetType());
         //    //...
+        // target= original; //+copy c-tor for each class
         //    return target;
         //}
 
@@ -21,6 +29,7 @@ namespace DL
         //{
         //    T target = (T)Activator.CreateInstance(original.GetType());
         //    //...
+        // target= original; //+copy c-tor for each class
         //    return target;
         //}
 

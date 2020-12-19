@@ -38,7 +38,9 @@ namespace DLAPI
         /// The singleton class must include public static property called "Instance"
         /// which must contain the single instance of the class.
         /// </summary>
+        /// 
         /// <returns>Dal tier implementation object</returns>
+        /// 
             //public static IDAL GetDal()
             //{
             //    // get dal implementation name from config.xml according to <data> element

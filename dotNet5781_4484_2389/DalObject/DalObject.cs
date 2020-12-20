@@ -8,11 +8,9 @@ using DO;
 using DS;
 
 //clone!!!
-//singelton-explain?
 
 namespace DL
 {
-    
     public class DalObject  : IDAL
     {
         #region singelton
@@ -23,8 +21,7 @@ namespace DL
         }
         static DalObject() { }
         DalObject() { }
-        public static IDAL Instance
-        { get { return Nested.instance; } }
+        public static IDAL Instance { get { return Nested.instance; } }
         #endregion
 
 

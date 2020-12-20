@@ -12,20 +12,8 @@ namespace DLAPI
     {
         public static IDAL GetDal()
         {
-            //try
-            //{
-            //    IDAL dal = type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static).GetValue(null) as IDAL;
-            //    // If the instance property is not initialized (i.e. it does not hold a real instance reference)...
-            //    if (dal == null)
-            //        throw new DalConfigException($"Class {dalPackage} instance is not initialized");
-            //    // now it looks like we have appropriate dal implementation instance :-)
-            //    return dal;
-            //}
-            //catch (NullReferenceException ex)
-            //{
-            //    throw new DalConfigException($"Class {dalPackage} is not a singleton", ex);
-            //}
-        }
+            return new DalObject();
+        }//check if need files etc.
 
 
         /// <summary>

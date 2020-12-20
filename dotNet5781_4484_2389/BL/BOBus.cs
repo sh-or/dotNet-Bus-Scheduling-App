@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DO
+namespace BO
 {
     public class Bus
     {
@@ -14,15 +14,6 @@ namespace DO
         public double Fuel { get; set; }
         public StatusEnum Status { get; set; }
         public string Driver { get; set; }
-        public bool IsExist { get; set; } //flag for deleting
+        public bool IsExist { get; set; } //???
     }
-
-
-    //public enum WindDirections { S, N, W, E, SE, SW, NE, NW, SSE, SEE, SSW, SWW, NNE, NEE, NNW, NWW }
-    //public class WindDirection //: IClonable
-    //{
-    //    public WindDirections direction { get; set; }
-    //}
-
-
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DO
+namespace BO
 {
     public class BusStation
     {
@@ -14,7 +14,8 @@ namespace DO
         //area??
         public string Name { get; set; }
         public string Address { get; set; }
-        public bool Accessibility { get; set; } //Accessibility for disabled
-        public bool IsExist { get; set; } //flag for deleting
+        public bool Accessibility { get; set; } //for disabled
+        public bool IsExist { get; set; } //???
+        public List<StationLine> Lines { get; set; }
     }
 }

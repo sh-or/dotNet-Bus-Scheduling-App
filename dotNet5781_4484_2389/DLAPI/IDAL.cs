@@ -20,13 +20,13 @@ namespace DLAPI
         List<Bus> GetExistBuses(); 
         List<Bus> GetAllBuses();
 
-        void AddBus(DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver);
+        int AddBus(int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver);
         void DeleteBus(int _LicenseNumber);
 
         BusStation GetBusStation(int _StationCode);
         List<BusStation> GetExistBusStations();
         List<BusStation> GetAllBusStations();
-        void AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility);
+        int AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility);
         void DeleteBusStation(int _StationCode);
 
 
@@ -35,7 +35,7 @@ namespace DLAPI
         List<Line> GetAllLines();
         List<Line> GetExistLines();
         List<BusStation> GetStationsOfLine(int _LineCode);
-        void AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation);
+        int AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation);
         void DeleteLine(int _Code);
         void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         LineStation GetLineStation(int _LineCode, int _StationCode);

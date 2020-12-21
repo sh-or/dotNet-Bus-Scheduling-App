@@ -24,10 +24,12 @@ namespace DL
         public static IDAL Instance { get { return Nested.instance; } }
         #endregion
 
-
        public Bus GetBus(int _LicenseNumber)
         {
-            return DataSource.AllBuses.Find(x => x.LicenseNumber == _LicenseNumber).Clone();
+            Bus b = DataSource.AllBuses.Find(x => x.LicenseNumber == _LicenseNumber);
+            if(b!=null)
+                return b.Clone();
+            throw new BusNotFoundEx(_LicenseNumber, $"Bus number {_LicenseNumber} was not found");
         }
         public List<Bus> GetExistBuses()
         {
@@ -37,10 +39,10 @@ namespace DL
         {
             return DataSource.AllBuses.Clone();
         }
-        public void AddBus(DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver)
+        public int AddBus(int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver)
         {
             Bus b = new Bus();
-            b.LicenseNumber = ConfigurationClass.LicenseNum;
+            b.LicenseNumber = _LicenseNumber;
             b.IsExist = true;
             b.LicensingDate = _LicensingDate; //checking if exist?
             b.Kilometerage = _Kilometerage;
@@ -48,6 +50,7 @@ namespace DL
             b.Status = _Status;
             b.Driver = _Driver;
             DataSource.AllBuses.Add(b);
+            return b.LicenseNumber;
         }
         public void DeleteBus(int _LicenseNumber) //how to update the DS??
         {
@@ -58,7 +61,10 @@ namespace DL
         }
         public BusStation GetBusStation(int _StationCode) 
         {
-            return DataSource.AllBusStations.Find(x => x.StationCode == _StationCode).Clone();
+            BusStation bs = DataSource.AllBusStations.Find(x => x.StationCode == _StationCode);
+            if (bs!=null)
+                return bs.Clone();
+            throw new BusStationNotFoundEx(_StationCode, $"Bus station number {_StationCode} was not found");
         }
         public List<BusStation> GetExistBusStations() 
         {
@@ -68,7 +74,7 @@ namespace DL
         {
             return DataSource.AllBusStations.Clone();
         }
-        public void AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility) 
+        public int AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility) 
         {
             BusStation bs = new BusStation();
             bs.StationCode = ConfigurationClass.StationCode;
@@ -79,6 +85,7 @@ namespace DL
             bs.Address = _Address;
             bs.Accessibility = _Accessibility;
             DataSource.AllBusStations.Add(bs);
+            return bs.StationCode;
         }
         public void DeleteBusStation(int _StationCode) //how to update the DS??
         {
@@ -89,7 +96,10 @@ namespace DL
         }
         public Line GetLine(int _Code)
         {
-            return DataSource.AllLines.Find(x => x.Code==_Code).Clone();
+            Line l = DataSource.AllLines.Find(x => x.Code == _Code);
+            if(l!=null)
+                return l.Clone();
+            throw new LineNotFoundEx(_Code, $"Line number {_Code} was not found");
         }
         public List<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
@@ -98,7 +108,7 @@ namespace DL
             List <Line> exLines= GetExistLines();
             foreach (Line ln in exLines)
                 bsLst.Add(exLines.Find(x => x.Code == ln.Code));
-            return bsLst.Clone(); //Clone??
+            return bsLst.Clone(); 
         }
         public List<Line> GetAllLines() 
         {
@@ -112,16 +122,20 @@ namespace DL
         {
             List <LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
             List<BusStation> bsLst = new List<BusStation>();
-            foreach(LineStation ls in lsLst)
+            foreach (LineStation ls in lsLst)
+            {
+                //if(ls.flag)
                 bsLst.Add(GetBusStation(ls.StationCode)); //*need to check if deleted?
+                //else throw NotFoundEx
+            }
             //bsLst.sortByStationNumberInLine(); //sort according to the line's rout
-            return bsLst.Clone(); //Clone??
+            return bsLst.Clone();
         }
         //private void sortByStationNumberInLine() //or lemammesh Icompareable on BusStation
         //{
-
+        //will be in LINQ!:)
         //}
-        public void AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation) 
+        public int AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation) 
         {
             Line bl = new Line();
             bl.Code = ConfigurationClass.LineCode;
@@ -131,8 +145,9 @@ namespace DL
             bl.FirstStation = _FirstStation;
             bl.LastStation = _LastStation;
             DataSource.AllLines.Add(bl);
+            return bl.Code;
         }
-        public void DeleteLine(int _Code) //how to update the DS??
+        public void DeleteLine(int _Code) //how to update the DS?? 
         {
             Line bl = GetLine(_Code);
             //DataSource.AllBusStations.Remove(bs);
@@ -166,15 +181,7 @@ namespace DL
             cs.Regional = _Regional;
             DataSource.AllConsecutiveStations.Add(cs);
         }
-      
 
-
-        //#region singelton
-        //static readonly DalObject instance = new DalObject();
-        //static DalObject() { }
-        //DalObject() { }
-        //public static DalObject Instance => instance;
-        //#endregion
 
         //static Random rnd = new Random(DateTime.Now.Millisecond);
         //double temperature;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DLAPI
+namespace DO
 {
-    //Enums:
+    //DO Enums:
     public enum AreaEnum { Center = 1, South, North, Lowland, Jerusalem }
     public enum StatusEnum { ready = 1, InDrive, InTreat, InRefuel }
 }

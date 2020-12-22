@@ -31,7 +31,7 @@ namespace BL
         {
             try
             {
-                dal.UpdateBus(b.bus);
+                dal.UpdateBus(b);
             }
             catch (DOException dex)
             {

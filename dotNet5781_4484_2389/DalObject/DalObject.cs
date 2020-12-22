@@ -29,25 +29,33 @@ namespace DL
             Bus b = DataSource.AllBuses.Find(x => x.LicenseNumber == _LicenseNumber);
             if(b!=null)
                 return b.Clone();
-            throw new BusNotFoundEx(_LicenseNumber, $"Bus number {_LicenseNumber} was not found");
+            throw new DOException(_LicenseNumber, $"Bus number {_LicenseNumber} was not found");
         }
-        public List<Bus> GetExistBuses()
+        public void UpdateBus(Bus b) ///////////////
         {
-            List<Bus> ListBS = DataSource.AllBuses.FindAll(x => x.IsExist).Clone();
-            foreach (Bus b in ListBS)
-                b.Clone(); //return to??
-            return ListBS;
+
+        }
+        public List<Bus> GetSpecificBuses() 
+        {
+            var ListBS = (from Bus b in DataSource.AllBuses
+                               where b.IsExist
+                               select b.Clone()).ToList();
+            if(ListBS!=null)
+                return ListBS;
+            throw new DOException("No exist buses were found");
         }
         public List<Bus> GetAllBuses() 
         {
-            return DataSource.AllBuses.Clone();
+            var ListBS = (from Bus b in DataSource.AllBuses
+                         select b.Clone()).ToList();
+            if (ListBS != null)
+                return ListBS;
+            throw new DOException("No buses were found");
         }
-        public int AddBus(int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver)
+        public int AddBus(/*int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver*/)
         {  
             if (DataSource.AllBuses.Exists(x => x.LicenseNumber == _LicenseNumber))
-                throw new ExistLicenseNumberEx(_LicenseNumber, $"Bus number {_LicenseNumber} is already exist");
-            if ((_LicenseNumber > 9999999 && _LicensingDate.Year < 2018) || (_LicenseNumber < 10000000 && _LicensingDate.Year >= 2018)) //license number and date don't match
-                throw new InappropriateDateAndLicenseNumEx(_LicenseNumber, $"Bus number {_LicenseNumber} does not match the licensing date");
+                throw new DOException(_LicenseNumber, $"Bus number {_LicenseNumber} is already exist");
             Bus b = new Bus();
             b.LicenseNumber = _LicenseNumber;
           
@@ -72,15 +80,28 @@ namespace DL
             BusStation bs = DataSource.AllBusStations.Find(x => x.StationCode == _StationCode);
             if (bs!=null)
                 return bs.Clone();
-            throw new BusStationNotFoundEx(_StationCode, $"Bus station number {_StationCode} was not found");
+            throw new DOException(_StationCode, $"Bus station number {_StationCode} was not found");
         }
-        public List<BusStation> GetExistBusStations() 
+        public void UpdateStation(BusStation bs) //////////
         {
-            return DataSource.AllBusStations.FindAll(x => x.IsExist).Clone();
+
         }
-        public List<BusStation> GetAllBusStations() 
+        public List<BusStation> GetSpecificBusStations() 
         {
-            return DataSource.AllBusStations.Clone();
+            var ListBS = (from BusStation bs in DataSource.AllBusStations
+                         where bs.IsExist
+                         select bs.Clone()).ToList();
+            if (ListBS != null)
+                return ListBS;
+            throw new DOException("No exist bus stations were found");
+        }
+        public List<BusStation> GetAllBusStations()
+        {
+            var ListBS = (from BusStation bs in DataSource.AllBusStations
+                         select bs.Clone()).ToList();
+            if (ListBS != null)
+                return ListBS;
+            throw new DOException("No bus stations were found");
         }
         public int AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility) 
         {
@@ -107,24 +128,37 @@ namespace DL
             Line l = DataSource.AllLines.Find(x => x.Code == _Code);
             if(l!=null)
                 return l.Clone();
-            throw new LineNotFoundEx(_Code, $"Line number {_Code} was not found");
+            throw new DOException(_Code, $"Line number {_Code} was not found");
+        }
+        public void UpdateLine(Line l) ////////////
+        {
+
         }
         public List<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
             List<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode);
             List<Line> bsLst = new List<Line>();
-            List <Line> exLines= GetExistLines();
+            List <Line> exLines= GetSpecificLines();
             foreach (Line ln in exLines)
                 bsLst.Add(exLines.Find(x => x.Code == ln.Code));
             return bsLst.Clone(); 
         }
         public List<Line> GetAllLines() 
         {
-            return DataSource.AllLines.Clone();
+            var Listl = (from Line l in DataSource.AllLines
+                        select l.Clone()).ToList();
+            if (Listl != null)
+                return Listl;
+            throw new DOException("No lines were found");
         }
-        public List<Line> GetExistLines()
+        public List<Line> GetSpecificLines()
         {
-            return DataSource.AllLines.FindAll(x => x.IsExist).Clone();
+            var Listl = (from Line l in DataSource.AllLines
+                        where l.IsExist
+                        select l.Clone()).ToList();
+            if (Listl != null)
+                return Listl;
+            throw new DOException("No exist lines were found");
         }
         public List<BusStation> GetStationsOfLine(int _LineCode)
         {
@@ -172,7 +206,10 @@ namespace DL
         }
         public LineStation GetLineStation(int _LineCode, int _StationCode) 
         {
-            return DataSource.AllLineStations.Find(x => (x.LineCode == _LineCode && x.StationCode == _StationCode));
+            LineStation ls = DataSource.AllLineStations.Find(x => x.LineCode == _LineCode && x.StationCode == _StationCode);
+            if (ls != null)
+                return ls.Clone();
+            throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
         }
         public void DeleteLineStation(int _LineCode, int _StationCode)
         {
@@ -189,7 +226,17 @@ namespace DL
             cs.Regional = _Regional;
             DataSource.AllConsecutiveStations.Add(cs);
         }
-
+        public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)
+        {
+            ConsecutiveStations cs = DataSource.AllConsecutiveStations.Find(x => x.StationCode1 == _StationCode1 && x.StationCode2 == _StationCode1);
+            if (cs != null)
+                return cs.Clone();
+            throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");
+        }
+        public void UpdateConsecutiveStations(ConsecutiveStations cs)//mimush!
+        {
+            ///////
+        }
 
         //static Random rnd = new Random(DateTime.Now.Millisecond);
         //double temperature;

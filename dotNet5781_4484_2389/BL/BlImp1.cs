@@ -1,18 +1,96 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using BlAPI;
-//using DLAPI;
-////using DL;
-//using BO;
-//using DO;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BlAPI;
+using DLAPI;
+using BO;
+using DO;
+//specific- conditions?!
 
-//namespace BL
-//{
-//    public class BlImp1 : IBL
-//    {
+namespace BL
+{
+    public class BlImp1 : IBL
+    {
+        readonly IDAL dal = DalFactory.GetDal();
+        public BOBus GetBus(int _LicenseNumber)
+        {
+            BOBus b = new BOBus();
+            try
+            {
+                b.bus = dal.GetBus(_LicenseNumber);
+            }
+            catch(DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            return b;
+        }
+        public void UpdateBus(BOBus b)
+        {
+            try
+            {
+                dal.UpdateBus(b.bus);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        public List<Bus> GetSpecificBuses()//conditionnnn
+        {
+            try
+            {
+                return dal.GetSpecificBuses();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        public List<Bus> GetAllBuses()
+        {
+            try
+            {
+                return dal.GetAllBuses();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        public int AddBus(BOBus b)
+        {
+
+            if ((b.LicenseNumber > 9999999 && b.LicensingDate.Year < 2018) || (b.LicenseNumber < 10000000 && b.LicensingDate.Year >= 2018)) //license number and date don't match
+                throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
+            try
+            {
+                dal.AddBus(b);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        public void DeleteBus(int _LicenseNumber);
+        public BusStation GetBusStation(int _StationCode);
+        public void UpdateStation(BusStation bs);
+        public List<BusStation> GetSpecificBusStations();
+        public List<BusStation> GetAllBusStations();
+        public int AddBusStation(BusStation bs);
+        public void DeleteBusStation(int _StationCode);
+        public Line GetLine(int _Code);
+        public void UpdateLine(Line l);
+        public List<Line> GetStationLines(int _StationCode);
+        public List<Line> GetAllLines();
+        public List<Line> GetSpecificLines();
+        public List<BusStation> GetStationsOfLine(int _LineCode);
+        public int AddLine(Line l);
+        public void DeleteLine(int _Code);
+        public DO.ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
+    }
 //        static Random rnd = new Random(DateTime.Now.Millisecond);
 
 //        readonly IDAL dal = DalFactory.GetDal();

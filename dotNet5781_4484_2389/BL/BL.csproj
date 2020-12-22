@@ -45,6 +45,7 @@
     <Compile Include="BlImp1.cs" />
     <Compile Include="BOBus.cs" />
     <Compile Include="BOBusStation.cs" />
+    <Compile Include="BOExceptions.cs" />
     <Compile Include="BOLine.cs" />
     <Compile Include="BOLineStation.cs" />
     <Compile Include="BOStationLine.cs" />

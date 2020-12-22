@@ -48,7 +48,7 @@
     <Compile Include="DalConfig.cs" />
     <Compile Include="DalFactory.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Exceptions.cs" />
+    <Compile Include="DOExceptions.cs" />
     <Compile Include="Icloneable.cs" />
     <Compile Include="IDAL.cs" />
     <Compile Include="Line.cs" />

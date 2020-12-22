@@ -28,4 +28,11 @@ namespace DO
         public LineNotFoundEx(int num, string message, Exception inner) : base(message, inner) => Num = num;
         public override string ToString() => base.ToString() + $" Line number {Num} was not found";
     }
+    public class ExistBusesNotFoundEx : Exception /////////
+    {
+        public ExistBusesNotFoundEx(string message) : base(message) { }
+        public ExistBusesNotFoundEx(string message, Exception inner) : base(message, inner) { }
+        public override string ToString() => base.ToString() + " Exist Buses were not found";
+    }
 }
+

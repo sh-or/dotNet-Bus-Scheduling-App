@@ -33,16 +33,24 @@ namespace DL
         }
         public List<Bus> GetExistBuses()
         {
-            return DataSource.AllBuses.FindAll(x => x.IsExist).Clone();
+            List<Bus> ListBS = DataSource.AllBuses.FindAll(x => x.IsExist).Clone();
+            foreach (Bus b in ListBS)
+                b.Clone(); //return to??
+            return ListBS;
         }
         public List<Bus> GetAllBuses() 
         {
             return DataSource.AllBuses.Clone();
         }
         public int AddBus(int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver)
-        {
+        {  
+            if (DataSource.AllBuses.Exists(x => x.LicenseNumber == _LicenseNumber))
+                throw new ExistLicenseNumberEx(_LicenseNumber, $"Bus number {_LicenseNumber} is already exist");
+            if ((_LicenseNumber > 9999999 && _LicensingDate.Year < 2018) || (_LicenseNumber < 10000000 && _LicensingDate.Year >= 2018)) //license number and date don't match
+                throw new InappropriateDateAndLicenseNumEx(_LicenseNumber, $"Bus number {_LicenseNumber} does not match the licensing date");
             Bus b = new Bus();
             b.LicenseNumber = _LicenseNumber;
+          
             b.IsExist = true;
             b.LicensingDate = _LicensingDate; //checking if exist?
             b.Kilometerage = _Kilometerage;

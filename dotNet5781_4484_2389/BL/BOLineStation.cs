@@ -11,7 +11,7 @@ namespace BO
         public int StationCode { get; set; } //linestation
         public string Name { get; set; } //busstation
         public double Distance { get; set; } //from consec'
-        public int DriveTime { get; set; } //from consec'
+        public TimeSpan DriveTime { get; set; } //from consec'
 
     }
 }

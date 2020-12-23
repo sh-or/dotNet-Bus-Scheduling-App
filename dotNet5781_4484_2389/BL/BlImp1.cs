@@ -135,29 +135,109 @@ namespace BL
         }
         public List<BOBusStation> GetSpecificBusStations()
         {
-            List<Bus> bs;
+            List<BusStation> bs;
             try
             {
-                bs = dal.GetSpecificBuses();
+                bs = dal.GetSpecificBusStations();
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
-            List<BOBus> bobs = (from Bus b in bs
-                                select (BOBus)b).ToList();
+            List<BOBusStation> bobs = (from BusStation b in bs
+                                select (BOBusStation)b).ToList();
             return bobs;
         }
-        public List<BusStation> GetAllBusStations();
-        public int AddBusStation(BusStation bs);
-        public void DeleteBusStation(int _StationCode);
-        public BOLine GetLine(int _Code);
-        public void UpdateLine(Line l);
+        public List<BOBusStation> GetAllBusStations()
+        {
+            List<BusStation> bs;
+            try
+            {
+                bs = dal.GetAllBusStations();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            List<BOBusStation> bobs = (from BusStation b in bs
+                                       select (BOBusStation)b).ToList();
+            return bobs;
+        }
+        public int AddBusStation(BOBusStation bs)
+        {
+            if(/*checking*/)
+                throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
+            try
+            {
+                dal.AddBusStation((BusStation)bs);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        public void DeleteBusStation(int _StationCode)
+        {
+            //try
+            //{
+            //    dal.DeleteBusStation(_StationCode);
+            //}
+            //catch (DOException dex)
+            //{
+            //    throw new BLException(dex.Message);
+            //}
+        }
+
+        public BOLine GetLine(int _Code)
+        {
+            BOLine l;
+            List<BusStation> st;
+            //List<LineStation> ls;
+            ConsecutiveStations cs;
+            int i = 0;
+            BOLineStation tmp = new BOLineStation();
+            try
+            {
+                l = (BOLine)dal.GetLine(_Code);
+                st = dal.GetStationsOfLine(_Code);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            foreach (BusStation s in st)
+            {
+                tmp.StationCode = s.StationCode;
+                tmp.Name = s.Name;
+                if(i==0) //first station
+                {
+                    tmp.Distance = 0;
+                    tmp.DriveTime = TimeSpan.Zero;
+                }
+                else
+                {
+                    try
+                    {
+                        cs=dal.GetConsecutiveStations(st[i - 1].StationCode, s.StationCode);
+                        tmp.Distance = cs.Distance;
+                        tmp.DriveTime = cs.DriveTime;
+                    }
+                    catch (DOException dex)
+                    {
+                        throw new BLException(dex.Message);
+                    }
+                }
+                l.Stations.Add(tmp);
+                i++;
+            }
+            return l;
+        }
+        public void UpdateLine(BOLine l);
         public List<BOLine> GetStationLines(int _StationCode);
         public List<BOLine> GetAllLines();
         public List<BOLine> GetSpecificLines();
         public List<BOBusStation> GetStationsOfLine(int _LineCode);
-        public int AddLine(Line l);
+        public int AddLine(BOLine l);
         public void DeleteLine(int _Code);
         public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         public BOLineStation GetLineStation(int _LineCode, int _StationCode);

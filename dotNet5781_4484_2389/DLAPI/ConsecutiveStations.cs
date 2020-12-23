@@ -11,7 +11,7 @@ namespace DO
         public int StationCode1 { get; set; }
         public int StationCode2 { get; set; }
         public double Distance { get; set; }
-        public DateTime DriveTime { get; set; }
+        public TimeSpan DriveTime { get; set; }
         public bool Regional { get; set; }
     }
 }

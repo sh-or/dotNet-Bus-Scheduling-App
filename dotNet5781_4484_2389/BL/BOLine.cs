@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DO;
 
 namespace BO
 /*מידע על קו אוטובוס : כולל אוסף התחנות במסלול הקו (על פי סדר ההגעה לתחנות) עם מידע רלוונטי (בלבד) לתצוגת קו אוטובוס
@@ -12,21 +13,16 @@ namespace BO
 מזהה קו, מספר קו, תחנת סיום. לבונוס - זמני הגעה לתחנה ומידע רלוונטי נוסף שאינו מיותר לתצוגת מידע על תחנת אוטובוס.
 */
 {
-    public class Line : StationLine //include code,line and last station
+    public class BOLine : Line //include code,line,area,first and last station and isExist
     {
-        public AreaEnum Area { get; set; }
-        public int FirstStation { get; set; }
-        public bool IsExist { get; set; } //???
-        //public bool IsIntercity { get; set; }
-        public List<LineStation> Stations { get; set; }
+        //public AreaEnum Area { get; set; }
+        //public int FirstStation { get; set; }
+        //public bool IsExist { get; set; } //???
+        public List<BOLineStation> Stations { get; set; }
     }
 }
     //public class Weather
     //{
     //    public int Feeling { get; set; }
     //}
-
-    // public class BO
-    //{
-    // }
 

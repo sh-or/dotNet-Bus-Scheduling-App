@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class StationLine
+    public class BOStationLine //line(that cross in spesific station) details
     {
         public int Code { get; set; }
         public int BusLine { get; set; }

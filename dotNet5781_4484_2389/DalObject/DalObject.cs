@@ -52,21 +52,21 @@ namespace DL
                 return ListBS;
             throw new DOException("No buses were found");
         }
-        public int AddBus(/*int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver*/)
+        public void AddBus(Bus b /*int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver*/)
         {  
-            if (DataSource.AllBuses.Exists(x => x.LicenseNumber == _LicenseNumber))
-                throw new DOException(_LicenseNumber, $"Bus number {_LicenseNumber} is already exist");
-            Bus b = new Bus();
-            b.LicenseNumber = _LicenseNumber;
-          
-            b.IsExist = true;
-            b.LicensingDate = _LicensingDate; //checking if exist?
-            b.Kilometerage = _Kilometerage;
-            b.Fuel = _Fuel;
-            b.Status = _Status;
-            b.Driver = _Driver;
-            DataSource.AllBuses.Add(b);
-            return b.LicenseNumber;
+            if (DataSource.AllBuses.Exists(x => x.LicenseNumber == b.LicenseNumber))
+                throw new DOException(b.LicenseNumber, $"Bus number {b.LicenseNumber} is already exist");
+            DataSource.AllBuses.Add(b.Clone());
+            //Bus b = new Bus();
+            //b.LicenseNumber = _LicenseNumber;          
+            //b.IsExist = true;
+            //b.LicensingDate = _LicensingDate;
+            //b.Kilometerage = _Kilometerage;
+            //b.Fuel = _Fuel;
+            //b.Status = _Status;
+            //b.Driver = _Driver;
+            //DataSource.AllBuses.Add(b);
+            //return b.LicenseNumber;
         }
         public void DeleteBus(int _LicenseNumber) //how to update the DS??
         {
@@ -103,20 +103,22 @@ namespace DL
                 return ListBS;
             throw new DOException("No bus stations were found");
         }
-        public int AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility) 
+        public int AddBusStation(BusStation bs /*double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility*/) 
         {
-            BusStation bs = new BusStation();
-            bs.StationCode = ConfigurationClass.StationCode;
-            bs.IsExist = true;
-            bs.Latitude = _Latitude;
-            bs.Longitude = _Longitude;
-            bs.Name = _Name;
-            bs.Address = _Address;
-            bs.Accessibility = _Accessibility;
-            DataSource.AllBusStations.Add(bs);
+            DataSource.AllBusStations.Add(bs.Clone());
             return bs.StationCode;
+            //BusStation bs = new BusStation();
+            //bs.StationCode = ConfigurationClass.StationCode;
+            //bs.IsExist = true;
+            //bs.Latitude = _Latitude;
+            //bs.Longitude = _Longitude;
+            //bs.Name = _Name;
+            //bs.Address = _Address;
+            //bs.Accessibility = _Accessibility;
+            //DataSource.AllBusStations.Add(bs);
+            //return bs.StationCode;
         }
-        public void DeleteBusStation(int _StationCode) //how to update the DS??
+        public void DeleteBusStation(int _StationCode) //delete line-stations
         {
             BusStation bs = GetBusStation(_StationCode);
             //DataSource.AllBusStations.Remove(bs);
@@ -189,7 +191,7 @@ namespace DL
             DataSource.AllLines.Add(bl);
             return bl.Code;
         }
-        public void DeleteLine(int _Code) //how to update the DS?? 
+        public void DeleteLine(int _Code) //delete line-stations
         {
             Line bl = GetLine(_Code);
             //DataSource.AllBusStations.Remove(bs);

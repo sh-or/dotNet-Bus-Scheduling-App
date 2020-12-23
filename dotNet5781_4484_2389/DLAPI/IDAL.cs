@@ -20,13 +20,13 @@ namespace DLAPI
         void UpdateBus(Bus b);
         List<Bus> GetSpecificBuses(); 
         List<Bus> GetAllBuses();
-        int AddBus(int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver);
+        void AddBus(Bus b /*int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver*/);
         void DeleteBus(int _LicenseNumber);
         BusStation GetBusStation(int _StationCode);
         void UpdateStation(BusStation bs);
         List<BusStation> GetSpecificBusStations();
         List<BusStation> GetAllBusStations();
-        int AddBusStation(double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility);
+        int AddBusStation(BusStation bs /*double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility*/);
         void DeleteBusStation(int _StationCode);
         Line GetLine(int _Code);
         void UpdateLine(Line l);

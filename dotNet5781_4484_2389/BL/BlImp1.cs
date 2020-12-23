@@ -16,12 +16,12 @@ namespace BL
         readonly IDAL dal = DalFactory.GetDal();
         public BOBus GetBus(int _LicenseNumber)
         {
-            BOBus b = new BOBus();
+            BOBus b;
             try
             {
-                b.bus = dal.GetBus(_LicenseNumber);
+                b = (BOBus)dal.GetBus(_LicenseNumber);
             }
-            catch(DOException dex)
+            catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
@@ -38,59 +38,135 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
-        public List<Bus> GetSpecificBuses()//conditionnnn
+        public List<BOBus> GetSpecificBuses()//conditionnnn
         {
+            List<Bus> bs;
             try
             {
-                return dal.GetSpecificBuses();
+                bs = dal.GetSpecificBuses();
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
+            List<BOBus> bobs = (from Bus b in bs
+                                select (BOBus)b).ToList();
+            return bobs;
         }
-        public List<Bus> GetAllBuses()
+        public List<BOBus> GetAllBuses()
         {
+            List<Bus> b;
             try
             {
-                return dal.GetAllBuses();
+                b = dal.GetAllBuses();
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
+            List<BOBus> bobs = (from Bus bb in b
+                                select (BOBus)bb).ToList();
+            return bobs;
         }
-        public int AddBus(BOBus b)
+        public void AddBus(BOBus b)
         {
-
+            //more checking?
             if ((b.LicenseNumber > 9999999 && b.LicensingDate.Year < 2018) || (b.LicenseNumber < 10000000 && b.LicensingDate.Year >= 2018)) //license number and date don't match
                 throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
             try
             {
-                dal.AddBus(b);
+                dal.AddBus((Bus)b);
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
         }
-        public void DeleteBus(int _LicenseNumber);
-        public BusStation GetBusStation(int _StationCode);
-        public void UpdateStation(BusStation bs);
-        public List<BusStation> GetSpecificBusStations();
+        public void DeleteBus(int _LicenseNumber)
+        {
+            try
+            {
+                dal.DeleteBus(_LicenseNumber);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+
+        public BOBusStation GetBusStation(int _StationCode)
+        {
+            //checking
+            //add linestation
+            BOBusStation bs;
+            List<Line> ls;
+            BOStationLine tmp=new BOStationLine();
+            try
+            {
+                bs = (BOBusStation)dal.GetBusStation(_StationCode);
+                ls = dal.GetStationLines(_StationCode);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            //bs.Lines = (from BOStationLine x in ls
+            //            select x).ToList(); //work???
+            foreach (Line l in ls)
+            {
+                tmp.BusLine = l.BusLine;
+                tmp.Code = l.Code;
+                tmp.LastStation = l.LastStation;
+                bs.Lines.Add(tmp);
+            }
+            return bs;
+        }
+        public void UpdateStation(BOBusStation bs)
+        {
+            try
+            {
+                dal.UpdateStation(bs);
+                //lines?
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        public List<BOBusStation> GetSpecificBusStations()
+        {
+            List<Bus> bs;
+            try
+            {
+                bs = dal.GetSpecificBuses();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            List<BOBus> bobs = (from Bus b in bs
+                                select (BOBus)b).ToList();
+            return bobs;
+        }
         public List<BusStation> GetAllBusStations();
         public int AddBusStation(BusStation bs);
         public void DeleteBusStation(int _StationCode);
-        public Line GetLine(int _Code);
+        public BOLine GetLine(int _Code);
         public void UpdateLine(Line l);
-        public List<Line> GetStationLines(int _StationCode);
-        public List<Line> GetAllLines();
-        public List<Line> GetSpecificLines();
-        public List<BusStation> GetStationsOfLine(int _LineCode);
+        public List<BOLine> GetStationLines(int _StationCode);
+        public List<BOLine> GetAllLines();
+        public List<BOLine> GetSpecificLines();
+        public List<BOBusStation> GetStationsOfLine(int _LineCode);
         public int AddLine(Line l);
         public void DeleteLine(int _Code);
-        public DO.ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
+        public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
+        public BOLineStation GetLineStation(int _LineCode, int _StationCode);
+        public void DeleteLineStation(int _LineCode, int _StationCode);
+        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
+        //public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
+        //public void UpdateConsecutiveStations(ConsecutiveStations cs);
     }
+}
 //        static Random rnd = new Random(DateTime.Now.Millisecond);
 
 //        readonly IDAL dal = DalFactory.GetDal();

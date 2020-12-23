@@ -33,7 +33,8 @@ namespace DL
         }
         public void UpdateBus(Bus b) ///////////////
         {
-
+            DataSource.AllBuses.Remove(GetBus(b.LicenseNumber));
+            DataSource.AllBuses.Add(b.Clone());
         }
         public List<Bus> GetSpecificBuses() 
         {
@@ -84,7 +85,8 @@ namespace DL
         }
         public void UpdateStation(BusStation bs) //////////
         {
-
+            DataSource.AllBusStations.Remove(GetBusStation(bs.StationCode));
+            DataSource.AllBusStations.Add(bs.Clone());
         }
         public List<BusStation> GetSpecificBusStations() 
         {
@@ -134,7 +136,8 @@ namespace DL
         }
         public void UpdateLine(Line l) ////////////
         {
-
+            DataSource.AllLines.Remove(GetLine(l.Code));
+            DataSource.AllLines.Add(l.Clone());
         }
         public List<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
@@ -191,12 +194,18 @@ namespace DL
             DataSource.AllLines.Add(bl);
             return bl.Code;
         }
+
+     //לבדוק שזה טוב
         public void DeleteLine(int _Code) //delete line-stations
         {
+            List<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
+            foreach (LineStation ls in lls)
+                DeleteLineStation(ls.LineCode, ls.StationCode);
             Line bl = GetLine(_Code);
             //DataSource.AllBusStations.Remove(bs);
             bl.IsExist = false;
             //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
+
         }
         public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) 
         {
@@ -218,7 +227,7 @@ namespace DL
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             DataSource.AllLineStations.Remove(ls);
         }
-        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional) 
+        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, TimeSpan _DriveTime, bool _Regional) 
         {
             ConsecutiveStations cs = new ConsecutiveStations();
             cs.StationCode1 = _StationCode1;
@@ -235,9 +244,10 @@ namespace DL
                 return cs.Clone();
             throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");
         }
-        public void UpdateConsecutiveStations(ConsecutiveStations cs)//mimush!
+        public void UpdateConsecutiveStations(ConsecutiveStations cs)
         {
-            ///////
+            DataSource.AllConsecutiveStations.Remove(GetConsecutiveStations(cs.StationCode1, cs.StationCode2));
+            DataSource.AllConsecutiveStations.Add(cs.Clone());
         }
 
         //static Random rnd = new Random(DateTime.Now.Millisecond);

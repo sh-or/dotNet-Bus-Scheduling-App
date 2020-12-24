@@ -13,6 +13,6 @@ namespace DS
         static int lineCode = 1;
         public static int LineCode => lineCode++;
         static int driveCode = 1;
-        public static int DriveCode => lineCode++;
+        public static int DriveCode => driveCode++;
     }
 }

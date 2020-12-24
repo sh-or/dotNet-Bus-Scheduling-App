@@ -163,13 +163,13 @@ namespace BL
                                        select (BOBusStation)b).ToList();
             return bobs;
         }
-        public int AddBusStation(BOBusStation bs)
+        public int AddBusStation(BOBusStation bs) //it was build.adding with no lines
         {
-            if(/*checking*/)
-                throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
+            //if (/*checking*/) //address and name not empty?
+            //    throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
             try
             {
-                dal.AddBusStation((BusStation)bs);
+                return dal.AddBusStation((BusStation)bs);
             }
             catch (DOException dex)
             {
@@ -178,14 +178,18 @@ namespace BL
         }
         public void DeleteBusStation(int _StationCode)
         {
-            //try
-            //{
-            //    dal.DeleteBusStation(_StationCode);
-            //}
-            //catch (DOException dex)
-            //{
-            //    throw new BLException(dex.Message);
-            //}
+            try
+            {
+                List<LineStation> ls= dal.GetSpecificLineStations(x=>x.StationCode==_StationCode);
+                if (ls != null)
+                    foreach (LineStation x in ls)
+                        dal.DeleteLineStation(x.LineCode, x.StationCode);
+                dal.DeleteBusStation(_StationCode);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
         }
 
         public BOLine GetLine(int _Code)

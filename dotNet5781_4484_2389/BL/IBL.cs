@@ -34,7 +34,7 @@ namespace BlAPI
         void DeleteLine(int _Code);
         void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         BOLineStation GetLineStation(int _LineCode, int _StationCode);
-         void UpdateLineStation(BOLineStation);
+         void UpdateLineStation(BOLineStation ls);
         void DeleteLineStation(int _LineCode, int _StationCode);
         void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
         //BOConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);

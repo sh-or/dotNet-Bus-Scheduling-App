@@ -196,7 +196,6 @@ namespace DL
             return bl.Code;
         }
 
-     //נשמע מעולה:)
         public void DeleteLine(int _Code) //delete line-stations
         {
             List<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);

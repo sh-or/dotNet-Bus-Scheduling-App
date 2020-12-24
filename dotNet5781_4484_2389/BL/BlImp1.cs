@@ -133,7 +133,7 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
-        public List<BOBusStation> GetSpecificBusStations()
+        public List<BOBusStation> GetSpecificBusStations() //!!!predicate
         {
             List<BusStation> bs;
             try
@@ -148,7 +148,7 @@ namespace BL
                                 select (BOBusStation)b).ToList();
             return bobs;
         }
-        public List<BOBusStation> GetAllBusStations()
+        public List<BOBusStation> GetAllBusStations() // bo מחזיר כולל הרשימת קווים? מה שייחודי ל  
         {
             List<BusStation> bs;
             try
@@ -160,7 +160,7 @@ namespace BL
                 throw new BLException(dex.Message);
             }
             List<BOBusStation> bobs = (from BusStation b in bs
-                                       select (BOBusStation)b).ToList();
+                                       select (BOBusStation)b).ToList();  
             return bobs;
         }
         public int AddBusStation(BOBusStation bs) //it was build.adding with no lines
@@ -247,7 +247,6 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
-    
         public void DeleteStationInLine(BOLine l, int _StationCode)
         {
             l.Stations.Remove(GetLineStation(l.Code, _StationCode)); //UI catch ex
@@ -260,7 +259,6 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
-
         public void AddStationInLine(BOLine l, int _StationCode, int index)
         {
             l.Stations.Insert(index, GetLineStation(l.Code, _StationCode)); //UI catch ex
@@ -303,14 +301,56 @@ namespace BL
 
         //public List<BOLine> GetStationLines(int _StationCode){}
 
-        public List<BOLine> GetAllLines();
-        public List<BOLine> GetSpecificLines();
-        public List<BOBusStation> GetStationsOfLine(int _LineCode);
-        public int AddLine(BOLine l);
+        public List <BOLine> GetAllLines() // bo מחזיר כולל הרשימת תחנות? מה שייחודי ל  
+        {
+            List<Line> l;
+                try
+            {
+                l = dal.GetAllLines();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            List<BOLine> bol = (from Line ll in l
+                                select (BOLine)ll).ToList();
+            return bol;
+        }
+        public List <BOLine> GetSpecificLines()   // !!!predicate
+        {
+            List<Line> l;
+            try
+            {
+                l = dal.GetSpecificLines();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            List<BOLine> bol = (from Line ll in l
+                                select (BOLine)ll).ToList();
+            return bol;
+        }
+        public List <BOBusStation> GetStationsOfLine(int _LineCode) 
+        {
+            List<BusStation> bs;
+            try
+            {
+                 bs = dal.GetStationsOfLine(_LineCode);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+            List<BOBusStation> bobs = (from BusStation b in bs
+                                       select (BOBusStation)b).ToList();
+            return bobs;
+        }
+        public int AddLine(BOLine l); 
         public void DeleteLine(int _Code);
         public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         public BOLineStation GetLineStation(int _LineCode, int _StationCode);
-        public void UpdateLineStation(BOLineStation);
+        public void UpdateLineStation(BOLineStation ls);
         public void DeleteLineStation(int _LineCode, int _StationCode);
         public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
         

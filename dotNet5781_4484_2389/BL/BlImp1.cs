@@ -236,8 +236,73 @@ namespace BL
             }
             return l;
         }
-        public void UpdateLine(BOLine l);
-        public List<BOLine> GetStationLines(int _StationCode);
+        public void UpdateLine(BOLine l) //not for updating station list
+        {
+            try
+            {
+                dal.UpdateLine(l);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+    
+        public void DeleteStationInLine(BOLine l, int _StationCode)
+        {
+            l.Stations.Remove(GetLineStation(l.Code, _StationCode)); //UI catch ex
+            try
+            {
+                dal.DeleteLineStation(l.Code, _StationCode);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+
+        public void AddStationInLine(BOLine l, int _StationCode, int index)
+        {
+            l.Stations.Insert(index, GetLineStation(l.Code, _StationCode)); //UI catch ex
+            try
+            {
+                if (index== 0)
+                {
+                    l.FirstStation = _StationCode;
+                    UpdateLine(l);
+                    l.Stations[index].Distance = 0;
+                    l.Stations[index].DriveTime = TimeSpan.Zero;
+                    UpdateLineStation(l.Stations[index]);
+                }
+                else  //not first station
+                { 
+                    if(index==l.Stations.Count-1) //the last station
+                    {
+                        l.LastStation = _StationCode;
+                        UpdateLine(l);
+                    }
+                    ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[index - 1].StationCode, _StationCode); //maybe get from new UI window
+                    l.Stations[index].Distance = cs.Distance;
+                    l.Stations[index].DriveTime = cs.DriveTime;
+                    UpdateLineStation(l.Stations[index]);
+                }
+                if (index != l.Stations.Count - 1) //not last station
+                {
+                    ConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations[index +1].StationCode); //maybe get from new UI window
+                    l.Stations[index+ 1].Distance = cs.Distance;
+                    l.Stations[index + 1].DriveTime = cs.DriveTime;
+                    UpdateLineStation(l.Stations[index + 1]);
+                }
+
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+
+        //public List<BOLine> GetStationLines(int _StationCode){}
+
         public List<BOLine> GetAllLines();
         public List<BOLine> GetSpecificLines();
         public List<BOBusStation> GetStationsOfLine(int _LineCode);
@@ -245,8 +310,10 @@ namespace BL
         public void DeleteLine(int _Code);
         public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         public BOLineStation GetLineStation(int _LineCode, int _StationCode);
+        public void UpdateLineStation(BOLineStation);
         public void DeleteLineStation(int _LineCode, int _StationCode);
         public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
+        
         //public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         //public void UpdateConsecutiveStations(ConsecutiveStations cs);
     }

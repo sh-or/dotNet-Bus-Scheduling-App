@@ -12,13 +12,13 @@ namespace BlAPI
     {
         BOBus GetBus(int _LicenseNumber);
         void UpdateBus(BOBus b);
-        List<BOBus> GetSpecificBuses();
+        List<BOBus> GetSpecificBuses(Predicate<BOBus> p);
         List<BOBus> GetAllBuses();
         void AddBus(BOBus b);
         void DeleteBus(int _LicenseNumber);
         BOBusStation GetBusStation(int _StationCode);
         void UpdateStation(BusStation bs);
-        List<BOBusStation> GetSpecificBusStations();
+        List<BOBusStation> GetSpecificBusStations(Predicate<BOBusStation> p);
         List<BOBusStation> GetAllBusStations();
         int AddBusStation(BOBusStation bs);
         void DeleteBusStation(int _StationCode);
@@ -28,7 +28,7 @@ namespace BlAPI
         void AddStationInLine(BOLine l, int _StationCode, int index);
         List<BOLine> GetStationLines(int _StationCode);
         List<BOLine> GetAllLines();
-        List<BOLine> GetSpecificLines();
+        List<BOLine> GetSpecificLines(Predicate<BOLine> p);
         List<BOBusStation> GetStationsOfLine(int _LineCode);
         int AddLine(BOLine l);
         void DeleteLine(int _Code);

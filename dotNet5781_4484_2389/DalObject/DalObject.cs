@@ -169,21 +169,15 @@ namespace DL
         {
             List <LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
             List<BusStation> bsLst = new List<BusStation>();
-            foreach (LineStation ls in lsLst)
-            {
-                //if(ls.flag)
-                bsLst.Add(GetBusStation(ls.StationCode)); //*need to check if deleted?
-                //else throw NotFoundEx
-            }
-            //LINQ!!!!!!!!!!!!!!!!
-            //bsLst.sortByStationNumberInLine(); //sort according to the line's rout
-            return bsLst.Clone();
+            bsLst = (from ls in lsLst
+                     orderby ls.StationNumberInLine
+                    select GetBusStation(ls.StationCode).Clone()).ToList();
+            if (bsLst != null)
+                return bsLst;
+            throw new DOException("No line stations were found");
+
         }
-        //private void sortByStationNumberInLine() //or lemammesh Icompareable on BusStation
-        //{
-        //will be in LINQ!:)
-        //}
-        public int AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation) 
+        public int AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation) //gets line???
         {
             Line bl = new Line();
             bl.Code = ConfigurationClass.LineCode;
@@ -196,7 +190,7 @@ namespace DL
             return bl.Code;
         }
 
-        public void DeleteLine(int _Code) //delete line-stations
+        public void DeleteLine(int _Code) //delete line-stations - V
         {
             List<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
             foreach (LineStation ls in lls)
@@ -207,7 +201,7 @@ namespace DL
             //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
 
         }
-        public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) 
+        public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) //gets linestation???
         {
             LineStation ls = new LineStation();
             ls.StationCode = _StationCode;

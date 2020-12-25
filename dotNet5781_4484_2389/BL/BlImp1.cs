@@ -38,12 +38,12 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
-        public List<BOBus> GetSpecificBuses()//conditionnnn
+        public List<BOBus> GetSpecificBuses(Predicate<BOBus> p)//conditionnnn
         {
             List<Bus> bs;
             try
             {
-                bs = dal.GetSpecificBuses();
+                bs = dal.GetSpecificBuses((Predicate <Bus>) p);
             }
             catch (DOException dex)
             {
@@ -126,44 +126,70 @@ namespace BL
             try
             {
                 dal.UpdateStation(bs);
-                //lines?
+                //lines will be updated by lines
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
         }
-        public List<BOBusStation> GetSpecificBusStations() //!!!predicate
+        public List<BOBusStation> GetSpecificBusStations(Predicate<BOBusStation> p) 
         {
             List<BusStation> bs;
+            List<BOBusStation> bobs;
+            BOStationLine tmp = new BOStationLine();
             try
             {
-                bs = dal.GetSpecificBusStations();
+                bs = dal.GetSpecificBusStations((Predicate<BusStation>)p);
+                bobs = (from BusStation b in bs
+                                           select (BOBusStation)b).ToList();
+                foreach (BOBusStation b in bs)
+                {
+                    var sl = dal.GetStationLines(b.StationCode);
+                    foreach (Line l in sl)
+                    {
+                        tmp.BusLine = l.BusLine;
+                        tmp.Code = l.Code;
+                        tmp.LastStation = l.LastStation;
+                        b.Lines.Add(tmp);
+                    }
+                }
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
-            List<BOBusStation> bobs = (from BusStation b in bs
-                                select (BOBusStation)b).ToList();
             return bobs;
         }
-        public List<BOBusStation> GetAllBusStations() // bo מחזיר כולל הרשימת קווים? מה שייחודי ל  
+        public List<BOBusStation> GetAllBusStations()   
         {
             List<BusStation> bs;
+            List<BOBusStation> bobs;
+            BOStationLine tmp = new BOStationLine();
             try
             {
                 bs = dal.GetAllBusStations();
+                bobs = (from BusStation b in bs
+                        select (BOBusStation)b).ToList();
+                foreach (BOBusStation b in bs)
+                {
+                    var sl = dal.GetStationLines(b.StationCode);
+                    foreach (Line l in sl)
+                    {
+                        tmp.BusLine = l.BusLine;
+                        tmp.Code = l.Code;
+                        tmp.LastStation = l.LastStation;
+                        b.Lines.Add(tmp);
+                    }
+                }
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
-            List<BOBusStation> bobs = (from BusStation b in bs
-                                       select (BOBusStation)b).ToList();  
             return bobs;
         }
-        public int AddBusStation(BOBusStation bs) //it was build.adding with no lines
+        public int AddBusStation(BOBusStation bs) //it was just build.adding with no lines
         {
             //if (/*checking*/) //address and name not empty?
             //    throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
@@ -196,7 +222,6 @@ namespace BL
         {
             BOLine l;
             List<BusStation> st;
-            //List<LineStation> ls;
             ConsecutiveStations cs;
             int i = 0;
             BOLineStation tmp = new BOLineStation();
@@ -249,9 +274,26 @@ namespace BL
         }
         public void DeleteStationInLine(BOLine l, int _StationCode)
         {
-            l.Stations.Remove(GetLineStation(l.Code, _StationCode)); //UI catch ex
+            BOLineStation ls = GetLineStation(l.Code, _StationCode); //UI catch ex
+            l.Stations.Remove(ls);
+            int location;
             try
             {
+                location = dal.GetLineStation(l.Code, _StationCode).StationNumberInLine;
+                if (location<l.Stations.Count/*-1*/) //not last station
+                { //update time&distance
+                    if(location==0)
+                    {
+                        l.Stations[0].Distance = 0;
+                        l.Stations[0].DriveTime = TimeSpan.Zero;
+                    }
+                    else
+                    {//if not exist ConsecutiveStations->new window for insert data and creat ConsecutiveStations!
+                        ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[location - 1].StationCode, l.Stations[location].StationCode);
+                        l.Stations[location].Distance = cs.Distance;
+                        l.Stations[location].DriveTime = cs.DriveTime;
+                    }
+                }
                 dal.DeleteLineStation(l.Code, _StationCode);
             }
             catch (DOException dex)
@@ -301,10 +343,10 @@ namespace BL
 
         //public List<BOLine> GetStationLines(int _StationCode){}
 
-        public List <BOLine> GetAllLines() // bo מחזיר כולל הרשימת תחנות? מה שייחודי ל  
+        public List <BOLine> GetAllLines() 
         {
             List<Line> l;
-                try
+            try
             {
                 l = dal.GetAllLines();
             }
@@ -313,22 +355,22 @@ namespace BL
                 throw new BLException(dex.Message);
             }
             List<BOLine> bol = (from Line ll in l
-                                select (BOLine)ll).ToList();
+                                select GetLine(ll.Code)).ToList();
             return bol;
         }
-        public List <BOLine> GetSpecificLines()   // !!!predicate
+        public List <BOLine> GetSpecificLines(Predicate<BOLine> p) 
         {
             List<Line> l;
             try
             {
-                l = dal.GetSpecificLines();
+                l = dal.GetSpecificLines((Predicate<Line>)p);
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
             List<BOLine> bol = (from Line ll in l
-                                select (BOLine)ll).ToList();
+                                select GetLine(ll.Code)).ToList();
             return bol;
         }
         public List <BOBusStation> GetStationsOfLine(int _LineCode) 
@@ -343,7 +385,7 @@ namespace BL
                 throw new BLException(dex.Message);
             }
             List<BOBusStation> bobs = (from BusStation b in bs
-                                       select (BOBusStation)b).ToList();
+                                       select (BOBusStation)b).ToList(); //חוקי? זה בלי הרשימת קווים
             return bobs;
         }
         public int AddLine(BOLine l); 

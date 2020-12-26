@@ -177,17 +177,18 @@ namespace DL
             throw new DOException("No line stations were found");
 
         }
-        public int AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation) //gets line???
+        public int AddLine( Line l/*int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation*/) //gets line???
         {
-            Line bl = new Line();
-            bl.Code = ConfigurationClass.LineCode;
-            bl.IsExist = true;
-            bl.BusLine = _BusLine;
-            bl.Area = _Area;
-            bl.FirstStation = _FirstStation;
-            bl.LastStation = _LastStation;
-            DataSource.AllLines.Add(bl);
-            return bl.Code;
+            l.Code = ConfigurationClass.LineCode;
+            //Line bl = new Line();
+            //bl.Code = ConfigurationClass.LineCode;
+            //bl.IsExist = true;
+            //bl.BusLine = _BusLine;
+            //bl.Area = _Area;
+            //bl.FirstStation = _FirstStation;
+            //bl.LastStation = _LastStation;
+            DataSource.AllLines.Add(l);
+            return l.Code;
         }
 
         public void DeleteLine(int _Code) //delete line-stations - V

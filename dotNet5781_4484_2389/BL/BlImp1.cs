@@ -97,7 +97,6 @@ namespace BL
         public BOBusStation GetBusStation(int _StationCode)
         {
             //checking
-            //add linestation
             BOBusStation bs;
             List<Line> ls;
             BOStationLine tmp=new BOStationLine();
@@ -110,8 +109,7 @@ namespace BL
             {
                 throw new BLException(dex.Message);
             }
-            //bs.Lines = (from BOStationLine x in ls
-            //            select x).ToList(); //work???
+
             foreach (Line l in ls)
             {
                 tmp.BusLine = l.BusLine;
@@ -189,13 +187,15 @@ namespace BL
             }
             return bobs;
         }
-        public int AddBusStation(BOBusStation bs) //it was just build.adding with no lines
+        public int AddBusStation(BOBusStation bs) //it was just build.adding with no lines. empty list created in UI.
         {
             //if (/*checking*/) //address and name not empty?
             //    throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
             try
             {
-                return dal.AddBusStation((BusStation)bs);
+                int runNumber=dal.AddBusStation((BusStation)bs);
+                bs.StationCode = runNumber;
+                return runNumber;
             }
             catch (DOException dex)
             {
@@ -275,6 +275,9 @@ namespace BL
         public void DeleteStationInLine(BOLine l, int _StationCode)
         {
             BOLineStation ls = GetLineStation(l.Code, _StationCode); //UI catch ex
+            if (l.Stations.Count<3)
+                throw new BLException("Line cannot be with less than 2 stations");
+
             l.Stations.Remove(ls);
             int location;
             try
@@ -388,12 +391,43 @@ namespace BL
                                        select (BOBusStation)b).ToList(); //חוקי? זה בלי הרשימת קווים
             return bobs;
         }
-        public int AddLine(BOLine l); 
-        public void DeleteLine(int _Code);
-        public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
-        public BOLineStation GetLineStation(int _LineCode, int _StationCode);
-        public void UpdateLineStation(BOLineStation ls);
-        public void DeleteLineStation(int _LineCode, int _StationCode);
+        public int AddLine(BOLine l)
+        {
+            try
+            {
+                int runNumber = dal.AddLine((Line)l);
+                l.Code = runNumber;
+                return runNumber;
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        public void DeleteLine(int _Code) //פרדיקט מקבל הכל?
+        {
+            try
+            {
+                List<LineStation> ls = dal.GetSpecificLineStations(x => x.LineCode == _Code); 
+                if (ls != null)
+                    foreach (LineStation x in ls)
+                        dal.DeleteLineStation(x.LineCode, x.StationCode);
+                dal.DeleteLine(_Code);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
+        //public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);  // AddStationInLine
+         public BOLineStation GetLineStation(int _LineCode, int _StationCode) //need
+        {
+
+        }
+
+        //public void UpdateLineStation(BOLineStation ls);
+
+       
         public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
         
         //public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);

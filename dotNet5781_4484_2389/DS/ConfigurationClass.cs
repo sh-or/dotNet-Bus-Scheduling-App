@@ -10,8 +10,10 @@ namespace DS
     {
         static int stationCode = 1;
         public static int StationCode => stationCode++;
+
         static int lineCode = 1;
         public static int LineCode => lineCode++;
+
         static int driveCode = 1;
         public static int DriveCode => driveCode++;
     }

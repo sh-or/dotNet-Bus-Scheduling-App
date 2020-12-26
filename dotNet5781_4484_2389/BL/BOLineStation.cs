@@ -12,6 +12,7 @@ namespace BO
         public string Name { get; set; } //busstation
         public double Distance { get; set; } //from consec'
         public TimeSpan DriveTime { get; set; } //from consec'
+        
 
     }
 }

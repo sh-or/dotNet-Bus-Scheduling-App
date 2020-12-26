@@ -34,7 +34,7 @@ namespace DLAPI
         List<Line> GetAllLines();
         List<Line> GetSpecificLines(Predicate<Line> p);
         List<BusStation> GetStationsOfLine(int _LineCode);
-        int AddLine(int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation);
+        int AddLine(Line l/*int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation*/);
         void DeleteLine(int _Code);
         void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         LineStation GetLineStation(int _LineCode, int _StationCode);

@@ -40,9 +40,9 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
-        public List<BOBus> GetSpecificBuses(Predicate<BOBus> p)//conditionnnn
+        public IEnumerable<BOBus> GetSpecificBuses(Predicate<BOBus> p)//conditionnnn
         {
-            List<Bus> bs;
+            IEnumerable<Bus> bs;
             try
             {
                 bs = dal.GetSpecificBuses((Predicate <Bus>) p);
@@ -51,13 +51,13 @@ namespace BL
             {
                 throw new BLException(dex.Message);
             }
-            List<BOBus> bobs = (from Bus b in bs
-                                select (BOBus)b).ToList();
+            IEnumerable<BOBus> bobs = (from Bus b in bs
+                                select (BOBus)b);
             return bobs;
         }
-        public List<BOBus> GetAllBuses()
+        public IEnumerable<BOBus> GetAllBuses()
         {
-            List<Bus> b;
+            IEnumerable<Bus> b;
             try
             {
                 b = dal.GetAllBuses();
@@ -66,8 +66,8 @@ namespace BL
             {
                 throw new BLException(dex.Message);
             }
-            List<BOBus> bobs = (from Bus bb in b
-                                select (BOBus)bb).ToList();
+            IEnumerable<BOBus> bobs = (from Bus bb in b
+                                select (BOBus)bb);
             return bobs;
         }
         public void AddBus(BOBus b)
@@ -98,11 +98,12 @@ namespace BL
         #endregion
 
         #region BusStation
+
         public BOBusStation GetBusStation(int _StationCode)
         {
             //checking
             BOBusStation bs;
-            List<Line> ls;
+            IEnumerable<Line> ls;
             BOStationLine tmp=new BOStationLine();
             try
             {
@@ -135,16 +136,16 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
-        public List<BOBusStation> GetSpecificBusStations(Predicate<BOBusStation> p) 
+        public IEnumerable<BOBusStation> GetSpecificBusStations(Predicate<BOBusStation> p) 
         {
-            List<BusStation> bs;
-            List<BOBusStation> bobs;
+            IEnumerable<BusStation> bs;
+            IEnumerable<BOBusStation> bobs;
             BOStationLine tmp = new BOStationLine();
             try
             {
                 bs = dal.GetSpecificBusStations((Predicate<BusStation>)p);
                 bobs = (from BusStation b in bs
-                                           select (BOBusStation)b).ToList();
+                                           select (BOBusStation)b);
                 foreach (BOBusStation b in bs)
                 {
                     var sl = dal.GetStationLines(b.StationCode);
@@ -163,16 +164,16 @@ namespace BL
             }
             return bobs;
         }
-        public List<BOBusStation> GetAllBusStations()   
+        public IEnumerable<BOBusStation> GetAllBusStations()   
         {
-            List<BusStation> bs;
-            List<BOBusStation> bobs;
+            IEnumerable<BusStation> bs;
+            IEnumerable<BOBusStation> bobs;
             BOStationLine tmp = new BOStationLine();
             try
             {
                 bs = dal.GetAllBusStations();
                 bobs = (from BusStation b in bs
-                        select (BOBusStation)b).ToList();
+                        select (BOBusStation)b);
                 foreach (BOBusStation b in bs)
                 {
                     var sl = dal.GetStationLines(b.StationCode);
@@ -210,7 +211,7 @@ namespace BL
         {
             try
             {
-                List<LineStation> ls= dal.GetSpecificLineStations(x=>x.StationCode==_StationCode);
+                IEnumerable<LineStation> ls= dal.GetSpecificLineStations(x=>x.StationCode==_StationCode);
                 if (ls != null)
                     foreach (LineStation x in ls)
                         dal.DeleteLineStation(x.LineCode, x.StationCode);
@@ -228,7 +229,7 @@ namespace BL
         public BOLine GetLine(int _Code)  // use GetConsecutiveStations
         {
             BOLine l;
-            List<BusStation> st;
+            IEnumerable<BusStation> st;
             BOConsecutiveStations cs;
             int i = 0;
             BOLineStation tmp = new BOLineStation();
@@ -281,11 +282,12 @@ namespace BL
         }
         public void DeleteStationInLine(BOLine l, int _StationCode)
         {
-            BOLineStation ls = GetLineStation(l.Code, _StationCode); //UI catch ex
+            BOLineStation ls = l.Stations.Find(x => x.StationCode == _StationCode);  //UI catch ex
             if (l.Stations.Count<3)
                 throw new BLException("Line cannot be with less than 2 stations");
 
-            l.Stations.Remove(ls);
+            if (!l.Stations.Remove(ls))
+                throw new BLException($"Station number {_StationCode} was not found");
             int location;
             try
             {
@@ -313,9 +315,13 @@ namespace BL
         }
         public void AddStationInLine(BOLine l, int _StationCode, int index)
         {
-            l.Stations.Insert(index, GetLineStation(l.Code, _StationCode)); //UI catch ex
             try
             {
+                BOLineStation ls = new BOLineStation();
+                ls.StationCode = _StationCode;
+                ls.Name = dal.GetBusStation(_StationCode).Name;
+                l.Stations.Insert(index, ls); 
+
                 if (index== 0)
                 {
                     l.FirstStation = _StationCode;
@@ -351,11 +357,11 @@ namespace BL
             }
         }
 
-        //public List<BOLine> GetStationLines(int _StationCode){}
+        //public IEnumerable<BOLine> GetStationLines(int _StationCode){}
 
         public List <BOLine> GetAllLines() 
         {
-            List<Line> l;
+            IEnumerable<Line> l;
             try
             {
                 l = dal.GetAllLines();
@@ -364,13 +370,13 @@ namespace BL
             {
                 throw new BLException(dex.Message);
             }
-            List<BOLine> bol = (from Line ll in l
-                                select GetLine(ll.Code)).ToList();
+            IEnumerable<BOLine> bol = (from Line ll in l
+                                select GetLine(ll.Code));
             return bol;
         }
         public List <BOLine> GetSpecificLines(Predicate<BOLine> p) 
         {
-            List<Line> l;
+            IEnumerable<Line> l;
             try
             {
                 l = dal.GetSpecificLines((Predicate<Line>)p);
@@ -379,13 +385,13 @@ namespace BL
             {
                 throw new BLException(dex.Message);
             }
-            List<BOLine> bol = (from Line ll in l
-                                select GetLine(ll.Code)).ToList();
+            IEnumerable<BOLine> bol = (from Line ll in l
+                                select GetLine(ll.Code));
             return bol;
         }
         public List <BOBusStation> GetStationsOfLine(int _LineCode) 
         {
-            List<BusStation> bs;
+            IEnumerable<BusStation> bs;
             try
             {
                  bs = dal.GetStationsOfLine(_LineCode);
@@ -394,8 +400,8 @@ namespace BL
             {
                 throw new BLException(dex.Message);
             }
-            List<BOBusStation> bobs = (from BusStation b in bs
-                                       select (BOBusStation)b).ToList(); //חוקי? זה בלי הרשימת קווים
+            IEnumerable<BOBusStation> bobs = (from BusStation b in bs
+                                       select (BOBusStation)b); //חוקי? זה בלי הרשימת קווים
             return bobs;
         }
         public int AddLine(BOLine l)
@@ -415,7 +421,7 @@ namespace BL
         {
             try
             {
-                List<LineStation> ls = dal.GetSpecificLineStations(x => x.LineCode == _Code); 
+                IEnumerable<LineStation> ls = dal.GetSpecificLineStations(x => x.LineCode == _Code); 
                 if (ls != null)
                     foreach (LineStation x in ls)
                         dal.DeleteLineStation(x.LineCode, x.StationCode);
@@ -431,11 +437,7 @@ namespace BL
         #endregion
 
         #region LineStation
-        public BOLineStation GetLineStation(int _LineCode, int _StationCode) //need
-        {
-
-        }
-
+       
         public void UpdateLineStation(BOLineStation ls) //add stationinline
         {
 
@@ -444,7 +446,7 @@ namespace BL
 
         #region ConsecutiveStations
 
-        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, /*bool _Regional*/);
+        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime /*bool _Regional*/);
         
         //public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         //public void UpdateConsecutiveStations(ConsecutiveStations cs);

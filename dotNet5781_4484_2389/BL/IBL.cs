@@ -12,30 +12,33 @@ namespace BlAPI
     {
         BOBus GetBus(int _LicenseNumber);
         void UpdateBus(BOBus b);
-        List<BOBus> GetSpecificBuses(Predicate<BOBus> p);
-        List<BOBus> GetAllBuses();
+        IEnumerable<BOBus> GetSpecificBuses(Predicate<BOBus> p);
+        IEnumerable<BOBus> GetAllBuses();
         void AddBus(BOBus b);
         void DeleteBus(int _LicenseNumber);
+
         BOBusStation GetBusStation(int _StationCode);
-        void UpdateStation(BusStation bs);
-        List<BOBusStation> GetSpecificBusStations(Predicate<BOBusStation> p);
-        List<BOBusStation> GetAllBusStations();
+        void UpdateStation(BOBusStation bs);
+        IEnumerable<BOBusStation> GetSpecificBusStations(Predicate<BOBusStation> p);
+        IEnumerable<BOBusStation> GetAllBusStations();
         int AddBusStation(BOBusStation bs);
         void DeleteBusStation(int _StationCode);
+
         BOLine GetLine(int _Code);
         void UpdateLine(BOLine l);
         void DeleteStationInLine(BOLine l, int _StationCode);
         void AddStationInLine(BOLine l, int _StationCode, int index);
-        List<BOLine> GetStationLines(int _StationCode);
-        List<BOLine> GetAllLines();
-        List<BOLine> GetSpecificLines(Predicate<BOLine> p);
-        List<BOBusStation> GetStationsOfLine(int _LineCode);
+      //  IEnumerable<BOLine> GetStationLines(int _StationCode);
+        IEnumerable<BOLine> GetAllLines();
+        IEnumerable<BOLine> GetSpecificLines(Predicate<BOLine> p);
+        
+        IEnumerable<BOBusStation> GetStationsOfLine(int _LineCode);
         int AddLine(BOLine l);
         void DeleteLine(int _Code);
-        void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
-        BOLineStation GetLineStation(int _LineCode, int _StationCode);
+     //   void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
+        
          void UpdateLineStation(BOLineStation ls);
-        void DeleteLineStation(int _LineCode, int _StationCode);
+        //void DeleteLineStation(int _LineCode, int _StationCode);
         void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
         //BOConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         //void UpdateConsecutiveStations(BOConsecutiveStations cs);

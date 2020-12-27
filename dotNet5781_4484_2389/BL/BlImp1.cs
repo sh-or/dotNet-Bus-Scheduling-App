@@ -400,24 +400,47 @@ namespace BL
             {
                 throw new BLException(dex.Message);
             }
-            IEnumerable<BOBusStation> bobs = (from BusStation b in bs
-                                       select (BOBusStation)b); //חוקי? זה בלי הרשימת קווים
+            IEnumerable<BOBusStation> bobs = from BusStation b in bs
+                                       select (BOBusStation)b; //חוקי? זה בלי הרשימת קווים
             return bobs;
         }
         public int AddLine(BOLine l)
         {
+            if (l.FirstStation == 0 || l.LastStation == 0)
+                throw new BLException("Cannot add new line without first&last station");
             try
             {
-                int runNumber = dal.AddLine((Line)l);
-                l.Code = runNumber;
-                return runNumber;
+                l.Stations = new List<BOLineStation>();
+                BOLineStation first = new BOLineStation() { StationCode = l.FirstStation, Distance=0, DriveTime=TimeSpan.Zero};
+                first.Name = dal.GetBusStation(l.FirstStation).Name;
+                l.Stations.Add(first);
+                BOLineStation last = new BOLineStation() { StationCode = l.LastStation };
+                last.Name = dal.GetBusStation(l.LastStation).Name;
+                ConsecutiveStations cs;
+                if (!dal.isExistConsecutiveStations(l.FirstStation, l.LastStation))
+                {
+                    //יצירת קונסקיוטיב ואז שליחה להוספה בדאל
+                    dal.AddConsecutiveStations(l.FirstStation, l.LastStation);
+                    //cs = dal.
+                    last.Distance = cs.Distance;
+                    last.DriveTime = cs.DriveTime;
+                }
+                else
+                {
+                    cs = dal.GetConsecutiveStations(l.FirstStation, l.LastStation);
+                    last.Distance = cs.Distance;
+                    last.DriveTime = cs.DriveTime;
+                }
+                l.Stations.Add(last);
+                l.Code = dal.AddLine((Line)l);
+                return l.Code;
             }
             catch (DOException dex)
             {
                 throw new BLException(dex.Message);
             }
         }
-        public void DeleteLine(int _Code) //פרדיקט מקבל הכל?
+        public void DeleteLine(int _Code) 
         {
             try
             {

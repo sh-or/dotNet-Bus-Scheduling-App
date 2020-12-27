@@ -41,9 +41,10 @@ namespace DLAPI
         int IsStationInLine(int _LineCode, int _StationCode); //check if exist specific linestation and return the station location in the line or -1
         List<LineStation> GetSpecificLineStations(Predicate<LineStation> p /*condition*/);
         void DeleteLineStation(int _LineCode, int _StationCode);
-        void AddConsecutiveStations(int _StationCode1, int _StationCode2 , double _Distance, TimeSpan _DriveTime, bool _Regional);
+        void AddConsecutiveStations(int _StationCode1, int _StationCode2);
         ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         void UpdateConsecutiveStations(ConsecutiveStations cs);
+        bool isExistConsecutiveStations(int _FirstStation, int _LastStation);
         //? void DeleteConsecutiveStations();
         // double GetDistance();
 

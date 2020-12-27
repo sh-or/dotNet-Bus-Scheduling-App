@@ -83,7 +83,7 @@ namespace DL
                 return bs.Clone();
             throw new DOException(_StationCode, $"Bus station number {_StationCode} was not found");
         }
-        public void UpdateStation(BusStation bs) //////////
+        public void UpdateStation(BusStation bs)
         {
             DataSource.AllBusStations.Remove(GetBusStation(bs.StationCode));
             DataSource.AllBusStations.Add(bs.Clone());
@@ -105,9 +105,10 @@ namespace DL
                 return ListBS;
             throw new DOException("No bus stations were found");
         }
-        public int AddBusStation(BusStation bs /*double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility*/) 
+        public int AddBusStation(BusStation bs ) 
         {
             DataSource.AllBusStations.Add(bs.Clone());
+            bs.StationCode = ConfigurationClass.StationCode;
             return bs.StationCode;
             //BusStation bs = new BusStation();
             //bs.StationCode = ConfigurationClass.StationCode;
@@ -134,7 +135,7 @@ namespace DL
                 return l.Clone();
             throw new DOException(_Code, $"Line number {_Code} was not found");
         }
-        public void UpdateLine(Line l) ////////////
+        public void UpdateLine(Line l) 
         {
             DataSource.AllLines.Remove(GetLine(l.Code));
             DataSource.AllLines.Add(l.Clone());
@@ -177,7 +178,7 @@ namespace DL
             throw new DOException("No line stations were found");
 
         }
-        public int AddLine( Line l/*int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation*/) 
+        public int AddLine( Line l ) 
         {
             l.Code = ConfigurationClass.LineCode;
             //Line bl = new Line();
@@ -187,11 +188,11 @@ namespace DL
             //bl.Area = _Area;
             //bl.FirstStation = _FirstStation;
             //bl.LastStation = _LastStation;
-            DataSource.AllLines.Add(l);
+            DataSource.AllLines.Add(l.Clone());
             return l.Code;
         }
 
-        public void DeleteLine(int _Code) //delete line-stations - V
+        public void DeleteLine(int _Code) //include deleting line-stations 
         {
             List<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
             foreach (LineStation ls in lls)
@@ -224,7 +225,7 @@ namespace DL
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             return ls.StationNumberInLine;
         }
-        public List<LineStation> GetSpecificLineStations(Predicate<LineStation> p /*condition*/)
+        public List<LineStation> GetSpecificLineStations(Predicate<LineStation> p)
         {
             List<LineStation> Listl = (from LineStation l in DataSource.AllLineStations
                          where p(l)
@@ -239,14 +240,14 @@ namespace DL
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             DataSource.AllLineStations.Remove(ls);
         }
-        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, TimeSpan _DriveTime, bool _Regional) 
+        public void AddConsecutiveStations(int _StationCode1, int _StationCode2) 
         {
             ConsecutiveStations cs = new ConsecutiveStations();
             cs.StationCode1 = _StationCode1;
             cs.StationCode2 = _StationCode2;
-            cs.Distance = _Distance;
-            cs.DriveTime = _DriveTime;
-           // cs.Regional = _Regional;
+            //cs.Distance = _Distance;
+            //cs.DriveTime = _DriveTime;
+            //חישוב מרחק(אווירי כפול[1+הגרלה בין 0 לחצי]) וזמן בהתאם
             DataSource.AllConsecutiveStations.Add(cs);
         }
         public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)
@@ -260,6 +261,10 @@ namespace DL
         {
             DataSource.AllConsecutiveStations.Remove(GetConsecutiveStations(cs.StationCode1, cs.StationCode2));
             DataSource.AllConsecutiveStations.Add(cs.Clone());
+        }
+        public bool isExistConsecutiveStations(int _FirstStation, int _LastStation)
+        {
+            return DataSource.AllConsecutiveStations.Exists(x => x.StationCode1 == _FirstStation && x.StationCode2 == _LastStation);
         }
 
         //static Random rnd = new Random(DateTime.Now.Millisecond);

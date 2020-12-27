@@ -14,6 +14,8 @@ namespace BL
     public class BlImp1 : IBL
     {
         readonly IDAL dal = DalFactory.GetDal();
+
+        #region Bus
         public BOBus GetBus(int _LicenseNumber)
         {
             BOBus b;
@@ -93,7 +95,9 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
+        #endregion
 
+        #region BusStation
         public BOBusStation GetBusStation(int _StationCode)
         {
             //checking
@@ -217,12 +221,15 @@ namespace BL
                 throw new BLException(dex.Message);
             }
         }
+        #endregion
 
-        public BOLine GetLine(int _Code)
+        #region Line
+
+        public BOLine GetLine(int _Code)  // use GetConsecutiveStations
         {
             BOLine l;
             List<BusStation> st;
-            ConsecutiveStations cs;
+            BOConsecutiveStations cs;
             int i = 0;
             BOLineStation tmp = new BOLineStation();
             try
@@ -292,7 +299,7 @@ namespace BL
                     }
                     else
                     {//if not exist ConsecutiveStations->new window for insert data and creat ConsecutiveStations!
-                        ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[location - 1].StationCode, l.Stations[location].StationCode);
+                        BOConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[location - 1].StationCode, l.Stations[location].StationCode);
                         l.Stations[location].Distance = cs.Distance;
                         l.Stations[location].DriveTime = cs.DriveTime;
                     }
@@ -324,14 +331,14 @@ namespace BL
                         l.LastStation = _StationCode;
                         UpdateLine(l);
                     }
-                    ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[index - 1].StationCode, _StationCode); //maybe get from new UI window
+                    BOConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[index - 1].StationCode, _StationCode); //maybe get from new UI window
                     l.Stations[index].Distance = cs.Distance;
                     l.Stations[index].DriveTime = cs.DriveTime;
                     UpdateLineStation(l.Stations[index]);//change to update dal.UpdateLineStation!!creat do.linestation..
                 }
                 if (index != l.Stations.Count - 1) //not last station
                 {
-                    ConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations[index +1].StationCode); //maybe get from new UI window
+                    BOConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations[index +1].StationCode); //maybe get from new UI window
                     l.Stations[index+ 1].Distance = cs.Distance;
                     l.Stations[index + 1].DriveTime = cs.DriveTime;
                     UpdateLineStation(l.Stations[index + 1]); //change to update dal.UpdateLineStation!!creat do.linestation..
@@ -420,7 +427,11 @@ namespace BL
             }
         }
         //public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);  // AddStationInLine
-         public BOLineStation GetLineStation(int _LineCode, int _StationCode) //need
+
+        #endregion
+
+        #region LineStation
+        public BOLineStation GetLineStation(int _LineCode, int _StationCode) //need
         {
 
         }
@@ -429,14 +440,20 @@ namespace BL
         {
 
         }
+        #endregion
 
-       
-        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
+        #region ConsecutiveStations
+
+        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, /*bool _Regional*/);
         
         //public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         //public void UpdateConsecutiveStations(ConsecutiveStations cs);
     }
+    #endregion
 }
+
+
+
 //        static Random rnd = new Random(DateTime.Now.Millisecond);
 
 //        readonly IDAL dal = DalFactory.GetDal();

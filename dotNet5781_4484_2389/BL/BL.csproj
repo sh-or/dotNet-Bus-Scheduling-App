@@ -49,6 +49,7 @@
     <Compile Include="BOLine.cs" />
     <Compile Include="BOLineStation.cs" />
     <Compile Include="BOStationLine.cs" />
+    <Compile Include="BOConsecutiveStations.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="IBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

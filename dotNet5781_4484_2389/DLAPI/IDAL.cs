@@ -38,6 +38,7 @@ namespace DLAPI
         void DeleteLine(int _Code);
         void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         LineStation GetLineStation(int _LineCode, int _StationCode);
+        int IsStationInLine(int _LineCode, int _StationCode); //check if exist specific linestation and return the station location in the line or -1
         List<LineStation> GetSpecificLineStations(Predicate<LineStation> p /*condition*/);
         void DeleteLineStation(int _LineCode, int _StationCode);
         void AddConsecutiveStations(int _StationCode1, int _StationCode2 , double _Distance, TimeSpan _DriveTime, bool _Regional);

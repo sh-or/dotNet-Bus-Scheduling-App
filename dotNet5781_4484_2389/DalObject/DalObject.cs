@@ -177,7 +177,7 @@ namespace DL
             throw new DOException("No line stations were found");
 
         }
-        public int AddLine( Line l/*int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation*/) //gets line???
+        public int AddLine( Line l/*int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation*/) 
         {
             l.Code = ConfigurationClass.LineCode;
             //Line bl = new Line();
@@ -216,6 +216,13 @@ namespace DL
             if (ls != null)
                 return ls.Clone();
             throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
+        }
+        int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
+        {
+            if (! DataSource.AllLineStations.Exists(x => x.LineCode == _LineCode && x.StationCode == _StationCode))
+                return -1;
+            LineStation ls = GetLineStation(_LineCode, _StationCode);
+            return ls.StationNumberInLine;
         }
         public List<LineStation> GetSpecificLineStations(Predicate<LineStation> p /*condition*/)
         {

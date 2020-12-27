@@ -315,7 +315,7 @@ namespace BL
                     UpdateLine(l);
                     l.Stations[index].Distance = 0;
                     l.Stations[index].DriveTime = TimeSpan.Zero;
-                    UpdateLineStation(l.Stations[index]);
+                    UpdateLineStation(l.Stations[index]);//change to update dal.UpdateLineStation!!creat do.linestation..
                 }
                 else  //not first station
                 { 
@@ -327,14 +327,14 @@ namespace BL
                     ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[index - 1].StationCode, _StationCode); //maybe get from new UI window
                     l.Stations[index].Distance = cs.Distance;
                     l.Stations[index].DriveTime = cs.DriveTime;
-                    UpdateLineStation(l.Stations[index]);
+                    UpdateLineStation(l.Stations[index]);//change to update dal.UpdateLineStation!!creat do.linestation..
                 }
                 if (index != l.Stations.Count - 1) //not last station
                 {
                     ConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations[index +1].StationCode); //maybe get from new UI window
                     l.Stations[index+ 1].Distance = cs.Distance;
                     l.Stations[index + 1].DriveTime = cs.DriveTime;
-                    UpdateLineStation(l.Stations[index + 1]);
+                    UpdateLineStation(l.Stations[index + 1]); //change to update dal.UpdateLineStation!!creat do.linestation..
                 }
 
             }
@@ -425,7 +425,10 @@ namespace BL
 
         }
 
-        //public void UpdateLineStation(BOLineStation ls);
+        public void UpdateLineStation(BOLineStation ls) //add stationinline
+        {
+
+        }
 
        
         public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);

@@ -217,7 +217,7 @@ namespace DL
                 return ls.Clone();
             throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
         }
-        int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
+        public int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
         {
             if (! DataSource.AllLineStations.Exists(x => x.LineCode == _LineCode && x.StationCode == _StationCode))
                 return -1;
@@ -246,7 +246,7 @@ namespace DL
             cs.StationCode2 = _StationCode2;
             cs.Distance = _Distance;
             cs.DriveTime = _DriveTime;
-            cs.Regional = _Regional;
+           // cs.Regional = _Regional;
             DataSource.AllConsecutiveStations.Add(cs);
         }
         public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)

@@ -255,7 +255,7 @@ namespace BL
                 {
                     try
                     {
-                        cs=dal.GetConsecutiveStations(st[i - 1].StationCode, s.StationCode);
+                        cs=dal.GetConsecutiveStations(st[i-1].StationCode, s.StationCode);
                         tmp.Distance = cs.Distance;
                         tmp.DriveTime = cs.DriveTime;
                     }
@@ -359,7 +359,7 @@ namespace BL
 
         //public IEnumerable<BOLine> GetStationLines(int _StationCode){}
 
-        public List <BOLine> GetAllLines() 
+        public IEnumerable<BOLine> GetAllLines() 
         {
             IEnumerable<Line> l;
             try
@@ -374,7 +374,7 @@ namespace BL
                                 select GetLine(ll.Code));
             return bol;
         }
-        public List <BOLine> GetSpecificLines(Predicate<BOLine> p) 
+        public IEnumerable<BOLine> GetSpecificLines(Predicate<BOLine> p) 
         {
             IEnumerable<Line> l;
             try
@@ -389,7 +389,7 @@ namespace BL
                                 select GetLine(ll.Code));
             return bol;
         }
-        public List <BOBusStation> GetStationsOfLine(int _LineCode) 
+        public IEnumerable<BOBusStation> GetStationsOfLine(int _LineCode) 
         {
             IEnumerable<BusStation> bs;
             try

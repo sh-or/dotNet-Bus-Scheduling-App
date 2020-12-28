@@ -21,6 +21,9 @@ namespace BO
         public List<BOLineStation> Stations { get; set; }
     }
 }
+
+
+
     //public class Weather
     //{
     //    public int Feeling { get; set; }

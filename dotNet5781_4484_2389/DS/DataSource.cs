@@ -19,12 +19,13 @@ namespace DS
 
         static DataSource() //c-tor of DS
         {
-            AllBuses = new List <Bus>();
+            AllBuses = new List<Bus>();
             AllLines = new List<Line>();
-            AllBusStations= new List<BusStation>();
+            AllBusStations = new List<BusStation>();
             AllConsecutiveStations = new List<ConsecutiveStations>();
             AllLineStations = new List<LineStation>();
-    }
+        }
+    
 
         //public static List<WindDirection> directions;
         //static DataSource()

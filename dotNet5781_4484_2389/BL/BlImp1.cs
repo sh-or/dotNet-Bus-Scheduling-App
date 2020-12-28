@@ -120,6 +120,7 @@ namespace BL
                 tmp.BusLine = l.BusLine;
                 tmp.Code = l.Code;
                 tmp.LastStation = l.LastStation;
+                tmp.IndexOfThisStation = dal.IsStationInLine(l.Code, _StationCode);
                 bs.Lines.Add(tmp);
             }
             return bs;
@@ -154,6 +155,7 @@ namespace BL
                         tmp.BusLine = l.BusLine;
                         tmp.Code = l.Code;
                         tmp.LastStation = l.LastStation;
+                        tmp.IndexOfThisStation = dal.IsStationInLine(l.Code, b.StationCode);
                         b.Lines.Add(tmp);
                     }
                 }
@@ -182,6 +184,7 @@ namespace BL
                         tmp.BusLine = l.BusLine;
                         tmp.Code = l.Code;
                         tmp.LastStation = l.LastStation;
+                        tmp.IndexOfThisStation = dal.IsStationInLine(l.Code, b.StationCode);
                         b.Lines.Add(tmp);
                     }
                 }
@@ -470,11 +473,25 @@ namespace BL
         #region ConsecutiveStations
 
         public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime /*bool _Regional*/);
-        
+
         //public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         //public void UpdateConsecutiveStations(ConsecutiveStations cs);
+        #endregion
+
+        public void AddDrive(int _StartStation, int _DestinationStation)
+        {
+            BODrive drive = new BODrive();
+            try
+            {
+                drive.StartStation = _StartStation;
+                drive.DestinationStation = _DestinationStation;
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message);
+            }
+        }
     }
-    #endregion
 }
 
 

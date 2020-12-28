@@ -11,6 +11,7 @@ namespace BO
         public int Code { get; set; }
         public int BusLine { get; set; }
         public int LastStation { get; set; }
-        //public int IndexOfThisStation  { get; set; }
+        public int IndexOfThisStation { get; set; }
+
     }
 }

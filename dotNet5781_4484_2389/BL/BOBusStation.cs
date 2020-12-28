@@ -17,6 +17,6 @@ namespace BO
         //public string Address { get; set; }
         //public bool Accessibility { get; set; } //for disabled
         //public bool IsExist { get; set; } //???
-        public List<BOStationLine> Lines { get; set; }
+        public IEnumerable<BOStationLine> Lines { get; set; }
     }
 }

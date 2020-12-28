@@ -25,7 +25,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             return b;
         }
@@ -37,7 +37,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         public IEnumerable<BOBus> GetSpecificBuses(Predicate<BOBus> p)//conditionnnn
@@ -49,7 +49,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             IEnumerable<BOBus> bobs = (from Bus b in bs
                                 select (BOBus)b);
@@ -64,7 +64,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             IEnumerable<BOBus> bobs = (from Bus bb in b
                                 select (BOBus)bb);
@@ -81,7 +81,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         public void DeleteBus(int _LicenseNumber)
@@ -92,7 +92,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         #endregion
@@ -103,25 +103,22 @@ namespace BL
         {
             //checking
             BOBusStation bs;
-            IEnumerable<Line> ls;
-            BOStationLine tmp=new BOStationLine();
             try
             {
                 bs = (BOBusStation)dal.GetBusStation(_StationCode);
-                ls = dal.GetStationLines(_StationCode);
+                bs.Lines = from l in dal.GetStationLines(_StationCode)
+                         select new BOStationLine
+                         {
+                            BusLine = l.BusLine,
+                            Code = l.Code,
+                            LastStation = l.LastStation,
+                            IndexOfThisStation = dal.IsStationInLine(l.Code, _StationCode)
+                         };
+             
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
-            }
-
-            foreach (Line l in ls)
-            {
-                tmp.BusLine = l.BusLine;
-                tmp.Code = l.Code;
-                tmp.LastStation = l.LastStation;
-                tmp.IndexOfThisStation = dal.IsStationInLine(l.Code, _StationCode);
-                bs.Lines.Add(tmp);
+                throw new BLException(dex.Message, dex);
             }
             return bs;
         }
@@ -134,7 +131,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         public IEnumerable<BOBusStation> GetSpecificBusStations(Predicate<BOBusStation> p) 
@@ -149,20 +146,19 @@ namespace BL
                                            select (BOBusStation)b);
                 foreach (BOBusStation b in bs)
                 {
-                    var sl = dal.GetStationLines(b.StationCode);
-                    foreach (Line l in sl)
-                    {
-                        tmp.BusLine = l.BusLine;
-                        tmp.Code = l.Code;
-                        tmp.LastStation = l.LastStation;
-                        tmp.IndexOfThisStation = dal.IsStationInLine(l.Code, b.StationCode);
-                        b.Lines.Add(tmp);
-                    }
+                    b.Lines = from l in dal.GetStationLines(b.StationCode)
+                               select new BOStationLine
+                               {
+                                   BusLine = l.BusLine,
+                                   Code = l.Code,
+                                   LastStation = l.LastStation,
+                                   IndexOfThisStation = dal.IsStationInLine(l.Code, b.StationCode)
+                               };
                 }
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             return bobs;
         }
@@ -178,20 +174,19 @@ namespace BL
                         select (BOBusStation)b);
                 foreach (BOBusStation b in bs)
                 {
-                    var sl = dal.GetStationLines(b.StationCode);
-                    foreach (Line l in sl)
-                    {
-                        tmp.BusLine = l.BusLine;
-                        tmp.Code = l.Code;
-                        tmp.LastStation = l.LastStation;
-                        tmp.IndexOfThisStation = dal.IsStationInLine(l.Code, b.StationCode);
-                        b.Lines.Add(tmp);
-                    }
+                    b.Lines = from l in dal.GetStationLines(b.StationCode)
+                              select new BOStationLine
+                              {
+                                  BusLine = l.BusLine,
+                                  Code = l.Code,
+                                  LastStation = l.LastStation,
+                                  IndexOfThisStation = dal.IsStationInLine(l.Code, b.StationCode)
+                              };
                 }
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             return bobs;
         }
@@ -207,7 +202,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         public void DeleteBusStation(int _StationCode)
@@ -222,7 +217,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         #endregion
@@ -233,7 +228,7 @@ namespace BL
         {
             BOLine l;
             IEnumerable<BusStation> st;
-            BOConsecutiveStations cs;
+            ConsecutiveStations cs;
             int i = 0;
             BOLineStation tmp = new BOLineStation();
             try
@@ -243,7 +238,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             foreach (BusStation s in st)
             {
@@ -258,16 +253,16 @@ namespace BL
                 {
                     try
                     {
-                        cs=dal.GetConsecutiveStations(st[i-1].StationCode, s.StationCode);
+                        cs=dal.GetConsecutiveStations(st.ElementAt(i-1).StationCode, s.StationCode);
                         tmp.Distance = cs.Distance;
                         tmp.DriveTime = cs.DriveTime;
                     }
                     catch (DOException dex)
                     {
-                        throw new BLException(dex.Message);
+                        throw new BLException(dex.Message, dex);
                     }
                 }
-                l.Stations.Add(tmp);
+                l.Stations.ToList().Add(tmp);
                 i++;
             }
             return l;
@@ -280,40 +275,40 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         public void DeleteStationInLine(BOLine l, int _StationCode)
         {
-            BOLineStation ls = l.Stations.Find(x => x.StationCode == _StationCode);  //UI catch ex
-            if (l.Stations.Count<3)
-                throw new BLException("Line cannot be with less than 2 stations");
-
-            if (!l.Stations.Remove(ls))
+            BOLineStation ls = l.Stations.FirstOrDefault(x => x.StationCode == _StationCode);  //UI catch ex
+            if(ls==null)
                 throw new BLException($"Station number {_StationCode} was not found");
+            if (l.Stations.Count()<3)
+                throw new BLException("Line cannot be with less than 2 stations");
+         
             int location;
             try
             {
                 location = dal.GetLineStation(l.Code, _StationCode).StationNumberInLine;
-                if (location<l.Stations.Count/*-1*/) //not last station
+                if (location<l.Stations.Count()-1)   //not last station
                 { //update time&distance
                     if(location==0)
                     {
-                        l.Stations[0].Distance = 0;
-                        l.Stations[0].DriveTime = TimeSpan.Zero;
+                        l.Stations.ElementAt(0).Distance = 0;
+                        l.Stations.ElementAt(0).DriveTime = TimeSpan.Zero;
                     }
                     else
                     {//if not exist ConsecutiveStations->new window for insert data and creat ConsecutiveStations!
-                        BOConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[location - 1].StationCode, l.Stations[location].StationCode);
-                        l.Stations[location].Distance = cs.Distance;
-                        l.Stations[location].DriveTime = cs.DriveTime;
+                        ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations.ElementAt(location - 1).StationCode, l.Stations.ElementAt(location).StationCode);
+                        l.Stations.ElementAt(location).Distance = cs.Distance;
+                        l.Stations.ElementAt(location).DriveTime = cs.DriveTime;
                     }
                 }
                 dal.DeleteLineStation(l.Code, _StationCode);
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         public void AddStationInLine(BOLine l, int _StationCode, int index)
@@ -323,40 +318,40 @@ namespace BL
                 BOLineStation ls = new BOLineStation();
                 ls.StationCode = _StationCode;
                 ls.Name = dal.GetBusStation(_StationCode).Name;
-                l.Stations.Insert(index, ls); 
+                l.Stations.ToList().Insert(index, ls); 
 
                 if (index== 0)
                 {
                     l.FirstStation = _StationCode;
                     UpdateLine(l);
-                    l.Stations[index].Distance = 0;
-                    l.Stations[index].DriveTime = TimeSpan.Zero;
-                    UpdateLineStation(l.Stations[index]);//change to update dal.UpdateLineStation!!creat do.linestation..
+                    l.Stations.ElementAt(index).Distance = 0;
+                    l.Stations.ElementAt(index).DriveTime = TimeSpan.Zero;
+                    UpdateLineStation(l.Stations.ElementAt(index));//change to update dal.UpdateLineStation!!creat do.linestation..
                 }
                 else  //not first station
                 { 
-                    if(index==l.Stations.Count-1) //the last station
+                    if(index==l.Stations.Count()-1) //the last station
                     {
                         l.LastStation = _StationCode;
                         UpdateLine(l);
                     }
-                    BOConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations[index - 1].StationCode, _StationCode); //maybe get from new UI window
-                    l.Stations[index].Distance = cs.Distance;
-                    l.Stations[index].DriveTime = cs.DriveTime;
-                    UpdateLineStation(l.Stations[index]);//change to update dal.UpdateLineStation!!creat do.linestation..
+                    ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations.ElementAt(index - 1).StationCode, _StationCode); //maybe get from new UI window
+                    l.Stations.ElementAt(index).Distance = cs.Distance;
+                    l.Stations.ElementAt(index).DriveTime = cs.DriveTime;
+                    UpdateLineStation(l.Stations.ElementAt(index));//change to update dal.UpdateLineStation!!creat do.linestation..
                 }
-                if (index != l.Stations.Count - 1) //not last station
+                if (index != l.Stations.Count() - 1) //not last station
                 {
-                    BOConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations[index +1].StationCode); //maybe get from new UI window
-                    l.Stations[index+ 1].Distance = cs.Distance;
-                    l.Stations[index + 1].DriveTime = cs.DriveTime;
-                    UpdateLineStation(l.Stations[index + 1]); //change to update dal.UpdateLineStation!!creat do.linestation..
+                    ConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations.ElementAt(index +1).StationCode); //maybe get from new UI window
+                    l.Stations.ElementAt(index + 1).Distance = cs.Distance;
+                    l.Stations.ElementAt(index + 1).DriveTime = cs.DriveTime;
+                    UpdateLineStation(l.Stations.ElementAt(index + 1)); //change to update dal.UpdateLineStation!!creat do.linestation..
                 }
 
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
 
@@ -371,7 +366,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             IEnumerable<BOLine> bol = (from Line ll in l
                                 select GetLine(ll.Code));
@@ -386,7 +381,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             IEnumerable<BOLine> bol = (from Line ll in l
                                 select GetLine(ll.Code));
@@ -401,7 +396,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
             IEnumerable<BOBusStation> bobs = from BusStation b in bs
                                        select (BOBusStation)b; //חוקי? זה בלי הרשימת קווים
@@ -416,7 +411,7 @@ namespace BL
                 l.Stations = new List<BOLineStation>();
                 BOLineStation first = new BOLineStation() { StationCode = l.FirstStation, Distance=0, DriveTime=TimeSpan.Zero};
                 first.Name = dal.GetBusStation(l.FirstStation).Name;
-                l.Stations.Add(first);
+                l.Stations.ToList().Add(first);
                 BOLineStation last = new BOLineStation() { StationCode = l.LastStation };
                 last.Name = dal.GetBusStation(l.LastStation).Name;
                 ConsecutiveStations cs;
@@ -434,13 +429,13 @@ namespace BL
                     last.Distance = cs.Distance;
                     last.DriveTime = cs.DriveTime;
                 }
-                l.Stations.Add(last);
+                l.Stations.ToList().Add(last);
                 l.Code = dal.AddLine((Line)l);
                 return l.Code;
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         public void DeleteLine(int _Code) 
@@ -455,7 +450,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
         //public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);  // AddStationInLine
@@ -488,7 +483,7 @@ namespace BL
             }
             catch (DOException dex)
             {
-                throw new BLException(dex.Message);
+                throw new BLException(dex.Message, dex);
             }
         }
     }

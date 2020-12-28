@@ -18,7 +18,7 @@ namespace BO
         //public AreaEnum Area { get; set; }
         //public int FirstStation { get; set; }
         //public bool IsExist { get; set; } //???
-        public List<BOLineStation> Stations { get; set; }
+        public IEnumerable<BOLineStation> Stations { get; set; }
     }
 }
 

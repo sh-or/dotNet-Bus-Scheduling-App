@@ -31,24 +31,24 @@ namespace DL
                 return b.Clone();
             throw new DOException(_LicenseNumber, $"Bus number {_LicenseNumber} was not found");
         }
-        public void UpdateBus(Bus b) ///////////////
+        public void UpdateBus(Bus b)
         {
             DataSource.AllBuses.Remove(GetBus(b.LicenseNumber));
             DataSource.AllBuses.Add(b.Clone());
         }
-        public List<Bus> GetSpecificBuses(Predicate<Bus> p) 
+        public IEnumerable<Bus> GetSpecificBuses(Predicate<Bus> p) 
         {
             var ListBS = (from Bus b in DataSource.AllBuses
                                where p(b)
-                               select b.Clone()).ToList();
+                               select b.Clone());
             if(ListBS!=null)
                 return ListBS;
             throw new DOException("No exist buses were found");
         }
-        public List<Bus> GetAllBuses() 
+        public IEnumerable<Bus> GetAllBuses() 
         {
             var ListBS = (from Bus b in DataSource.AllBuses
-                         select b.Clone()).ToList();
+                         select b.Clone());
             if (ListBS != null)
                 return ListBS;
             throw new DOException("No buses were found");
@@ -88,19 +88,19 @@ namespace DL
             DataSource.AllBusStations.Remove(GetBusStation(bs.StationCode));
             DataSource.AllBusStations.Add(bs.Clone());
         }
-        public List<BusStation> GetSpecificBusStations(Predicate<BusStation> p) 
+        public IEnumerable<BusStation> GetSpecificBusStations(Predicate<BusStation> p) 
         {
             var ListBS = (from BusStation bs in DataSource.AllBusStations
                          where p(bs)
-                         select bs.Clone()).ToList();
+                         select bs.Clone());
             if (ListBS != null)
                 return ListBS;
             throw new DOException("No exist bus stations were found");
         }
-        public List<BusStation> GetAllBusStations()
+        public IEnumerable<BusStation> GetAllBusStations()
         {
             var ListBS = (from BusStation bs in DataSource.AllBusStations
-                         select bs.Clone()).ToList();
+                         select bs.Clone());
             if (ListBS != null)
                 return ListBS;
             throw new DOException("No bus stations were found");
@@ -140,39 +140,37 @@ namespace DL
             DataSource.AllLines.Remove(GetLine(l.Code));
             DataSource.AllLines.Add(l.Clone());
         }
-        public List<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
+        public IEnumerable<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
-            List<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode);
-            List<Line> bsLst = new List<Line>();
-            List <Line> exLines= GetSpecificLines(x=>x.IsExist);
-            foreach (Line ln in exLines)
-                bsLst.Add(exLines.Find(x => x.Code == ln.Code).Clone());
-            return bsLst; 
+           return from ls in DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode)
+                  where GetLine(ls.LineCode).IsExist
+                  select GetLine(ls.LineCode);
         }
-        public List<Line> GetAllLines() 
+
+        public IEnumerable<Line> GetAllLines() 
         {
             var Listl = (from Line l in DataSource.AllLines
-                        select l.Clone()).ToList();
+                        select l.Clone());
             if (Listl != null)
                 return Listl;
             throw new DOException("No lines were found");
         }
-        public List<Line> GetSpecificLines(Predicate<Line> p)
+        public IEnumerable<Line> GetSpecificLines(Predicate<Line> p)
         {
             var Listl = (from Line l in DataSource.AllLines
                         where p(l)
-                        select l.Clone()).ToList();
+                        select l.Clone());
             if (Listl != null)
                 return Listl;
             throw new DOException("No exist lines were found");
         }
-        public List<BusStation> GetStationsOfLine(int _LineCode)
+        public IEnumerable<BusStation> GetStationsOfLine(int _LineCode)
         {
-            List <LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
-            List<BusStation> bsLst = new List<BusStation>();
+            IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
+            IEnumerable<BusStation> bsLst = new IEnumerable<BusStation>();
             bsLst = (from ls in lsLst
                      orderby ls.StationNumberInLine
-                    select GetBusStation(ls.StationCode).Clone()).ToList();
+                    select GetBusStation(ls.StationCode).Clone());
             if (bsLst != null)
                 return bsLst;
             throw new DOException("No line stations were found");
@@ -194,7 +192,7 @@ namespace DL
 
         public void DeleteLine(int _Code) //include deleting line-stations 
         {
-            List<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
+            IEnumerable<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
             foreach (LineStation ls in lls)
                 DeleteLineStation(ls.LineCode, ls.StationCode);
             Line bl = GetLine(_Code);
@@ -225,11 +223,11 @@ namespace DL
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             return ls.StationNumberInLine;
         }
-        public List<LineStation> GetSpecificLineStations(Predicate<LineStation> p)
+        public IEnumerable<LineStation> GetSpecificLineStations(Predicate<LineStation> p)
         {
-            List<LineStation> Listl = (from LineStation l in DataSource.AllLineStations
+            IEnumerable<LineStation> Listl = (from LineStation l in DataSource.AllLineStations
                          where p(l)
-                         select l.Clone()).ToList();
+                         select l.Clone());
             //if (Listl != null)
             return Listl;
             //throw new DOException("No exist lines were found");

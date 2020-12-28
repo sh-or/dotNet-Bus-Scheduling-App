@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class UserDrive
+    public class UserDrive
     {
-        int DriveCode { get; set; }
-        string UserName { get; set; }
-        int LineCode { get; set; }
-        int FirstStation { get; set; }
-        TimeSpan GetOnTime { get; set; }
-        int LastStation { get; set; }
-        TimeSpan GetOffTime { get; set; }
+        public int DriveCode { get; set; }
+        public string UserName { get; set; }
+        public int LineCode { get; set; }
+        public int FirstStation { get; set; }
+        public TimeSpan GetOnTime { get; set; }
+        public int LastStation { get; set; }
+        public TimeSpan GetOffTime { get; set; }
     }
 }

@@ -422,7 +422,7 @@ namespace BL
                 if (!dal.isExistConsecutiveStations(l.FirstStation, l.LastStation))
                 {
                     //יצירת קונסקיוטיב ואז שליחה להוספה בדאל
-                    dal.AddConsecutiveStations(l.FirstStation, l.LastStation);
+                    AddConsecutiveStations(l.FirstStation, l.LastStation);
                     cs = dal.GetConsecutiveStations(l.FirstStation, l.LastStation);
                     last.Distance = cs.Distance;
                     last.DriveTime = cs.DriveTime;

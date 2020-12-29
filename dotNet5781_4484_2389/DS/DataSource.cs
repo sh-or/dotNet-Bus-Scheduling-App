@@ -5,45 +5,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
+using System.Device.Location;
+
 
 
 namespace DS
 {
     public static class DataSource
     {
+        public static Random r = new Random(DateTime.Now.Millisecond);
+
         public static List<Bus> AllBuses;
         public static List<Line> AllLines;
         public static List<BusStation> AllBusStations;
-        public static List<ConsecutiveStations> AllConsecutiveStations;
+        public static IEnumerable<ConsecutiveStations> AllConsecutiveStations;
         public static List<LineStation> AllLineStations;
 
         static DataSource() //c-tor of DS
         {
             AllBuses = new List<Bus>()
             {
-                new Bus{LicenseNumber=12345678, LicensingDate =new DateTime(2020, 12, 29), Kilometerage=2500, Fuel=600, Status=(StatusEnum)1, Driver="Yosef", IsExist=true},
-                new Bus{LicenseNumber=23456789, LicensingDate =new DateTime(2019, 1, 9), Kilometerage=12500, Fuel=850, Status=(StatusEnum)1, Driver="Shlomi", IsExist=true},
-                new Bus{LicenseNumber=34567890, LicensingDate =new DateTime(2018, 10, 6), Kilometerage=34500, Fuel=0, Status=(StatusEnum)1, Driver="Yakov", IsExist=true},
-                new Bus{LicenseNumber=45678901, LicensingDate =new DateTime(2018, 12, 27), Kilometerage=600, Fuel=600, Status=(StatusEnum)1, Driver="Dan", IsExist=true},
-                new Bus{LicenseNumber=56789012, LicensingDate =new DateTime(2019, 12, 29), Kilometerage=18000, Fuel=1500, Status=(StatusEnum)3, Driver="Noam", IsExist=true},
-                new Bus{LicenseNumber=1234567, LicensingDate =new DateTime(2012, 4, 29), Kilometerage=25600, Fuel=700, Status=(StatusEnum)1, Driver="Yosi", IsExist=true},
-                new Bus{LicenseNumber=2345678, LicensingDate =new DateTime(2015, 8, 10), Kilometerage=62500, Fuel=100, Status=(StatusEnum)1, Driver="Dina", IsExist=true},
-                new Bus{LicenseNumber=3456789, LicensingDate =new DateTime(2015, 6, 9), Kilometerage=25009, Fuel=120, Status=(StatusEnum)1, Driver="Yair", IsExist=true},
-                new Bus{LicenseNumber=4567890, LicensingDate =new DateTime(2016, 10, 23), Kilometerage=2500, Fuel=1300, Status=(StatusEnum)3, Driver="Ori", IsExist=true},
-                new Bus{LicenseNumber=5678901, LicensingDate =new DateTime(2016, 10, 29), Kilometerage=25001, Fuel=1300, Status=(StatusEnum)3, Driver="Itamar", IsExist=true},
-                new Bus{LicenseNumber=6789012, LicensingDate =new DateTime(2017, 4, 29), Kilometerage=25001, Fuel=100, Status=(StatusEnum)1, Driver="Ron", IsExist=true},
-                new Bus{LicenseNumber=7890123, LicensingDate =new DateTime(2017, 7, 21), Kilometerage=25001, Fuel=180, Status=(StatusEnum)1, Driver="Yosef", IsExist=true},
-                new Bus{LicenseNumber=8901234, LicensingDate =new DateTime(2017, 10, 22), Kilometerage=25001, Fuel=10, Status=(StatusEnum)1, Driver="Dan", IsExist=true},
-                new Bus{LicenseNumber=90123456, LicensingDate =new DateTime(2018, 11, 23), Kilometerage=25001, Fuel=800, Status=(StatusEnum)1, Driver="Moshe", IsExist=true},
-                new Bus{LicenseNumber=67890123, LicensingDate =new DateTime(2019, 9, 29), Kilometerage=25001, Fuel=800, Status=(StatusEnum)1, Driver="Dan", IsExist=true},
-                new Bus{LicenseNumber=78901234, LicensingDate =new DateTime(2019, 8, 29), Kilometerage=25001, Fuel=650, Status=(StatusEnum)1, Driver="Aharon", IsExist=true},
-                new Bus{LicenseNumber=89012345, LicensingDate =new DateTime(2019, 7, 29), Kilometerage=25001, Fuel=567, Status=(StatusEnum)1, Driver="Dvir", IsExist=true},
-                new Bus{LicenseNumber=90123456, LicensingDate =new DateTime(2019, 6, 25), Kilometerage=25001, Fuel=586, Status=(StatusEnum)1, Driver="Yosef", IsExist=true},
-                new Bus{LicenseNumber=98765432, LicensingDate =new DateTime(2019, 5, 24), Kilometerage=25001, Fuel=543, Status=(StatusEnum)1, Driver="Yehuda", IsExist=true},
-                new Bus{LicenseNumber=87654321, LicensingDate =new DateTime(2019, 4, 23), Kilometerage=25001, Fuel=234, Status=(StatusEnum)1, Driver="Yoni", IsExist=true},
-                new Bus{LicenseNumber=76543210, LicensingDate =new DateTime(2019, 3, 8), Kilometerage=25001, Fuel=1400, Status=(StatusEnum)3, Driver="Michael", IsExist=true},
+                new Bus{LicenseNumber=12345678, LicensingDate =new DateTime(2020, 12, 29), Kilometerage=2500, KmFromLastRefuel=600, Fuel=(1200-600)/1200, KmFromLastCare=2500, DateOfLastCare=new DateTime(2020, 12, 29),  Status=(StatusEnum)1, Driver="Yosef", IsExist=true},
+                new Bus{LicenseNumber=23456789, LicensingDate =new DateTime(2019, 1, 9), Kilometerage=125000, KmFromLastRefuel=850, Fuel=(1200-850)/1200, KmFromLastCare=19800, DateOfLastCare=new DateTime(2020, 9, 14),  Status=(StatusEnum)2, Driver="Shlomi", IsExist=true},
+                new Bus{LicenseNumber=34567890, LicensingDate =new DateTime(2018, 10, 6), Kilometerage=34500, KmFromLastRefuel=0, Fuel=(1200-0)/1200, KmFromLastCare=34500, DateOfLastCare=new DateTime(2018, 10, 6),  Status=(StatusEnum)2, Driver="Yakov", IsExist=true},
+                new Bus{LicenseNumber=45678901, LicensingDate =new DateTime(2018, 12, 27), Kilometerage=600, KmFromLastRefuel=600, Fuel=(1200-600)/1200, KmFromLastCare=600, DateOfLastCare=new DateTime(2020, 9, 14),  Status=(StatusEnum)1, Driver="Dan", IsExist=true},
+                new Bus{LicenseNumber=56789012, LicensingDate =new DateTime(2019, 12, 27), Kilometerage=18000, KmFromLastRefuel=1150, Fuel=(1200-1150)/1200, KmFromLastCare=9000, DateOfLastCare=new DateTime(2020, 7, 24),  Status=(StatusEnum)3, Driver="Noam", IsExist=true},
+                new Bus{LicenseNumber=1234567, LicensingDate =new DateTime(2012, 4, 27), Kilometerage=25600, KmFromLastRefuel=700, Fuel=(1200-700)/1200, KmFromLastCare=10777, DateOfLastCare=new DateTime(2020, 8, 14),  Status=(StatusEnum)1, Driver="Yosi", IsExist=true},
+                new Bus{LicenseNumber=2345678, LicensingDate =new DateTime(2015, 8, 10), Kilometerage=62500, KmFromLastRefuel=100, Fuel=(1200-100)/1200, KmFromLastCare=1300, DateOfLastCare=new DateTime(2020, 8, 14),  Status=(StatusEnum)1, Driver="Dina", IsExist=true},
+                new Bus{LicenseNumber=3456789, LicensingDate =new DateTime(2015, 6, 9), Kilometerage=25009, KmFromLastRefuel=120, Fuel=(1200-120)/1200, KmFromLastCare=1300, DateOfLastCare=new DateTime(2020, 9, 14),  Status=(StatusEnum)1, Driver="Yair", IsExist=true},
+                new Bus{LicenseNumber=4567890, LicensingDate =new DateTime(2016, 10, 23), Kilometerage=2500, KmFromLastRefuel=1190, Fuel=(1200-1190)/1200, KmFromLastCare=1300, DateOfLastCare=new DateTime(2020, 7, 14),  Status=(StatusEnum)3, Driver="Ori", IsExist=true},
+                new Bus{LicenseNumber=5678901, LicensingDate =new DateTime(2016, 10, 27), Kilometerage=25001, KmFromLastRefuel=1110, Fuel=(1200-1110)/1200, KmFromLastCare=1300, DateOfLastCare=new DateTime(2020, 7, 17),  Status=(StatusEnum)3, Driver="Itamar", IsExist=true},
+                new Bus{LicenseNumber=6789012, LicensingDate =new DateTime(2017, 4, 27), Kilometerage=25001, KmFromLastRefuel=100, Fuel=(1200-100)/1200, KmFromLastCare=14302, DateOfLastCare=new DateTime(2020, 7, 24),  Status=(StatusEnum)1, Driver="Ron", IsExist=true},
+                new Bus{LicenseNumber=7890123, LicensingDate =new DateTime(2017, 7, 21), Kilometerage=25001, KmFromLastRefuel=180, Fuel=(1200-180)/1200, KmFromLastCare=1300, DateOfLastCare=new DateTime(2020, 7, 26),  Status=(StatusEnum)1, Driver="Yosef", IsExist=true},
+                new Bus{LicenseNumber=8901234, LicensingDate =new DateTime(2017, 10, 22), Kilometerage=25001, KmFromLastRefuel=10, Fuel=(1200-10)/1200, KmFromLastCare=1589, DateOfLastCare=new DateTime(2020, 9, 25),  Status=(StatusEnum)1, Driver="Dan", IsExist=true},
+                new Bus{LicenseNumber=90123456, LicensingDate =new DateTime(2018, 11, 23), Kilometerage=25001, KmFromLastRefuel=800, Fuel=(1200-800)/1200, KmFromLastCare=1600, DateOfLastCare=new DateTime(2020, 6, 13),  Status=(StatusEnum)1, Driver="Moshe", IsExist=true},
+                new Bus{LicenseNumber=67890123, LicensingDate =new DateTime(2019, 9, 27), Kilometerage=25001, KmFromLastRefuel=800, Fuel=(1200-800)/1200, KmFromLastCare=1300, DateOfLastCare=new DateTime(2020, 9, 14),  Status=(StatusEnum)1, Driver="Dan", IsExist=true},
+                new Bus{LicenseNumber=78901234, LicensingDate =new DateTime(2019, 8, 27), Kilometerage=25200, KmFromLastRefuel=650, Fuel=(1200-650)/1200, KmFromLastCare=12000, DateOfLastCare=new DateTime(2020, 9, 14),  Status=(StatusEnum)1, Driver="Aharon", IsExist=true},
+                new Bus{LicenseNumber=89012345, LicensingDate =new DateTime(2019, 7, 27), Kilometerage=24001, KmFromLastRefuel=567, Fuel=(1200-567)/1200, KmFromLastCare=1300, DateOfLastCare=new DateTime(2020, 6, 14),  Status=(StatusEnum)1, Driver="Dvir", IsExist=true},
+                new Bus{LicenseNumber=90123456, LicensingDate =new DateTime(2019, 6, 25), Kilometerage=35001, KmFromLastRefuel=586, Fuel=(1200-586)/1200, KmFromLastCare=1500, DateOfLastCare=new DateTime(2020, 5, 7),  Status=(StatusEnum)1, Driver="Yosef", IsExist=true},
+                new Bus{LicenseNumber=98765432, LicensingDate =new DateTime(2019, 5, 24), Kilometerage=27005, KmFromLastRefuel=543, Fuel=(1200-543)/1200, KmFromLastCare=19800, DateOfLastCare=new DateTime(2020, 5, 4),  Status=(StatusEnum)2, Driver="Yehuda", IsExist=true},
+                new Bus{LicenseNumber=87654321, LicensingDate =new DateTime(2019, 4, 23), Kilometerage=25009, KmFromLastRefuel=234, Fuel=(1200-234)/1200, KmFromLastCare=19800, DateOfLastCare=new DateTime(2020, 4, 19),  Status=(StatusEnum)2, Driver="Yoni", IsExist=true},
+                new Bus{LicenseNumber=76543210, LicensingDate =new DateTime(2019, 3, 8), Kilometerage=25099, KmFromLastRefuel=1180, Fuel=(1200-1180)/1200, KmFromLastCare=11800, DateOfLastCare=new DateTime(2020, 3, 22),  Status=(StatusEnum)3, Driver="Michael", IsExist=true},
 
             };
+
             AllLines = new List<Line>()
             {
                 //10 lines with 10 stations
@@ -75,7 +80,6 @@ namespace DS
                 new Line{Code=ConfigurationClass.LineCode, BusLine=564, Area=(AreaEnum)5, FirstStation=39, LastStation=23, IsExist=true },
                 new Line{Code=ConfigurationClass.LineCode, BusLine=9, Area=(AreaEnum)5, FirstStation=9, LastStation=1, IsExist=true }
             };
-
 
             AllBusStations = new List<BusStation>()
             {
@@ -132,15 +136,6 @@ namespace DS
                 new BusStation{StationCode=ConfigurationClass.StationCode, Latitude=33.085835, Longitude=35.221639, Name="Savion", Address="Savion 4", Accessibility=false},
                 new BusStation{StationCode=ConfigurationClass.StationCode, Latitude=32.455216, Longitude=35.055688, Name="Agamim", Address="Agamim 19", Accessibility=false},
             };
-
-            AllConsecutiveStations = from bs1 in AllBusStations
-                                     from bs2 in AllBusStations
-                                     select new ConsecutiveStations { StationCode1 = bs1.StationCode,
-                                         StationCode2 = bs2.StationCode,
-                                         Distance = csDistance(bs1, bs2),
-                                         DriveTime = csDt(csDistance(bs1, bs2)) };
-
-
 
             AllLineStations = new List<LineStation>()
             {
@@ -269,15 +264,24 @@ namespace DS
                 new LineStation{LineCode=5, StationCode=5, StationNumberInLine=12},
 #endregion
             };
+
+            AllConsecutiveStations = from bs1 in AllBusStations
+                                     from bs2 in AllBusStations
+                                     select new ConsecutiveStations { StationCode1 = bs1.StationCode,
+                                         StationCode2 = bs2.StationCode,
+                                         Distance = csDistance(bs1, bs2),
+                                         DriveTime = csDt(csDistance(bs1, bs2)) };
         }
 
-        public double csDistance(BusStation bs1, BusStation bs2)
+        public static double csDistance(BusStation bs1, BusStation bs2)
         {
-
+            GeoCoordinate loc1 = new GeoCoordinate(bs1.Latitude, bs1.Longitude);
+            GeoCoordinate loc2 = new GeoCoordinate(bs2.Latitude, bs2.Longitude);
+            return loc1.GetDistanceTo(loc2) * (1 + r.NextDouble() / 2); //air-distance(in meters)*(1 to 1.5)
         }
-         public TimeSpan csDt(double distance)
+         public static TimeSpan csDt(double distance)
         {
-
+            return TimeSpan.FromSeconds(distance / (r.Next(50, 70) * 1 / 3.6));
         }
 
 

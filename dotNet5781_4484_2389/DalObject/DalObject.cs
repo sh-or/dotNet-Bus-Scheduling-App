@@ -23,7 +23,6 @@ namespace DL
         DalObject() { }
         public static IDAL Instance { get { return Nested.instance; } }
         #endregion
-
        public Bus GetBus(int _LicenseNumber)
         {
             Bus b = DataSource.AllBuses.Find(x => x.LicenseNumber == _LicenseNumber);
@@ -238,15 +237,23 @@ namespace DL
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             DataSource.AllLineStations.Remove(ls);
         }
-        public void AddConsecutiveStations(int _StationCode1, int _StationCode2) 
+        //public void AddConsecutiveStations(int _StationCode1, int _StationCode2) 
+        //{
+        //    ConsecutiveStations cs = new ConsecutiveStations();
+        //    cs.StationCode1 = _StationCode1;
+        //    cs.StationCode2 = _StationCode2;
+        //    BusStation b1 = GetBusStation(_StationCode1); //also check if exist..
+        //    BusStation b2 = GetBusStation(_StationCode2);//
+        //    GeoCoordinate loc1 = new GeoCoordinate(b1.Latitude, b1.Longitude);
+        //    GeoCoordinate loc2 = new GeoCoordinate(b2.Latitude, b2.Longitude);
+        //    cs.Distance = loc1.GetDistanceTo(loc2) * (1 + r.NextDouble() / 2); //air-distance(in meters)*(1 to 1.5)
+        //    cs.DriveTime = TimeSpan.FromSeconds(cs.Distance / (r.Next(50, 70) * 1 / 3.6)); //the bus cross 50-70 KmH
+        //    DataSource.AllConsecutiveStations.Add(cs);
+        //}
+        public void AddConsecutiveStations(ConsecutiveStations cs)
         {
-            ConsecutiveStations cs = new ConsecutiveStations();
-            cs.StationCode1 = _StationCode1;
-            cs.StationCode2 = _StationCode2;
-            //cs.Distance = _Distance;
-            //cs.DriveTime = _DriveTime;
-            //חישוב מרחק(אווירי כפול[1+הגרלה בין 0 לחצי]) וזמן בהתאם
-            DataSource.AllConsecutiveStations.Add(cs);
+            if(! isExistConsecutiveStations(cs.StationCode1,cs.StationCode2))
+                DataSource.AllConsecutiveStations.Add(cs);
         }
         public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)
         {
@@ -255,7 +262,7 @@ namespace DL
                 return cs.Clone();
             throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");
         }
-        public void UpdateConsecutiveStations(ConsecutiveStations cs)
+        public void UpdateConsecutiveStations(ConsecutiveStations cs) //for what??
         {
             DataSource.AllConsecutiveStations.Remove(GetConsecutiveStations(cs.StationCode1, cs.StationCode2));
             DataSource.AllConsecutiveStations.Add(cs.Clone());

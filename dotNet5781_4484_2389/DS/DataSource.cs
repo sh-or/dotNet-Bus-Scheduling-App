@@ -152,6 +152,17 @@ namespace DS
                 new LineStation{LineCode=10, StationCode=9, StationNumberInLine=0},
                 //first station
 
+                new LineStation{LineCode=1, StationCode=39, StationNumberInLine=1},
+                new LineStation{LineCode=2, StationCode=39, StationNumberInLine=1},
+                new LineStation{LineCode=3, StationCode=39, StationNumberInLine=1},
+                new LineStation{LineCode=4, StationCode=39, StationNumberInLine=1},
+                new LineStation{LineCode=5, StationCode=39, StationNumberInLine=1},
+                new LineStation{LineCode=6, StationCode=39, StationNumberInLine=1},
+                new LineStation{LineCode=7, StationCode=39, StationNumberInLine=1},
+                new LineStation{LineCode=8, StationCode=35, StationNumberInLine=1},
+                new LineStation{LineCode=9, StationCode=35, StationNumberInLine=1},
+                new LineStation{LineCode=10, StationCode=35, StationNumberInLine=1},
+
                 new LineStation{LineCode=1, StationCode=8, StationNumberInLine=2},
                 new LineStation{LineCode=2, StationCode=8, StationNumberInLine=2},
                 new LineStation{LineCode=3, StationCode=8, StationNumberInLine=2},

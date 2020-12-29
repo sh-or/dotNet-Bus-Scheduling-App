@@ -7,13 +7,14 @@ using BlAPI;
 using DLAPI;
 using BO;
 using DO;
-//specific- conditions?!
+using System.Device.Location;
 
 namespace BL
 {
     public class BlImp1 : IBL
     {
         readonly IDAL dal = DalFactory.GetDal();
+        public static Random r = new Random(DateTime.Now.Millisecond);
 
         #region Bus
         public BOBus GetBus(int _LicenseNumber)
@@ -313,6 +314,8 @@ namespace BL
         }
         public void AddStationInLine(BOLine l, int _StationCode, int index)
         {
+            if (l.Stations.ToList().Exists(x=>x.StationCode==_StationCode))
+                throw new BLException($"Station number {_StationCode} is already exist in this line");
             try
             {
                 BOLineStation ls = new BOLineStation();
@@ -354,9 +357,7 @@ namespace BL
                 throw new BLException(dex.Message, dex);
             }
         }
-
         //public IEnumerable<BOLine> GetStationLines(int _StationCode){}
-
         public IEnumerable<BOLine> GetAllLines() 
         {
             IEnumerable<Line> l;
@@ -405,7 +406,10 @@ namespace BL
         public int AddLine(BOLine l)
         {
             if (l.FirstStation == 0 || l.LastStation == 0)
-                throw new BLException("Cannot add new line without first&last station");
+                throw new BLException("Cannot add new line without first&last stations");
+            if(l.FirstStation == l.LastStation)
+                throw new BLException("Cannot add new line with identical first&last stations");
+
             try
             {
                 l.Stations = new List<BOLineStation>();
@@ -419,7 +423,7 @@ namespace BL
                 {
                     //יצירת קונסקיוטיב ואז שליחה להוספה בדאל
                     dal.AddConsecutiveStations(l.FirstStation, l.LastStation);
-                    //cs = dal.
+                    cs = dal.GetConsecutiveStations(l.FirstStation, l.LastStation);
                     last.Distance = cs.Distance;
                     last.DriveTime = cs.DriveTime;
                 }
@@ -467,9 +471,43 @@ namespace BL
 
         #region ConsecutiveStations
 
-        public void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime /*bool _Regional*/);
-
-        //public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
+        public void AddConsecutiveStations(int _StationCode1, int _StationCode2)
+        {
+            ConsecutiveStations cs = new ConsecutiveStations();
+            cs.StationCode1 = _StationCode1;
+            cs.StationCode2 = _StationCode2;
+            BusStation b1 = GetBusStation(_StationCode1); //also check if exist..
+            BusStation b2 = GetBusStation(_StationCode2);//
+            GeoCoordinate loc1 = new GeoCoordinate(b1.Latitude, b1.Longitude);
+            GeoCoordinate loc2 = new GeoCoordinate(b2.Latitude, b2.Longitude);
+            cs.Distance = loc1.GetDistanceTo(loc2) * (1 + r.NextDouble() / 2); //air-distance(in meters)*(1 to 1.5)
+            cs.DriveTime = TimeSpan.FromSeconds(cs.Distance / (r.Next(50, 70) * 1 / 3.6)); //the bus cross 50-70 KmH
+            try
+            {
+                dal.AddConsecutiveStations(cs);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message, dex);
+            }
+        }
+        public BOConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)
+        {
+            BOConsecutiveStations bocs = new BOConsecutiveStations() { StationCode1 = _StationCode1, StationCode2 = _StationCode2 };
+            ConsecutiveStations cs = new ConsecutiveStations();
+            try
+            {
+                cs= dal.GetConsecutiveStations(_StationCode1, _StationCode2);
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message, dex);
+            }
+            bocs.Distance = cs.Distance;
+            bocs.DriveTime = cs.DriveTime;
+            return bocs;
+        }
+        //public IEnumerable<BOConsecutiveStations> GetSpecificConsecutiveStations(predicate<BOConsecutiveStations> p/*or code1*/) //all?of 1 station?
         //public void UpdateConsecutiveStations(ConsecutiveStations cs);
         #endregion
 

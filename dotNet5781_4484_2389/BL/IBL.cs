@@ -48,8 +48,8 @@ namespace BlAPI
         #endregion
 
         #region Consecutive Stations
-        void AddConsecutiveStations(int _StationCode1, int _StationCode2, double _Distance, DateTime _DriveTime, bool _Regional);
-        //BOConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
+        void AddConsecutiveStations(int _StationCode1, int _StationCode2);
+        BOConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         //void UpdateConsecutiveStations(BOConsecutiveStations cs);
         #endregion
 

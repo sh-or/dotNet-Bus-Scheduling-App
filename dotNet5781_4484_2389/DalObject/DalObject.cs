@@ -252,23 +252,23 @@ namespace DL
         public void AddConsecutiveStations(ConsecutiveStations cs)
         {
             if(! isExistConsecutiveStations(cs.StationCode1,cs.StationCode2))
-                DataSource.AllConsecutiveStations.Add(cs);
+                DataSource.AllConsecutiveStations.ToList().Add(cs);
         }
         public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)
         {
-            ConsecutiveStations cs = DataSource.AllConsecutiveStations.Find(x => x.StationCode1 == _StationCode1 && x.StationCode2 == _StationCode1);
+            ConsecutiveStations cs = DataSource.AllConsecutiveStations.ToList().Find(x => x.StationCode1 == _StationCode1 && x.StationCode2 == _StationCode1);
             if (cs != null)
                 return cs.Clone();
             throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");
         }
         public void UpdateConsecutiveStations(ConsecutiveStations cs) //for what??
         {
-            DataSource.AllConsecutiveStations.Remove(GetConsecutiveStations(cs.StationCode1, cs.StationCode2));
-            DataSource.AllConsecutiveStations.Add(cs.Clone());
+            DataSource.AllConsecutiveStations.ToList().Remove(GetConsecutiveStations(cs.StationCode1, cs.StationCode2));
+            DataSource.AllConsecutiveStations.ToList().Add(cs.Clone());
         }
         public bool isExistConsecutiveStations(int _FirstStation, int _LastStation)
         {
-            return DataSource.AllConsecutiveStations.Exists(x => x.StationCode1 == _FirstStation && x.StationCode2 == _LastStation);
+            return DataSource.AllConsecutiveStations.ToList().Exists(x => x.StationCode1 == _FirstStation && x.StationCode2 == _LastStation);
         }
 
         //static Random rnd = new Random(DateTime.Now.Millisecond);

@@ -19,10 +19,10 @@ namespace BL
         #region Bus
         public BOBus GetBus(int _LicenseNumber)
         {
-            BOBus tmp=new BOBus();
+            BOBus b=new BOBus();
             try
             {
-                b = (BOBus)Transform.trans(dal.GetBus(_LicenseNumber),tmp.GetType());
+                b = (BOBus)Transform.trans(dal.GetBus(_LicenseNumber),b.GetType());
             }
             catch (DOException dex)
             {

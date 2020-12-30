@@ -18,6 +18,22 @@ namespace DL
                 propertyInfo.SetValue(copyToObject, propertyInfo.GetValue(original, null), null);
             return copyToObject;
         }
+        
+        //public static object transDOtoBO<S>(this S original, Type tp) //transform DO to BO struct
+        //{
+        //    object copyToObject = Activator.CreateInstance(tp);
+        //    foreach (PropertyInfo propertyInfo in typeof(S).GetProperties())
+        //    {
+        //        PropertyInfo propFrom = typeof(S).GetProperty(propertyInfo.Name);
+        //        if (propFrom != null)
+        //        {
+        //            var value = propFrom.GetValue(original, null);
+        //            if (value is ValueType || value is string)
+        //                propertyInfo.SetValue(copyToObject, value);
+        //        }
+        //    }
+        //    return copyToObject;
+        //}
 
         //internal static T Clone<T>(this T original)//דרך שלישית - בונוס
         //{

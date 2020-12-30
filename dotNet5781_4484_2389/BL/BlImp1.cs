@@ -19,10 +19,10 @@ namespace BL
         #region Bus
         public BOBus GetBus(int _LicenseNumber)
         {
-            BOBus b;
+            BOBus tmp=new BOBus();
             try
             {
-                b = (BOBus)dal.GetBus(_LicenseNumber);
+                b = (BOBus)Transform.trans(dal.GetBus(_LicenseNumber),tmp.GetType());
             }
             catch (DOException dex)
             {
@@ -32,9 +32,10 @@ namespace BL
         }
         public void UpdateBus(BOBus b)
         {
+            Bus tmp = new Bus();
             try
             {
-                dal.UpdateBus(b);
+                dal.UpdateBus((Bus)Transform.trans(b,tmp.GetType())); ;
             }
             catch (DOException dex)
             {
@@ -43,6 +44,7 @@ namespace BL
         }
         public IEnumerable<BOBus> GetSpecificBuses(Predicate<BOBus> p)//conditionnnn
         {
+            BOBus tmp = new BOBus();
             IEnumerable<Bus> bs;
             try
             {
@@ -52,12 +54,13 @@ namespace BL
             {
                 throw new BLException(dex.Message, dex);
             }
-            IEnumerable<BOBus> bobs = (from Bus b in bs
-                                select (BOBus)b);
+            IEnumerable<BOBus> bobs = from Bus b in bs
+                                select (BOBus)Transform.trans(b,tmp.GetType());
             return bobs;
         }
         public IEnumerable<BOBus> GetAllBuses()
         {
+            BOBus tmp = new BOBus();
             IEnumerable<Bus> b;
             try
             {
@@ -67,18 +70,19 @@ namespace BL
             {
                 throw new BLException(dex.Message, dex);
             }
-            IEnumerable<BOBus> bobs = (from Bus bb in b
-                                select (BOBus)bb);
+            IEnumerable<BOBus> bobs = from Bus bb in b
+                                select (BOBus)Transform.trans(bb,tmp.GetType());
             return bobs;
         }
         public void AddBus(BOBus b)
         {
+            Bus tmp=new Bus();
             //more checking?
             if ((b.LicenseNumber > 9999999 && b.LicensingDate.Year < 2018) || (b.LicenseNumber < 10000000 && b.LicensingDate.Year >= 2018)) //license number and date don't match
                 throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
             try
             {
-                dal.AddBus((Bus)b);
+                dal.AddBus((Bus)Transform.trans(b,tmp.GetType()));
             }
             catch (DOException dex)
             {

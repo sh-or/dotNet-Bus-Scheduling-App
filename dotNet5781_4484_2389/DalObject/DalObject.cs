@@ -166,10 +166,9 @@ namespace DL
         public IEnumerable<BusStation> GetStationsOfLine(int _LineCode)
         {
             IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
-            IEnumerable<BusStation> bsLst = new IEnumerable<BusStation>();
-            bsLst = (from ls in lsLst
-                     orderby ls.StationNumberInLine
-                    select GetBusStation(ls.StationCode).Clone());
+            IEnumerable<BusStation> bsLst = (from ls in lsLst
+                                             orderby ls.StationNumberInLine
+                                             select GetBusStation(ls.StationCode).Clone());
             if (bsLst != null)
                 return bsLst;
             throw new DOException("No line stations were found");

@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DO;
+using DO; //?
 
 namespace BO
 {
-    public class BOBus:Bus
+    public class BOBus
     {
-        //public DO.Bus bus { get; set; }
+        public int LicenseNumber { get; set; }
+        public DateTime LicensingDate { get; set; }
+        public double Kilometerage { get; set; }
+        public double Fuel { get; set; }
+        public double KmFromLastRefuel { get; set; }
+        public double KmFromLastCare { get; set; }
+        public DateTime DateOfLastCare { get; set; }
+        public StatusEnum Status { get; set; }
+        public string Driver { get; set; }
+        public bool IsExist { get; set; } //flag for deleting
     }
 }

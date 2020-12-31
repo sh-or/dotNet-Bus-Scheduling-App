@@ -274,6 +274,7 @@ namespace BL
         }
         public void UpdateLine(BOLine l) //not for updating station list
         {
+            //if first/last station??? ->throw "delete/add station in its button"
             try
             {
                 dal.UpdateLine(l);
@@ -303,10 +304,17 @@ namespace BL
                         l.Stations.ElementAt(0).DriveTime = TimeSpan.Zero;
                     }
                     else
-                    {//if not exist ConsecutiveStations->new window for insert data and creat ConsecutiveStations!
+                    {//if not exist ConsecutiveStations->creat ConsecutiveStations!
+                        if (dal.isExistConsecutiveStations(l.Stations.ElementAt(location - 1).StationCode, l.Stations.ElementAt(location).StationCode))
+                            AddConsecutiveStations(l.Stations.ElementAt(location - 1).StationCode, l.Stations.ElementAt(location).StationCode);
                         ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations.ElementAt(location - 1).StationCode, l.Stations.ElementAt(location).StationCode);
                         l.Stations.ElementAt(location).Distance = cs.Distance;
                         l.Stations.ElementAt(location).DriveTime = cs.DriveTime;
+                    }
+                    foreach(LineStation x in dal.GetAllLineStations(l.Code)) //change the index of later stations in l
+                    {
+                        if(x.StationNumberInLine>=location)
+                            dal.UpdateLineStation( l.Code, x.StationCode, -1);
                     }
                 }
                 dal.DeleteLineStation(l.Code, _StationCode);
@@ -342,6 +350,8 @@ namespace BL
                         l.LastStation = _StationCode;
                         UpdateLine(l);
                     }
+                    if (dal.isExistConsecutiveStations(l.Stations.ElementAt(index - 1).StationCode, _StationCode))
+                        AddConsecutiveStations(l.Stations.ElementAt(index - 1).StationCode, _StationCode);
                     ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations.ElementAt(index - 1).StationCode, _StationCode); //maybe get from new UI window
                     l.Stations.ElementAt(index).Distance = cs.Distance;
                     l.Stations.ElementAt(index).DriveTime = cs.DriveTime;
@@ -349,10 +359,17 @@ namespace BL
                 }
                 if (index != l.Stations.Count() - 1) //not last station
                 {
+                    if (dal.isExistConsecutiveStations(_StationCode, l.Stations.ElementAt(index+1).StationCode))
+                        AddConsecutiveStations(_StationCode, l.Stations.ElementAt(index+1).StationCode);
                     ConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations.ElementAt(index +1).StationCode); //maybe get from new UI window
                     l.Stations.ElementAt(index + 1).Distance = cs.Distance;
                     l.Stations.ElementAt(index + 1).DriveTime = cs.DriveTime;
                     UpdateLineStation(l.Stations.ElementAt(index + 1)); //change to update dal.UpdateLineStation!!creat do.linestation..
+                    foreach (LineStation x in dal.GetAllLineStations(l.Code)) //change the index of later stations in l
+                    {
+                        if (x.StationNumberInLine > index)
+                            dal.UpdateLineStation(l.Code, x.StationCode, 1);
+                    }
                 }
 
             }
@@ -515,6 +532,7 @@ namespace BL
         //public void UpdateConsecutiveStations(ConsecutiveStations cs);
         #endregion
 
+        #region Drive
         public void AddDrive(int _StartStation, int _DestinationStation)
         {
             BODrive drive = new BODrive();
@@ -528,6 +546,7 @@ namespace BL
                 throw new BLException(dex.Message, dex);
             }
         }
+        #endregion
     }
 }
 

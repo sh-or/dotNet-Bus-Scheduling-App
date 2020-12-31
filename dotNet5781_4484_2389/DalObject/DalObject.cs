@@ -214,6 +214,16 @@ namespace DL
                 return ls.Clone();
             throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
         }
+        public IEnumerable<LineStation> GetAllLineStations(int _LineCode)
+        {
+            return DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
+        }
+        public void UpdateLineStation(int _LineCode, int _StationCode,int n)//change index in +/-1
+        {
+            LineStation ls = GetLineStation(_LineCode, _StationCode);
+            DeleteLineStation(_LineCode, _StationCode);
+            AddLineStation(ls.LineCode, ls.StationCode, ls.StationNumberInLine + n);
+        }
         public int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
         {
             if (! DataSource.AllLineStations.Exists(x => x.LineCode == _LineCode && x.StationCode == _StationCode))

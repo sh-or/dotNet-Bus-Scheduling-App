@@ -30,10 +30,12 @@ namespace DL
                 return b.Clone();
             throw new DOException(_LicenseNumber, $"Bus number {_LicenseNumber} was not found");
         }
-        public void UpdateBus(Bus b)
+        public void UpdateBus(Bus b)  //fix?
         {
-            DataSource.AllBuses.Remove(GetBus(b.LicenseNumber));
-            DataSource.AllBuses.Add(b.Clone());
+           // DataSource.AllBuses.Remove(GetBus(b.LicenseNumber));
+            int n = DataSource.AllBuses.FindIndex(x => x.LicenseNumber == b.LicenseNumber);
+            DataSource.AllBuses[n] = b.Clone();
+            //DataSource.AllBuses.Add(b.Clone());
         }
         public IEnumerable<Bus> GetSpecificBuses(Predicate<Bus> p) 
         {
@@ -68,12 +70,13 @@ namespace DL
             //DataSource.AllBuses.Add(b);
             //return b.LicenseNumber;
         }
-        public void DeleteBus(int _LicenseNumber) //how to update the DS??
+        public void DeleteBus(int _LicenseNumber)
         {
             Bus b = GetBus(_LicenseNumber);
-            //DataSource.AllBuses.Remove(b);
-            b.IsExist = false;
-            //AddBus(b.LicensingDate, b.Kilometerage, b.Fuel, b.Status, b.Driver);
+            int n = DataSource.AllBuses.FindIndex(x => x.LicenseNumber == b.LicenseNumber);
+            DataSource.AllBuses[n].IsExist = false;
+            //b.IsExist = false;
+            //AddBus(b.Clone());
         }
         public BusStation GetBusStation(int _StationCode) 
         {

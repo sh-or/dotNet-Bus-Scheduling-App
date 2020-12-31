@@ -13,11 +13,14 @@ namespace BO
 מזהה קו, מספר קו, תחנת סיום. לבונוס - זמני הגעה לתחנה ומידע רלוונטי נוסף שאינו מיותר לתצוגת מידע על תחנת אוטובוס.
 */
 {
-    public class BOLine : Line //include code,line,area,first and last station and isExist
+    public class BOLine //: Line //include code,line,area,first and last station and isExist
     {
-        //public AreaEnum Area { get; set; }
-        //public int FirstStation { get; set; }
-        //public bool IsExist { get; set; } //???
+        public int Code { get; set; }
+        public int BusLine { get; set; }
+        public AreaEnum Area { get; set; }
+        public int FirstStation { get; set; }
+        public int LastStation { get; set; }
+        public bool IsExist { get; set; } //flag for deleting
         public IEnumerable<BOLineStation> Stations { get; set; }
     }
 }

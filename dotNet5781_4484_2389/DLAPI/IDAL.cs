@@ -38,6 +38,8 @@ namespace DLAPI
         void DeleteLine(int _Code);
         void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         LineStation GetLineStation(int _LineCode, int _StationCode);
+        IEnumerable<LineStation> GetAllLineStations(int _LineCode);
+        void UpdateLineStation(int _LineCode, int _StationCode, int n); //change index in +/-1
         int IsStationInLine(int _LineCode, int _StationCode); //check if exist specific linestation and return the station location in the line or -1
         IEnumerable<LineStation> GetSpecificLineStations(Predicate<LineStation> p /*condition*/);
         void DeleteLineStation(int _LineCode, int _StationCode);

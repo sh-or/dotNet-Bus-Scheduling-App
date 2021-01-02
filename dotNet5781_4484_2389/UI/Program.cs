@@ -253,7 +253,7 @@ namespace UI  //PlConsole
                                             Console.WriteLine("enter station number:");
                                             int _stationNumber = int.Parse(Console.ReadLine());
                                             BOBusStation bs = bl.GetBusStation(_stationNumber);
-                                            Console.WriteLine($"staion number:{bs.StationCode}, {bs.Name},\n {bs.Lines});
+                                            Console.WriteLine($"staion number:{bs.StationCode}, {bs.Name},\n {bs.Lines}");
                                         }
 
                                         catch (BLException dex)

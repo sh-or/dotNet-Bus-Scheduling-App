@@ -23,7 +23,9 @@ namespace DL
         DalObject() { }
         public static IDAL Instance { get { return Nested.instance; } }
         #endregion
-       public Bus GetBus(int _LicenseNumber)
+
+        #region Bus
+        public Bus GetBus(int _LicenseNumber)
         {
             Bus b = DataSource.AllBuses.Find(x => x.LicenseNumber == _LicenseNumber);
             if(b!=null)
@@ -78,6 +80,9 @@ namespace DL
             //b.IsExist = false;
             //AddBus(b.Clone());
         }
+        #endregion
+
+        #region Bus Station
         public BusStation GetBusStation(int _StationCode) 
         {
             BusStation bs = DataSource.AllBusStations.Find(x => x.StationCode == _StationCode);
@@ -87,8 +92,11 @@ namespace DL
         }
         public void UpdateStation(BusStation bs)
         {
-            DataSource.AllBusStations.Remove(GetBusStation(bs.StationCode));
-            DataSource.AllBusStations.Add(bs.Clone());
+            int n = DataSource.AllBusStations.FindIndex(x => x.StationCode == bs.StationCode);
+            DataSource.AllBusStations[n] = bs.Clone();
+
+            //DataSource.AllBusStations.Remove(GetBusStation(bs.StationCode));
+            //DataSource.AllBusStations.Add(bs.Clone());
         }
         public IEnumerable<BusStation> GetSpecificBusStations(Predicate<BusStation> p) 
         {
@@ -130,6 +138,9 @@ namespace DL
             bs.IsExist = false;
             //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
         }
+        #endregion
+
+        #region Line
         public Line GetLine(int _Code)
         {
             Line l = DataSource.AllLines.Find(x => x.Code == _Code);
@@ -139,8 +150,11 @@ namespace DL
         }
         public void UpdateLine(Line l) 
         {
-            DataSource.AllLines.Remove(GetLine(l.Code));
-            DataSource.AllLines.Add(l.Clone());
+            int n = DataSource.AllLines.FindIndex(x => x.Code == l.Code);
+            DataSource.AllLines[n] = l.Clone();
+
+            //DataSource.AllLines.Remove(GetLine(l.Code));
+            //DataSource.AllLines.Add(l.Clone());
         }
         public IEnumerable<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
@@ -202,6 +216,9 @@ namespace DL
             //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
 
         }
+        #endregion
+
+        #region Line Station
         public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) //gets linestation???
         {
             LineStation ls = new LineStation();
@@ -244,11 +261,14 @@ namespace DL
             //throw new DOException("No exist lines were found");
             //return spesific collection OR NULL!!!!!!!!!!!!!!!!!!
         }
-        public void DeleteLineStation(int _LineCode, int _StationCode)
+        public void DeleteLineStation(int _LineCode, int _StationCode) /////////////////remove!!!
         {
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             DataSource.AllLineStations.Remove(ls);
         }
+        #endregion
+
+        #region Consecutive Stations
         //public void AddConsecutiveStations(int _StationCode1, int _StationCode2) 
         //{
         //    ConsecutiveStations cs = new ConsecutiveStations();
@@ -274,7 +294,7 @@ namespace DL
                 return cs.Clone();
             throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");
         }
-        public void UpdateConsecutiveStations(ConsecutiveStations cs) //for what??
+        public void UpdateConsecutiveStations(ConsecutiveStations cs) //for what??    remove!!!
         {
             DataSource.AllConsecutiveStations.ToList().Remove(GetConsecutiveStations(cs.StationCode1, cs.StationCode2));
             DataSource.AllConsecutiveStations.ToList().Add(cs.Clone());
@@ -283,6 +303,7 @@ namespace DL
         {
             return DataSource.AllConsecutiveStations.ToList().Exists(x => x.StationCode1 == _FirstStation && x.StationCode2 == _LastStation);
         }
+        #endregion
 
         //static Random rnd = new Random(DateTime.Now.Millisecond);
         //double temperature;

@@ -9,12 +9,12 @@ using BO;
 
 namespace UI  //PlConsole
 {
-   // public enum Status { Ready = 1, NeedCare, NeedRefeul, InDrive, InCare, InRefuel }
+    // public enum Status { Ready = 1, NeedCare, NeedRefeul, InDrive, InCare, InRefuel }
     class Program
     {
         static IBL bl;
         enum Choice { Bus = 1, BusStation, Line, exit }
-        enum CoiceBus {add=1, delete, update, viewDetails, viewAll }
+        enum CoiceBus { add = 1, delete, update, viewDetails, viewAll }
         enum CoiceBusStation { add = 1, delete, update, viewDetails, viewAll }
         enum CoiceLine { add = 1, delete, update, viewDetails, viewAll, addStation, deleteStation, viewStations }
 
@@ -34,118 +34,158 @@ namespace UI  //PlConsole
                 {
                     case Choice.Bus:
                         {
-                            Console.WriteLine("1: add bus\n 2: delete bus\n 3:update bus\n 4:view bus details\n 5: view all buses");
+                            Console.WriteLine("1:add bus\n 2:delete bus\n 3:update bus\n 4:view bus details\n 5:view all buses");
                             Console.WriteLine("Enter your choice");
                             myChoice = int.Parse(Console.ReadLine());
                             switch ((CoiceBus)myChoice)
                             {
                                 case CoiceBus.add:
                                     {
-                                        Console.WriteLine("Enter details:{LicenseNumber, LicensingDate, Kilometerage, KmFromLastRefuel, Fuel, KmFromLastCare, DateOfLastCare, Status, Driver name");
-                                        int _lcNum = int.Parse(Console.ReadLine()); //cin license number
-                                        DateTime _dt = DateTime.Parse(Console.ReadLine());  //cin date beggining
-                                        string v = _lcNum.ToString();
-                                        double _km = double.Parse(Console.ReadLine());
-                                        double _KmOfLastRefuel = double.Parse(Console.ReadLine());
-                                        double _KmOfLastCare = double.Parse(Console.ReadLine());
-                                        double _kilometer;
-                                        DateTime _dtc = DateTime.Parse(Console.ReadLine());
-                                        //string timerAct;
-                                        StatusEnum _status = (StatusEnum)int.Parse(Console.ReadLine());
-                                        ////
-                                        while ((v.Length != 7 && _dt.Year < 2018) || (v.Length != 8 && _dt.Year >= 2018))  //check license number
+                                        try
                                         {
-                                            Console.WriteLine("illegal number. enter again");
-                                            _lcNum = int.Parse(Console.ReadLine()); //cin license number
-                                            v = _lcNum.ToString();
-                                        }
-                                        ////
-                                        if (_km < _KmOfLastCare || _km < _KmOfLastRefuel)
-                                             _kilometer = Math.Max(_KmOfLastCare, _KmOfLastRefuel);
-                                        else
-                                            _kilometer = _km;
-                                        ////
-                                        if (!((DateTime.Today.AddYears(-1)) < _dtc) || (_KmOfLastCare) > 18500) //checking time/km from last care
-                                        {
-                                            _status = (StatusEnum)2; //need care 
-                                        }
-                                        else if (_KmOfLastRefuel > 1000) //checking fuel
-                                        {
-                                            _status = (StatusEnum)3; //need refuel 
-                                        }
-                                        else
-                                            _status = (StatusEnum)1; //ready
+                                            Console.WriteLine("Enter details:{LicenseNumber, LicensingDate, Kilometerage, KmFromLastRefuel, Fuel, KmFromLastCare, DateOfLastCare, Status, Driver name");
+                                            int _lcNum = int.Parse(Console.ReadLine()); //cin license number
+                                            DateTime _dt = DateTime.Parse(Console.ReadLine());  //cin date beggining
+                                            string v = _lcNum.ToString();
+                                            double _km = double.Parse(Console.ReadLine());
+                                            double _KmOfLastRefuel = double.Parse(Console.ReadLine());
+                                            double _KmOfLastCare = double.Parse(Console.ReadLine());
+                                            double _kilometer;
+                                            DateTime _dtc = DateTime.Parse(Console.ReadLine());
+                                            //string timerAct;
+                                            StatusEnum _status = (StatusEnum)int.Parse(Console.ReadLine());
+                                            ////
+                                            while ((v.Length != 7 && _dt.Year < 2018) || (v.Length != 8 && _dt.Year >= 2018))  //check license number
+                                            {
+                                                Console.WriteLine("illegal number. enter again");
+                                                _lcNum = int.Parse(Console.ReadLine()); //cin license number
+                                                v = _lcNum.ToString();
+                                            }
+                                            ////
+                                            if (_km < _KmOfLastCare || _km < _KmOfLastRefuel)
+                                                _kilometer = Math.Max(_KmOfLastCare, _KmOfLastRefuel);
+                                            else
+                                                _kilometer = _km;
+                                            ////
+                                            if (!((DateTime.Today.AddYears(-1)) < _dtc) || (_KmOfLastCare) > 18500) //checking time/km from last care
+                                            {
+                                                _status = (StatusEnum)2; //need care 
+                                            }
+                                            else if (_KmOfLastRefuel > 1000) //checking fuel
+                                            {
+                                                _status = (StatusEnum)3; //need refuel 
+                                            }
+                                            else
+                                                _status = (StatusEnum)1; //ready
 
-                                        BOBus b = new BOBus
+                                            BOBus b = new BOBus
+                                            {
+                                                LicenseNumber = _lcNum,
+                                                LicensingDate = _dt,
+                                                Kilometerage = _kilometer,
+                                                Fuel = (1200 - _KmOfLastRefuel) / 1200,
+                                                KmFromLastRefuel = _KmOfLastRefuel,
+                                                KmFromLastCare = _KmOfLastCare,
+                                                DateOfLastCare = _dtc,
+                                                Status = _status,
+                                                Driver = Console.ReadLine(),
+                                                IsExist = true
+                                                //timerAct="",
+                                            };
+                                            bl.AddBus(b);
+                                            Console.WriteLine("bus added!");
+                                        }
+
+                                        catch (BLException dex)
                                         {
-                                            LicenseNumber = _lcNum,
-                                            LicensingDate = _dt,
-                                            Kilometerage = _kilometer,
-                                            Fuel = (1200 - _KmOfLastRefuel) / 1200,
-                                            KmFromLastRefuel = _KmOfLastRefuel,
-                                            KmFromLastCare = _KmOfLastCare,
-                                            DateOfLastCare = _dtc,
-                                            Status= _status,
-                                            Driver = Console.ReadLine(),
-                                            IsExist = true
-                                             //timerAct="",
-                                        };
-                                        bl.AddBus(b);
-                                        Console.WriteLine("bus added!");
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
 
                                 case CoiceBus.delete:
                                     {
-                                        Console.WriteLine("enter license number:");
-                                        int _LicenseNumber = int.Parse(Console.ReadLine());
-                                        bl.DeleteBus(_LicenseNumber);
-                                        Console.WriteLine("bus deleted");
+                                        try
+                                        {
+                                            Console.WriteLine("enter license number:");
+                                            int _LicenseNumber = int.Parse(Console.ReadLine());
+                                            bl.DeleteBus(_LicenseNumber);
+                                            Console.WriteLine("bus deleted");
+                                        }
+
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceBus.update:
                                     {
-                                        Console.WriteLine("Enter details:{LicenseNumber, LicensingDate, Kilometerage, KmFromLastRefuel, Fuel, KmFromLastCare, DateOfLastCare, Status, Driver name");
-                                        int _lcNum = int.Parse(Console.ReadLine()); //cin license number
-                                        DateTime _dt = DateTime.Parse(Console.ReadLine());  //cin date beggining
-                                        //string v = _lcNum.ToString();
-                                        double _km = double.Parse(Console.ReadLine());
-                                        double _KmOfLastRefuel = double.Parse(Console.ReadLine());
-                                        double _KmOfLastCare = double.Parse(Console.ReadLine());
-                                        double _kilometer = _km;
-                                        DateTime _dtc = DateTime.Parse(Console.ReadLine());
-                                        StatusEnum _Status = (StatusEnum)int.Parse(Console.ReadLine());
-                                        BOBus b = new BOBus
+                                        try
                                         {
-                                            LicenseNumber = _lcNum,
-                                            LicensingDate = _dt,
-                                            Kilometerage = _kilometer,
-                                            Fuel = (1200 - _KmOfLastRefuel) / 1200,
-                                            KmFromLastRefuel = _KmOfLastRefuel,
-                                            KmFromLastCare = _KmOfLastCare,
-                                            DateOfLastCare = _dtc,
-                                            Status = _Status,
-                                            Driver = Console.ReadLine(),
-                                            IsExist = true
-                                            //timerAct="",
-                                        };
-                                        bl.UpdateBus(b);
-                                        Console.WriteLine("bus update");
+                                            Console.WriteLine("Enter details:{LicenseNumber, LicensingDate, Kilometerage, KmFromLastRefuel, Fuel, KmFromLastCare, DateOfLastCare, Status, Driver name");
+                                            int _lcNum = int.Parse(Console.ReadLine()); //cin license number
+                                            DateTime _dt = DateTime.Parse(Console.ReadLine());  //cin date beggining
+                                                                                                //string v = _lcNum.ToString();
+                                            double _km = double.Parse(Console.ReadLine());
+                                            double _KmOfLastRefuel = double.Parse(Console.ReadLine());
+                                            double _KmOfLastCare = double.Parse(Console.ReadLine());
+                                            double _kilometer = _km;
+                                            DateTime _dtc = DateTime.Parse(Console.ReadLine());
+                                            StatusEnum _Status = (StatusEnum)int.Parse(Console.ReadLine());
+                                            BOBus b = new BOBus
+                                            {
+                                                LicenseNumber = _lcNum,
+                                                LicensingDate = _dt,
+                                                Kilometerage = _kilometer,
+                                                Fuel = (1200 - _KmOfLastRefuel) / 1200,
+                                                KmFromLastRefuel = _KmOfLastRefuel,
+                                                KmFromLastCare = _KmOfLastCare,
+                                                DateOfLastCare = _dtc,
+                                                Status = _Status,
+                                                Driver = Console.ReadLine(),
+                                                IsExist = true
+                                                //timerAct="",
+                                            };
+                                            bl.UpdateBus(b);
+                                            Console.WriteLine("bus update");
+                                        }
+
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceBus.viewDetails:
                                     {
-                                        Console.WriteLine("enter license number:");
-                                        int _LicenseNumber = int.Parse(Console.ReadLine());
-                                        BOBus b = bl.GetBus(_LicenseNumber);
-                                        Console.WriteLine($"LicenseNumber: {b.LicenseNumber}");
+                                        try
+                                        {
+                                            Console.WriteLine("enter license number:");
+                                            int _LicenseNumber = int.Parse(Console.ReadLine());
+                                            BOBus b = bl.GetBus(_LicenseNumber);
+                                            Console.WriteLine($"LicenseNumber: {b.LicenseNumber}");
+                                        }
+
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceBus.viewAll:
                                     {
-                                        IEnumerable<BOBus> ls=bl.GetAllBuses();
-                                        foreach (BOBus b in ls)
-                                            Console.WriteLine(b.LicenseNumber);
+                                        try
+                                        {
+                                            IEnumerable<BOBus> ls = bl.GetAllBuses();
+                                            foreach (BOBus b in ls)
+                                                Console.WriteLine(b.LicenseNumber);
+                                        }
+
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 default:
@@ -164,28 +204,79 @@ namespace UI  //PlConsole
                             {
                                 case CoiceBusStation.add:
                                     {
-
+                                        try
+                                        {
+                                            BOBusStation bs = new BOBusStation { Name = "aaa", Longitude = 32.3, Latitude = 33.2, Address = "aaa 1", IsExist = true, Accessibility = true };
+                                            bl.AddBusStation(bs);
+                                            Console.WriteLine("bus station added");
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
 
                                 case CoiceBusStation.delete:
                                     {
-
+                                        try
+                                        {
+                                            Console.WriteLine("enter Station Code number:");
+                                            int _StationCode = int.Parse(Console.ReadLine());
+                                            bl.DeleteBusStation(_StationCode);
+                                            Console.WriteLine("bus Station deleted");
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceBusStation.update:
                                     {
+                                        try
+                                        {
+                                            BOBusStation bs1 = new BOBusStation { Name = "bbb", Longitude = 32.3, Latitude = 33.2, Address = "bbb 1", IsExist = true, Accessibility = true };
+                                            bl.UpdateStation(bs1);
+                                        }
 
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceBusStation.viewDetails:
                                     {
+                                        try
+                                        {
+                                            Console.WriteLine("enter station number:");
+                                            int _stationNumber = int.Parse(Console.ReadLine());
+                                            BOBusStation bs = bl.GetBusStation(_stationNumber);
+                                            Console.WriteLine($"staion number:{bs.StationCode}, {bs.Name},\n {bs.Lines});
+                                        }
 
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceBusStation.viewAll:
                                     {
+                                        try
+                                        {
 
+                                            IEnumerable<BOBusStation> ls = bl.GetAllBusStations();
+                                            Console.WriteLine();
+                                            foreach (BOBusStation b in ls)
+                                                Console.WriteLine(b.Name);
+                                        }
+
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 default:
@@ -205,43 +296,117 @@ namespace UI  //PlConsole
                             {
                                 case CoiceLine.add:
                                     {
-
+                                        try
+                                        {
+                                            BOLine l = new BOLine { BusLine = 40, Code = 40, FirstStation = 1, LastStation = 2, Area = (AreaEnum)3, IsExist = true };
+                                            bl.AddLine(l);
+                                            Console.WriteLine("Line added");
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
 
                                 case CoiceLine.delete:
                                     {
-
+                                        try
+                                        {
+                                            Console.WriteLine("enter Line Code:");
+                                            int _code = int.Parse(Console.ReadLine());
+                                            bl.DeleteLine(_code);
+                                            Console.WriteLine("Line deleted");
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceLine.update:
                                     {
-
+                                        try
+                                        {
+                                            BOLine l = new BOLine { BusLine = 40, Code = 40, FirstStation = 1, LastStation = 2, Area = (AreaEnum)3, IsExist = true };
+                                            bl.UpdateLine(l);
+                                            Console.WriteLine("Line update");
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
-                                case CoiceLine.viewDetails:
+                                case CoiceLine.viewDetails:  //לבדוק הדפסה של התחנות
                                     {
-
+                                        try
+                                        {
+                                            Console.WriteLine("enter Line Code:");
+                                            int _code = int.Parse(Console.ReadLine());
+                                            BOLine l = bl.GetLine(_code);
+                                            Console.WriteLine($"Line code {l.Code}, {l.BusLine}, {l.FirstStation}, {l.LastStation},\n {l.Stations}");
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceLine.viewAll:
                                     {
-
+                                        try { 
+                                        IEnumerable<BOLine> ls = bl.GetAllLines();
+                                        foreach (BOLine l in ls)
+                                            Console.WriteLine($"{l.Code}, {l.BusLine}, {l.Area}");
                                     }
+
+                                        catch (BLException dex)
+                                    {
+                                        Console.WriteLine(dex.Message);
+                                    }
+                            }
                                     break;
                                 case CoiceLine.addStation:
                                     {
-
+                                        Console.WriteLine("enter line code, station code, index");
+                                        int _code = int.Parse(Console.ReadLine());
+                                        int _StationCode = int.Parse(Console.ReadLine());
+                                        int index = int.Parse(Console.ReadLine());
+                                        BOLine l = bl.GetLine(_code);
+                                        bl.AddStationInLine(l, _StationCode, index);
                                     }
                                     break;
                                 case CoiceLine.deleteStation:
-                                    {
-
+                                    {//לבדוק שמוחק גם את התחנת קו
+                                        try
+                                        {
+                                            Console.WriteLine("enter line code, station code");
+                                            int _code = int.Parse(Console.ReadLine());
+                                            int _StationCode = int.Parse(Console.ReadLine());
+                                            BOLine l = bl.GetLine(_code);
+                                            bl.DeleteStationInLine(l, _StationCode);
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 case CoiceLine.viewStations:
                                     {
+                                        try
+                                        {//?
+                                            Console.WriteLine("enter line code");
+                                            int _code = int.Parse(Console.ReadLine());
+                                            BOLine l = bl.GetLine(_code);
+                                            Console.WriteLine(l.Stations);
 
+                                        }
+                                        catch (BLException dex)
+                                        {
+                                            Console.WriteLine(dex.Message);
+                                        }
                                     }
                                     break;
                                 default:
@@ -263,22 +428,22 @@ namespace UI  //PlConsole
         }
     }
 }
-            
-            
-            
-            
-            //    static IBL bl;
 
-                        //    static void Main(string[] args)
-                        //    {
-                        //        bl = BlFactory.GetBl();
 
-                        //        Console.Write("Please enter how many days back: ");
-                        //        int days = int.Parse(Console.ReadLine());
-                        //        for (int d = days; d >= 0; --d)
-                        //        {
-                        //            Weather w = bl.GetWeather(d);
-                        //            Console.WriteLine($"{d} days before - Feeling was: {w.Feeling} Celsius degrees");
-                        //        }
 
-                        //    }
+
+//    static IBL bl;
+
+//    static void Main(string[] args)
+//    {
+//        bl = BlFactory.GetBl();
+
+//        Console.Write("Please enter how many days back: ");
+//        int days = int.Parse(Console.ReadLine());
+//        for (int d = days; d >= 0; --d)
+//        {
+//            Weather w = bl.GetWeather(d);
+//            Console.WriteLine($"{d} days before - Feeling was: {w.Feeling} Celsius degrees");
+//        }
+
+//    }

@@ -107,10 +107,10 @@ namespace BL
         public BOBusStation GetBusStation(int _StationCode)
         {
             //checking
-            BOBusStation bs;
+            BOBusStation bs=new BOBusStation();
             try
             {
-                bs = (BOBusStation)dal.GetBusStation(_StationCode);
+                bs = (BOBusStation)Transform.trans(dal.GetBusStation(_StationCode),bs.GetType());
                 bs.Lines = from l in dal.GetStationLines(_StationCode)
                          select new BOStationLine
                          {
@@ -129,9 +129,10 @@ namespace BL
         }
         public void UpdateStation(BOBusStation bs)
         {
+            BusStation tmp = new BusStation();
             try
             {
-                dal.UpdateStation(bs);
+                dal.UpdateStation((BusStation)Transform.trans(bs,tmp.GetType()));
                 //lines will be updated by lines
             }
             catch (DOException dex)
@@ -147,9 +148,9 @@ namespace BL
             try
             {
                 bs = dal.GetSpecificBusStations((Predicate<BusStation>)p);
-                bobs = (from BusStation b in bs
-                                           select (BOBusStation)b);
-                foreach (BOBusStation b in bs)
+                bobs = from BusStation b in bs
+                       select (BOBusStation)Transform.trans(b,tmp.GetType());
+                foreach (BOBusStation b in bobs)
                 {
                     b.Lines = from l in dal.GetStationLines(b.StationCode)
                                select new BOStationLine
@@ -176,8 +177,8 @@ namespace BL
             {
                 bs = dal.GetAllBusStations();
                 bobs = (from BusStation b in bs
-                        select (BOBusStation)b);
-                foreach (BOBusStation b in bs)
+                        select (BOBusStation)Transform.trans(b,tmp.GetType()));
+                foreach (BOBusStation b in bobs)
                 {
                     b.Lines = from l in dal.GetStationLines(b.StationCode)
                               select new BOStationLine
@@ -199,9 +200,10 @@ namespace BL
         {
             //if (/*checking*/) //address and name not empty?
             //    throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
+            BusStation tmp = new BusStation();
             try
             {
-                int runNumber=dal.AddBusStation((BusStation)bs);
+                int runNumber=dal.AddBusStation((BusStation)Transform.trans(bs,tmp.GetType()));
                 bs.StationCode = runNumber;
                 return runNumber;
             }
@@ -231,14 +233,14 @@ namespace BL
 
         public BOLine GetLine(int _Code)  // use GetConsecutiveStations
         {
-            BOLine l;
+            BOLine l = new BOLine();
             IEnumerable<BusStation> st;
             ConsecutiveStations cs;
             int i = 0;
             BOLineStation tmp = new BOLineStation();
             try
             {
-                l = (BOLine)dal.GetLine(_Code);
+                l = (BOLine)Transform.trans(dal.GetLine(_Code),l.GetType());
                 st = dal.GetStationsOfLine(_Code);
             }
             catch (DOException dex)
@@ -275,9 +277,10 @@ namespace BL
         public void UpdateLine(BOLine l) //not for updating station list
         {
             //if first/last station??? ->throw "delete/add station in its button"
+            Line tmp = new Line();
             try
             {
-                dal.UpdateLine(l);
+                dal.UpdateLine((Line)Transform.trans(l,tmp.GetType()));
             }
             catch (DOException dex)
             {
@@ -411,6 +414,7 @@ namespace BL
         }
         public IEnumerable<BOBusStation> GetStationsOfLine(int _LineCode) 
         {
+            BOBusStation tmp = new BOBusStation();
             IEnumerable<BusStation> bs;
             try
             {
@@ -421,7 +425,7 @@ namespace BL
                 throw new BLException(dex.Message, dex);
             }
             IEnumerable<BOBusStation> bobs = from BusStation b in bs
-                                       select (BOBusStation)b; //חוקי? זה בלי הרשימת קווים
+                                       select (BOBusStation)Transform.trans(b,tmp.GetType()); //חוקי? זה בלי הרשימת קווים
             return bobs;
         }
         public int AddLine(BOLine l)
@@ -454,8 +458,9 @@ namespace BL
                     last.Distance = cs.Distance;
                     last.DriveTime = cs.DriveTime;
                 }
+                Line tmp = new Line();
                 l.Stations.ToList().Add(last);
-                l.Code = dal.AddLine((Line)l);
+                l.Code = dal.AddLine((Line)Transform.trans(l,tmp.GetType()));
                 return l.Code;
             }
             catch (DOException dex)
@@ -494,11 +499,12 @@ namespace BL
 
         public void AddConsecutiveStations(int _StationCode1, int _StationCode2)
         {
+            BusStation tmp = new BusStation();
             ConsecutiveStations cs = new ConsecutiveStations();
             cs.StationCode1 = _StationCode1;
             cs.StationCode2 = _StationCode2;
-            BusStation b1 = GetBusStation(_StationCode1); //also check if exist..
-            BusStation b2 = GetBusStation(_StationCode2);//
+            BusStation b1 = (BusStation)Transform.trans(GetBusStation(_StationCode1),tmp.GetType()); //also check if exist..
+            BusStation b2 = (BusStation)Transform.trans(GetBusStation(_StationCode2), tmp.GetType());//
             GeoCoordinate loc1 = new GeoCoordinate(b1.Latitude, b1.Longitude);
             GeoCoordinate loc2 = new GeoCoordinate(b2.Latitude, b2.Longitude);
             cs.Distance = loc1.GetDistanceTo(loc2) * (1 + r.NextDouble() / 2); //air-distance(in meters)*(1 to 1.5)

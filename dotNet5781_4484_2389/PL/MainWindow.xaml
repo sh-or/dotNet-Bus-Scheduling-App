@@ -7,6 +7,64 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="220*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="220*"/>
+            <ColumnDefinition Width="80*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="70*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF6ED8F7" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label Content="Enter you details: " Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="20"/>
+        <TextBox x:Name="iName" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
+        <Label Content="  Name: " Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" FontSize="18" FontFamily="Sitka Display"/>
+        <TextBox x:Name="iPassword" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+        <Label Content="  Password: " Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
+        <RadioButton Content="I am a manager " Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
+        <Image />
+        <Label Content="New user? Sign in!" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="20"/>
+        <Label Content="  Name: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
+        <TextBox x:Name="iNameN" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
+        <Label Content="  Password: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
+        <TextBox x:Name="iPasswordN" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+        <RadioButton Content="I am a manager " Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
+        <Label Content="WITH YOU ALONG THE WAY...:)" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Grid.Column="1" Margin="73.333,12,64.086,23.667" Grid.ColumnSpan="3" Width="455" FontFamily="Rockwell Extra Bold" FontSize="25" Height="41" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.245"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="userLogin" Content="login" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontWeight="Bold" FontSize="18" FontFamily="Sitka Display"/>
+        <Button x:Name="newUser" Content="login" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontFamily="Sitka Display" FontWeight="Bold" FontSize="18"/>
+        <Image Grid.ColumnSpan="3" Margin="154,11,155.333,6.667" Source="Image3.png" Stretch="Fill" Grid.Row="3" RenderTransformOrigin="0.494,0.566" Grid.Column="1">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-89.523"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </Window>

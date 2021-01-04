@@ -261,11 +261,17 @@ namespace DL
             //throw new DOException("No exist lines were found");
             //return spesific collection OR NULL!!!!!!!!!!!!!!!!!!
         }
-        public void DeleteLineStation(int _LineCode, int _StationCode) /////////////////remove!!!
+
+        public void DeleteLineStation(int _LineCode, int _StationCode)
         {
-            LineStation ls = GetLineStation(_LineCode, _StationCode);
-            DataSource.AllLineStations.Remove(ls);
+            int n = DataSource.AllLineStations.FindIndex(x => x.StationCode == _StationCode && x.LineCode == _LineCode);
+            if(n>-1)
+            DataSource.AllLineStations.RemoveAt(n);
+            else
+                throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
+
         }
+
         #endregion
 
         #region Consecutive Stations
@@ -294,11 +300,18 @@ namespace DL
                 return cs.Clone();
             throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");
         }
-        public void UpdateConsecutiveStations(ConsecutiveStations cs) //for what??    remove!!!
+        public void UpdateConsecutiveStations(ConsecutiveStations cs) //for what??
         {
-            DataSource.AllConsecutiveStations.ToList().Remove(GetConsecutiveStations(cs.StationCode1, cs.StationCode2));
-            DataSource.AllConsecutiveStations.ToList().Add(cs.Clone());
+            int n = DataSource.AllConsecutiveStations.ToList().FindIndex(x => x.StationCode1 == cs.StationCode1 && x.StationCode2 == cs.StationCode2);
+            if (n > -1)
+            {
+                DataSource.AllConsecutiveStations.ToList().RemoveAt(n);
+                DataSource.AllConsecutiveStations.ToList().Add(cs.Clone());
+            }
+            else
+                throw new DOException($"Station {cs.StationCode1} and station {cs.StationCode2} are not consecutive stations");
         }
+
         public bool isExistConsecutiveStations(int _FirstStation, int _LastStation)
         {
             return DataSource.AllConsecutiveStations.ToList().Exists(x => x.StationCode1 == _FirstStation && x.StationCode2 == _LastStation);

@@ -21,7 +21,8 @@ namespace UI  //PlConsole
         static void Main(string[] args)
         {
             bl = BlFactory.GetBl();
-
+            BOLine ll = bl.GetLine(1);
+            bl.DeleteStationInLine(ll, 39);
 
             Console.WriteLine("1:bus\n2:bus station\n3:line\n");
             int myChoice;

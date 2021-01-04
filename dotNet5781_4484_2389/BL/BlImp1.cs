@@ -235,7 +235,7 @@ namespace BL
         {
             BOLine l = new BOLine();
             IEnumerable<BusStation> st;
-            ConsecutiveStations cs;
+            ConsecutiveStations cs1;
             int i = 0;
             BOLineStation tmp = new BOLineStation();
             try
@@ -247,31 +247,61 @@ namespace BL
             {
                 throw new BLException(dex.Message, dex);
             }
-            foreach (BusStation s in st)
+
+            l.Stations = from BusStation s in st
+                         select new BOLineStation
+                         {
+                             StationCode = s.StationCode,
+                             Name = s.Name,
+                             Distance = 0,
+                             DriveTime =TimeSpan.Zero
+                         };
+            try
             {
-                tmp.StationCode = s.StationCode;
-                tmp.Name = s.Name;
-                if(i==0) //first station
+                //BOLineStation s = new BOLineStation();
+                foreach (BOLineStation s in l.Stations)
                 {
-                    tmp.Distance = 0;
-                    tmp.DriveTime = TimeSpan.Zero;
-                }
-                else
-                {
-                    try
+                    //s = l.Stations.ElementAt(i);
+                    if (i>0) //not first station
                     {
-                        cs=dal.GetConsecutiveStations(st.ElementAt(i-1).StationCode, s.StationCode);
-                        tmp.Distance = cs.Distance;
-                        tmp.DriveTime = cs.DriveTime;
+                        cs1 = dal.GetConsecutiveStations(st.ElementAt(i - 1).StationCode, s.StationCode);
+                        s.Distance = cs1.Distance;
+                        s.DriveTime = cs1.DriveTime;
+                        //UpdateLineStation(s);
                     }
-                    catch (DOException dex)
-                    {
-                        throw new BLException(dex.Message, dex);
-                    }
+                    i++;
                 }
-                l.Stations.ToList().Add(tmp);
-                i++;
             }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message, dex);
+            }
+
+            //foreach (BusStation s in st)
+            //{
+            //    tmp.StationCode = s.StationCode;
+            //    tmp.Name = s.Name;
+            //    if(i==0) //first station
+            //    {
+            //        tmp.Distance = 0;
+            //        tmp.DriveTime = TimeSpan.Zero;
+            //    }
+            //    else
+            //    {
+            //        try
+            //        {
+            //            cs=dal.GetConsecutiveStations(st.ElementAt(i-1).StationCode, s.StationCode);
+            //            tmp.Distance = cs.Distance;
+            //            tmp.DriveTime = cs.DriveTime;
+            //        }
+            //        catch (DOException dex)
+            //        {
+            //            throw new BLException(dex.Message, dex);
+            //        }
+            //    }
+            //    l.Stations.ToList().Add(tmp);
+            //    i++;
+            //}
             return l;
         }
         public void UpdateLine(BOLine l) //not for updating station list
@@ -344,7 +374,8 @@ namespace BL
                     UpdateLine(l);
                     l.Stations.ElementAt(index).Distance = 0;
                     l.Stations.ElementAt(index).DriveTime = TimeSpan.Zero;
-                    UpdateLineStation(l.Stations.ElementAt(index));//change to update dal.UpdateLineStation!!creat do.linestation..
+                    dal.AddLineStation(l.Code, _StationCode, 0);
+                   // UpdateLineStation(l.Stations.ElementAt(index));//change to update dal.UpdateLineStation!!create do.linestation..
                 }
                 else  //not first station
                 { 
@@ -358,7 +389,8 @@ namespace BL
                     ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations.ElementAt(index - 1).StationCode, _StationCode); //maybe get from new UI window
                     l.Stations.ElementAt(index).Distance = cs.Distance;
                     l.Stations.ElementAt(index).DriveTime = cs.DriveTime;
-                    UpdateLineStation(l.Stations.ElementAt(index));//change to update dal.UpdateLineStation!!creat do.linestation..
+                    dal.AddLineStation(l.Code, _StationCode, index);
+                    //UpdateLineStation(l.Stations.ElementAt(index));//change to update dal.UpdateLineStation!!creat do.linestation..
                 }
                 if (index != l.Stations.Count() - 1) //not last station
                 {
@@ -367,7 +399,7 @@ namespace BL
                     ConsecutiveStations cs = dal.GetConsecutiveStations( _StationCode, l.Stations.ElementAt(index +1).StationCode); //maybe get from new UI window
                     l.Stations.ElementAt(index + 1).Distance = cs.Distance;
                     l.Stations.ElementAt(index + 1).DriveTime = cs.DriveTime;
-                    UpdateLineStation(l.Stations.ElementAt(index + 1)); //change to update dal.UpdateLineStation!!creat do.linestation..
+                    //UpdateLineStation(l.Stations.ElementAt(index + 1)); //change to update dal.UpdateLineStation!!creat do.linestation..
                     foreach (LineStation x in dal.GetAllLineStations(l.Code)) //change the index of later stations in l
                     {
                         if (x.StationNumberInLine > index)
@@ -489,10 +521,10 @@ namespace BL
 
         #region LineStation
        
-        public void UpdateLineStation(BOLineStation ls) //add stationinline
-        {
+        //public void UpdateLineStation(BOLineStation ls) //add stationinline
+        //{
 
-        }
+        //}
         #endregion
 
         #region ConsecutiveStations

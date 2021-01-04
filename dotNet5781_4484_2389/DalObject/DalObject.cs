@@ -229,7 +229,7 @@ namespace DL
         }
         public LineStation GetLineStation(int _LineCode, int _StationCode) 
         {
-            LineStation ls = DataSource.AllLineStations.Find(x => x.LineCode == _LineCode && x.StationCode == _StationCode);
+            LineStation ls = DataSource.AllLineStations.Find(x => (x.LineCode == _LineCode && x.StationCode == _StationCode));
             if (ls != null)
                 return ls.Clone();
             throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
@@ -289,7 +289,7 @@ namespace DL
         }
         public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)
         {
-            ConsecutiveStations cs = DataSource.AllConsecutiveStations.ToList().Find(x => x.StationCode1 == _StationCode1 && x.StationCode2 == _StationCode1);
+            ConsecutiveStations cs = DataSource.AllConsecutiveStations.ToList().Find(x => x.StationCode1 == _StationCode1 && x.StationCode2 == _StationCode2);
             if (cs != null)
                 return cs.Clone();
             throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");

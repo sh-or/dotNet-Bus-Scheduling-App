@@ -43,7 +43,7 @@ namespace BlAPI
 
         #region Line Station
         //   void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
-        void UpdateLineStation(BOLineStation ls);
+        //void UpdateLineStation(BOLineStation ls);
         //void DeleteLineStation(int _LineCode, int _StationCode);
         #endregion
 

@@ -20,8 +20,6 @@ namespace UI  //PlConsole
 
         static void Main(string[] args)
         {
-            bl = BlFactory.GetBl();
-
 
             Console.WriteLine("1:bus\n2:bus station\n3:line\n");
             int myChoice;

@@ -6,7 +6,84 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="Manage" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="UserTemplate" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="14" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Path=Kilometerage}" Grid.Column="3" HorizontalAlignment="Center" />
+
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <TabControl HorizontalAlignment="Right" Height="415" Margin="0,4,0,0" VerticalAlignment="Top" Width="792">
+            <TabItem Header="אוטובוסים" HorizontalAlignment="Right" Margin="0,0,-399,-2" Width="80">
+                <Grid >
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF6ED8F7" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <ListBox Name="busesLB" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Left" Height="330" Margin="128,31,0,0" VerticalAlignment="Top" Width="628">
+                        <CheckBox Content="מחק" Height="19" Width="49"/>
+                    </ListBox>
+                    <Button Content="הוספת אוטובוס" HorizontalAlignment="Left" Margin="11,312,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus"/>
+                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,279,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus"/>
+                    <Button Content="מחיקה" HorizontalAlignment="Left" Margin="133,11,0,0" VerticalAlignment="Top" Width="44"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="קווים" RenderTransformOrigin="2.656,0.532" Margin="204,0,-218,-2">
+                <Grid >
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF6ED8F7" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <ListBox  HorizontalAlignment="Left" Height="330" Margin="128,31,0,0" VerticalAlignment="Top" Width="628">
+                        <CheckBox Content="מחק" Height="19" Width="49"/>
+                    </ListBox>
+                    <Button Content="הוספת קו" HorizontalAlignment="Left" Margin="11,312,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus"/>
+                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,279,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus"/>
+                    <Button Content="מחיקה" HorizontalAlignment="Left" Margin="133,11,0,0" VerticalAlignment="Top" Width="44"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="תחנות" HorizontalAlignment="Right" RenderTransformOrigin="1.947,0.727" Margin="0,0,-139,-2" Width="62">
+                <Grid >
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF6ED8F7" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <ListBox  HorizontalAlignment="Left" Height="330" Margin="128,31,0,0" VerticalAlignment="Top" Width="628">
+                        <CheckBox Content="מחק" Height="19" Width="49"/>
+                    </ListBox>
+                    <Button Content="הוספת תחנה" HorizontalAlignment="Left" Margin="11,312,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus"/>
+                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,279,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus"/>
+                    <Button Content="מחיקה" HorizontalAlignment="Left" Margin="133,11,0,0" VerticalAlignment="Top" Width="44"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Content="יציאה" HorizontalAlignment="Left" Margin="9,4,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Background="White"/>
+
     </Grid>
 </Window>

@@ -8,10 +8,10 @@ namespace DS
 {
     public static class ConfigurationClass //contains static counters
     {
-        static int stationCode = 1;
+        static int stationCode = 52; //because of the reset
         public static int StationCode => stationCode++;
 
-        static int lineCode = 1;
+        static int lineCode = 26;//because of the reset
         public static int LineCode => lineCode++;
 
         static int driveCode = 1; //for bus in drive

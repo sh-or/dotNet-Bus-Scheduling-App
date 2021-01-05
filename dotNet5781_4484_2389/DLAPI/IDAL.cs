@@ -43,6 +43,8 @@ namespace DLAPI
         int IsStationInLine(int _LineCode, int _StationCode); //check if exist specific linestation and return the station location in the line or -1
         IEnumerable<LineStation> GetSpecificLineStations(Predicate<LineStation> p /*condition*/);
         void DeleteLineStation(int _LineCode, int _StationCode);
+        void DeleteStationLineStations(int _StationCode);
+        void DeleteLineLineStations(int _LineCode);
         void AddConsecutiveStations(ConsecutiveStations cs);
         ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         void UpdateConsecutiveStations(ConsecutiveStations cs);

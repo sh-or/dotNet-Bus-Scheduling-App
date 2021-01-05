@@ -172,7 +172,7 @@ namespace BL
         {
             IEnumerable<BusStation> bs;
             IEnumerable<BOBusStation> bobs;
-            BOStationLine tmp = new BOStationLine();
+            BOBusStation tmp = new BOBusStation();
             try
             {
                 bs = dal.GetAllBusStations();
@@ -218,9 +218,9 @@ namespace BL
             {
                 IEnumerable<LineStation> ls= dal.GetSpecificLineStations(x=>x.StationCode==_StationCode);
                 if (ls != null)
-                    foreach (LineStation x in ls)
-                        dal.DeleteLineStation(x.LineCode, x.StationCode);
-                dal.DeleteBusStation(_StationCode);
+                    //foreach (LineStation x in ls)
+                    //    dal.DeleteLineStation(x.LineCode, x.StationCode);
+                    dal.DeleteStationLineStations(_StationCode);
             }
             catch (DOException dex)
             {
@@ -366,7 +366,7 @@ namespace BL
                 BOLineStation ls = new BOLineStation();
                 ls.StationCode = _StationCode;
                 ls.Name = dal.GetBusStation(_StationCode).Name;
-                l.Stations.ToList().Insert(index, ls); 
+                l.Stations.ToList().Insert(index-1, ls); ///////index-1!!!!!!!!!!!!!!!!!!!!!!!!!!1111
 
                 if (index== 0)
                 {
@@ -504,10 +504,11 @@ namespace BL
         {
             try
             {
-                IEnumerable<LineStation> ls = dal.GetSpecificLineStations(x => x.LineCode == _Code); 
+                IEnumerable<LineStation> ls = dal.GetSpecificLineStations(x => x.LineCode == _Code);
                 if (ls != null)
-                    foreach (LineStation x in ls)
-                        dal.DeleteLineStation(x.LineCode, x.StationCode);
+                    dal.DeleteLineLineStations(_Code);
+                    //foreach (LineStation x in ls)
+                    //    dal.DeleteLineStation(x.LineCode, x.StationCode);
                 dal.DeleteLine(_Code);
             }
             catch (DOException dex)

@@ -5,14 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddLine" Height="450" Width="800">
+        Title="AddLine" Height="300" Width="600">
     <Grid>
+        <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="55*"/>
+            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280*"/>
+                <ColumnDefinition Width="210*"/>
+                <ColumnDefinition Width="280*"/>
+            </Grid.ColumnDefinitions>
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush>
                 <GradientStop Color="#FF6ED8F7" Offset="0"/>
                 <GradientStop Color="White" Offset="1"/>
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
+        <Label Content="Line Number: " HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label Content="Area: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center"/>
+        <Label Content="First Station: " HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center"/>
+        <Label Content="Last Station: " HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center"/>
+        <Button x:Name="Adding" Content="Add" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Width="75" FontFamily="Stencil" FontSize="15">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="#FF6EE962"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFB2ECAC"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

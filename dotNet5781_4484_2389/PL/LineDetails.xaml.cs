@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AddBus.xaml
+    /// Interaction logic for LineDetails.xaml
     /// </summary>
-    public partial class AddBus : Window
+    public partial class LineDetails : Window
     {
-        public AddBus()
+        public LineDetails()
         {
             InitializeComponent();
         }
-
     }
 }

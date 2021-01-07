@@ -19,9 +19,12 @@ namespace PL
     /// </summary>
     public partial class AddBus : Window
     {
-        public AddBus()
+        IBL bl;
+
+        public AddBus(IBL ibl)
         {
             InitializeComponent();
+
         }
 
     }

@@ -26,8 +26,8 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280*"/>
-            <ColumnDefinition Width="210*"/>
-            <ColumnDefinition Width="280*"/>
+            <ColumnDefinition Width="230*"/>
+            <ColumnDefinition Width="240*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -36,14 +36,14 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="License Number: " HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center"/>
-        <Label Content="Licensing Date: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center"/>
-        <Label Content="Kilometerage: " HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center"/>
-        <Label Content="Km From Last Refuel: " HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center"/>
-        <Label Content="Km From Last Care: " HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center"/>
-        <Label Content="Date of Last Care: " HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center"/>
-        <Label Content="Driver Name: " HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center"/>
-        <Button x:Name="Adding" Content="Add" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="75" FontFamily="Stencil" FontSize="15">
+        <Label Content="License Number: " HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Licensing Date: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Kilometerage: " HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Km From Last Refuel: " HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Km From Last Care: " HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Date of Last Care: " HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Driver Name: " HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Button x:Name="Adding" Content="Add" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="75" FontFamily="Stencil" FontSize="15" Click="Adding_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Style.Triggers>
@@ -57,5 +57,12 @@
                 </Style>
             </Button.Style>
         </Button>
+        <TextBox x:Name="_LicenseNumber" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <Calendar x:Name="_LicensingDate" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBox x:Name="_Kilometerage" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_KmRefuel" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_KmCare" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="9" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <Calendar x:Name="_DateCare" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="11" VerticalAlignment="Center"/>
+        <TextBox x:Name="_DName" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="13" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
     </Grid>
 </Window>

@@ -80,7 +80,12 @@ namespace BL
             //more checking?
             if ((b.LicenseNumber > 9999999 && b.LicensingDate.Year < 2018) || (b.LicenseNumber < 10000000 && b.LicensingDate.Year >= 2018)) //license number and date don't match
                 throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
-            try
+            if (b.LicensingDate < b.DateOfLastCare)
+                throw new BLException($"Invalid dates");
+            if(b.Kilometerage<b.KmFromLastCare || b.Kilometerage < b.KmFromLastRefuel)
+                throw new BLException($"Kilometerage cannot be less than KmFromLastCare or KmFromLastRefuel");
+                //b.Kilometerage=Math.Max(b.Kilometerage,Math.Max(b.KmFromLastCare,b.KmFromLastRefuel));
+                try
             {
                 dal.AddBus((Bus)Transform.trans(b,tmp.GetType()));
             }

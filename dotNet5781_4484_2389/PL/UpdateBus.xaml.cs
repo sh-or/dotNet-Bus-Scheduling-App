@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlAPI;
+using BO;
 
 namespace PL
 {
@@ -19,8 +21,10 @@ namespace PL
     /// </summary>
     public partial class UpdateBus : Window
     {
-        public UpdateBus()
+        IBL bl;
+        public UpdateBus(IBL ibl)
         {
+            bl = ibl;
             InitializeComponent();
         }
     }

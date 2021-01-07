@@ -40,26 +40,39 @@ namespace PL
 
         private void UpdateBus(object sender, RoutedEventArgs e)
         {
-
+            UpdateBus upB = new UpdateBus(bl);
+            upB.ShowDialog();
         }
 
         private void addBus(object sender, RoutedEventArgs e)
         {
-
+            AddBus addb = new AddBus(bl);
+            addb.ShowDialog();
         }
 
         private void UpdateStation_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdateStation upS = new UpdateStation(bl);
+            upS.ShowDialog();
         }
 
         private void AddStation_Click(object sender, RoutedEventArgs e)
         {
-
+            AddStation adds = new AddStation(bl);
+            adds.ShowDialog();
+        }
+        private void addline_Click(object sender, RoutedEventArgs e)
+        {
+            AddLine addl = new AddLine(bl);
+            addl.ShowDialog();
         }
 
-        
-            private void btUpdateGradeInCourse_Click(object sender, RoutedEventArgs e)
+        private void UpdateLine_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateLine upL = new UpdateLine(bl);
+            upL.ShowDialog();
+        }
+        private void btUpdateGradeInCourse_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -67,5 +80,7 @@ namespace PL
         {
 
         }
+
+        
     }
 }

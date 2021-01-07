@@ -67,6 +67,8 @@
                             <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
                         </LinearGradientBrush>
                     </Grid.Background>
+                    <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Left" Margin="11,330,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addline_Click"/>
+                    <Button Content="Update" HorizontalAlignment="Left" Margin="11,286,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateLine_Click" />
 
                 </Grid>
             </TabItem>

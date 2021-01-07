@@ -54,7 +54,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button x:Name="userLogin" Content="login" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontWeight="Bold" FontSize="18" FontFamily="Sitka Display"/>
+        <Button x:Name="userLogin" Content="login" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontWeight="Bold" FontSize="18" FontFamily="Sitka Display" Click="userLogin_Click"/>
         <Button x:Name="newUser" Content="login" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontFamily="Sitka Display" FontWeight="Bold" FontSize="18"/>
         <Image Grid.ColumnSpan="3" Margin="154,11,155.333,6.667" Source="Image3.png" Stretch="Fill" Grid.Row="3" RenderTransformOrigin="0.494,0.566" Grid.Column="1">
             <Image.RenderTransform>

@@ -5,31 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Manage" Height="450" Width="800">
-    <Window.Resources>
-        <DataTemplate x:Key="UserTemplate" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6"/>
-                    <ColumnDefinition Width="70" />
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition Width="14" />
-                    <ColumnDefinition Width="180" />
-                    <ColumnDefinition Width="90"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="50"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="{Binding Path=Kilometerage}" Grid.Column="3" HorizontalAlignment="Center" />
+        Title="Manage" Height="550" Width="900">
 
-            </Grid>
-        </DataTemplate>
-    </Window.Resources>
     <Grid>
-        <TabControl HorizontalAlignment="Right" Height="415" Margin="0,4,0,0" VerticalAlignment="Top" Width="792">
+        <TabControl HorizontalAlignment="Right" Height="515" Margin="0,4,0,0" VerticalAlignment="Top" Width="892">
             <TabItem Header="אוטובוסים" HorizontalAlignment="Right" Margin="0,0,-399,-2" Width="80">
                 <Grid >
+                    <Button Content="הוספת אוטובוס" HorizontalAlignment="Left" Margin="11,330,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
+                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,286,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus" />
+                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="118,12,11,14" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                        <DataGrid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.691"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-1.424"/>
+                            </TransformGroup>
+                        </DataGrid.RenderTransform>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number"   Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="KmColumn" Binding="{Binding Kilometerage}" Header="Kilometerage" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="FuelColumn" Binding="{Binding Fuel}" Header="  Fuel" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="KmFromLastRefuelColumn" Binding="{Binding KmFromLastRefuel}" Header="Km From Last Refuel" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="KmFromLastCareColumn" Binding="{Binding KmFromLastCare}" Header="Km From Last Care" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="StatusColumn" Binding="{Binding Status}" Header="Status" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="DriverColumn" Binding="{Binding Driver}" Header="Driver" Width="SizeToHeader"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btUpdateGradeInCourse" Content="Update Garde" Click="btUpdateGradeInCourse_Click" ToolTip="Update grade for selected course, for selected student"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btUnRegisterCourse" Content="UnRegister" Click="btUnRegisterCourse_Click" ToolTip="UnRegister selected student from selected course"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>
@@ -38,12 +56,6 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <ListBox Name="busesLB" ItemTemplate="{StaticResource UserTemplate}" HorizontalAlignment="Left" Height="330" Margin="128,31,0,0" VerticalAlignment="Top" Width="628">
-                        <CheckBox Content="מחק" Height="19" Width="49"/>
-                    </ListBox>
-                    <Button Content="הוספת אוטובוס" HorizontalAlignment="Left" Margin="11,312,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus"/>
-                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,279,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus"/>
-                    <Button Content="מחיקה" HorizontalAlignment="Left" Margin="133,11,0,0" VerticalAlignment="Top" Width="44"/>
                 </Grid>
             </TabItem>
             <TabItem Header="קווים" RenderTransformOrigin="2.656,0.532" Margin="204,0,-218,-2">
@@ -56,12 +68,6 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <ListBox  HorizontalAlignment="Left" Height="330" Margin="128,31,0,0" VerticalAlignment="Top" Width="628">
-                        <CheckBox Content="מחק" Height="19" Width="49"/>
-                    </ListBox>
-                    <Button Content="הוספת קו" HorizontalAlignment="Left" Margin="11,312,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus"/>
-                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,279,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus"/>
-                    <Button Content="מחיקה" HorizontalAlignment="Left" Margin="133,11,0,0" VerticalAlignment="Top" Width="44"/>
                 </Grid>
             </TabItem>
             <TabItem Header="תחנות" HorizontalAlignment="Right" RenderTransformOrigin="1.947,0.727" Margin="0,0,-139,-2" Width="62">
@@ -73,13 +79,8 @@
                             <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-
-                    <ListBox  HorizontalAlignment="Left" Height="330" Margin="128,31,0,0" VerticalAlignment="Top" Width="628">
-                        <CheckBox Content="מחק" Height="19" Width="49"/>
-                    </ListBox>
-                    <Button Content="הוספת תחנה" HorizontalAlignment="Left" Margin="11,312,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus"/>
-                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,279,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus"/>
-                    <Button Content="מחיקה" HorizontalAlignment="Left" Margin="133,11,0,0" VerticalAlignment="Top" Width="44"/>
+                    <Button Content="Update" HorizontalAlignment="Left" Margin="57,373,0,0" VerticalAlignment="Top" Width="75" Click="UpdateStation_Click"/>
+                    <Button Content="Add Station" HorizontalAlignment="Left" Margin="57,409,0,0" VerticalAlignment="Top" Width="75" Click="AddStation_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

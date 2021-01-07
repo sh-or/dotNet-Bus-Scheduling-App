@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalObject", "DalObject\DalO
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7B3651D-2169-45A6-84D5-C392669AEF22}"
 	ProjectSection(SolutionItems) = preProject
-		config.xml = config.xml
+		bin\config.xml = bin\config.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{171BEEB4-E92D-48D2-AC19-8940BD27F7D1}"

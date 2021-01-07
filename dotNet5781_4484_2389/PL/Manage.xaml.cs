@@ -21,16 +21,22 @@ namespace PL
     /// </summary>
     public partial class Manage : Window
     {
-        static IBL bl;
-        public Manage()
+         IBL bl;
+
+        public Manage(IBL ibl)
         {
+            bl = ibl;
             InitializeComponent();
-            IEnumerable <BOBus> buses = bl.GetAllBuses();
-            busesLB.ItemsSource = buses;
+            IEnumerable<BOBus> buses = bl.GetAllBuses();
+            ListBuses.ItemsSource = buses;
 
         }
 
 
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void UpdateBus(object sender, RoutedEventArgs e)
         {
@@ -42,7 +48,22 @@ namespace PL
 
         }
 
-        private void Exit(object sender, RoutedEventArgs e)
+        private void UpdateStation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddStation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
+            private void btUpdateGradeInCourse_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btUnRegisterCourse_Click(object sender, RoutedEventArgs e)
         {
 
         }

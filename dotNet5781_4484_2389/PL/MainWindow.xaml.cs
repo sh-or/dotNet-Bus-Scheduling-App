@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlAPI;
 
 namespace PL
 {
@@ -20,9 +21,19 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        IBL bl= BlFactory.GetBl();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void userLogin_Click(object sender, RoutedEventArgs e)
+        {
+            //אימות משתמש
+            Manage manage = new Manage(bl);
+            manage.ShowDialog();
+
         }
     }
 }

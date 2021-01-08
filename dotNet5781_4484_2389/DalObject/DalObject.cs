@@ -51,7 +51,8 @@ namespace DL
         public IEnumerable<Bus> GetAllBuses() 
         {
             var ListBS = (from Bus b in DataSource.AllBuses
-                         select b.Clone());
+                         where b.IsExist
+                          select b.Clone());
             if (ListBS != null)
                 return ListBS;
             throw new DOException("No buses were found");
@@ -109,7 +110,8 @@ namespace DL
         public IEnumerable<BusStation> GetAllBusStations()
         {
             var ListBS = (from BusStation bs in DataSource.AllBusStations
-                         select bs.Clone());
+                          where bs.IsExist
+                          select bs.Clone());
             if (ListBS != null)
                 return ListBS;
             throw new DOException("No bus stations were found");
@@ -165,7 +167,8 @@ namespace DL
         public IEnumerable<Line> GetAllLines() 
         {
             var Listl = (from Line l in DataSource.AllLines
-                        select l.Clone());
+                         where l.IsExist
+                         select l.Clone());
             if (Listl != null)
                 return Listl;
             throw new DOException("No lines were found");

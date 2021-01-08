@@ -270,8 +270,9 @@ namespace BL
                     if (i>0) //not first station
                     {
                         cs1 = dal.GetConsecutiveStations(st.ElementAt(i - 1).StationCode, s.StationCode);
-                        s.Distance = cs1.Distance;
-                        s.DriveTime = cs1.DriveTime;
+                        l.Stations.ElementAt(i).Distance = cs1.Distance;
+                        l.Stations.ElementAt(i).DriveTime = cs1.DriveTime;
+                        //s.DriveTime = cs1.DriveTime;
                         //UpdateLineStation(s);
                     }
                     i++;
@@ -477,7 +478,8 @@ namespace BL
                 l.Stations = new List<BOLineStation>();
                 BOLineStation first = new BOLineStation() { StationCode = l.FirstStation, Distance=0, DriveTime=TimeSpan.Zero};
                 first.Name = dal.GetBusStation(l.FirstStation).Name;
-                l.Stations.ToList().Add(first);
+                List<BOLineStation> lll= l.Stations.ToList();
+                lll.Add(first);
                 BOLineStation last = new BOLineStation() { StationCode = l.LastStation };
                 last.Name = dal.GetBusStation(l.LastStation).Name;
                 ConsecutiveStations cs;
@@ -496,7 +498,8 @@ namespace BL
                     last.DriveTime = cs.DriveTime;
                 }
                 Line tmp = new Line();
-                l.Stations.ToList().Add(last);
+                lll.ToList().Add(last);
+                l.Stations = lll;
                 l.Code = dal.AddLine((Line)Transform.trans(l,tmp.GetType()));
                 return l.Code;
             }

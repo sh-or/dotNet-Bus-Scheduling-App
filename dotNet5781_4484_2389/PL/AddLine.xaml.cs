@@ -35,12 +35,9 @@ namespace PL
             InitializeComponent();
             try
             {
-                IEnumerable < string > areaEn = Enum.GetValues(typeof(BO.AreaEnum))
-                 .Cast<BO.AreaEnum>()
-                 .Select(v => v.ToString())
-                 .ToList();
-                List<BOBusStation> lst = bl.GetAllBusStations().ToList();
-                _Area.ItemsSource = areaEn;
+                IEnumerable<int> lst = from x in bl.GetAllBusStations()
+                                         select x.StationCode; //+name???
+                _Area.ItemsSource = Enum.GetValues(typeof(BO.AreaEnum)); 
                 _First.ItemsSource = lst;
                 _Last.ItemsSource = lst;
             }
@@ -75,19 +72,19 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        /*_LineNumber" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <ComboBox x:Name="_Area" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="120"/>
-        <ComboBox x:Name="_First" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" Width="120"/>
-        <ComboBox x:Name="_Last"*/
         private void Adding_Click(object sender, RoutedEventArgs e)
         {
-            BOLine l = new BOLine()
-            {
-                BusLine = int.Parse(_LineNumber.Text),
-                Area=(AreaEnum)_Area.SelectedItem,
-                FirstStation=(int)_First.SelectedItem,
-                LastStation = (int)_Last.SelectedItem
-            };
+            BOLine l = new BOLine();
+            l.BusLine = int.Parse(_LineNumber.Text);
+            l.Area = (AreaEnum)_Area.SelectedItem;
+            l.FirstStation = (int)_First.SelectedItem;
+            l.LastStation = (int)_Last.SelectedItem;
+            //{
+            //    BusLine = int.Parse(_LineNumber.Text),
+            //    Area=(AreaEnum)_Area.SelectedItem,
+            //    FirstStation=(int)_First.SelectedItem,
+            //    LastStation = (int)_Last.SelectedItem
+            //};
             try
             {
                 bl.AddLine(l);

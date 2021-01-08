@@ -13,7 +13,7 @@
                 <Grid >
                     <Button Content="הוספת אוטובוס" HorizontalAlignment="Left" Margin="11,330,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
                     <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,286,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus" />
-                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="118,12,11,14" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" MouseDoubleClick="Listbuses_MouseDoubleClick" Margin="118,12,11,14" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -34,7 +34,7 @@
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="btUpdateGradeInCourse" Content="Update Garde" Click="btUpdateGradeInCourse_Click" ToolTip="Update grade for selected course, for selected student"/>
+                                        <Button x:Name="DeleteBus" Content="Delete" Click="DeleteBus_Click" ToolTip="Update grade for selected course, for selected student"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

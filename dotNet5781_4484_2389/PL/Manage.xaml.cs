@@ -72,9 +72,9 @@ namespace PL
             UpdateLine upL = new UpdateLine(bl);
             upL.ShowDialog();
         }
-        private void btUpdateGradeInCourse_Click(object sender, RoutedEventArgs e)
+        private void DeleteBus_Click(object sender, RoutedEventArgs e)
         {
-
+           // bl.DeleteBus();
         }
         private void btUnRegisterCourse_Click(object sender, RoutedEventArgs e)
         {

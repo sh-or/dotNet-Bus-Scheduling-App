@@ -29,7 +29,8 @@ namespace PL
             InitializeComponent();
             IEnumerable<BOBus> buses = bl.GetAllBuses();
             ListBuses.ItemsSource = buses;
-
+            IEnumerable<BOBusStation> busStations = bl.GetAllBusStations();
+            ListBusStation.ItemsSource = busStations;
         }
 
 
@@ -38,9 +39,10 @@ namespace PL
 
         }
 
-        private void UpdateBus(object sender, RoutedEventArgs e)
+        private void UpdateBus_Click(object sender, RoutedEventArgs e)
         {
-            UpdateBus upB = new UpdateBus(bl);
+            BOBus b = new BOBus();
+            UpdateBus upB = new UpdateBus(bl, b);
             upB.ShowDialog();
         }
 
@@ -76,11 +78,14 @@ namespace PL
         {
            // bl.DeleteBus();
         }
-        private void btUnRegisterCourse_Click(object sender, RoutedEventArgs e)
+        private void DeleteBusStation_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        
+        private void Listbuses_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

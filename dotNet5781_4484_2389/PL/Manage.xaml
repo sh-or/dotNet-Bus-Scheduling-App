@@ -11,8 +11,7 @@
         <TabControl HorizontalAlignment="Right" Height="515" Margin="0,4,0,0" VerticalAlignment="Top" Width="892">
             <TabItem Header="אוטובוסים" HorizontalAlignment="Right" Margin="0,0,-399,-2" Width="80">
                 <Grid >
-                    <Button Content="הוספת אוטובוס" HorizontalAlignment="Left" Margin="11,330,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
-                    <Button Content="עדכון" HorizontalAlignment="Left" Margin="11,286,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateBus" />
+                    <Button Content="הוספת אוטובוס" HorizontalAlignment="Left" Margin="10,434,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
                     <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" MouseDoubleClick="Listbuses_MouseDoubleClick" Margin="118,12,11,14" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
@@ -34,7 +33,7 @@
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="DeleteBus" Content="Delete" Click="DeleteBus_Click" ToolTip="Update grade for selected course, for selected student"/>
+                                        <Button x:Name="DeleteBus" Content="Delete" Click="DeleteBus_Click" ToolTip="Delete this bus"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -42,7 +41,7 @@
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="btUnRegisterCourse" Content="UnRegister" Click="btUnRegisterCourse_Click" ToolTip="UnRegister selected student from selected course"/>
+                                        <Button x:Name="UpdateBus" Content="Update" Click="UpdateBus_Click" ToolTip="Update details of this bus"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -72,8 +71,9 @@
 
                 </Grid>
             </TabItem>
+            
             <TabItem Header="תחנות" HorizontalAlignment="Right" RenderTransformOrigin="1.947,0.727" Margin="0,0,-139,-2" Width="62">
-                <Grid >
+                <Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>
@@ -81,8 +81,41 @@
                             <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Button Content="Update" HorizontalAlignment="Left" Margin="57,373,0,0" VerticalAlignment="Top" Width="75" Click="UpdateStation_Click"/>
                     <Button Content="Add Station" HorizontalAlignment="Left" Margin="57,409,0,0" VerticalAlignment="Top" Width="75" Click="AddStation_Click"/>
+                    <DataGrid x:Name="ListBusStation" ItemsSource="{Binding}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="467" Margin="137,10,0,0" VerticalAlignment="Top" Width="739">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="StationCode" Binding="{Binding StationCode}" Header="StationCode"   Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="Name" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="Address" Binding="{Binding Address}" Header="Address" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="Latitude" Binding="{Binding Latitude}" Header="Latitude" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="Longitude" Binding="{Binding Longitude}" Header="Longitude" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="Accessibility" Binding="{Binding Accessibility}" Header="Accessibility" Width="SizeToHeader"/>
+                            
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="DeleteBusStation" Content="Delete" Click="DeleteBusStation_Click" ToolTip="Delete this bus station"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="UpdateBusStation" Content="Update" Click="UpdateStation_Click" ToolTip="Update details of this bus station"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Expander x:Name="Lines" Content="Lines"  ToolTip="lines cross the station"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>

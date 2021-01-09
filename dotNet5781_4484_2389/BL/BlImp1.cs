@@ -264,19 +264,32 @@ namespace BL
             try
             {
                 //BOLineStation s = new BOLineStation();
-                foreach (BOLineStation s in l.Stations)
+                //foreach (BOLineStation s in l.Stations)
+                //{
+                //    //s = l.Stations.ElementAt(i);
+                //    if (i>0) //not first station
+                //    {
+                //        cs1 = dal.GetConsecutiveStations(st.ElementAt(i - 1).StationCode, s.StationCode);
+                //        //l.Stations.ElementAt(i).Distance = cs1.Distance;
+                //        //l.Stations.ElementAt(i).DriveTime = cs1.DriveTime;
+                //        s.Distance = cs1.Distance;
+                //        s.DriveTime = cs1.DriveTime;
+                //        l.Stations[i] = s;
+                //        //UpdateLineStation(s);
+                //    }
+                //    i++;
+                //}
+                List<BOLineStation> lst = l.Stations.ToList();
+                BOLineStation s = new BOLineStation();
+                for (i = 1; i < l.Stations.Count(); i++)
                 {
-                    //s = l.Stations.ElementAt(i);
-                    if (i>0) //not first station
-                    {
-                        cs1 = dal.GetConsecutiveStations(st.ElementAt(i - 1).StationCode, s.StationCode);
-                        l.Stations.ElementAt(i).Distance = cs1.Distance;
-                        l.Stations.ElementAt(i).DriveTime = cs1.DriveTime;
-                        //s.DriveTime = cs1.DriveTime;
-                        //UpdateLineStation(s);
-                    }
-                    i++;
+                    s = lst[i];
+                    cs1 = dal.GetConsecutiveStations(st.ElementAt(i - 1).StationCode, s.StationCode);
+                    lst[i].Distance = cs1.Distance;
+                    lst[i].DriveTime = cs1.DriveTime;
                 }
+                l.Stations = lst;
+                
             }
             catch (DOException dex)
             {
@@ -498,7 +511,7 @@ namespace BL
                     last.DriveTime = cs.DriveTime;
                 }
                 Line tmp = new Line();
-                lll.ToList().Add(last);
+                lll.Add(last);
                 l.Stations = lll;
                 l.Code = dal.AddLine((Line)Transform.trans(l,tmp.GetType()));
                 return l.Code;

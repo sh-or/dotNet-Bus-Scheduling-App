@@ -221,11 +221,31 @@ namespace BL
         {
             try
             {
-                IEnumerable<LineStation> ls= dal.GetSpecificLineStations(x=>x.StationCode==_StationCode);
+                //var lst = (from ls in dal.GetSpecificLineStations(x => x.StationCode == _StationCode)
+                //          select ls.LineCode).ToList();
+                //if (lst != null)
+                //    foreach (var x in lst)
+                //        DeleteStationInLine(GetLine(x), _StationCode);
+                string str = "";
+                IEnumerable<LineStation> ls = dal.GetSpecificLineStations(x => x.StationCode == _StationCode).ToList();
                 if (ls != null)
-                    //foreach (LineStation x in ls)
-                    //    dal.DeleteLineStation(x.LineCode, x.StationCode);
-                    dal.DeleteStationLineStations(_StationCode);
+                {
+                    foreach (LineStation x in ls) 
+                    {
+                        if(dal.GetStationsOfLine(x.LineCode).Count()<3) //creats string of problematic lines
+                            str += x.LineCode + " ";
+                    }
+                    if (str == "")
+                        foreach (LineStation x in ls)
+                            DeleteStationInLine(GetLine(x.LineCode), _StationCode);
+                    else
+                        throw new BLException($"Cannot delete station {_StationCode}!\n" +
+                            "Line(s) "+str+"cannot stay with less than 2 stations");
+                }
+                //if (ls != null)
+                //    //foreach (LineStation x in ls)
+                //    //    dal.DeleteLineStation(x.LineCode, x.StationCode);
+                //    dal.DeleteStationLineStations(_StationCode);
             }
             catch (DOException dex)
             {
@@ -342,7 +362,7 @@ namespace BL
             if(ls==null)
                 throw new BLException($"Station number {_StationCode} was not found");
             if (l.Stations.Count()<3)
-                throw new BLException("Line cannot be with less than 2 stations");
+                throw new BLException($"Line {l.Code} cannot be with less than 2 stations");
          
             int location;
             try
@@ -514,6 +534,8 @@ namespace BL
                 lll.Add(last);
                 l.Stations = lll;
                 l.Code = dal.AddLine((Line)Transform.trans(l,tmp.GetType()));
+                dal.AddLineStation(l.Code, first.StationCode, 0);
+                dal.AddLineStation(l.Code, last.StationCode, 1);
                 return l.Code;
             }
             catch (DOException dex)
@@ -526,10 +548,10 @@ namespace BL
             try
             {
                 IEnumerable<LineStation> ls = dal.GetSpecificLineStations(x => x.LineCode == _Code);
-                if (ls != null)
-                    dal.DeleteLineLineStations(_Code);
-                    //foreach (LineStation x in ls)
-                    //    dal.DeleteLineStation(x.LineCode, x.StationCode);
+                foreach (LineStation x in ls)
+                    dal.DeleteLineStation(_Code,x.StationCode);
+                //foreach (LineStation x in ls)
+                //    dal.DeleteLineStation(x.LineCode, x.StationCode);
                 dal.DeleteLine(_Code);
             }
             catch (DOException dex)

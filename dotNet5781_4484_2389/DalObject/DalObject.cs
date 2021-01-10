@@ -209,9 +209,9 @@ namespace DL
 
         public void DeleteLine(int _Code) //include deleting line-stations 
         {
-            IEnumerable<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
-            foreach (LineStation ls in lls)
-                DeleteLineStation(ls.LineCode, ls.StationCode);
+            //IEnumerable<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
+            //foreach (LineStation ls in lls)
+            //    DeleteLineStation(ls.LineCode, ls.StationCode);
             //Line bl = GetLine(_Code);
             //DataSource.AllBusStations.Remove(bs);
             int n = DataSource.AllLines.FindIndex(x => x.Code == _Code);
@@ -240,7 +240,7 @@ namespace DL
         }
         public IEnumerable<LineStation> GetAllLineStations(int _LineCode)
         {
-            return DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
+            return DataSource.AllLineStations.FindAll(x => x.IsExist && x.LineCode == _LineCode);
         }
         public void UpdateLineStation(int _LineCode, int _StationCode,int n)//change index in +/-1
         {
@@ -250,7 +250,7 @@ namespace DL
         }
         public int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
         {
-            if (! DataSource.AllLineStations.Exists(x => x.LineCode == _LineCode && x.StationCode == _StationCode))
+            if (! DataSource.AllLineStations.Exists(x => x.IsExist && x.LineCode == _LineCode && x.StationCode == _StationCode))
                 return -1;
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             return ls.StationNumberInLine;
@@ -258,7 +258,7 @@ namespace DL
         public IEnumerable<LineStation> GetSpecificLineStations(Predicate<LineStation> p)
         {
             IEnumerable<LineStation> Listl = (from LineStation l in DataSource.AllLineStations
-                         where p(l)
+                         where l.IsExist && p(l)
                          select l.Clone());
             //if (Listl != null)
             return Listl;
@@ -269,26 +269,26 @@ namespace DL
         public void DeleteLineStation(int _LineCode, int _StationCode)
         {
             int n = DataSource.AllLineStations.FindIndex(x => x.StationCode == _StationCode && x.LineCode == _LineCode);
-            if(n>-1)
-                DataSource.AllLineStations.RemoveAt(n);
+            if (n > -1)
+                DataSource.AllLineStations[n].IsExist = false; //.RemoveAt(n);
             else
                 throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
 
         }
-        public void DeleteStationLineStations(int _StationCode)
-        {
-            IEnumerable<LineStation> ls = from LineStation x in DataSource.AllLineStations
-                                   where x.StationCode == _StationCode
-                                   select x;
-            DataSource.AllLineStations = ls.ToList();
-        }
-        public void DeleteLineLineStations(int _LineCode)
-        {
-            IEnumerable<LineStation> ls = from LineStation x in DataSource.AllLineStations
-                                          where x.LineCode == _LineCode
-                                          select x;
-            DataSource.AllLineStations = ls.ToList();
-        }
+        //public void DeleteStationLineStations(int _StationCode)
+        //{
+        //    IEnumerable<LineStation> ls = from LineStation x in DataSource.AllLineStations
+        //                                  where x.StationCode == _StationCode
+        //                                  select x;
+        //    DataSource.AllLineStations = ls.ToList();
+        //}
+        //public void DeleteLineLineStations(int _LineCode)
+        //{
+        //    IEnumerable<LineStation> ls = from LineStation x in DataSource.AllLineStations
+        //                                  where x.LineCode == _LineCode
+        //                                  select x;
+        //    DataSource.AllLineStations = ls.ToList();
+        //}
         #endregion
 
         #region Consecutive Stations

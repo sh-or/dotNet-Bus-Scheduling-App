@@ -75,9 +75,12 @@ namespace DL
         }
         public void DeleteBus(int _LicenseNumber)
         {
-            Bus b = GetBus(_LicenseNumber);
-            int n = DataSource.AllBuses.FindIndex(x => x.LicenseNumber == b.LicenseNumber);
-            DataSource.AllBuses[n].IsExist = false;
+            //Bus b = GetBus(_LicenseNumber);
+            int n = DataSource.AllBuses.FindIndex(x => x.LicenseNumber == _LicenseNumber);
+            if (n > -1) 
+                DataSource.AllBuses[n].IsExist = false;
+            else
+                throw new DOException($"Bus number {_LicenseNumber} was not found");
             //b.IsExist = false;
             //AddBus(b.Clone());
         }
@@ -134,10 +137,11 @@ namespace DL
         }
         public void DeleteBusStation(int _StationCode) //delete line-stations
         {
-            BusStation bs = GetBusStation(_StationCode);
-            //DataSource.AllBusStations.Remove(bs);
-            bs.IsExist = false;
-            //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
+            int n = DataSource.AllBusStations.FindIndex(x => x.StationCode == _StationCode);
+            if(n>-1)
+                DataSource.AllBusStations[n].IsExist = false;
+            else
+                throw new DOException($"Station number {_StationCode} was not found");
         }
         #endregion
 
@@ -184,7 +188,7 @@ namespace DL
         }
         public IEnumerable<BusStation> GetStationsOfLine(int _LineCode)
         {
-            IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
+            IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.IsExist && x.LineCode == _LineCode);
             IEnumerable<BusStation> bsLst = (from ls in lsLst
                                              orderby ls.StationNumberInLine
                                              select GetBusStation(ls.StationCode).Clone());

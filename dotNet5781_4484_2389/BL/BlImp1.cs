@@ -115,16 +115,17 @@ namespace BL
             BOBusStation bs=new BOBusStation();
             try
             {
-                bs = (BOBusStation)Transform.trans(dal.GetBusStation(_StationCode),bs.GetType());
+                bs = (BOBusStation)Transform.trans(dal.GetBusStation(_StationCode), bs.GetType());
                 bs.Lines = from l in dal.GetStationLines(_StationCode)
-                         select new BOStationLine
-                         {
-                            BusLine = l.BusLine,
-                            Code = l.Code,
-                            LastStation = l.LastStation,
-                            IndexOfThisStation = dal.IsStationInLine(l.Code, _StationCode)
-                         };
-             
+                           where dal.IsStationInLine(l.Code, _StationCode) > -1
+                           select new BOStationLine
+                           {
+                               BusLine = l.BusLine,
+                               Code = l.Code,
+                               LastStation = l.LastStation,
+                               IndexOfThisStation = dal.IsStationInLine(l.Code, _StationCode)
+                           };
+
             }
             catch (DOException dex)
             {
@@ -242,6 +243,7 @@ namespace BL
                         throw new BLException($"Cannot delete station {_StationCode}!\n" +
                             "Line(s) "+str+"cannot stay with less than 2 stations");
                 }
+                dal.DeleteBusStation(_StationCode);
                 //if (ls != null)
                 //    //foreach (LineStation x in ls)
                 //    //    dal.DeleteLineStation(x.LineCode, x.StationCode);
@@ -363,8 +365,9 @@ namespace BL
                 throw new BLException($"Station number {_StationCode} was not found");
             if (l.Stations.Count()<3)
                 throw new BLException($"Line {l.Code} cannot be with less than 2 stations");
-         
+            Line tmp = new Line();
             int location;
+            List<BOLineStation> lst = l.Stations.ToList();
             try
             {
                 location = dal.GetLineStation(l.Code, _StationCode).StationNumberInLine;
@@ -372,16 +375,18 @@ namespace BL
                 { //update time&distance
                     if(location==0)
                     {
-                        l.Stations.ElementAt(0).Distance = 0;
-                        l.Stations.ElementAt(0).DriveTime = TimeSpan.Zero;
+                        lst[1].Distance = 0;
+                        lst[1].DriveTime = TimeSpan.Zero;
+                        l.FirstStation = l.Stations.ElementAt(1).StationCode;
+                        dal.UpdateLine((Line)Transform.trans(l,tmp.GetType()));
                     }
                     else
                     {//if not exist ConsecutiveStations->creat ConsecutiveStations!
                         if (dal.isExistConsecutiveStations(l.Stations.ElementAt(location - 1).StationCode, l.Stations.ElementAt(location).StationCode))
                             AddConsecutiveStations(l.Stations.ElementAt(location - 1).StationCode, l.Stations.ElementAt(location).StationCode);
                         ConsecutiveStations cs = dal.GetConsecutiveStations(l.Stations.ElementAt(location - 1).StationCode, l.Stations.ElementAt(location).StationCode);
-                        l.Stations.ElementAt(location).Distance = cs.Distance;
-                        l.Stations.ElementAt(location).DriveTime = cs.DriveTime;
+                        lst[location].Distance = cs.Distance;
+                        lst[location].DriveTime = cs.DriveTime;
                     }
                     foreach(LineStation x in dal.GetAllLineStations(l.Code)) //change the index of later stations in l
                     {
@@ -389,6 +394,13 @@ namespace BL
                             dal.UpdateLineStation( l.Code, x.StationCode, -1);
                     }
                 }
+                else
+                {
+                    l.LastStation = l.Stations.ElementAt(l.Stations.Count() - 2).StationCode;
+                    dal.UpdateLine((Line)Transform.trans(l, tmp.GetType()));
+                }
+                lst.RemoveAt(location);
+                l.Stations = lst;
                 dal.DeleteLineStation(l.Code, _StationCode);
             }
             catch (DOException dex)

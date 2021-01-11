@@ -89,7 +89,7 @@ namespace DL
         #region Bus Station
         public BusStation GetBusStation(int _StationCode) 
         {
-            BusStation bs = DataSource.AllBusStations.Find(x => x.StationCode == _StationCode);
+            BusStation bs = DataSource.AllBusStations.Find(x => x.IsExist&& x.StationCode == _StationCode);
             if (bs!=null)
                 return bs.Clone();
             throw new DOException(_StationCode, $"Bus station number {_StationCode} was not found");
@@ -137,7 +137,7 @@ namespace DL
         }
         public void DeleteBusStation(int _StationCode) //delete line-stations
         {
-            int n = DataSource.AllBusStations.FindIndex(x => x.StationCode == _StationCode);
+            int n = DataSource.AllBusStations.FindIndex(x => x.IsExist && x.StationCode == _StationCode);
             if(n>-1)
                 DataSource.AllBusStations[n].IsExist = false;
             else
@@ -148,7 +148,7 @@ namespace DL
         #region Line
         public Line GetLine(int _Code)
         {
-            Line l = DataSource.AllLines.Find(x => x.Code == _Code);
+            Line l = DataSource.AllLines.Find(x => x.IsExist && x.Code == _Code);
             if(l!=null)
                 return l.Clone();
             throw new DOException(_Code, $"Line number {_Code} was not found");
@@ -163,7 +163,7 @@ namespace DL
         }
         public IEnumerable<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
-           return from ls in DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode)
+           return from ls in DataSource.AllLineStations.FindAll(x => x.IsExist && x.StationCode == _StationCode)
                   where GetLine(ls.LineCode).IsExist
                   select GetLine(ls.LineCode);
         }
@@ -200,13 +200,6 @@ namespace DL
         public int AddLine( Line l ) 
         {
             l.Code = ConfigurationClass.LineCode;
-            //Line bl = new Line();
-            //bl.Code = ConfigurationClass.LineCode;
-            //bl.IsExist = true;
-            //bl.BusLine = _BusLine;
-            //bl.Area = _Area;
-            //bl.FirstStation = _FirstStation;
-            //bl.LastStation = _LastStation;
             DataSource.AllLines.Add(l.Clone());
             return l.Code;
         }
@@ -218,7 +211,7 @@ namespace DL
             //    DeleteLineStation(ls.LineCode, ls.StationCode);
             //Line bl = GetLine(_Code);
             //DataSource.AllBusStations.Remove(bs);
-            int n = DataSource.AllLines.FindIndex(x => x.Code == _Code);
+            int n = DataSource.AllLines.FindIndex(x => x.IsExist && x.Code == _Code);
             if(n>-1)
                 DataSource.AllLines[n].IsExist = false;
             else
@@ -230,6 +223,7 @@ namespace DL
         public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) //gets linestation???
         {
             LineStation ls = new LineStation();
+            ls.IsExist = true;
             ls.StationCode = _StationCode;
             ls.LineCode = _LineCode;
             ls.StationNumberInLine = _StationNumberInLine;

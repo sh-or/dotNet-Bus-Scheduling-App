@@ -36,7 +36,7 @@ namespace BlAPI
       //  IEnumerable<BOLine> GetStationLines(int _StationCode);
         IEnumerable<BOLine> GetAllLines();
         IEnumerable<BOLine> GetSpecificLines(Predicate<BOLine> p);
-        IEnumerable<BOBusStation> GetStationsOfLine(int _LineCode);
+        //IEnumerable<BOBusStation> GetStationsOfLine(int _LineCode);
         int AddLine(BOLine l);
         void DeleteLine(int _Code);
         #endregion

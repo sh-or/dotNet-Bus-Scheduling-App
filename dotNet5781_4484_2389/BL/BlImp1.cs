@@ -364,7 +364,7 @@ namespace BL
         public void UpdateLine(BOLine l) //not for updating station list
         {
             //if first/last station??? ->throw "delete/add station in its button"
-            Line tmp = new Line();
+            Line tmp = dal.GetLine(l.Code); //check if exist
             try
             {
                 dal.UpdateLine((Line)Transform.trans(l,tmp.GetType()));
@@ -433,8 +433,9 @@ namespace BL
                 BOLineStation ls = new BOLineStation();
                 ls.StationCode = _StationCode;
                 ls.Name = dal.GetBusStation(_StationCode).Name;
-                l.Stations.ToList().Insert(index-1, ls); ///////index-1!!!!!!!!!!!!!!!!!!!!!!!!!!1111
-
+                List<BOLineStation>bols= l.Stations.ToList(); ///////index-1!!!!!!!!!!!!!!!!!!!!!!!!!!1111
+                bols.Insert(index, ls);
+                l.Stations = bols;
                 if (index== 0)
                 {
                     l.FirstStation = _StationCode;
@@ -511,22 +512,22 @@ namespace BL
                                 select GetLine(ll.Code));
             return bol;
         }
-        public IEnumerable<BOBusStation> GetStationsOfLine(int _LineCode) 
-        {
-            BOBusStation tmp = new BOBusStation();
-            IEnumerable<BusStation> bs;
-            try
-            {
-                 bs = dal.GetStationsOfLine(_LineCode);
-            }
-            catch (DOException dex)
-            {
-                throw new BLException(dex.Message, dex);
-            }
-            IEnumerable<BOBusStation> bobs = from BusStation b in bs
-                                       select (BOBusStation)Transform.trans(b,tmp.GetType()); //חוקי? זה בלי הרשימת קווים
-            return bobs;
-        }
+        //public IEnumerable<BOBusStation> GetStationsOfLine(int _LineCode) 
+        //{
+        //    BOBusStation tmp = new BOBusStation();
+        //    IEnumerable<BusStation> bs;
+        //    try
+        //    {
+        //         bs = dal.GetStationsOfLine(_LineCode);
+        //    }
+        //    catch (DOException dex)
+        //    {
+        //        throw new BLException(dex.Message, dex);
+        //    }
+        //    IEnumerable<BOBusStation> bobs = from BusStation b in bs
+        //                               select (BOBusStation)Transform.trans(b,tmp.GetType()); //חוקי? זה בלי הרשימת קווים
+        //    return bobs;
+        //}
         public int AddLine(BOLine l)
         {
             if (l.FirstStation == 0 || l.LastStation == 0)

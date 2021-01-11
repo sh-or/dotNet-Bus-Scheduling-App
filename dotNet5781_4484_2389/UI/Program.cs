@@ -430,6 +430,7 @@ namespace UI  //PlConsole
                                                 Console.WriteLine("enter line code");
                                                 int _code = int.Parse(Console.ReadLine());
                                                 BOLine l = bl.GetLine(_code);
+                                                //List<BOBusStation> lll=bl.GetStationsOfLine(8).ToList();
                                                 Console.WriteLine(l.Stations);
 
                                             }

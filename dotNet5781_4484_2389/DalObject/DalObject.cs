@@ -237,7 +237,7 @@ namespace DL
         }
         public LineStation GetLineStation(int _LineCode, int _StationCode) 
         {
-            LineStation ls = DataSource.AllLineStations.Find(x => (x.LineCode == _LineCode && x.StationCode == _StationCode));
+            LineStation ls = DataSource.AllLineStations.Find(x => x.IsExist && (x.LineCode == _LineCode && x.StationCode == _StationCode));
             if (ls != null)
                 return ls.Clone();
             throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
@@ -249,8 +249,10 @@ namespace DL
         public void UpdateLineStation(int _LineCode, int _StationCode,int n)//change index in +/-1
         {
             LineStation ls = GetLineStation(_LineCode, _StationCode);
-            DeleteLineStation(_LineCode, _StationCode);
-            AddLineStation(ls.LineCode, ls.StationCode, ls.StationNumberInLine + n);
+            //DeleteLineStation(_LineCode, _StationCode);
+            //AddLineStation(ls.LineCode, ls.StationCode, ls.StationNumberInLine + n);
+            int ind=DataSource.AllLineStations.FindIndex(x => x.LineCode == _LineCode && x.StationCode == _StationCode);
+            DataSource.AllLineStations[ind].StationNumberInLine += n;
         }
         public int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
         {

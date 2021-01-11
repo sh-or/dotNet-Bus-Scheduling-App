@@ -8,11 +8,11 @@
         Title="Manage" Height="550" Width="900">
 
     <Grid>
-        <TabControl HorizontalAlignment="Right" Height="515" Margin="0,4,0,0" VerticalAlignment="Top" Width="892">
-            <TabItem Header="אוטובוסים" HorizontalAlignment="Right" Margin="0,0,-399,-2" Width="80">
+        <TabControl HorizontalAlignment="Right" Height="515" Margin="0,4,0,0" VerticalAlignment="Top" Width="892" >
+            <TabItem Header="Buses" HorizontalAlignment="Right" Margin="0,0,-14,-2" Width="80">
                 <Grid >
-                    <Button Content="הוספת אוטובוס" HorizontalAlignment="Left" Margin="10,434,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
-                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" MouseDoubleClick="Listbuses_MouseDoubleClick" Margin="118,12,11,14" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                    <Button Content="Add Bus" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
+                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="14,13,114,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -57,8 +57,44 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="קווים" RenderTransformOrigin="2.656,0.532" Margin="204,0,-218,-2">
+            
+            <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="132,0,-147,-2">
                 <Grid >
+                    <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addline_Click"/>
+
+                    <DataGrid x:Name="ListLines" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="14,13,300,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                        <DataGrid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.691"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-1.424"/>
+                            </TransformGroup>
+                        </DataGrid.RenderTransform>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="Code" Binding="{Binding Code}" Header="Code"   Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="BusLine" Binding="{Binding BusLine}" Header="Line Number" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="Area" Binding="{Binding Area}" Header="Area" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="FirstStation" Binding="{Binding FirstStation}" Header="First Station" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="LastStation" Binding="{Binding LastStation}" Header="Last Station" Width="SizeToHeader"/>
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="DeleteLine" Content="Delete" Click="DeleteLine_Click" ToolTip="Delete this Line"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="UpdateLine" Content="Update" Click="UpdateLine_Click" ToolTip="Update details of this Line"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>
@@ -66,13 +102,11 @@
                             <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Left" Margin="11,330,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addline_Click"/>
-                    <Button Content="Update" HorizontalAlignment="Left" Margin="11,286,0,0" VerticalAlignment="Top" Width="96" Height="28" Click="UpdateLine_Click" />
 
                 </Grid>
             </TabItem>
-            
-            <TabItem Header="תחנות" HorizontalAlignment="Right" RenderTransformOrigin="1.947,0.727" Margin="0,0,-139,-2" Width="62">
+
+            <TabItem Header="Bus Stations" HorizontalAlignment="Right" RenderTransformOrigin="1.947,0.727" Margin="-4,0,4,-2" Width="92">
                 <Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -81,16 +115,18 @@
                             <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Button Content="Add Station" HorizontalAlignment="Left" Margin="57,409,0,0" VerticalAlignment="Top" Width="75" Click="AddStation_Click"/>
-                    <DataGrid x:Name="ListBusStation" ItemsSource="{Binding}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="467" Margin="137,10,0,0" VerticalAlignment="Top" Width="739">
+                    <Button Content="Add Station" HorizontalAlignment="Left" Margin="779,437,0,0" VerticalAlignment="Top" Width="75" Click="AddStation_Click"/>
+                    <DataGrid x:Name="ListBusStation" ItemsSource="{Binding}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="467" Margin="39,10,0,0" VerticalAlignment="Top" Width="511">
+
+
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="StationCode" Binding="{Binding StationCode}" Header="StationCode"   Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="StationCode" Binding="{Binding StationCode}" Header="Station Code"   Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="Name" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="Address" Binding="{Binding Address}" Header="Address" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="Latitude" Binding="{Binding Latitude}" Header="Latitude" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="Longitude" Binding="{Binding Longitude}" Header="Longitude" Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="Accessibility" Binding="{Binding Accessibility}" Header="Accessibility" Width="SizeToHeader"/>
-                            
+                            <DataGridCheckBoxColumn x:Name="Accessibility" Binding="{Binding Accessibility}" Header="Accessibility"  Width="SizeToHeader" />
+
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -107,19 +143,32 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Expander x:Name="Lines" Content="Lines"  ToolTip="lines cross the station"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <!-- <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="12" Text="Email: " VerticalAlignment="Center" />
+                                            <TextBlock FontSize="16" Foreground="MidnightBlue" Text="EmailAddress" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="12" Text="Phone: " VerticalAlignment="Center" />
+                                            <TextBlock FontSize="16" Foreground="MidnightBlue" Text="Phone" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="12" Text="Sales Person: " VerticalAlignment="Center" />
+                                            <TextBlock FontSize="16" Foreground="MidnightBlue" Text="SalesPerson" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate> -->
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Content="יציאה" HorizontalAlignment="Left" Margin="9,4,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Background="White"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="807,3,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Background="White"/>
 
     </Grid>
 </Window>

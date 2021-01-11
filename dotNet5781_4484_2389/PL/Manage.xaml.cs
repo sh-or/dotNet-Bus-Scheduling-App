@@ -31,6 +31,8 @@ namespace PL
             ListBuses.ItemsSource = buses;
             IEnumerable<BOBusStation> busStations = bl.GetAllBusStations();
             ListBusStation.ItemsSource = busStations;
+            IEnumerable<BOLine> line = bl.GetAllLines();
+            ListLines.ItemsSource = line;
         }
 
 
@@ -82,8 +84,12 @@ namespace PL
         {
 
         }
+        private void dataGridView1_CellClick(object sender, RoutedEventArgs e)
+        {
 
-        private void Listbuses_MouseDoubleClick(object sender, RoutedEventArgs e)
+        }
+
+        private void DeleteLine_Click(object sender, RoutedEventArgs e)
         {
 
         }

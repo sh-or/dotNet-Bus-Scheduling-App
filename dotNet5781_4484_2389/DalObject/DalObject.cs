@@ -75,9 +75,12 @@ namespace DL
         }
         public void DeleteBus(int _LicenseNumber)
         {
-            Bus b = GetBus(_LicenseNumber);
-            int n = DataSource.AllBuses.FindIndex(x => x.LicenseNumber == b.LicenseNumber);
-            DataSource.AllBuses[n].IsExist = false;
+            //Bus b = GetBus(_LicenseNumber);
+            int n = DataSource.AllBuses.FindIndex(x => x.LicenseNumber == _LicenseNumber);
+            if (n > -1) 
+                DataSource.AllBuses[n].IsExist = false;
+            else
+                throw new DOException($"Bus number {_LicenseNumber} was not found");
             //b.IsExist = false;
             //AddBus(b.Clone());
         }
@@ -86,7 +89,7 @@ namespace DL
         #region Bus Station
         public BusStation GetBusStation(int _StationCode) 
         {
-            BusStation bs = DataSource.AllBusStations.Find(x => x.StationCode == _StationCode);
+            BusStation bs = DataSource.AllBusStations.Find(x => x.IsExist&& x.StationCode == _StationCode);
             if (bs!=null)
                 return bs.Clone();
             throw new DOException(_StationCode, $"Bus station number {_StationCode} was not found");
@@ -134,17 +137,18 @@ namespace DL
         }
         public void DeleteBusStation(int _StationCode) //delete line-stations
         {
-            BusStation bs = GetBusStation(_StationCode);
-            //DataSource.AllBusStations.Remove(bs);
-            bs.IsExist = false;
-            //AddBusStation(bs.Latitude, bs.Longitude, bs.Name, bs.Address, bs.Accessibility);
+            int n = DataSource.AllBusStations.FindIndex(x => x.IsExist && x.StationCode == _StationCode);
+            if(n>-1)
+                DataSource.AllBusStations[n].IsExist = false;
+            else
+                throw new DOException($"Station number {_StationCode} was not found");
         }
         #endregion
 
         #region Line
         public Line GetLine(int _Code)
         {
-            Line l = DataSource.AllLines.Find(x => x.Code == _Code);
+            Line l = DataSource.AllLines.Find(x => x.IsExist && x.Code == _Code);
             if(l!=null)
                 return l.Clone();
             throw new DOException(_Code, $"Line number {_Code} was not found");
@@ -159,7 +163,7 @@ namespace DL
         }
         public IEnumerable<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
-           return from ls in DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode)
+           return from ls in DataSource.AllLineStations.FindAll(x => x.IsExist && x.StationCode == _StationCode)
                   where GetLine(ls.LineCode).IsExist
                   select GetLine(ls.LineCode);
         }
@@ -184,7 +188,7 @@ namespace DL
         }
         public IEnumerable<BusStation> GetStationsOfLine(int _LineCode)
         {
-            IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.LineCode == _LineCode);
+            IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.IsExist && x.LineCode == _LineCode);
             IEnumerable<BusStation> bsLst = (from ls in lsLst
                                              orderby ls.StationNumberInLine
                                              select GetBusStation(ls.StationCode).Clone());
@@ -196,13 +200,6 @@ namespace DL
         public int AddLine( Line l ) 
         {
             l.Code = ConfigurationClass.LineCode;
-            //Line bl = new Line();
-            //bl.Code = ConfigurationClass.LineCode;
-            //bl.IsExist = true;
-            //bl.BusLine = _BusLine;
-            //bl.Area = _Area;
-            //bl.FirstStation = _FirstStation;
-            //bl.LastStation = _LastStation;
             DataSource.AllLines.Add(l.Clone());
             return l.Code;
         }
@@ -214,7 +211,7 @@ namespace DL
             //    DeleteLineStation(ls.LineCode, ls.StationCode);
             //Line bl = GetLine(_Code);
             //DataSource.AllBusStations.Remove(bs);
-            int n = DataSource.AllLines.FindIndex(x => x.Code == _Code);
+            int n = DataSource.AllLines.FindIndex(x => x.IsExist && x.Code == _Code);
             if(n>-1)
                 DataSource.AllLines[n].IsExist = false;
             else
@@ -226,6 +223,7 @@ namespace DL
         public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) //gets linestation???
         {
             LineStation ls = new LineStation();
+            ls.IsExist = true;
             ls.StationCode = _StationCode;
             ls.LineCode = _LineCode;
             ls.StationNumberInLine = _StationNumberInLine;
@@ -233,7 +231,7 @@ namespace DL
         }
         public LineStation GetLineStation(int _LineCode, int _StationCode) 
         {
-            LineStation ls = DataSource.AllLineStations.Find(x => (x.LineCode == _LineCode && x.StationCode == _StationCode));
+            LineStation ls = DataSource.AllLineStations.Find(x => x.IsExist && (x.LineCode == _LineCode && x.StationCode == _StationCode));
             if (ls != null)
                 return ls.Clone();
             throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
@@ -245,8 +243,10 @@ namespace DL
         public void UpdateLineStation(int _LineCode, int _StationCode,int n)//change index in +/-1
         {
             LineStation ls = GetLineStation(_LineCode, _StationCode);
-            DeleteLineStation(_LineCode, _StationCode);
-            AddLineStation(ls.LineCode, ls.StationCode, ls.StationNumberInLine + n);
+            //DeleteLineStation(_LineCode, _StationCode);
+            //AddLineStation(ls.LineCode, ls.StationCode, ls.StationNumberInLine + n);
+            int ind=DataSource.AllLineStations.FindIndex(x => x.LineCode == _LineCode && x.StationCode == _StationCode);
+            DataSource.AllLineStations[ind].StationNumberInLine += n;
         }
         public int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
         {

@@ -95,8 +95,17 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="LineStations" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="525,49,13,0" VerticalAlignment="Top" Width="348"/>
+                    <DataGrid x:Name="LineStations" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="525,49,13,0" VerticalAlignment="Top" Width="348">
+                  <!--      <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="DeleteStationInLine" Content="Delete" Click="DeleteStationInLine_Click"  ToolTip="Delete station from the line"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn> -->
+                    </DataGrid>
                     <Label Content="Stations in this line:" HorizontalAlignment="Left" Margin="601,18,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Button x:Name="AddStationInLine" Content="Add station in line" Click="AddStationInLine_Click"  ToolTip="Add station to this line" Margin="645,347,122,118" /> 
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>

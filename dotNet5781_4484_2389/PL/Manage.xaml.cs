@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +23,7 @@ namespace PL
     /// </summary>
     public partial class Manage : Window
     {
-         IBL bl;
+        IBL bl;
 
         public Manage(IBL ibl)
         {
@@ -30,7 +32,7 @@ namespace PL
             //IEnumerable<BOBus> buses = bl.GetAllBuses();
             ListBuses.ItemsSource = bl.GetAllBuses();
             //IEnumerable<BOBusStation> busStations = bl.GetAllBusStations();
-            ListBusStation.ItemsSource= bl.GetAllBusStations();
+            ListBusStation.ItemsSource = bl.GetAllBusStations();
             //IEnumerable<BOLine> line = bl.GetAllLines();
             ListLines.ItemsSource = bl.GetAllLines();
             StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
@@ -69,7 +71,7 @@ namespace PL
         private void UpdateStation_Click(object sender, RoutedEventArgs e)
         {
             BOBusStation bs = (sender as Button).DataContext as BOBusStation;
-            UpdateStation upS = new UpdateStation(bl,bs);
+            UpdateStation upS = new UpdateStation(bl, bs);
             upS.Closed += RefreshLinesAndStations;
             upS.ShowDialog();
         }
@@ -90,27 +92,17 @@ namespace PL
         private void UpdateLine_Click(object sender, RoutedEventArgs e)
         {
             BOLine l = (sender as Button).DataContext as BOLine;
-            UpdateLine upL = new UpdateLine(bl,l);
+            UpdateLine upL = new UpdateLine(bl, l);
             upL.Closed += RefreshLinesAndStations;
             upL.ShowDialog();
         }
-        private void DeleteBus_Click(object sender, RoutedEventArgs e)
-        {
-           // bl.DeleteBus();
-        }
-        private void DeleteBusStation_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
+
         private void dataGridView1_CellClick(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void DeleteLine_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -121,6 +113,46 @@ namespace PL
         {
             StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
         }
-        
+
+        private void DeleteBus_Click(object sender, RoutedEventArgs e)
+        {
+            BOBus b = (sender as Button).DataContext as BOBus;
+            bl.DeleteBus(b.LicenseNumber);
+            ListBuses.ItemsSource = bl.GetAllBuses();  //refresh
+        }
+
+        private void DeleteBusStation_Click(object sender, RoutedEventArgs e)
+        {
+            BOBusStation bs = (sender as Button).DataContext as BOBusStation;
+            bl.DeleteBusStation(bs.StationCode);
+            ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
+            ListLines.ItemsSource = bl.GetAllLines();  //refresh
+        }
+
+        private void DeleteLine_Click(object sender, RoutedEventArgs e)
+        {
+            BOLine l = (sender as Button).DataContext as BOLine;
+            bl.DeleteLine(l.Code);
+            ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
+            ListLines.ItemsSource = bl.GetAllLines();  //refresh
+        }
+
+
+
+        private void DeleteStationInLine_Click(object sender, RoutedEventArgs e)
+        {
+            BOLine l = ListLines.SelectedItem as BOLine;
+            BOLineStation sl = (sender as Button).DataContext as BOLineStation;
+            bl.DeleteStationInLine(l, sl.StationCode);
+            ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
+            ListLines.ItemsSource = bl.GetAllLines();  //refresh
+        }
+
+
+
+        private void AddStationInLine_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

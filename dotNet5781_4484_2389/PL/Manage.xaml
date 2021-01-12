@@ -12,7 +12,7 @@
             <TabItem Header="Buses" HorizontalAlignment="Right" Margin="0,0,-14,-2" Width="80">
                 <Grid >
                     <Button Content="Add Bus" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
-                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="14,13,114,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" Margin="14,13,114,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -22,8 +22,8 @@
                             </TransformGroup>
                         </DataGrid.RenderTransform>
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number"   Width="SizeToHeader"/>
-                            <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="SizeToHeader"/>
+                            <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number"   Width="40"/>
+                            <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="40"/>
                             <DataGridTextColumn x:Name="KmColumn" Binding="{Binding Kilometerage}" Header="Kilometerage" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="FuelColumn" Binding="{Binding Fuel}" Header="  Fuel" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="KmFromLastRefuelColumn" Binding="{Binding KmFromLastRefuel}" Header="Km From Last Refuel" Width="SizeToHeader"/>
@@ -62,7 +62,7 @@
                 <Grid >
                     <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addline_Click"/>
 
-                    <DataGrid x:Name="ListLines" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListLines_SelectionChanged" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="14,13,300,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                    <DataGrid x:Name="ListLines" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListLines_SelectionChanged" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="14,13,300,13" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" CanUserResizeRows="False" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -95,7 +95,7 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="LineStations" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="293" Margin="637,49,0,0" VerticalAlignment="Top" Width="223"/>
+                    <DataGrid x:Name="LineStations" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Left" Height="293" Margin="637,49,0,0" VerticalAlignment="Top" Width="223"/>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>
@@ -107,7 +107,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Bus Stations" HorizontalAlignment="Right" RenderTransformOrigin="1.947,0.727" Margin="-4,0,4,-2" Width="92">
+            <TabItem Header="Bus Stations" HorizontalAlignment="Center" RenderTransformOrigin="1.947,0.727" Margin="-4,0,4,-2" Width="92">
                 <Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -117,7 +117,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Button Content="Add Station" HorizontalAlignment="Left" Margin="779,437,0,0" VerticalAlignment="Top" Width="75" Click="AddStation_Click"/>
-                    <DataGrid x:Name="ListBusStation" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBusStation_SelectionChanged" ItemsSource="{Binding}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="467" Margin="39,10,0,0" VerticalAlignment="Top" Width="511">
+                    <DataGrid x:Name="ListBusStation" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBusStation_SelectionChanged" ItemsSource="{Binding}" IsReadOnly="True" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="467" Margin="39,10,0,0" VerticalAlignment="Top" Width="511">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="StationCode" Binding="{Binding StationCode}" Header="Station Code"   Width="SizeToHeader"/>
@@ -165,7 +165,7 @@
                         </DataGrid.RowDetailsTemplate> -->
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="StationLines" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="293" Margin="637,49,0,0" VerticalAlignment="Top" Width="223"/>
+                    <DataGrid x:Name="StationLines" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="637,49,0,0" VerticalAlignment="Top" Width="223"/>
 
                 </Grid>
             </TabItem>

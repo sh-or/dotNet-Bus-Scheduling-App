@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UpdateLine" Height="450" Width="800">
+        Title="UpdateLine" Height="350" Width="500">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -14,5 +14,44 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="70*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280*"/>
+            <ColumnDefinition Width="210*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Line Number: " HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Area: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="First Station: " HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Last Station: " HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Button x:Name="Adding" Content="Add" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Width="75" FontFamily="Stencil" FontSize="15" Click="Adding_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="#FF6EE962"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFB2ECAC"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <TextBox x:Name="_LineNumber" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <ComboBox x:Name="_Area" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="120"/>
+        <TextBlock x:Name="_First" Grid.Column="1" DataContext="{Binding}" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" Width="120"/>
+        <TextBlock x:Name="_Last" Grid.Column="1" DataContext="{Binding}" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Width="120"/>
     </Grid>
 </Window>

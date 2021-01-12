@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UpdateStation" Height="450" Width="800">
+        Title="UpdateStation" Height="450" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="15*"/>
             <RowDefinition Height="45*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="45*"/>
@@ -32,11 +34,12 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="Latitude: " HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-        <Label Content="Longitude: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-        <Label Content="Name: " HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-        <Label Content="Address: " HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-        <RadioButton x:Name="_Accessibility" Content="Accessibility" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="9" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Station number: " HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Latitude: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Longitude: " HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Name: " HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <Label Content="Address: " HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <RadioButton x:Name="_Accessibility" Content="Accessibility" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="11" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
         <Button x:Name="Updating" Content="Update" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Width="75" FontFamily="Stencil" FontSize="15" Click="Updating_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -51,10 +54,11 @@
                 </Style>
             </Button.Style>
         </Button>
-        <TextBox x:Name="_Latitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_Longitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_Name" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_Address" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBlock x:Name="_Code" Text="{Binding}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Latitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Longitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Name" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Address" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="9" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
 
     </Grid>
 </Window>

@@ -28,6 +28,7 @@ namespace PL
             bl = ibl;
             st = bst;
             InitializeComponent();
+            _Code.DataContext = st.StationCode;
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {

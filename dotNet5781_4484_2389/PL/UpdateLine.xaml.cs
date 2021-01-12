@@ -28,6 +28,9 @@ namespace PL
             bl = ibl;
             line = l;
             InitializeComponent();
+            _Area.ItemsSource = Enum.GetValues(typeof(BO.AreaEnum));
+            _First.DataContext = l.FirstStation;
+            _Last.DataContext = l.LastStation;
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -55,5 +58,9 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
+        private void Adding_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

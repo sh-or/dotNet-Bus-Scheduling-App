@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UpdateBus" Height="450" Width="800">
+        Title="UpdateBus" Height="450" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -27,7 +27,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280*"/>
             <ColumnDefinition Width="230*"/>
-            <ColumnDefinition Width="240*"/>
+            <ColumnDefinition Width="140*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -58,7 +58,7 @@
             </Button.Style>
         </Button>
         <TextBlock x:Name="_LicenseNumber" Text="{Binding}" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBlock x:Name="_LicensingDate" DataContext="{Binding}" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+        <DatePicker x:Name="_LicensingDate" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
         <TextBox x:Name="_Kilometerage" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_KmRefuel" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_KmCare" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="9" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>

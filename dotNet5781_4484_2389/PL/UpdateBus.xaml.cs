@@ -29,7 +29,7 @@ namespace PL
             bus = b;
             InitializeComponent();
             _LicenseNumber.DataContext = b.LicenseNumber;
-            _LicensingDate.DataContext = b.LicensingDate.ToLongDateString();
+            _LicensingDate.SelectedDate = b.LicensingDate;
 
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)

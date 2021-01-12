@@ -77,7 +77,7 @@ namespace PL
             }
             catch (BLException ex)
             {
-                MessageBox.Show(ex.Message + "\nEdit and try again");
+                MessageBox.Show("ERROR! "+ex.Message + "\nEdit and try again");
             }
         }
     }

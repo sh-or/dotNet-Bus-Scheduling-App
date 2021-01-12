@@ -55,21 +55,25 @@ namespace PL
 
         private void Adding_Click(object sender, RoutedEventArgs e)
         { //enable if boxes!=null  ->?
-            BOBusStation b=new BOBusStation();
-            b.Latitude = double.Parse(_Latitude.Text);
-            b.Latitude = double.Parse(_Latitude.Text);
-            b.Name = _Name.Text; //check capital letter?
-            b.Address = _Address.Text; //
-            b.Accessibility = (bool)_Accessibility.IsChecked;
             try
             {
+                BOBusStation b = new BOBusStation();
+                b.Latitude = double.Parse(_Latitude.Text);
+                b.Longitude = double.Parse(_Longitude.Text);
+                b.Name = _Name.Text;
+                b.Address = _Address.Text; 
+                b.Accessibility = (bool)_Accessibility.IsChecked;
                 bl.AddBusStation(b);
                 MessageBox.Show($"Station {b.Name} was added successfuly");
                 Close();
             }
             catch(BLException ex)
             {
-                MessageBox.Show(ex.Message+"\nEdit and try again");
+                MessageBox.Show("ERROR! " + ex.Message+"\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("INPUT ERROR", "", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

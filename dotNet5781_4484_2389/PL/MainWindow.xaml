@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="600" Icon="C:\Users\שירה\source\repos\sh-or\dotNet5781_4484_2389\dotNet5781_4484_2389\WpfApp2\סמיילי.jpg">
+        Title="MainWindow" Height="350" Width="600" Icon="סמיילי.jpg">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80*"/>

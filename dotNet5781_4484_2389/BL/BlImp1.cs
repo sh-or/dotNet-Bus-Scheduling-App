@@ -84,6 +84,10 @@ namespace BL
                 throw new BLException($"Invalid dates");
             if (b.Kilometerage < b.KmFromLastCare || b.Kilometerage < b.KmFromLastRefuel)
                 throw new BLException($"Kilometerage cannot be less than KmFromLastCare or KmFromLastRefuel");
+            if (b.KmFromLastCare > 20000)
+                throw new BLException($"Bus cannot drive {b.KmFromLastCare} Km from last care");
+            if (b.KmFromLastRefuel > 1200)
+                throw new BLException($"Bus cannot drive {b.KmFromLastRefuel} Km from last refuel");
             //b.Kilometerage=Math.Max(b.Kilometerage,Math.Max(b.KmFromLastCare,b.KmFromLastRefuel));
             try
             {
@@ -135,6 +139,11 @@ namespace BL
         }
         public void UpdateStation(BOBusStation bs)
         {
+            if (bs.Latitude < 31 || bs.Latitude > 33.3)
+                throw new BLException($"Latitude {bs.Latitude} exceeds the orders of Israel");
+            if (bs.Longitude < 34.3 || bs.Longitude > 35.5)
+                throw new BLException($"Longitude {bs.Longitude} exceeds the orders of Israel");
+
             BusStation tmp = new BusStation();
             try
             {
@@ -243,8 +252,11 @@ namespace BL
         }
         public int AddBusStation(BOBusStation bs) //it was just build.adding with no lines. empty list created in UI.
         {
-            //if (/*checking*/) //address and name not empty?
-            //    throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
+            if(bs.Latitude<31|| bs.Latitude > 33.3)
+                throw new BLException($"Latitude {bs.Latitude} exceeds the orders of Israel");
+            if (bs.Longitude < 34.3 || bs.Longitude > 35.5)
+                throw new BLException($"Longitude {bs.Longitude} exceeds the orders of Israel");
+
             BusStation tmp = new BusStation();
             try
             {

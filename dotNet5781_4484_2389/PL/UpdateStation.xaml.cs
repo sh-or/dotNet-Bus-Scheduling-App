@@ -22,9 +22,11 @@ namespace PL
     public partial class UpdateStation : Window
     {
         IBL bl;
-        public UpdateStation(IBL ibl)
+        BOBusStation st;
+        public UpdateStation(IBL ibl, BOBusStation bst)
         {
             bl = ibl;
+            st = bst;
             InitializeComponent();
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -55,11 +57,11 @@ namespace PL
 
         private void Updating_Click(object sender, RoutedEventArgs e)
         {
-            BOBusStation b = new BOBusStation();
+            BOBusStation b = st;
             b.Latitude = double.Parse(_Latitude.Text);
             b.Latitude = double.Parse(_Latitude.Text);
-            b.Name = _Name.Text; //check capital letter?
-            b.Address = _Address.Text; //
+            b.Name = _Name.Text; 
+            b.Address = _Address.Text; 
             b.Accessibility = (bool)_Accessibility.IsChecked;
             try
             {

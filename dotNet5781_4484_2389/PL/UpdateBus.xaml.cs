@@ -22,11 +22,14 @@ namespace PL
     public partial class UpdateBus : Window
     {
         IBL bl;
+        BOBus bus = new BOBus();
         public UpdateBus(IBL ibl, BOBus b)
         {
             bl = ibl;
+            bus = b;
             InitializeComponent();
             _LicenseNumber.DataContext = b.LicenseNumber;
+            _LicensingDate.DataContext = b.LicensingDate.ToLongDateString();
 
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -59,8 +62,8 @@ namespace PL
         {
             BOBus b = new BOBus()
             {
-                LicenseNumber = int.Parse(_LicenseNumber.Text),
-                LicensingDate = DateTime.Parse(_LicensingDate.ToString()),
+                LicenseNumber = bus.LicenseNumber,
+                LicensingDate = bus.LicensingDate,
                 DateOfLastCare = DateTime.Parse(_DateCare.ToString()),
                 KmFromLastCare = int.Parse(_KmCare.Text),
                 KmFromLastRefuel = int.Parse(_KmRefuel.Text),

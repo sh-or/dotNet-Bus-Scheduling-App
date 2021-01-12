@@ -54,7 +54,7 @@ namespace PL
 
         private void UpdateBus_Click(object sender, RoutedEventArgs e)
         {
-            BOBus b = new BOBus();
+            BOBus b = (sender as Button).DataContext as BOBus;
             UpdateBus upB = new UpdateBus(bl, b);
             upB.ShowDialog();
         }
@@ -68,7 +68,8 @@ namespace PL
 
         private void UpdateStation_Click(object sender, RoutedEventArgs e)
         {
-            UpdateStation upS = new UpdateStation(bl);
+            BOBusStation bs = (sender as Button).DataContext as BOBusStation;
+            UpdateStation upS = new UpdateStation(bl,bs);
             upS.Closed += RefreshLinesAndStations;
             upS.ShowDialog();
         }
@@ -88,7 +89,8 @@ namespace PL
 
         private void UpdateLine_Click(object sender, RoutedEventArgs e)
         {
-            UpdateLine upL = new UpdateLine(bl);
+            BOLine l = (sender as Button).DataContext as BOLine;
+            UpdateLine upL = new UpdateLine(bl,l);
             upL.Closed += RefreshLinesAndStations;
             upL.ShowDialog();
         }

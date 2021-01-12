@@ -22,9 +22,11 @@ namespace PL
     public partial class UpdateLine : Window
     {
         IBL bl;
-        public UpdateLine(IBL ibl)
+        BOLine line;
+        public UpdateLine(IBL ibl,BOLine l)
         {
             bl = ibl;
+            line = l;
             InitializeComponent();
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)

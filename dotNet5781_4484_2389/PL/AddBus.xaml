@@ -57,12 +57,12 @@
                 </Style>
             </Button.Style>
         </Button>
-        <TextBox x:Name="_LicenseNumber" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_LicenseNumber" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" MaxLength="8" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" FontSize="16"/>
         <DatePicker x:Name="_LicensingDate" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
-        <TextBox x:Name="_Kilometerage" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_KmRefuel" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_KmCare" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="9" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Kilometerage" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_KmRefuel" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_KmCare" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="9" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <DatePicker x:Name="_DateCare" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="11" VerticalAlignment="Center"/>
-        <TextBox x:Name="_DName" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="13" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_DName" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="13" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
     </Grid>
 </Window>

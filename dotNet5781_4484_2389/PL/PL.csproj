@@ -68,6 +68,9 @@
     <Compile Include="LineDetails.xaml.cs">
       <DependentUpon>LineDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Simulator.xaml.cs">
+      <DependentUpon>Simulator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StationDetails.xaml.cs">
       <DependentUpon>StationDetails.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,9 @@
     </Compile>
     <Compile Include="UpdateStation.xaml.cs">
       <DependentUpon>UpdateStation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="User.xaml.cs">
+      <DependentUpon>User.xaml</DependentUpon>
     </Compile>
     <Page Include="AddBus.xaml">
       <SubType>Designer</SubType>
@@ -112,6 +118,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Simulator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StationDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UpdateStation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="User.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

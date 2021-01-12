@@ -51,10 +51,10 @@
                 </Style>
             </Button.Style>
         </Button>
-        <TextBox x:Name="_Latitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_Longitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_Name" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_Address" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Latitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Longitude" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Name" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <TextBox x:Name="_Address" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
 
     </Grid>
 </Window>

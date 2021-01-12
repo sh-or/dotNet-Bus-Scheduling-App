@@ -49,6 +49,7 @@ namespace DLAPI
         ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         void UpdateConsecutiveStations(ConsecutiveStations cs);
         bool isExistConsecutiveStations(int _FirstStation, int _LastStation);
+        IEnumerable<ConsecutiveStations> GetSomeConsecutiveStations(int _StationCode);
         //? void DeleteConsecutiveStations();
         // double GetDistance();
 

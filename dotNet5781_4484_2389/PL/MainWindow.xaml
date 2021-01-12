@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="350" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80*"/>
@@ -44,7 +44,7 @@
         <Label Content="  Password: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
         <TextBox x:Name="iPasswordN" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
         <RadioButton Content="I am a manager " Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
-        <Label Content="WITH YOU ALONG THE WAY...:)" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Grid.Column="1" Margin="73.333,12,64.086,23.667" Grid.ColumnSpan="3" Width="455" FontFamily="Rockwell Extra Bold" FontSize="25" Height="41" RenderTransformOrigin="0.5,0.5">
+        <Label Content="WITH YOU ALONG THE WAY...:)" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Grid.Column="1" Margin="73.333,12,64.086,23.667" Grid.ColumnSpan="3" Width="455" FontFamily="Rockwell Extra Bold" FontSize="15" Height="41" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -56,15 +56,21 @@
         </Label>
         <Button x:Name="userLogin" Content="login" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontWeight="Bold" FontSize="18" FontFamily="Sitka Display" Click="userLogin_Click"/>
         <Button x:Name="newUser" Content="login" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontFamily="Sitka Display" FontWeight="Bold" FontSize="18"/>
-        <Image Grid.ColumnSpan="3" Margin="154,11,155.333,6.667" Source="Image3.png" Stretch="Fill" Grid.Row="3" RenderTransformOrigin="0.494,0.566" Grid.Column="1">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-89.523"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
+        <Rectangle Grid.Column="2" HorizontalAlignment="Left" Height="295" Margin="29.333,27,0,0" Grid.RowSpan="6" Stroke="Black" VerticalAlignment="Top" Width="13">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                    <GradientStop Color="Gainsboro" Offset="0.16"/>
+                    <GradientStop Color="Black" Offset="0.285"/>
+                    <GradientStop Color="#FFCBCBCB" Offset="0.398"/>
+                    <GradientStop Color="Black" Offset="0.506"/>
+                    <GradientStop Color="#FFD4D4D4" Offset="0.593"/>
+                    <GradientStop Color="Black" Offset="0.709"/>
+                    <GradientStop Color="#FFC4C1C1" Offset="0.805"/>
+                    <GradientStop Color="#FF101010" Offset="0.904"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </Window>

@@ -57,12 +57,12 @@
 
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="132,0,-147,-2">
                 <Grid >
                     <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addline_Click"/>
 
-                    <DataGrid x:Name="ListLines" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="14,13,300,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                    <DataGrid x:Name="ListLines" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListLines_SelectionChanged" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="14,13,300,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -95,6 +95,7 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                    <DataGrid x:Name="LineStations" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="293" Margin="637,49,0,0" VerticalAlignment="Top" Width="223"/>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>
@@ -116,8 +117,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Button Content="Add Station" HorizontalAlignment="Left" Margin="779,437,0,0" VerticalAlignment="Top" Width="75" Click="AddStation_Click"/>
-                    <DataGrid x:Name="ListBusStation" ItemsSource="{Binding}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="467" Margin="39,10,0,0" VerticalAlignment="Top" Width="511">
-
+                    <DataGrid x:Name="ListBusStation" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBusStation_SelectionChanged" ItemsSource="{Binding}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="467" Margin="39,10,0,0" VerticalAlignment="Top" Width="511">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="StationCode" Binding="{Binding StationCode}" Header="Station Code"   Width="SizeToHeader"/>
@@ -165,6 +165,8 @@
                         </DataGrid.RowDetailsTemplate> -->
                         </DataGrid.Columns>
                     </DataGrid>
+                    <DataGrid x:Name="StationLines" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="293" Margin="637,49,0,0" VerticalAlignment="Top" Width="223"/>
+
                 </Grid>
             </TabItem>
         </TabControl>

@@ -333,6 +333,13 @@ namespace DL
         {
             return DataSource.AllConsecutiveStations.ToList().Exists(x => x.StationCode1 == _FirstStation && x.StationCode2 == _LastStation);
         }
+
+       public IEnumerable<ConsecutiveStations> GetSomeConsecutiveStations(int _StationCode)
+        {
+            return from ConsecutiveStations cs in DataSource.AllConsecutiveStations
+                   where cs.StationCode1 == _StationCode || cs.StationCode2 == _StationCode
+                   select cs;
+        }
         #endregion
 
         //static Random rnd = new Random(DateTime.Now.Millisecond);

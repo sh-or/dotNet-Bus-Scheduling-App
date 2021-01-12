@@ -8,9 +8,11 @@ namespace BlAPI
 {
     public static class BlFactory
     {
+        internal static readonly IBL instance = new BL.BlImp1();
+
         public static IBL GetBl()
         {
-            return new BL.BlImp1();
+            return instance;
         }
     }
 

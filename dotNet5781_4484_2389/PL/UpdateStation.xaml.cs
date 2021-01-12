@@ -30,7 +30,7 @@ namespace PL
             InitializeComponent();
             _Code.DataContext = st.StationCode;
         }
-        private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TextBox_onlyDouble_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
             if (text == null) return;
@@ -47,7 +47,7 @@ namespace PL
             //allow control system keys
             if (Char.IsControl(c)) return;
 
-            if (Char.IsDigit(c) || Char.Equals(c, '.')) //allow digits or dot (without Shift or Alt)
+            if (Char.IsDigit(c) || c == 190) //allow digits or dot (without Shift or Alt)
                 if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift) || Keyboard.IsKeyDown(Key.RightAlt)))
                     return; //let this key be written inside the textbox
 

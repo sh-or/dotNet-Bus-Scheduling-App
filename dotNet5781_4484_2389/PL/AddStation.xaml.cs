@@ -27,7 +27,7 @@ namespace PL
             bl = ibl;
             InitializeComponent();
         }
-        private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void TextBox_onlyDouble_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
             if (text == null) return;
@@ -44,7 +44,7 @@ namespace PL
             //allow control system keys
             if (Char.IsControl(c)) return;
 
-            if (Char.IsDigit(c) || Char.Equals(c,'.')) //allow digits or dot (without Shift or Alt)
+            if (Char.IsDigit(c) || c == 190) //allow digits or dot (without Shift or Alt)
                 if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift) || Keyboard.IsKeyDown(Key.RightAlt)))
                     return; //let this key be written inside the textbox
 
@@ -52,6 +52,7 @@ namespace PL
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
         } //checking if the input contains digits only
+
 
         private void Adding_Click(object sender, RoutedEventArgs e)
         { //enable if boxes!=null  ->?

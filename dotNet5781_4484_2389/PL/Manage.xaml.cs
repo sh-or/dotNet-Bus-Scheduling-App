@@ -58,6 +58,7 @@ namespace PL
         {
             BOBus b = (sender as Button).DataContext as BOBus;
             UpdateBus upB = new UpdateBus(bl, b);
+            upB.Closed += RefreshBuses;
             upB.ShowDialog();
         }
 

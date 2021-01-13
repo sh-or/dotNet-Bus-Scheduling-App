@@ -58,9 +58,29 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        private void Adding_Click(object sender, RoutedEventArgs e)
+        private void Updating_Click(object sender, RoutedEventArgs e)
         {
-
+            BOLine l = line;
+            l.BusLine = int.Parse(_LineNumber.Text);
+            l.Area = (AreaEnum)_Area.SelectedItem;
+            l.FirstStation = line.FirstStation;
+            l.LastStation = line.LastStation;
+            //{
+            //    BusLine = int.Parse(_LineNumber.Text),
+            //    Area=(AreaEnum)_Area.SelectedItem,
+            //    FirstStation=(int)_First.SelectedItem,
+            //    LastStation = (int)_Last.SelectedItem
+            //};
+            try
+            {
+                bl.UpdateLine(l);
+                MessageBox.Show($"Line {l.BusLine} was added successfuly");
+                Close();
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
         }
     }
 }

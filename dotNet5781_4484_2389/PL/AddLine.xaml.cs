@@ -75,6 +75,7 @@ namespace PL
         private void Adding_Click(object sender, RoutedEventArgs e)
         {
             BOLine l = new BOLine();
+            l.IsExist = true;
             l.BusLine = int.Parse(_LineNumber.Text);
             l.Area = (AreaEnum)_Area.SelectedItem;
             l.FirstStation = (int)_First.SelectedItem;

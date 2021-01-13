@@ -33,6 +33,25 @@ namespace BL
         public void UpdateBus(BOBus b)
         {
             Bus tmp = new Bus();
+            if (b.LicensingDate > b.DateOfLastCare)
+                throw new BLException($"Invalid dates");
+            if (b.Kilometerage < b.KmFromLastCare || b.Kilometerage < b.KmFromLastRefuel)
+                throw new BLException($"Kilometerage cannot be less than KmFromLastCare or KmFromLastRefuel");
+            if (b.KmFromLastCare > 20000)
+                throw new BLException($"Bus cannot drive {b.KmFromLastCare} Km from last care");
+            if (b.KmFromLastRefuel > 1200)
+                throw new BLException($"Bus cannot drive {b.KmFromLastRefuel} Km from last refuel");
+            if (!((DateTime.Today.AddYears(-1)) < b.DateOfLastCare) || (b.KmFromLastCare) > 18500) //checking time/km from last care
+            {
+                b.Status = (BO.StatusEnum)2; //need care 
+            }
+            else if (b.KmFromLastRefuel > 1000) //checking fuel
+            {
+                b.Status = (BO.StatusEnum)3; //need refuel 
+            }
+            else
+                b.Status = (BO.StatusEnum)1;
+            b.Fuel = 1 - b.KmFromLastRefuel / 1200;
             try
             {
                 dal.UpdateBus((Bus)Transform.trans(b, tmp.GetType())); ;
@@ -80,7 +99,7 @@ namespace BL
             //more checking?
             if ((b.LicenseNumber > 9999999 && b.LicensingDate.Year < 2018) || (b.LicenseNumber < 10000000 && b.LicensingDate.Year >= 2018)) //license number and date don't match
                 throw new BLException($"Bus number {b.LicenseNumber} does not match the licensing date");
-            if (b.LicensingDate < b.DateOfLastCare)
+            if (b.LicensingDate > b.DateOfLastCare)
                 throw new BLException($"Invalid dates");
             if (b.Kilometerage < b.KmFromLastCare || b.Kilometerage < b.KmFromLastRefuel)
                 throw new BLException($"Kilometerage cannot be less than KmFromLastCare or KmFromLastRefuel");
@@ -89,6 +108,15 @@ namespace BL
             if (b.KmFromLastRefuel > 1200)
                 throw new BLException($"Bus cannot drive {b.KmFromLastRefuel} Km from last refuel");
             //b.Kilometerage=Math.Max(b.Kilometerage,Math.Max(b.KmFromLastCare,b.KmFromLastRefuel));
+            b.Fuel = 1 - b.KmFromLastRefuel / 1200;
+            if (!((DateTime.Today.AddYears(-1)) < b.DateOfLastCare) || (b.KmFromLastCare) > 18500) //checking time/km from last care
+            {
+                b.Status = (BO.StatusEnum)2; //need care 
+            }
+            else if (b.KmFromLastRefuel > 1000) //checking fuel
+            {
+                b.Status = (BO.StatusEnum)3; //need refuel 
+            }
             try
             {
                 dal.AddBus((Bus)Transform.trans(b, tmp.GetType()));

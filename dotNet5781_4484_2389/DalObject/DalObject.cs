@@ -27,7 +27,7 @@ namespace DL
         #region Bus
         public Bus GetBus(int _LicenseNumber)
         {
-            Bus b = DataSource.AllBuses.Find(x => x.LicenseNumber == _LicenseNumber);
+            Bus b = DataSource.AllBuses.Find(x => x.IsExist && x.LicenseNumber == _LicenseNumber);
             if(b!=null)
                 return b.Clone();
             throw new DOException(_LicenseNumber, $"Bus number {_LicenseNumber} was not found");
@@ -59,7 +59,7 @@ namespace DL
         }
         public void AddBus(Bus b /*int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver*/)
         {  
-            if (DataSource.AllBuses.Exists(x => x.LicenseNumber == b.LicenseNumber))
+            if (DataSource.AllBuses.Exists(x => x.IsExist && x.LicenseNumber == b.LicenseNumber))
                 throw new DOException(b.LicenseNumber, $"Bus number {b.LicenseNumber} is already exist");
             DataSource.AllBuses.Add(b.Clone());
             //Bus b = new Bus();

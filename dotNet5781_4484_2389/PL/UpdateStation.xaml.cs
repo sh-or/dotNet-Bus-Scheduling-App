@@ -60,7 +60,7 @@ namespace PL
         {
             BOBusStation b = st;
             b.Latitude = double.Parse(_Latitude.Text);
-            b.Latitude = double.Parse(_Latitude.Text);
+            b.Longitude = double.Parse(_Longitude.Text);
             b.Name = _Name.Text; 
             b.Address = _Address.Text; 
             b.Accessibility = (bool)_Accessibility.IsChecked;

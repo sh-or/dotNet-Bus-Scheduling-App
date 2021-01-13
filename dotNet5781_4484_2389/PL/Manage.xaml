@@ -25,7 +25,13 @@
                             <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number" FontStyle="Italic"  Width="100"/>
                             <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="100"/>
                             <DataGridTextColumn x:Name="KmColumn" Binding="{Binding Kilometerage}" Header="Kilometerage" Width="80"/>
-                            <DataGridTextColumn x:Name="FuelColumn" Binding="{Binding Fuel}" Header="Fuel" Width="150"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ProgressBar x:Name="FuelColumn" Minimum="0" Maximum="1" Value="{Binding Fuel}" Width="120" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn x:Name="KmFromLastRefuelColumn" Binding="{Binding KmFromLastRefuel}" Header="Km From Last Refuel" Width="50"/>
                             <DataGridTextColumn x:Name="KmFromLastCareColumn" Binding="{Binding KmFromLastCare}" Header="Km From Last Care" Width="50"/>
                             <DataGridTextColumn x:Name="StatusColumn" Binding="{Binding Status}" Header="Status" Width="60"/>

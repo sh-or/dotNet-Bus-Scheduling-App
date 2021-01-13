@@ -74,7 +74,7 @@ namespace PL
             try
             {
                 bl.UpdateLine(l);
-                MessageBox.Show($"Line {l.BusLine} was added successfuly");
+               // MessageBox.Show($"Line {l.BusLine} was update successfuly");
                 Close();
             }
             catch (BLException ex)

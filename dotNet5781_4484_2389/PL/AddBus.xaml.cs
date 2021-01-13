@@ -57,12 +57,14 @@ namespace PL
         {
             BOBus b = new BOBus()
             {
+                IsExist=true,
                 LicenseNumber = int.Parse(_LicenseNumber.Text),
                 LicensingDate = DateTime.Parse(_LicensingDate.ToString()),
                 DateOfLastCare = DateTime.Parse(_DateCare.ToString()),
                 KmFromLastCare = int.Parse(_KmCare.Text),
                 KmFromLastRefuel = int.Parse(_KmRefuel.Text),
-                Kilometerage = int.Parse(_Kilometerage.Text)
+                Kilometerage = int.Parse(_Kilometerage.Text),
+                Driver=_DName.Text
             };
             if (b.LicenseNumber < 1000000) //license number is shorter than 7 digits
             {

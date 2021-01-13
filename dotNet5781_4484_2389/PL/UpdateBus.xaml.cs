@@ -62,12 +62,14 @@ namespace PL
         {
             BOBus b = new BOBus()
             {
+                IsExist=true,
                 LicenseNumber = bus.LicenseNumber,
                 LicensingDate = bus.LicensingDate,
                 DateOfLastCare = DateTime.Parse(_DateCare.ToString()),
                 KmFromLastCare = int.Parse(_KmCare.Text),
                 KmFromLastRefuel = int.Parse(_KmRefuel.Text),
-                Kilometerage = int.Parse(_Kilometerage.Text)
+                Kilometerage = int.Parse(_Kilometerage.Text),
+                Driver=_DName.Text
             };
             try
             {

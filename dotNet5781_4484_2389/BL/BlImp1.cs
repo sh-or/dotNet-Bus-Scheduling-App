@@ -463,10 +463,13 @@ namespace BL
         {
             if (l.Stations.ToList().Exists(x => x.StationCode == _StationCode))
                 throw new BLException($"Station number {_StationCode} is already exist in this line");
+            if (index > l.Stations.Count())
+                throw new BLException($"Index {index} exceeds from list length");
             try
             {
                 BOLineStation ls = new BOLineStation();
                 ls.StationCode = _StationCode;
+                
                 ls.Name = dal.GetBusStation(_StationCode).Name;
                 List<BOLineStation> bols = l.Stations.ToList(); ///////index-1!!!!!!!!!!!!!!!!!!!!!!!!!!1111
                 bols.Insert(index, ls);
@@ -505,7 +508,7 @@ namespace BL
                     //UpdateLineStation(l.Stations.ElementAt(index + 1)); //change to update dal.UpdateLineStation!!creat do.linestation..
                     foreach (LineStation x in dal.GetAllLineStations(l.Code)) //change the index of later stations in l
                     {
-                        if (x.StationNumberInLine > index)
+                        if (x.StationNumberInLine >= index && x.StationCode!=_StationCode)
                             dal.UpdateLineStation(l.Code, x.StationCode, 1);
                     }
                 }

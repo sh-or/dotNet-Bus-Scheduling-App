@@ -11,35 +11,30 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BlAPI;
 using BO;
+using BlAPI;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AddLine.xaml
+    /// Interaction logic for AddStationInLine.xaml
     /// </summary>
-    public partial class AddLine : Window
+    public partial class AddStationInLine : Window
     {
         IBL bl;
-        //public IEnumerable<string> getAllRegions()
-        //{
-        //    return Enum.GetValues(typeof(BO.AreaEnum))
-        //          .Cast<BO.AreaEnum>()
-        //         .Select(v => v.ToString())
-        //         .ToList();
-        //}
-        public AddLine(IBL ibl)
+        BOLine l;
+        public AddStationInLine(IBL ibl, BOLine line)
         {
+            l = line;
             bl = ibl;
             InitializeComponent();
             try
             {
+                
                 IEnumerable<int> lst = from x in bl.GetAllBusStations()
-                                         select x.StationCode; //+name???
-                _Area.ItemsSource = Enum.GetValues(typeof(BO.AreaEnum)); 
-                _First.ItemsSource = lst;
-                _Last.ItemsSource = lst;
+                                       select x.StationCode; //+name???
+                _StationCode.ItemsSource = lst;
+                _LineCode.DataContext = l.Code;
             }
             catch (BLException ex)
             {
@@ -72,32 +67,25 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
+
         private void Adding_Click(object sender, RoutedEventArgs e)
-        {
-            BOLine l = new BOLine();
-            l.BusLine = int.Parse(_LineNumber.Text);
-            l.Area = (AreaEnum)_Area.SelectedItem;
-            l.FirstStation = (int)_First.SelectedItem;
-            l.LastStation = (int)_Last.SelectedItem;
-            //{
-            //    BusLine = int.Parse(_LineNumber.Text),
-            //    Area=(AreaEnum)_Area.SelectedItem,
-            //    FirstStation=(int)_First.SelectedItem,
-            //    LastStation = (int)_Last.SelectedItem
-            //};
+        { //enable if boxes!=null  ->?
             try
-            {
-                bl.AddLine(l);
-                MessageBox.Show($"Line {l.BusLine} was added successfuly");
+            { 
+               int index = int.Parse(_Index.Text);
+               int StationCode = (int)_StationCode.SelectedItem;
+                bl.AddStationInLine(l, StationCode, index);
+                MessageBox.Show($"Station {StationCode} was added successfuly");
                 Close();
             }
+
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
             }
         }
 
-        private void _First_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void _StationCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

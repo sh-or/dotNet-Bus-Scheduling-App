@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +35,9 @@ namespace PL
             ListLines.ItemsSource = bl.GetAllLines();
             StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
             LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
+           // LineStations.Columns.Add();
         }
+
 
         private void RefreshBuses(object sender, EventArgs e)
         {
@@ -117,42 +117,71 @@ namespace PL
         private void DeleteBus_Click(object sender, RoutedEventArgs e)
         {
             BOBus b = (sender as Button).DataContext as BOBus;
-            bl.DeleteBus(b.LicenseNumber);
-            ListBuses.ItemsSource = bl.GetAllBuses();  //refresh
+            try
+            {
+                bl.DeleteBus(b.LicenseNumber);
+                ListBuses.ItemsSource = bl.GetAllBuses();  //refresh
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
         }
 
         private void DeleteBusStation_Click(object sender, RoutedEventArgs e)
         {
             BOBusStation bs = (sender as Button).DataContext as BOBusStation;
-            bl.DeleteBusStation(bs.StationCode);
-            ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
-            ListLines.ItemsSource = bl.GetAllLines();  //refresh
+            try
+            {
+                bl.DeleteBusStation(bs.StationCode);
+                ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
+                ListLines.ItemsSource = bl.GetAllLines();  //refresh
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
         }
+
 
         private void DeleteLine_Click(object sender, RoutedEventArgs e)
         {
             BOLine l = (sender as Button).DataContext as BOLine;
-            bl.DeleteLine(l.Code);
-            ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
-            ListLines.ItemsSource = bl.GetAllLines();  //refresh
+            try
+            {
+                bl.DeleteLine(l.Code);
+                ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
+                ListLines.ItemsSource = bl.GetAllLines();  //refresh
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
         }
-
 
 
         private void DeleteStationInLine_Click(object sender, RoutedEventArgs e)
         {
             BOLine l = ListLines.SelectedItem as BOLine;
             BOLineStation sl = (sender as Button).DataContext as BOLineStation;
-            bl.DeleteStationInLine(l, sl.StationCode);
-            ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
-            ListLines.ItemsSource = bl.GetAllLines();  //refresh
+            try
+            {
+                bl.DeleteStationInLine(l, sl.StationCode);
+                ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
+                ListLines.ItemsSource = bl.GetAllLines();  //refresh
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
         }
-
-
 
         private void AddStationInLine_Click(object sender, RoutedEventArgs e)
         {
-
+            BOLine l = ListLines.SelectedItem as BOLine;
+            AddStationInLine addsl = new AddStationInLine(bl, l);
+            addsl.Closed += RefreshLinesAndStations;
+            addsl.ShowDialog();
         }
     }
 }

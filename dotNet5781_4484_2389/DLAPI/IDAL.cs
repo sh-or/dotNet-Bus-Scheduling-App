@@ -16,26 +16,36 @@ namespace DLAPI
         //StatusEnum Status(int _LicenseNumber);
         //string Driver(int _LicenseNumber);
         //bool IsExist(int _LicenseNumber);
+        #region Bus
         Bus GetBus(int _LicenseNumber);
         void UpdateBus(Bus b);
         IEnumerable<Bus> GetSpecificBuses(Predicate<Bus> p); 
         IEnumerable<Bus> GetAllBuses();
-        void AddBus(Bus b /*int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver*/);
+        void AddBus(Bus b);
         void DeleteBus(int _LicenseNumber);
+        #endregion
+
+        #region BusStation
         BusStation GetBusStation(int _StationCode);
         void UpdateStation(BusStation bs);
         IEnumerable<BusStation> GetSpecificBusStations(Predicate<BusStation> p);
         IEnumerable<BusStation> GetAllBusStations();
-        int AddBusStation(BusStation bs /*double _Latitude, double _Longitude, string _Name, string _Address, bool _Accessibility*/);
+        int AddBusStation(BusStation bs);
         void DeleteBusStation(int _StationCode);
+        #endregion
+
+        #region Line
         Line GetLine(int _Code);
         void UpdateLine(Line l);
         IEnumerable<Line> GetStationLines(int _StationCode);
         IEnumerable<Line> GetAllLines();
         IEnumerable<Line> GetSpecificLines(Predicate<Line> p);
         IEnumerable<BusStation> GetStationsOfLine(int _LineCode);
-        int AddLine(Line l/*int _BusLine, AreaEnum _Area, int _FirstStation, int _LastStation*/);
+        int AddLine(Line l);
         void DeleteLine(int _Code);
+        #endregion
+
+        #region LineStation
         void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
         LineStation GetLineStation(int _LineCode, int _StationCode);
         IEnumerable<LineStation> GetAllLineStations(int _LineCode);
@@ -45,6 +55,9 @@ namespace DLAPI
         void DeleteLineStation(int _LineCode, int _StationCode);
         //void DeleteStationLineStations(int _StationCode);
         //void DeleteLineLineStations(int _LineCode);
+        #endregion
+
+        #region ConsecutiveStations
         void AddConsecutiveStations(ConsecutiveStations cs);
         ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
         void UpdateConsecutiveStations(ConsecutiveStations cs);
@@ -52,9 +65,17 @@ namespace DLAPI
         IEnumerable<ConsecutiveStations> GetSomeConsecutiveStations(int _StationCode);
         //? void DeleteConsecutiveStations();
         // double GetDistance();
+        #endregion
 
-        //double GetTemparture(int day);
-        //WindDirection GetWindDirection(int day);
+        #region User
+        User GetUser(string name);
+        void UpdateUser(User u);
+        IEnumerable<User> GetSpecificUsers(Predicate<User> p);
+        IEnumerable<User> GetAllUsers();
+        void AddUser(User u);
+        void DeleteUser(string name);
+
+        #endregion
 
     }
 }

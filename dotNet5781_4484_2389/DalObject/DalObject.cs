@@ -151,7 +151,7 @@ namespace DL
             Line l = DataSource.AllLines.Find(x => x.IsExist && x.Code == _Code);
             if(l!=null)
                 return l.Clone();
-            throw new DOException(_Code, $"Line number {_Code} was not found");
+            throw new DOException($"Line number {_Code} was not found");
         }
         public void UpdateLine(Line l) 
         {
@@ -342,23 +342,46 @@ namespace DL
         }
         #endregion
 
-        //static Random rnd = new Random(DateTime.Now.Millisecond);
-        //double temperature;
-
-        //public double GetTemparture(int day)
-        //{
-        //    temperature = rnd.NextDouble() * 50 - 10;
-        //    temperature += rnd.NextDouble() * 10 - 5;
-        //    return temperature;
-        //}
-
-        //public WindDirection GetWindDirection(int day)
-        //{
-        //    WindDirection direction = DataSource.directions.Find(d => true);
-        //    var directions = (WindDirections[])Enum.GetValues(typeof(WindDirections));
-        //    direction.direction = directions[rnd.Next(0, directions.Length)];
-
-        //    return direction.Clone();
-        //}
+        #region User
+        public User GetUser(string name)
+        {
+            User u = DataSource.AllUsers.FirstOrDefault(x => x.IsExist && x.Name == name);
+            if (u != null)
+                return u.Clone();
+            throw new DOException($"User named {name} was not found");
+        }
+        public void UpdateUser(User u)
+        {
+            int index = DataSource.AllUsers.FindIndex(x => x.IsExist && x.Name == u.Name);
+            if (index > -1)
+                DataSource.AllUsers[index] = u.Clone();
+            throw new DOException($"User named {u.Name} was not found");
+        }
+        public IEnumerable<User> GetSpecificUsers(Predicate<User> p)
+        {
+            return from User u in DataSource.AllUsers
+                   where p(u)
+                   select u;
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            return from User u in DataSource.AllUsers
+                   where u.IsExist
+                   select u;
+        }
+        public void AddUser(User u)
+        {
+            if (!DataSource.AllUsers.Exists(x => x.IsExist && x.Name == u.Name))
+                DataSource.AllUsers.Add(u.Clone());
+            throw new DOException($"User named {u.Name} is already exist");
+        }
+        public void DeleteUser(string name)
+        {
+            int index = DataSource.AllUsers.FindIndex(x => x.IsExist && x.Name == u.Name);
+            if (index > -1)
+                DataSource.AllUsers.RemoveAt(index);
+            throw new DOException($"User named {name} was not found");
+        }
+        #endregion
     }
 }

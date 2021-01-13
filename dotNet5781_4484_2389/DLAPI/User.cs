@@ -8,8 +8,8 @@ namespace DO
 {
     public class User
     {
-        public string Name { get; set; } //the ID
-        public string Password { get; set; }
+        public string Name { get; set; }        //id
+        public string Password { get; set; }  
         public bool IsManager { get; set; }
         public bool IsExist { get; set; } //for deleting
 

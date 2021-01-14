@@ -377,7 +377,7 @@ namespace DL
         }
         public void DeleteUser(string name)
         {
-            int index = DataSource.AllUsers.FindIndex(x => x.IsExist && x.Name == u.Name);
+            int index = DataSource.AllUsers.FindIndex(x => x.IsExist && x.Name == name);
             if (index > -1)
                 DataSource.AllUsers.RemoveAt(index);
             throw new DOException($"User named {name} was not found");

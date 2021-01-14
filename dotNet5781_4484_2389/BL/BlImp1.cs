@@ -730,7 +730,7 @@ namespace BL
         }
         #endregion
         #region User
-        bool IsUser(BOUser u)
+        public bool IsUser(BOUser u)
         {
             User du = new User();
             try

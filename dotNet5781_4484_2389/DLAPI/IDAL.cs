@@ -74,8 +74,17 @@ namespace DLAPI
         IEnumerable<User> GetAllUsers();
         void AddUser(User u);
         void DeleteUser(string name);
-
+        bool IsUser(User u);
         #endregion
 
+        #region LineTrip
+        LineTrip GetLineTrip(int _LineCode, TimeSpan _Start);
+        void AddLineTrip(LineTrip lt);
+        //IEnumerable<BOLineTrip> GetAllLineTrips();
+        IEnumerable<LineTrip> GetAllLineTrips(int _StationCode, TimeSpan _Start);
+        void DeleteLineTrip(int _LineCode, TimeSpan _Start);
+        void UpdateLineTrip(LineTrip lt);
+        #endregion
+    
     }
 }

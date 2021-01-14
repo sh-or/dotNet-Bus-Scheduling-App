@@ -21,6 +21,7 @@ namespace DS
         public static IEnumerable<ConsecutiveStations> AllConsecutiveStations;
         public static List<LineStation> AllLineStations;
         public static List<User> AllUsers;
+        public static List<LineTrip> AllLinesTrip;
 
         static DataSource() //c-tor of DS
         {
@@ -327,6 +328,20 @@ namespace DS
                 new User{ IsExist=true, Name="eeee", Password="eeee5555", IsManager=false},
                 new User{ IsExist=true, Name="ffff", Password="ffff6666", IsManager=false},
                 new User{ IsExist=true, Name="gggg", Password="gggg7777", IsManager=false}
+            };
+
+            AllLinesTrip = new List<LineTrip>
+            {
+                new LineTrip{ LineCode=1, Start=new TimeSpan(08,00,00) },
+                new LineTrip{ LineCode=1, Start=new TimeSpan(09,00,00) },
+                new LineTrip{ LineCode=1, Start=new TimeSpan(24,15,00) },
+                new LineTrip{ LineCode=1, Start=new TimeSpan(09,12,00) },
+                new LineTrip{ LineCode=1, Start=new TimeSpan(08,00,00) },
+                new LineTrip{ LineCode=2, Start=new TimeSpan(08,00,00) },
+                new LineTrip{ LineCode=2, Start=new TimeSpan(09,50,00) },
+                new LineTrip{ LineCode=2, Start=new TimeSpan(24,15,00) },
+                new LineTrip{ LineCode=3, Start=new TimeSpan(09,00,00) },
+                new LineTrip{ LineCode=3, Start=new TimeSpan(08,00,00) },
             };
         }
 

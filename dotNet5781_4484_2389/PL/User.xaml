@@ -80,7 +80,7 @@
                             <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <Button Content="Add Station" HorizontalAlignment="Left" Margin="779,437,0,0" VerticalAlignment="Top" Width="75" Click="AddStation_Click"/>
+                    <Button x:Name="TSimulator" Content="Simulator" HorizontalAlignment="Left" Margin="779,437,0,0" VerticalAlignment="Top" Width="75" Click="TSimulator_Click"/>
                     <DataGrid x:Name="ListBusStation" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBusStation_SelectionChanged" ItemsSource="{Binding}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="467" Margin="39,10,0,0" VerticalAlignment="Top" Width="511">
 
                         <DataGrid.Columns>

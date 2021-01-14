@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
+using BlAPI;
+using BO;
+using System.ComponentModel;
 
 namespace PL
 {
@@ -19,9 +23,35 @@ namespace PL
     /// </summary>
     public partial class Simulator : Window
     {
-        public Simulator()
+        public static BackgroundWorker bgw;  // BackgroundWorker 
+        IBL bl;
+        BOBusStation st;
+        public Simulator(IBL ibl, BOBusStation bst)
         {
             InitializeComponent();
+            bl = ibl;
+            st = bst;
+            bgw = new BackgroundWorker(); //reset the care backgrounder
+            bgw.DoWork += bgw_DoWork;
+            bgw.ProgressChanged += bgw_ProgressChanged;
+            bgw.RunWorkerCompleted += bgw_RunWorkerCompleted;
+            bgw.WorkerReportsProgress = true;
+            bgw.RunWorkerAsync(st); //send the current bus to care
+
+
+            lineSimulation.ItemsSource = bl.GetAllLineTrips(st.StationCode, DateTime.Now.TimeOfDay);
+        }
+        public void bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+        public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+        public void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
         }
     }
 }

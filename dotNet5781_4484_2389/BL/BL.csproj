@@ -50,6 +50,7 @@
     <Compile Include="BOExceptions.cs" />
     <Compile Include="BOLine.cs" />
     <Compile Include="BOLineStation.cs" />
+    <Compile Include="BOLineTrip.cs" />
     <Compile Include="BOStationLine.cs" />
     <Compile Include="BOConsecutiveStations.cs" />
     <Compile Include="BOUserDrive.cs" />

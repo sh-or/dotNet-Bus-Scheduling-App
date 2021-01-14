@@ -99,6 +99,13 @@ namespace PL
             StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
         }
 
+        private void TSimulator_Click(object sender, RoutedEventArgs e)
+        {
+            BOBusStation st = ListBusStation.SelectedItem as BOBusStation;
+            Simulator s = new Simulator(bl, st);
+            //stop BGW in closing!!
+            s.ShowDialog();
+        }
     }
 }
 

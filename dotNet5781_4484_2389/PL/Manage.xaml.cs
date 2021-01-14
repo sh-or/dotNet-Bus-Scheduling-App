@@ -23,7 +23,6 @@ namespace PL
     public partial class Manage : Window
     {
         IBL bl;
-        public static BackgroundWorker bgw;  // BackgroundWorker drive
         public static BackgroundWorker bgw1;  // BackgroundWorker care
         public static BackgroundWorker bgw2;  // BackgroundWorker refuel
 

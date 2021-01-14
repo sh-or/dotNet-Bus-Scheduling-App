@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Simulator" Height="450" Width="800">
+        Title="Simulator" Height="350" Width="500">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -14,5 +14,6 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
+        <DataGrid x:Name="lineSimulation" HorizontalAlignment="Center" Height="225" VerticalAlignment="Center" Width="350"/>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,9 @@ namespace PL
     public partial class Manage : Window
     {
         IBL bl;
+        public static BackgroundWorker bgw;  // BackgroundWorker drive
+        public static BackgroundWorker bgw1;  // BackgroundWorker care
+        public static BackgroundWorker bgw2;  // BackgroundWorker refuel
 
         public Manage(IBL ibl)
         {
@@ -184,5 +188,123 @@ namespace PL
             addsl.Closed += RefreshLinesAndStations;
             addsl.ShowDialog();
         }
+
+        //private void GoCare_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+
+        //private void GoRefuel_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+
+        public void GoCare_Click(object sender, RoutedEventArgs e) //going to care
+        {
+            BOBus b = (sender as Button).DataContext as BOBus;
+            caring(b);
+        }
+        public void caring(BOBus b) //the care(helper func for the ditails window)
+        {
+            bgw1 = new BackgroundWorker(); //reset the care backgrounder
+            bgw1.DoWork += bgw1_DoWork;
+            bgw1.ProgressChanged += bgw1_ProgressChanged;
+            bgw1.RunWorkerCompleted += bgw1_RunWorkerCompleted;
+            bgw1.WorkerReportsProgress = true;
+            bgw1.RunWorkerAsync(b); //send the current bus to care
+        }
+        public void bgw1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BOBus b = (BOBus)e.Argument; //get current bus
+            b.Status = (Status)5; //="InCare"
+            b.isAvailable = false; //not available
+            for (int i = 144; i > 0; i--)
+            {
+                b.timerAct = "Coming back in " + bgwTimer(i);
+                System.Threading.Thread.Sleep(1000); //wait 24 hours of care
+                bgw1.ReportProgress(5); //present changes
+            }
+
+            //update the changes from the ride: (after the ride)
+            b.DateOfLastCare = DateTime.Now;
+            b.KmFromLastCare = 0;
+            b.Status =(Status)1; //= Ready  (if not-will go to refuel...)
+            b.isAvailable = true; //available
+            b.timerAct = "";
+            if (b.KmFromLastRefuel > 1000) //checking fuel
+            //bgw2.RunWorkerAsync(b); //send the current bus to refuel
+            {
+                b.Fuel = 1;
+                b.KmFromLastRefuel = 0;
+            }
+        }
+        public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses(); //to show the new Status in the list
+        }
+        public void bgw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses(); //to show the new Status in the list
+        }
+
+        public void GoRefuel_Click(object sender, RoutedEventArgs e) //going to refuel
+        {
+            BOBus b = (sender as Button).DataContext as BOBus;
+            refueling(b);
+        }
+        public void refueling(BOBus b) //the refuel(helper func for the ditails window)
+        {
+            bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
+            bgw2.DoWork += bgw2_DoWork;
+            bgw2.ProgressChanged += bgw2_ProgressChanged;
+            bgw2.RunWorkerCompleted += bgw2_RunWorkerCompleted;
+            bgw2.WorkerReportsProgress = true;
+            bgw2.RunWorkerAsync(b); //send the current bus to refuel
+        }
+        public void bgw2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BOBus b = (BOBus)e.Argument; //get current bus
+            b.Status = (Status)6; //="InRefuel"
+            b.isAvailable = false; //not available
+            double tmp = b.Fuel;
+            for (int i = 12; i > 0; i--)
+            {
+                b.timerAct = "Coming back in " + bgwTimer(i);
+                System.Threading.Thread.Sleep(1000); //wait 2 hours of refuel
+                b.Fuel += (1 - tmp) / 12.0;
+                bgw2.ReportProgress(1); //present changes
+            }
+            //update the changes: (after refuel)
+            b.KmFromLastRefuel = 0;
+            b.Fuel = 1200.0;
+            b.Status = (Status)1; //= Ready 
+            b.isAvailable = true; //available
+            b.timerAct = "";
+        }
+        public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses();  //to show the new Status in the list
+        }
+        public void bgw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses();  //to show the new Status in the list
+        }
+
+        public static string bgwTimer(int i) //describe the time that left to the end of the act
+        {
+            string str;
+            if (i >= 60)
+            {
+                if (i / 60 / 10 != 0)
+                    str = i / 60 + ":";
+                else str = "0" + i / 60 + ":";
+            }
+            else str = "00:";
+            if (i % 60 < 10)
+                str += "0" + i % 60;
+            else str += i % 60;
+            return str;
+        }
+
     }
 }

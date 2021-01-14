@@ -60,6 +60,18 @@ namespace BlAPI
         //void DeleteDrive(int _StartStation, int _DestinationStation);
         #endregion
 
+        #region User
+        bool IsUser(BOUser u);
+        BOUser GetUser(string name);
+        void UpdateUser(BOUser u);
+        //IEnumerable<BOUser> GetSpecificUsers(Predicate<BOUser> p);
+        IEnumerable<BOUser> GetAllUsers();
+        void AddUser(BOUser u);
+        void DeleteUser(string name);
+
+        #endregion
+
+
         #region LineTrip
         void AddLineTrip(BOLineTrip lt);
         BOLineTrip GetLineTrip(int _LineCode, TimeSpan _Start);

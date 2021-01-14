@@ -729,5 +729,95 @@ namespace BL
             }
         }
         #endregion
+        #region User
+        bool IsUser(BOUser u)
+        {
+            User du = new User();
+            try
+            {
+                return dal.IsUser((User)Transform.trans(u, du.GetType()));
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public BOUser GetUser(string name)
+        {
+            BOUser u=new BOUser();
+            try
+            {
+                return (BOUser)Transform.trans(dal.GetUser(name), u.GetType());
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public void UpdateUser(BOUser u)
+        {
+            User du = new User();
+            try
+            {
+                dal.UpdateUser((User)Transform.trans(u, du.GetType()));
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        //public IEnumerable<BOUser> GetSpecificUsers(Predicate<BOUser> p)
+        //{
+        //    BOUser u = new BOUser();
+        //    try
+        //    {
+        //        return (BOUser)Transform.trans(dal.GetUser(name), u.GetType());
+        //    }
+        //    catch (DOException ex)
+        //    {
+        //        throw new BLException(ex.Message, ex);
+        //    }
+        //}
+        public IEnumerable<BOUser> GetAllUsers()
+        {
+            BOUser tmp = new BOUser();
+            IEnumerable<User> u;
+            try
+            {
+                u = dal.GetAllUsers();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message, dex);
+            }
+            IEnumerable<BOUser> bou = from User x in u
+                                      select (BOUser)Transform.trans(x, tmp.GetType());
+            return bou;
+        }
+        public void AddUser(BOUser u)
+        {
+            User du = new User();
+            try
+            {
+                dal.AddUser((User)Transform.trans(u, du.GetType()));
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public void DeleteUser(string name)
+        {
+            try
+            {
+                dal.DeleteUser(name);
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        #endregion
+
     }
 }

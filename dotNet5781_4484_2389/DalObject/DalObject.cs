@@ -389,7 +389,7 @@ namespace DL
         #endregion
 
         #region LineTrip
-        LineTrip GetLineTrip(int _LineCode, TimeSpan _Start)
+        public LineTrip GetLineTrip(int _LineCode, TimeSpan _Start)
         {
             LineTrip lt = DataSource.AllLinesTrip.Find(x =>x.IsExist && x.LineCode == _LineCode && x.Start == _Start);
             if (lt != null)
@@ -397,15 +397,15 @@ namespace DL
             throw new DOException($"Linetrip number {_LineCode} that start at {_Start}  was not found");
         }
 
-        void AddLineTrip(LineTrip lt)
+        public void AddLineTrip(LineTrip lt)
         {
             //check if exit?
             DataSource.AllLinesTrip.Add(lt.Clone());
         }
 
-        //IEnumerable<BOLineTrip> GetAllLineTrips();
+        //public IEnumerable<BOLineTrip> GetAllLineTrips();
 
-        IEnumerable<LineTrip> GetAllLineTrips(int _StationCode, TimeSpan _Start)
+        public IEnumerable<LineTrip> GetAllLineTrips(int _StationCode, TimeSpan _Start)
         {
             List<LineStation> ls = DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode);
             if (ls == null)
@@ -419,7 +419,7 @@ namespace DL
             return lt;
         }
 
-        void DeleteLineTrip(int _LineCode, TimeSpan _Start)
+        public void DeleteLineTrip(int _LineCode, TimeSpan _Start)
         {
             int n = DataSource.AllLinesTrip.FindIndex(x => x.LineCode == _LineCode &&x.Start==_Start);
             if (n > -1)
@@ -427,7 +427,7 @@ namespace DL
             else
                 throw new DOException($"Line trip number {_LineCode} that start at {_Start}was not found");
         }
-        void UpdateLineTrip(LineTrip lt) //need?
+        public void UpdateLineTrip(LineTrip lt) //need?
         {
 
         }

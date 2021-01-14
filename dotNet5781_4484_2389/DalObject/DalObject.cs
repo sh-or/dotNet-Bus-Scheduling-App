@@ -382,6 +382,55 @@ namespace DL
                 DataSource.AllUsers.RemoveAt(index);
             throw new DOException($"User named {name} was not found");
         }
+        public bool IsUser(User u)
+        {
+            return DataSource.AllUsers.Exists(x => x.IsExist && x.Name == name && x.Password == u.Password);
+        }
+        #endregion
+
+        #region LineTrip
+        LineTrip GetLineTrip(int _LineCode, TimeSpan _Start)
+        {
+            LineTrip lt = DataSource.AllLinesTrip.Find(x =>x.IsExist && x.LineCode == _LineCode && x.Start == _Start);
+            if (lt != null)
+                return lt.Clone();
+            throw new DOException($"Linetrip number {_LineCode} that start at {_Start}  was not found");
+        }
+
+        void AddLineTrip(LineTrip lt)
+        {
+            //check if exit?
+            DataSource.AllLinesTrip.Add(lt.Clone());
+        }
+
+        //IEnumerable<BOLineTrip> GetAllLineTrips();
+
+        IEnumerable<LineTrip> GetAllLineTrips(int _StationCode, TimeSpan _Start)
+        {
+            List<LineStation> ls = DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode);
+            if (ls == null)
+                throw new DOException($"Bus station {_StationCode} was not found");
+
+             IEnumerable<LineTrip> lt = from LineTrip x in DataSource.AllLinesTrip
+                                        from LineStation t in ls
+                                        where x.LineCode == t.LineCode && x.Start == _Start && x.IsExist
+                                        select x.Clone();
+            
+            return lt;
+        }
+
+        void DeleteLineTrip(int _LineCode, TimeSpan _Start)
+        {
+            int n = DataSource.AllLinesTrip.FindIndex(x => x.LineCode == _LineCode &&x.Start==_Start);
+            if (n > -1)
+                DataSource.AllLinesTrip[n].IsExist = false; //.RemoveAt(n);
+            else
+                throw new DOException($"Line trip number {_LineCode} that start at {_Start}was not found");
+        }
+        void UpdateLineTrip(LineTrip lt) //need?
+        {
+
+        }
         #endregion
     }
 }

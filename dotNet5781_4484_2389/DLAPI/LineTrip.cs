@@ -8,7 +8,9 @@ namespace DO
 {
     public class LineTrip
     {
-        int LineCode { get; set; }
-        TimeSpan Start { get; set; }
+        public int LineCode { get; set; }
+        public TimeSpan Start { get; set; }
+        public bool IsExist { get; set; }
+
     }
 }

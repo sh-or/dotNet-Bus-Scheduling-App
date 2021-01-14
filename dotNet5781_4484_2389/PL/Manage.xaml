@@ -38,14 +38,14 @@
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="GoRefuel" Content="GoRefuel" IsEnabled="{Binding Path=isAvailable}" Click="GoRefuel_Click" />
+                                        <Button x:Name="GoRefuel" Content="GoRefuel" Click="GoRefuel_Click" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="GoCare" Content="GoCare" IsEnabled="{Binding Path=isAvailable}" Click="GoCare_Click"/>
+                                        <Button x:Name="GoCare" Content="GoCare" Click="GoCare_Click"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -84,11 +84,11 @@
                                         <Setter Property="Background" Value="#FF96C7CF"/>
                                     </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding Path=Status}" Value="NeedRefeul">
+                                    <DataTrigger Binding="{Binding Path=Status}" Value="needRefuel">
                                         <Setter Property="Background" Value="#FFFDDE8B" />
                                     </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding Path=Status}" Value="NeedCare">
+                                    <DataTrigger Binding="{Binding Path=Status}" Value="needCare">
                                         <Setter Property="Background" Value="#FFEFAC6B"/>
                                     </DataTrigger>
                                 </Style.Triggers>

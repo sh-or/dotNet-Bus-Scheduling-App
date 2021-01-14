@@ -41,19 +41,24 @@ namespace BL
                 throw new BLException($"Bus cannot drive {b.KmFromLastCare} Km from last care");
             if (b.KmFromLastRefuel > 1200)
                 throw new BLException($"Bus cannot drive {b.KmFromLastRefuel} Km from last refuel");
-            if (!((DateTime.Today.AddYears(-1)) < b.DateOfLastCare) || (b.KmFromLastCare) > 18500) //checking time/km from last care
-            {
-                b.Status = (BO.StatusEnum)2; //need care 
-            }
-            else if (b.KmFromLastRefuel > 1000) //checking fuel
-            {
-                b.Status = (BO.StatusEnum)3; //need refuel 
-            }
-            else
-                b.Status = (BO.StatusEnum)1;
-            b.Fuel = 1 - b.KmFromLastRefuel / 1200;
             try
             {
+                tmp = dal.GetBus(b.LicenseNumber);
+                if(tmp.Fuel==b.Fuel)
+                    b.Fuel = 1 - b.KmFromLastRefuel / 1200;
+                if((int)b.Status<5) //not in refuel/care
+                {
+                    if (!((DateTime.Today.AddYears(-1)) < b.DateOfLastCare) || (b.KmFromLastCare) > 18500) //checking time/km from last care
+                    {
+                        b.Status = (BO.StatusEnum)2; //need care 
+                    }
+                    else if (b.KmFromLastRefuel > 1000) //checking fuel
+                    {
+                        b.Status = (BO.StatusEnum)3; //need refuel 
+                    }
+                    else
+                        b.Status = (BO.StatusEnum)1;
+                }
                 dal.UpdateBus((Bus)Transform.trans(b, tmp.GetType())); ;
             }
             catch (DOException dex)

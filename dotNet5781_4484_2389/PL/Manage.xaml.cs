@@ -216,11 +216,13 @@ namespace PL
         public void bgw1_DoWork(object sender, DoWorkEventArgs e)
         {
             BOBus b = (BOBus)e.Argument; //get current bus
-            b.Status = (Status)5; //="InCare"
-            b.isAvailable = false; //not available
+            b.Status = (StatusEnum)5; //="InCare"
+            bl.UpdateBus(b);
+            //button not enable?
+            //b.isAvailable = false; //not available
             for (int i = 144; i > 0; i--)
             {
-                b.timerAct = "Coming back in " + bgwTimer(i);
+                //b.timerAct = "Coming back in " + bgwTimer(i);
                 System.Threading.Thread.Sleep(1000); //wait 24 hours of care
                 bgw1.ReportProgress(5); //present changes
             }
@@ -228,15 +230,16 @@ namespace PL
             //update the changes from the ride: (after the ride)
             b.DateOfLastCare = DateTime.Now;
             b.KmFromLastCare = 0;
-            b.Status =(Status)1; //= Ready  (if not-will go to refuel...)
-            b.isAvailable = true; //available
-            b.timerAct = "";
+            b.Status =(StatusEnum)1; //= Ready  (if not-will go to refuel...)
+            //b.isAvailable = true; //available
+            //b.timerAct = "";
             if (b.KmFromLastRefuel > 1000) //checking fuel
             //bgw2.RunWorkerAsync(b); //send the current bus to refuel
             {
                 b.Fuel = 1;
                 b.KmFromLastRefuel = 0;
             }
+            bl.UpdateBus(b);
         }
         public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -264,22 +267,26 @@ namespace PL
         public void bgw2_DoWork(object sender, DoWorkEventArgs e)
         {
             BOBus b = (BOBus)e.Argument; //get current bus
-            b.Status = (Status)6; //="InRefuel"
-            b.isAvailable = false; //not available
+            b.Status = (StatusEnum)6; //="InRefuel"
+            bl.UpdateBus(b);
+            //button not enable?
+            //b.isAvailable = false; //not available
             double tmp = b.Fuel;
             for (int i = 12; i > 0; i--)
             {
-                b.timerAct = "Coming back in " + bgwTimer(i);
+                //b.timerAct = "Coming back in " + bgwTimer(i);
                 System.Threading.Thread.Sleep(1000); //wait 2 hours of refuel
                 b.Fuel += (1 - tmp) / 12.0;
+                bl.UpdateBus(b);
                 bgw2.ReportProgress(1); //present changes
             }
             //update the changes: (after refuel)
             b.KmFromLastRefuel = 0;
-            b.Fuel = 1200.0;
-            b.Status = (Status)1; //= Ready 
-            b.isAvailable = true; //available
-            b.timerAct = "";
+            b.Fuel = 1;
+            b.Status = (StatusEnum)1; //= Ready 
+            bl.UpdateBus(b);
+            //b.isAvailable = true; //available
+            //b.timerAct = "";
         }
         public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {

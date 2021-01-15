@@ -28,11 +28,18 @@ namespace PL
             bl = ibl;
             InitializeComponent();
             //IEnumerable<BOBusStation> busStations = bl.GetAllBusStations();
-            ListBusStation.ItemsSource = bl.GetAllBusStations();
-            //IEnumerable<BOLine> line = bl.GetAllLines();
-            ListLines.ItemsSource = bl.GetAllLines();
-            StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
-            LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
+            try
+            {
+                ListBusStation.ItemsSource = bl.GetAllBusStations();
+                //IEnumerable<BOLine> line = bl.GetAllLines();
+                ListLines.ItemsSource = bl.GetAllLines();
+                StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
+                LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR!\n" + ex.Message);
+            }
         }
 
         private void RefreshLinesAndStations(object sender, EventArgs e)

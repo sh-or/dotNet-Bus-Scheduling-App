@@ -15,6 +15,6 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <DataGrid x:Name="lineSimulation" HorizontalAlignment="Center" Height="225" VerticalAlignment="Center" Width="350"/>
+        <DataGrid x:Name="lineSimulation" ItemsSource="{Binding}" HorizontalAlignment="Center" Height="225" VerticalAlignment="Center" Width="350" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
     </Grid>
 </Window>

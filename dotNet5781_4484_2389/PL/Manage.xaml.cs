@@ -124,7 +124,7 @@ namespace PL
             }
             catch (BLException ex)
             {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
             }
         }
 
@@ -139,7 +139,7 @@ namespace PL
             }
             catch (BLException ex)
             {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
             }
         }
 
@@ -155,7 +155,7 @@ namespace PL
             }
             catch (BLException ex)
             {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
             }
         }
 
@@ -172,7 +172,7 @@ namespace PL
             }
             catch (BLException ex)
             {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+                MessageBox.Show("ERROR! \n" + ex.Message + "\nEdit and try again");
             }
         }
 

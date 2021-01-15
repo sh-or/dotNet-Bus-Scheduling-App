@@ -30,15 +30,11 @@ namespace PL
         {
             bl = ibl;
             InitializeComponent();
-            //IEnumerable<BOBus> buses = bl.GetAllBuses();
             ListBuses.ItemsSource = bl.GetAllBuses();
-            //IEnumerable<BOBusStation> busStations = bl.GetAllBusStations();
             ListBusStation.ItemsSource = bl.GetAllBusStations();
-            //IEnumerable<BOLine> line = bl.GetAllLines();
             ListLines.ItemsSource = bl.GetAllLines();
-            StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
-            LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
-           // LineStations.Columns.Add();
+            //StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
+            //LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
 
 
@@ -110,7 +106,7 @@ namespace PL
 
         private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
+            //LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
 
         private void ListBusStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -312,6 +308,9 @@ namespace PL
             return str;
         }
 
-    
+        private void LineStations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //update cs (window)
+        }
     }
 }

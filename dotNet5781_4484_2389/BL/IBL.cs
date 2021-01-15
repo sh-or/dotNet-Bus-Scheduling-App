@@ -75,13 +75,12 @@ namespace BlAPI
         #region LineTrip
         void AddLineTrip(BOLineTrip lt);
         BOLineTrip GetLineTrip(int _LineCode, TimeSpan _Start);
-        //IEnumerable<BOLineTrip> GetAllLineTrips();
-        IEnumerable<BOLineTrip> GetAllLineTrips(int _StationCode, TimeSpan _Start);
+        IEnumerable<BOLineTrip> GetAllLineTrips(int _LineCode);
+        IEnumerable<BOLineTrip> GetAllStationLineTrips(int _StationCode, TimeSpan _Start);
         void DeleteLineTrip(int _LineCode, TimeSpan _Start);
-        void UpdateLineTrip(BOLineTrip lt);
+        void UpdateLineTrip(BOLineTrip lt, TimeSpan NewStart); //lt=original
 
         #endregion
-
-        //   Weather GetWeather(int day);
+        TimeSpan DriveTimeToStation(int _LineCode, int _StationCode);
     }
 }

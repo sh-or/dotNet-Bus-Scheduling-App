@@ -729,6 +729,7 @@ namespace BL
             }
         }
         #endregion
+
         #region User
         public bool IsUser(BOUser u)
         {
@@ -819,5 +820,99 @@ namespace BL
         }
         #endregion
 
+        #region LineTrip
+        public void AddLineTrip(BOLineTrip lt)
+        {
+            LineTrip tmp = new LineTrip();
+            try
+            {
+                dal.AddLineTrip((LineTrip)Transform.trans(lt, tmp.GetType()));
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public BOLineTrip GetLineTrip(int _LineCode, TimeSpan _Start)
+        {            
+            BOLineTrip tmp = new BOLineTrip();
+            try
+            {
+                return (BOLineTrip)Transform.trans(dal.GetLineTrip(_LineCode,_Start), tmp.GetType());
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public IEnumerable<BOLineTrip> GetAllLineTrips(int _LineCode)
+        {
+            BOLineTrip tmp = new BOLineTrip();
+            try
+            {
+                return from LineTrip l in dal.GetAllLineTrips(_LineCode)
+                       select (BOLineTrip)Transform.trans(l, tmp.GetType());
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public IEnumerable<BOLineTrip> GetAllStationLineTrips(int _StationCode, TimeSpan _Start)
+        {
+            BOLineTrip tmp = new BOLineTrip();
+            try
+            {
+                return from l in dal.GetAllStationLineTrips(_StationCode, _Start)
+                       where l.Start + DriveTimeToStation(l.LineCode,_StationCode) < _Start
+                       select (BOLineTrip)Transform.trans(l, tmp.GetType());
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public void DeleteLineTrip(int _LineCode, TimeSpan _Start)
+        {
+            LineTrip tmp = new LineTrip();
+            try
+            {
+                dal.DeleteLineTrip(_LineCode,_Start);
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        public void UpdateLineTrip(BOLineTrip lt, TimeSpan NewStart) //lt=original
+        {
+            LineTrip tmp = new LineTrip();
+            try
+            {
+                dal.UpdateLineTrip((LineTrip)Transform.trans(lt, tmp.GetType()),NewStart);
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
+        }
+        #endregion
+        public TimeSpan DriveTimeToStation(int _LineCode, int _StationCode)
+        {
+            BOLine l = GetLine(_LineCode);
+            List<BOLineStation> lst = l.Stations.ToList();
+            TimeSpan t = TimeSpan.Zero;
+            if(l.Stations.FirstOrDefault(x=>x.StationCode==_StationCode)!=null)
+            {
+                int i = 1;
+                while(lst[i-1].StationCode!=_StationCode)
+                {
+                    t += lst[i].DriveTime;
+                }
+                return t;
+            }
+            else
+                throw new BLException($"Line {_LineCode} does not cross at station {_StationCode}");
+        }
     }
 }

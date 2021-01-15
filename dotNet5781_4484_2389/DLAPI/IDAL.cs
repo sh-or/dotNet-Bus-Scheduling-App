@@ -80,10 +80,10 @@ namespace DLAPI
         #region LineTrip
         LineTrip GetLineTrip(int _LineCode, TimeSpan _Start);
         void AddLineTrip(LineTrip lt);
-        //IEnumerable<BOLineTrip> GetAllLineTrips();
-        IEnumerable<LineTrip> GetAllLineTrips(int _StationCode, TimeSpan _Start);
+        IEnumerable<LineTrip> GetAllLineTrips(int _LineCode);
+        IEnumerable<LineTrip> GetAllStationLineTrips(int _StationCode, TimeSpan _Start);
         void DeleteLineTrip(int _LineCode, TimeSpan _Start);
-        void UpdateLineTrip(LineTrip lt);
+        void UpdateLineTrip(LineTrip lt, TimeSpan NewStart); //lt=original
         #endregion
     
     }

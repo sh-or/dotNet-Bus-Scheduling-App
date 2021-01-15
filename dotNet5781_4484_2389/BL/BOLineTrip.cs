@@ -8,10 +8,11 @@ namespace BO
 {
     public class BOLineTrip
     {
-        int LineCode { get; set; }
-        int BusLine { get; set; } //for presentation
-        int StationCode { get; set; }
-        TimeSpan Start { get; set; }
-        TimeSpan Arrive { get; set; }
+        public int LineCode { get; set; }
+        public int BusLine { get; set; } //for presentation
+        public int StationCode { get; set; }
+        public TimeSpan Start { get; set; }
+        public TimeSpan Arrive { get; set; }
+        public bool IsExist { get; set; }
     }
 }

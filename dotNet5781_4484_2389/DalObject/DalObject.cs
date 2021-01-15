@@ -384,38 +384,42 @@ namespace DL
         }
         public bool IsUser(User u)
         {
-            return DataSource.AllUsers.Exists(x => x.IsExist && x.Name == name && x.Password == u.Password);
+            return DataSource.AllUsers.Exists(x => x.IsExist && x.Name == u.Name && x.Password == u.Password);
         }
         #endregion
 
         #region LineTrip
         public LineTrip GetLineTrip(int _LineCode, TimeSpan _Start)
         {
-            LineTrip lt = DataSource.AllLinesTrip.Find(x =>x.IsExist && x.LineCode == _LineCode && x.Start == _Start);
+            LineTrip lt = DataSource.AllLinesTrip.Find(x =>x.IsExist && x.LineCode == _LineCode && x.Start <= _Start);
             if (lt != null)
                 return lt.Clone();
-            throw new DOException($"Linetrip number {_LineCode} that start at {_Start}  was not found");
+            throw new DOException($"Line {_LineCode} has no trip till {_Start}"); //datetime.timeOfTheDay()
         }
 
         public void AddLineTrip(LineTrip lt)
         {
-            //check if exit?
+            //can add identical linetrip, rush hours..
             DataSource.AllLinesTrip.Add(lt.Clone());
         }
 
-        //public IEnumerable<BOLineTrip> GetAllLineTrips();
+        public IEnumerable<LineTrip> GetAllLineTrips(int _LineCode)
+        {
+            return from LineTrip x in DataSource.AllLinesTrip
+                   where x.LineCode == _LineCode && x.IsExist
+                   select x.Clone();
+        }
 
-        public IEnumerable<LineTrip> GetAllLineTrips(int _StationCode, TimeSpan _Start)
+        public IEnumerable<LineTrip> GetAllStationLineTrips(int _StationCode, TimeSpan _Start)
         {
             List<LineStation> ls = DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode);
             if (ls == null)
-                throw new DOException($"Bus station {_StationCode} was not found");
+                throw new DOException($"Bus station {_StationCode} has no lines");
 
-             IEnumerable<LineTrip> lt = from LineTrip x in DataSource.AllLinesTrip
-                                        from LineStation t in ls
-                                        where x.LineCode == t.LineCode && x.Start == _Start && x.IsExist
+             IEnumerable<LineTrip> lt = from LineStation t in ls
+                                        from LineTrip x in DataSource.AllLinesTrip
+                                        where x.LineCode == t.LineCode && x.Start <= _Start && x.IsExist
                                         select x.Clone();
-            
             return lt;
         }
 
@@ -423,13 +427,20 @@ namespace DL
         {
             int n = DataSource.AllLinesTrip.FindIndex(x => x.LineCode == _LineCode &&x.Start==_Start);
             if (n > -1)
-                DataSource.AllLinesTrip[n].IsExist = false; //.RemoveAt(n);
+                DataSource.AllLinesTrip[n].IsExist = false; 
             else
-                throw new DOException($"Line trip number {_LineCode} that start at {_Start}was not found");
+                throw new DOException($"Line {_LineCode} has no trip at {_Start}");
         }
-        public void UpdateLineTrip(LineTrip lt) //need?
+        public void UpdateLineTrip(LineTrip lt, TimeSpan NewStart) //lt==original!
         {
-
+            int n = DataSource.AllLinesTrip.FindIndex(x => x.LineCode == lt.LineCode && x.Start == lt.Start);
+            if (n > -1)
+            {
+                lt.Start = NewStart;
+                DataSource.AllLinesTrip[n] = lt;
+            }
+            else
+                throw new DOException($"Line {lt.LineCode} has no trip at {lt.Start}");
         }
         #endregion
     }

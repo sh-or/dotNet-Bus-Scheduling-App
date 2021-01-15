@@ -39,7 +39,7 @@ namespace PL
             bgw.RunWorkerAsync(st); //send the current bus to care
 
 
-            lineSimulation.ItemsSource = bl.GetAllLineTrips(st.StationCode, DateTime.Now.TimeOfDay);
+            //lineSimulation.ItemsSource = bl.GetAllLineTrips(st.StationCode, DateTime.Now.TimeOfDay);
         }
         public void bgw_DoWork(object sender, DoWorkEventArgs e)
         {

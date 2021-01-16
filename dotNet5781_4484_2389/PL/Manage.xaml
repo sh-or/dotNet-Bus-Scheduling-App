@@ -28,7 +28,7 @@
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ProgressBar x:Name="FuelColumn" Minimum="0" Maximum="1" Value="{Binding Fuel}" Width="120" />
+                                        <ProgressBar x:Name="FuelColumn" Minimum="0" Maximum="1" Value="{Binding Fuel}" Width="80" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -149,16 +149,16 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="LineStations" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="525,49,13,0" VerticalAlignment="Top" Width="348" MouseDoubleClick="LineStations_MouseDoubleClick">
-                       <DataGridTemplateColumn>
+                    <DataGrid x:Name="LineStations" AutoGeneratingColumn="LineStations_AutoGeneratingColumn" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="525,49,13,0" VerticalAlignment="Top" Width="348" MouseDoubleClick="LineStations_MouseDoubleClick">
+                       <!--DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button x:Name="DeleteStationInLine" Content="Delete" Click="DeleteStationInLine_Click"  ToolTip="Delete station from the line"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn> 
+                        </DataGridTemplateColumn--> 
                     </DataGrid>
-                    <Label Content="Stations in this line:" HorizontalAlignment="Left" Margin="601,18,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="Stations in this line:" HorizontalAlignment="Left" Margin="601,18,0,0" VerticalAlignment="Top" FontSize="18" Width="215"/>
                     <Button x:Name="AddStationInLine" Content="Add station in line" Click="AddStationInLine_Click"  ToolTip="Add station to this line" Margin="645,347,122,118" /> 
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

@@ -106,7 +106,7 @@ namespace PL
 
         private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
+            LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
 
         private void ListBusStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -311,6 +311,13 @@ namespace PL
         private void LineStations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             //update cs (window)
+        }
+
+        private void LineStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string header = e.Column.Header.ToString();
+            if (header == "Distance")
+                e.Cancel = true;
         }
     }
 }

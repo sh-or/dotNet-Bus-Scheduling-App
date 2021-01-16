@@ -31,15 +31,16 @@ namespace PL
             InitializeComponent();
             bl = ibl;
             st = bst;
-            bgw = new BackgroundWorker(); //reset the care backgrounder
+            stNum.Text = st.StationCode+"  "+ st.Name;
+            bgw = new BackgroundWorker(); //reset the backgrounder
             bgw.DoWork += bgw_DoWork;
             bgw.ProgressChanged += bgw_ProgressChanged;
             bgw.RunWorkerCompleted += bgw_RunWorkerCompleted;
             bgw.WorkerReportsProgress = true;
-            bgw.RunWorkerAsync(st); //send the current bus to care
+            bgw.RunWorkerAsync(st); 
 
 
-            //lineSimulation.ItemsSource = bl.GetAllLineTrips(st.StationCode, DateTime.Now.TimeOfDay);
+            lineSimulation.ItemsSource = bl.GetAllStationLineTrips(st.StationCode, new TimeSpan(8,30,0));
         }
         public void bgw_DoWork(object sender, DoWorkEventArgs e)
         {

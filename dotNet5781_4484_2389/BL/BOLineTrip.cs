@@ -13,6 +13,7 @@ namespace BO
         public int StationCode { get; set; }
         public TimeSpan Start { get; set; }
         public TimeSpan Arrive { get; set; }
+        public string Destination { get; set; } //last station
         public bool IsExist { get; set; }
     }
 }

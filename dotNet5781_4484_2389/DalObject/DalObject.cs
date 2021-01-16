@@ -343,12 +343,12 @@ namespace DL
         #endregion
 
         #region User
-        public User GetUser(string name)
+        public User GetUser(string name, string password)
         {
-            User u = DataSource.AllUsers.FirstOrDefault(x => x.IsExist && x.Name == name);
+            User u = DataSource.AllUsers.FirstOrDefault(x => x.IsExist && x.Name == name && x.Password == password);
             if (u != null)
                 return u.Clone();
-            throw new DOException($"User named {name} was not found");
+            throw new DOException($"User name or password are wrong");
         }
         public void UpdateUser(User u)
         {
@@ -382,10 +382,10 @@ namespace DL
                 DataSource.AllUsers.RemoveAt(index);
             throw new DOException($"User named {name} was not found");
         }
-        public bool IsUser(User u)
-        {
-            return DataSource.AllUsers.Exists(x => x.IsExist && x.Name == u.Name && x.Password == u.Password);
-        }
+        //public bool IsUser(User u)
+        //{
+        //    return DataSource.AllUsers.Exists(x => x.IsExist && x.Name == u.Name && x.Password == u.Password);
+        //}
         #endregion
 
         #region LineTrip

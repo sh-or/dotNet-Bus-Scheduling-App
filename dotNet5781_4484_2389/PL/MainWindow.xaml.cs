@@ -31,28 +31,27 @@ namespace PL
 
         private void userLogin_Click(object sender, RoutedEventArgs e)
         {
-            //BOUser u = new BOUser()
-            //{
-            //    Name = iName.Text,
-            //    IsExist = true,
-            //    IsManager = (bool)isManage.IsChecked,
-            //    Password = iPassword.Text
-            //};
+            BOUser u = new BOUser()
+            {
+                Name = iName.Text,
+                IsExist = true,
+                Password = iPassword.Text
+            };
 
             //if......checking
             try
             {
-                BOUser u = bl.GetUser(iName.Text);
-                if (u.IsManager)
-                {
-                    Manage manage = new Manage(bl);
-                    manage.ShowDialog();
-                }
-                else
-                {
-                    User userr = new User(bl);
-                    userr.ShowDialog();
-                }
+                    u = bl.GetUser(u.Name,u.Password);
+                    if (u.IsManager)
+                    {
+                        Manage manage = new Manage(bl);
+                        manage.ShowDialog();
+                    }
+                    else
+                    {
+                        User userr = new User(bl);
+                        userr.ShowDialog();
+                    }
             }
             catch (BLException ex)
             {

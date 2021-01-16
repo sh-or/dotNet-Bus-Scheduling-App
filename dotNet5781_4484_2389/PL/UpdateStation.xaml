@@ -59,6 +59,7 @@
         <TextBox x:Name="_Longitude" PreviewKeyDown="TextBox_onlyDouble_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_Name" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_Address" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="9" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
+        <Label Content="Israel Borders:" Grid.Column="2" HorizontalAlignment="Center" Margin="50,38.667,40.333,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Grid.RowSpan="3" Width="89"/>
 
     </Grid>
 </Window>

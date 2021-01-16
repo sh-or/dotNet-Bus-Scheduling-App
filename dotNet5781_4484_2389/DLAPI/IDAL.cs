@@ -68,13 +68,13 @@ namespace DLAPI
         #endregion
 
         #region User
-        User GetUser(string name);
+        User GetUser(string name, string password);
         void UpdateUser(User u);
         IEnumerable<User> GetSpecificUsers(Predicate<User> p);
         IEnumerable<User> GetAllUsers();
         void AddUser(User u);
         void DeleteUser(string name);
-        bool IsUser(User u);
+        //bool IsUser(User u);
         #endregion
 
         #region LineTrip

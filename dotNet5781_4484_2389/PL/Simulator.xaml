@@ -8,6 +8,10 @@
         Title="Simulator" Height="300" Width="450">
     <!--Width="500" with clock at bottom:)-->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF6ED8F7" Offset="0"/>
@@ -15,6 +19,10 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <DataGrid x:Name="lineSimulation" ItemsSource="{Binding}" HorizontalAlignment="Center" Height="225" VerticalAlignment="Center" Width="350" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
+        <DataGrid x:Name="lineSimulation" ItemsSource="{Binding}" HorizontalAlignment="Center" Height="182" VerticalAlignment="Center" Width="350" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Margin="47,41,46.334,47.667" Grid.ColumnSpan="2"/>
+        <Label Content="Station  " Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,46,0"/>
+        <TextBlock x:Name="stNum" Text="aaa" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="203,11,0,0" Width="33" Grid.ColumnSpan="2"/>
+        <Label Content="ATTENTION!" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="183,223,158.333,0" Width="102"/>
+        <Label Content="The real time system shows only lines that already left their starting point" HorizontalAlignment="Left" Margin="25,236,0,0" VerticalAlignment="Top" Height="26" Width="404" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

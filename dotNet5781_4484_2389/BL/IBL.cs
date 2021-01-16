@@ -61,8 +61,8 @@ namespace BlAPI
         #endregion
 
         #region User
-        bool IsUser(BOUser u);
-        BOUser GetUser(string name);
+        //bool IsUser(BOUser u);
+        BOUser GetUser(string name, string password);
         void UpdateUser(BOUser u);
         //IEnumerable<BOUser> GetSpecificUsers(Predicate<BOUser> p);
         IEnumerable<BOUser> GetAllUsers();

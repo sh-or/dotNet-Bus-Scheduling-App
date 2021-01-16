@@ -350,6 +350,7 @@ namespace DL
                 return u.Clone();
             throw new DOException($"User name or password are wrong");
         }
+
         public void UpdateUser(User u)
         {
             int index = DataSource.AllUsers.FindIndex(x => x.IsExist && x.Name == u.Name);
@@ -357,24 +358,29 @@ namespace DL
                 DataSource.AllUsers[index] = u.Clone();
             throw new DOException($"User named {u.Name} was not found");
         }
+
         public IEnumerable<User> GetSpecificUsers(Predicate<User> p)
         {
             return from User u in DataSource.AllUsers
                    where p(u)
                    select u;
         }
+
         public IEnumerable<User> GetAllUsers()
         {
             return from User u in DataSource.AllUsers
                    where u.IsExist
                    select u;
         }
+
         public void AddUser(User u)
         {
             if (!DataSource.AllUsers.Exists(x => x.IsExist && x.Name == u.Name))
                 DataSource.AllUsers.Add(u.Clone());
-            throw new DOException($"User named {u.Name} is already exist");
+            else
+                throw new DOException($"User named {u.Name} is already exist");
         }
+
         public void DeleteUser(string name)
         {
             int index = DataSource.AllUsers.FindIndex(x => x.IsExist && x.Name == name);

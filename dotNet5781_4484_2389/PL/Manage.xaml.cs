@@ -48,12 +48,7 @@ namespace PL
             ListLines.ItemsSource = bl.GetAllLines();
         }
 
-        private void Exit(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void UpdateBus_Click(object sender, RoutedEventArgs e)
+       private void UpdateBus_Click(object sender, RoutedEventArgs e)
         {
             BOBus b = (sender as Button).DataContext as BOBus;
             UpdateBus upB = new UpdateBus(bl, b);

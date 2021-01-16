@@ -11,8 +11,8 @@
         <TabControl HorizontalAlignment="Right" Height="515" Margin="0,4,0,0" VerticalAlignment="Top" Width="892" >
             <TabItem Header="Buses" HorizontalAlignment="Right" Margin="0,0,-14,-2" Width="80">
                 <Grid >
-                    <Button Content="Add Bus" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addBus" />
-                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False"  HorizontalAlignment="Center" HorizontalGridLinesBrush="Khaki"  EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" Margin="27,13,120,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="739" >
+                    <Button Content="Add Bus" HorizontalAlignment="Left" Margin="802,445,0,0" VerticalAlignment="Top" Width="74" Height="32" Click="addBus" />
+                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False"  HorizontalAlignment="Center" HorizontalGridLinesBrush="Khaki"  EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" Margin="15,13,89,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="782" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -22,8 +22,8 @@
                             </TransformGroup>
                         </DataGrid.RenderTransform>
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number" FontStyle="Italic"  Width="100"/>
-                            <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="100"/>
+                            <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number"  Width="90"/>
+                            <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="KmColumn" Binding="{Binding Kilometerage}" Header="Kilometerage" Width="80"/>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -72,7 +72,7 @@
                             <Style TargetType="DataGridRow">
                                 <Style.Triggers>
 
-                               <!--     <DataTrigger Binding="{Binding Path=Status}" Value="InDrive">
+                                    <!--     <DataTrigger Binding="{Binding Path=Status}" Value="InDrive">
                                         <Setter Property="Background" Value= "#FFCFF3CB"/>
                                     </DataTrigger>  -->
 
@@ -98,8 +98,8 @@
                                 </Style.Resources>
                             </Style>
                         </DataGrid.Resources>
-                        
-                        
+
+
                     </DataGrid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -150,16 +150,16 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataGrid x:Name="LineStations" AutoGeneratingColumn="LineStations_AutoGeneratingColumn" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="525,49,13,0" VerticalAlignment="Top" Width="348" MouseDoubleClick="LineStations_MouseDoubleClick">
-                       <!--DataGridTemplateColumn>
+                        <!--DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button x:Name="DeleteStationInLine" Content="Delete" Click="DeleteStationInLine_Click"  ToolTip="Delete station from the line"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn--> 
+                        </DataGridTemplateColumn-->
                     </DataGrid>
                     <Label Content="Stations in this line:" HorizontalAlignment="Left" Margin="601,18,0,0" VerticalAlignment="Top" FontSize="18" Width="215"/>
-                    <Button x:Name="AddStationInLine" Content="Add station in line" Click="AddStationInLine_Click"  ToolTip="Add station to this line" Margin="645,347,122,118" /> 
+                    <Button x:Name="AddStationInLine" Content="Add station in line" Click="AddStationInLine_Click"  ToolTip="Add station to this line" Margin="645,347,122,118" />
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>
@@ -235,7 +235,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Content="Exit" HorizontalAlignment="Left" Margin="807,3,0,0" VerticalAlignment="Top" Width="75" Click="Exit" Background="White"/>
 
     </Grid>
 </Window>

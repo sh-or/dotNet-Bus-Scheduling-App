@@ -643,13 +643,19 @@ namespace BL
                 throw new BLException(dex.Message, dex);
             }
         }
+
+
         public void DeleteLine(int _Code)
         {
             try
             {
                 IEnumerable<LineStation> ls = dal.GetSpecificLineStations(x => x.LineCode == _Code);
                 foreach (LineStation x in ls)
+                {
                     dal.DeleteLineStation(_Code, x.StationCode);
+                   // dal.DeleteLineTrip(_Code);
+                }
+
                 //foreach (LineStation x in ls)
                 //    dal.DeleteLineStation(x.LineCode, x.StationCode);
                 dal.DeleteLine(_Code);

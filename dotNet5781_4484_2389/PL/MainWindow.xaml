@@ -31,14 +31,14 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="Enter you details: " Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="20"/>
+        <Label Content="Enter you details: " Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="19"/>
         <TextBox x:Name="iName" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
         <Label Content="  Name: " Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" FontSize="18" FontFamily="Sitka Display"/>
         <TextBox x:Name="iPassword" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
         <Label Content="  Password: " Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
         <!--RadioButton x:Name="isManage" Content="I am a manager " Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/-->
         <Image />
-        <Label Content="New user? Sign in!" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="20"/>
+        <Label Content="New user? Sign in!" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="19"/>
         <Label Content="  Name: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
         <TextBox x:Name="iNameN" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
         <Label Content="  Password: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
@@ -54,8 +54,8 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button x:Name="userLogin" Content="login" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontWeight="Bold" FontSize="18" FontFamily="Sitka Display" Click="userLogin_Click"/>
-        <Button x:Name="newUser" Content="login" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontFamily="Sitka Display" FontWeight="Bold" FontSize="18" Click="newUser_Click"/>
+        <Button x:Name="userLogin" Content="Log in" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontWeight="Bold" FontSize="18" FontFamily="Sitka Display" Click="userLogin_Click"/>
+        <Button x:Name="newUser" Content="Sign in" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" FontFamily="Sitka Display" FontWeight="Bold" FontSize="18" Click="newUser_Click"/>
         <Rectangle Grid.Column="2" HorizontalAlignment="Left" Height="230" Margin="23.667,28,0,0" Grid.RowSpan="7" Stroke="Black" VerticalAlignment="Top" Width="8">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

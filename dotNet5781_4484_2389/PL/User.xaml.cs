@@ -109,7 +109,8 @@ namespace PL
         private void TSimulator_Click(object sender, RoutedEventArgs e)
         {
             BOBusStation st = ListBusStation.SelectedItem as BOBusStation;
-            Simulator s = new Simulator(bl, st);
+            
+            Simulator s = new Simulator(bl, st, Hours.Text, Minuts.Text, Seconds.Text, int.Parse(Rate.Text));
             //stop BGW in closing!!
             s.ShowDialog();
         }
@@ -120,6 +121,7 @@ namespace PL
             if (header == "Distance")
                 e.Cancel = true;
         }
+
     }
 }
 

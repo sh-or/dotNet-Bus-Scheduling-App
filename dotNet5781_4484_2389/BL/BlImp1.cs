@@ -173,9 +173,9 @@ namespace BL
         public void UpdateStation(BOBusStation bs)
         {
             if (bs.Latitude < 31 || bs.Latitude > 33.3)
-                throw new BLException($"Latitude {bs.Latitude} exceeds the orders of Israel");
+                throw new BLException($"Latitude {bs.Latitude} exceeds the borders of Israel");
             if (bs.Longitude < 34.3 || bs.Longitude > 35.5)
-                throw new BLException($"Longitude {bs.Longitude} exceeds the orders of Israel");
+                throw new BLException($"Longitude {bs.Longitude} exceeds the borders of Israel");
 
             BusStation tmp = new BusStation();
             try
@@ -653,7 +653,11 @@ namespace BL
                 foreach (LineStation x in ls)
                 {
                     dal.DeleteLineStation(_Code, x.StationCode);
-                   // dal.DeleteLineTrip(_Code);
+                    List<LineTrip> lst = dal.GetAllLineTrips(_Code).ToList();
+                    for (int i = lst.Count() - 1; i >= 0; i--)
+                    {
+                        dal.DeleteLineTrip(_Code, lst[i].Start);
+                    }
                 }
 
                 //foreach (LineStation x in ls)
@@ -737,18 +741,7 @@ namespace BL
         #endregion
 
         #region User
-        //public bool IsUser(BOUser u)
-        //{
-        //    User du = new User();
-        //    try
-        //    {
-        //        return dal.IsUser((User)Transform.trans(u, du.GetType()));
-        //    }
-        //    catch (DOException ex)
-        //    {
-        //        throw new BLException(ex.Message, ex);
-        //    }
-        //}
+        
         public BOUser GetUser(string name, string password)
         {
             BOUser u=new BOUser();
@@ -919,6 +912,7 @@ namespace BL
             }
         }
         #endregion
+
         public TimeSpan DriveTimeToStation(int _LineCode, int _StationCode)
         {
             BOLine l = GetLine(_LineCode);

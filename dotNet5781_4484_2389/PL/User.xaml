@@ -32,7 +32,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Button x:Name="TSimulator" Content="Simulator" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Click="TSimulator_Click" Margin="0,0,68.333,32.333"/>
-                    <DataGrid x:Name="ListBusStation" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListBusStation_SelectionChanged" ItemsSource="{Binding}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="371" Margin="19,10,0,0" VerticalAlignment="Top" Width="360">
+                    <DataGrid x:Name="ListBusStation" IsSynchronizedWithCurrentItem="True" IsReadOnly="True" SelectionChanged="ListBusStation_SelectionChanged" ItemsSource="{Binding}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="371" Margin="19,10,0,0" VerticalAlignment="Top" Width="360">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="StationCode" Binding="{Binding StationCode}" Header="Station Code"  Width="80"/>
                             <DataGridTextColumn x:Name="Name" Binding="{Binding Name}" Header="Name" Width="100"/>
@@ -40,7 +40,7 @@
                             <DataGridCheckBoxColumn x:Name="Accessibility" Binding="{Binding Accessibility}" Header="Accessibility"  Width="SizeToHeader" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="StationLines" Background="Yellow" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="241" VerticalAlignment="Center" Width="180" Margin="0,38,18.333,112.333"/>
+                    <DataGrid x:Name="StationLines" Background="Yellow" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="241" VerticalAlignment="Center" Width="180" Margin="0,38,18.333,112.333"/>
                     <TextBox x:Name="Hours" HorizontalAlignment="Left" Height="23" Margin="396,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26" />
                     <TextBox x:Name="Minuts" HorizontalAlignment="Left" Height="23" Margin="432,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534"/>
                     <TextBox x:Name="Seconds" HorizontalAlignment="Left" Height="23" Margin="464,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26"/>
@@ -51,7 +51,7 @@
                 <Grid >
                     <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addline_Click"/>
 
-                    <DataGrid x:Name="ListLines" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListLines_SelectionChanged" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="20,13,239.333,13.333" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
+                    <DataGrid x:Name="ListLines" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListLines_SelectionChanged" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="20,13,239.333,13.333" IsReadOnly="True" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -68,7 +68,7 @@
                             <DataGridTextColumn x:Name="LastStation" Binding="{Binding LastStation}" Header="Last Station" Width="80"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="LineStations" AutoGeneratingColumn="LineStations_AutoGeneratingColumn" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="239" VerticalAlignment="Center" Width="195" Margin="0,63,15.333,89.333"/>
+                    <DataGrid x:Name="LineStations" AutoGeneratingColumn="LineStations_AutoGeneratingColumn" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="239" VerticalAlignment="Center" Width="195" Margin="0,63,15.333,89.333"/>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>

@@ -60,7 +60,7 @@ namespace PL
         {
             while (isRun)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(4000);
                 bgw.ReportProgress(1);
             }
         }
@@ -77,6 +77,13 @@ namespace PL
         public void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
 
+        }
+
+        private void lineSimulation_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string header = e.Column.Header.ToString();
+            if (header == "IsExist")
+                e.Cancel = true;
         }
     }
 }

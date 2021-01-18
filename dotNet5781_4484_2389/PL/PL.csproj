@@ -73,6 +73,9 @@
     <Compile Include="UpdateBus.xaml.cs">
       <DependentUpon>UpdateBus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdateCS.xaml.cs">
+      <DependentUpon>UpdateCS.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UpdateLine.xaml.cs">
       <DependentUpon>UpdateLine.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UpdateBus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateCS.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

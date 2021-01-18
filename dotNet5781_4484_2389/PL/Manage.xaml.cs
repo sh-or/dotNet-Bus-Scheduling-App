@@ -305,6 +305,7 @@ namespace PL
 
         private void LineStations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+
             //update cs (window)
         }
 

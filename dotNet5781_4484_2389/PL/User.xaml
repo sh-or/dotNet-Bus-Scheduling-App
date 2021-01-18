@@ -44,7 +44,7 @@
                     <TextBox x:Name="Hours" HorizontalAlignment="Left" Height="23" Margin="396,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26" />
                     <TextBox x:Name="Minuts" HorizontalAlignment="Left" Height="23" Margin="432,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534"/>
                     <TextBox x:Name="Seconds" HorizontalAlignment="Left" Height="23" Margin="464,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26"/>
-                    <TextBox x:Name="Rate" HorizontalAlignment="Left" Height="23" Margin="534,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="Rate" HorizontalAlignment="Left" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Height="23" Margin="534,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="-6,0,-9.333,-2">

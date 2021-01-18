@@ -885,11 +885,11 @@ namespace BL
                        select new BOLineTrip()
                        {
                            LineCode=l.LineCode,
-                           BusLine=dal.GetLine(l.LineCode).BusLine,
+                           //BusLine=dal.GetLine(l.LineCode).BusLine,
                            StationCode=_StationCode,
                            Start=l.Start,
                            Arrive=l.Start + DriveTimeToStation(l.LineCode, _StationCode)- _Start,
-                           Destination= dal.GetBusStation(dal.GetLine(l.LineCode).LastStation).Name,
+                           //Destination= dal.GetBusStation(dal.GetLine(l.LineCode).LastStation).Name,
                            IsExist =true
                        };
                        //(BOLineTrip)Transform.trans(l, tmp.GetType());

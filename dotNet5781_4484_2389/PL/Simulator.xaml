@@ -21,13 +21,13 @@
         </Grid.Background>
         <DataGrid x:Name="lineSimulation" ItemsSource="{Binding}" HorizontalAlignment="Center" Height="182" VerticalAlignment="Center" Width="350" Background="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Margin="47,41,46.334,47.667" Grid.ColumnSpan="2"/>
         <Label Content="Station  " Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,46,0"/>
-        <TextBlock x:Name="stNum" Text="aaa" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="180,11,0,0" Width="116" Grid.ColumnSpan="2" Height="21"/>
+        <TextBlock x:Name="stNum" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="180,11,0,0" Width="116" Grid.ColumnSpan="2" Height="21"/>
         <Label Content="ATTENTION!" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="183,223,158.333,0" Width="102"/>
         <Label Content="The real time system shows only lines that already left their starting point" HorizontalAlignment="Left" Margin="25,236,0,0" VerticalAlignment="Top" Height="26" Width="404" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="hours" Text="hour" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="26" />
-        <TextBlock x:Name="minuts" Text="minute" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap"  VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534" Margin="30,0,0,0"/>
-        <TextBlock x:Name="seconds" Text="seconds" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap"  VerticalAlignment="Top" Width="26" Margin="57,0,0,0"/>
-        <TextBlock x:Name="rate" Text="rate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="40" RenderTransformOrigin="2.65,0.565" Margin="94,0,0,0"/>
+        <TextBlock x:Name="hours" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap" VerticalAlignment="Top" Width="26" />
+        <TextBlock x:Name="minuts" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap"  VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534" Margin="30,0,0,0"/>
+        <TextBlock x:Name="seconds" HorizontalAlignment="Left" Height="23"  TextWrapping="Wrap"  VerticalAlignment="Top" Width="26" Margin="57,0,0,0"/>
+        <TextBlock x:Name="rate" Text="rate" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.65,0.565" Margin="10,28,0,0"/>
 
     </Grid>
 </Window>

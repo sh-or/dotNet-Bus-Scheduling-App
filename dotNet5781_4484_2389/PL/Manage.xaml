@@ -9,7 +9,7 @@
 
     <Grid>
         <TabControl HorizontalAlignment="Right" Height="515" Margin="0,4,0,0" VerticalAlignment="Top" Width="892" >
-            <TabItem Header="Buses" HorizontalAlignment="Right" Margin="0,0,-14,-2" Width="80">
+            <TabItem Header="Buses" HorizontalAlignment="Right" Margin="-2,0,2,-2" Width="80">
                 <Grid >
                     <Button Content="Add Bus" HorizontalAlignment="Left" Margin="802,445,0,0" VerticalAlignment="Top" Width="74" Height="32" Click="addBus" />
                     <DataGrid x:Name="ListBuses" AutoGenerateColumns="False"  HorizontalAlignment="Center" HorizontalGridLinesBrush="Khaki"  EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" Margin="15,13,89,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="782" >
@@ -112,7 +112,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="132,0,-147,-2">
+            <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="87,0,-102.333,-2">
                 <Grid >
                     <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="780,445,0,0" VerticalAlignment="Top"  Width="96" Height="32" Click="addline_Click"/>
 
@@ -171,7 +171,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Bus Stations" HorizontalAlignment="Center" RenderTransformOrigin="1.947,0.727" Margin="-4,0,4,-2" Width="92">
+            <TabItem Header="Bus Stations" HorizontalAlignment="Center" RenderTransformOrigin="1.947,0.727" Margin="-41.667,0,41.667,-2" Width="92">
                 <Grid>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -234,11 +234,15 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="LineTrips" RenderTransformOrigin="2.656,0.532" Margin="132,0,-147,-2">
+            <TabItem Header="LineTrips" RenderTransformOrigin="2.656,0.532" Margin="8.333,0,-22.333,-2">
                 <Grid >
-                    <Button x:Name="addlinetrip" Content="Add line trip" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="757,422,33,0" VerticalAlignment="Top"  Width="96" Height="32"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="166*"/>
+                        <ColumnDefinition Width="719*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="addlinetrip" Content="Add line trip" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="591,422,32.333,0" VerticalAlignment="Top"  Width="96" Height="32" Grid.Column="1"/>
 
-                    <DataGrid x:Name="ListLineTrips" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="426,71,89,179" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" CanUserResizeRows="False" HorizontalContentAlignment="Center" HorizontalAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="371" >
+                    <DataGrid x:Name="ListLineTrips" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="260,71,88.333,179" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" CanUserResizeRows="False" HorizontalContentAlignment="Center" HorizontalAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="371" Grid.Column="1" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -256,7 +260,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-  
+
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -266,12 +270,12 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBlock x:Name="BusLineOftrip" DataContext="{Binding}" HorizontalAlignment="Left" Margin="153,158,0,308" />
-                    <TextBlock x:Name="Destination" DataContext="{Binding}" HorizontalAlignment="Left" Margin="153,196,0,263"/>
+                    <TextBlock x:Name="BusLineOftrip" DataContext="{Binding}" Grid.Column="1" HorizontalAlignment="Left" Margin="27,162,0,304" />
+                    <TextBlock x:Name="Destination" DataContext="{Binding}" Grid.Column="1"  HorizontalAlignment="Left" Margin="27,206,0,254"/>
 
-                    <ComboBox x:Name="LineChoose" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Code}" SelectionChanged="LineChoose_SelectionChanged"  HorizontalAlignment="Left" Margin="116,83,0,0" VerticalAlignment="Top" Width="121" Height="36"/>
-                    <Label Content="Bus line:" HorizontalAlignment="Left" Margin="73,152,0,0" VerticalAlignment="Top" FontSize="18"/>
-                    <Label Content="Destination:" HorizontalAlignment="Left" Margin="64,191,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <ComboBox x:Name="LineChoose" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Code}" SelectionChanged="LineChoose_SelectionChanged"  HorizontalAlignment="Left" Margin="116,83,0,0" VerticalAlignment="Top" Width="121" Height="36" Grid.ColumnSpan="2"/>
+                    <Label Content="Bus line: " HorizontalAlignment="Right" Margin="73,152,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="Destination: " Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="18" Margin="0,198,0,0"/>
                     <Label Content="Line:" HorizontalAlignment="Left" Margin="63,86,0,0" VerticalAlignment="Top" FontSize="18"/>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

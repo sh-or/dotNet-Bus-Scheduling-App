@@ -314,8 +314,8 @@ namespace PL
         {
             ListLineTrips.ItemsSource =bl.GetAllLineTrips((int)LineChoose.SelectedItem);
             BOLine l = bl.GetLine((int)LineChoose.SelectedItem);
-            BusLineOftrip.Text = l.BusLine+"";
-            Destination.Text = l.LastStation+" "+ bl.GetBusStation(l.LastStation).Name;
+            BusLineOftrip.Text = l.BusLine.ToString();
+            Destination.Text = bl.GetBusStation(l.LastStation).Name;
         }
 
         private void DeleteLineTrip_Click(object sender, RoutedEventArgs e)

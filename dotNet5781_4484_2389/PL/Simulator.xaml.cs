@@ -36,25 +36,16 @@ namespace PL
         {
             InitializeComponent();
             bl = ibl;
-            st = bst;
-            //Hours = _Hours; Minuts = _Minuts; Seconds = _Seconds; Rate = _Rate;
-            //while (_Hours.Length < 2)
-            //    _Hours = "0"+_Hours;
-            //while (_Minuts.Length < 2)
-            //    _Minuts = "0" + _Minuts;
-            //while (_Seconds.Length < 2)
-            //    _Seconds = "0" + _Seconds;
-            //hours.DataContext = _Hours; minuts.DataContext = _Minuts; seconds.DataContext = _Seconds;
+            st = bst; Rate = _Rate;
             timer = new TimeSpan(_Hours, _Minuts, _Seconds);
             rate.DataContext = _Rate;
             stNum.Text = st.StationCode+"  "+ st.Name;
             if (Rate < 60)
-                runingTime = new TimeSpan(0, 0, Rate);
+                runingTime = new TimeSpan(0, Rate, 0);
             else //limited for running 15(+) minutes by 1 sec
             {
-                runingTime = new TimeSpan(0, Rate%60, Rate/60);
+                runingTime = new TimeSpan(Rate%60, Rate/60, 0);
             }
-
 
             lineSimulation.ItemsSource = bl.GetAllStationLineTrips(st.StationCode, timer);
             bgw = new BackgroundWorker(); //reset the backgrounder
@@ -69,13 +60,16 @@ namespace PL
         {
             while (isRun)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(4000);
                 bgw.ReportProgress(1);
             }
         }
         public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            timer.Add(runingTime);
+            timer = timer.Add(runingTime);
+            hours.Text = timer.Hours.ToString();
+            minuts.Text = timer.Minutes.ToString();
+            seconds.Text = timer.Seconds.ToString();
             lineSimulation.ItemsSource = bl.GetAllStationLineTrips(st.StationCode, timer);
         }
         public void bgw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

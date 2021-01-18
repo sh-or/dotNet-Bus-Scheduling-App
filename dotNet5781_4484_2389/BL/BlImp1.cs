@@ -842,6 +842,7 @@ namespace BL
                     LineCode = l.LineCode,
                     BusLine = dal.GetLine(l.LineCode).BusLine,
                     Start = l.Start,
+                    Destination = dal.GetBusStation(dal.GetLine(l.LineCode).LastStation).Name,
                     IsExist = true
                 };
             }
@@ -856,7 +857,17 @@ namespace BL
             try
             {
                 return from LineTrip l in dal.GetAllLineTrips(_LineCode)
-                       select (BOLineTrip)Transform.trans(l, tmp.GetType());
+                       orderby l.Start
+                       select new BOLineTrip()
+                       {
+                           LineCode = l.LineCode,
+                           BusLine = dal.GetLine(l.LineCode).BusLine,
+                           Start = l.Start,
+                           Destination = dal.GetBusStation(dal.GetLine(l.LineCode).LastStation).Name,
+                           IsExist = true
+                       };
+
+                //(BOLineTrip)Transform.trans(l, tmp.GetType());
             }
             catch (DOException ex)
             {
@@ -870,6 +881,7 @@ namespace BL
             {
                 return from l in dal.GetAllStationLineTrips(_StationCode, _Start)
                        where (l.Start + DriveTimeToStation(l.LineCode, _StationCode)) >= _Start
+                       orderby l.Start
                        select new BOLineTrip()
                        {
                            LineCode=l.LineCode,

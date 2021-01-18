@@ -25,7 +25,7 @@
                             <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number"  Width="90"/>
                             <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="KmColumn" Binding="{Binding Kilometerage}" Header="Kilometerage" Width="80"/>
-                            <DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Fuel">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <ProgressBar x:Name="FuelColumn" Minimum="0" Maximum="1" Value="{Binding Fuel}" Width="80" />
@@ -230,8 +230,56 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataGrid x:Name="StationLines" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="596,74,14,0" VerticalAlignment="Top" Width="276"/>
-                    <Label Content="Lines cross this station:" HorizontalAlignment="Left" Margin="684,47,0,0" VerticalAlignment="Top" Width="110"/>
+                    <Label Content="Lines cross this station:" HorizontalAlignment="Left" Margin="675,43,0,0" VerticalAlignment="Top" Width="110"/>
+                </Grid>
+            </TabItem>
 
+            <TabItem Header="LineTrips" RenderTransformOrigin="2.656,0.532" Margin="132,0,-147,-2">
+                <Grid >
+                    <Button x:Name="addlinetrip" Content="Add line trip" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="757,422,33,0" VerticalAlignment="Top"  Width="96" Height="32"/>
+
+                    <DataGrid x:Name="ListLineTrips" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="426,71,89,179" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" CanUserResizeRows="False" HorizontalContentAlignment="Center" HorizontalAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="371" >
+                        <DataGrid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.691"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-1.424"/>
+                            </TransformGroup>
+                        </DataGrid.RenderTransform>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="Start" Binding="{Binding Start}" Header="Start" Width="60"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="DeleteLineTrip" Content="Delete" Click="DeleteLineTrip_Click"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+  
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="UpdateLineTrip" Content="Update"  ToolTip="Update details of this Line trip"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock x:Name="BusLineOftrip" DataContext="{Binding}" HorizontalAlignment="Left" Margin="153,158,0,308" />
+                    <TextBlock x:Name="Destination" DataContext="{Binding}" HorizontalAlignment="Left" Margin="153,196,0,263"/>
+
+                    <ComboBox x:Name="LineChoose" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Code}" SelectionChanged="LineChoose_SelectionChanged"  HorizontalAlignment="Left" Margin="116,83,0,0" VerticalAlignment="Top" Width="121" Height="36"/>
+                    <Label Content="Bus line:" HorizontalAlignment="Left" Margin="73,152,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="Destination:" HorizontalAlignment="Left" Margin="64,191,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Label Content="Line:" HorizontalAlignment="Left" Margin="63,86,0,0" VerticalAlignment="Top" FontSize="18"/>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF6ED8F7" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
                 </Grid>
             </TabItem>
         </TabControl>

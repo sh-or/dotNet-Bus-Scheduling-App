@@ -33,6 +33,11 @@ namespace PL
             ListBuses.ItemsSource = bl.GetAllBuses();
             ListBusStation.ItemsSource = bl.GetAllBusStations();
             ListLines.ItemsSource = bl.GetAllLines();
+            var AllLinesNumbers = from BOLine l in bl.GetAllLines()
+                                  select l.Code;
+            LineChoose.ItemsSource = AllLinesNumbers;
+            ListLineTrips.ItemsSource = bl.GetAllLineTrips((int)LineChoose.SelectedItem);
+
             //StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
             //LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
@@ -179,16 +184,6 @@ namespace PL
             addsl.ShowDialog();
         }
 
-        //private void GoCare_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
-        //private void GoRefuel_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
         public void GoCare_Click(object sender, RoutedEventArgs e) //going to care
         {
             BOBus b = (sender as Button).DataContext as BOBus;
@@ -313,6 +308,29 @@ namespace PL
             string header = e.Column.Header.ToString();
             if (header == "Distance")
                 e.Cancel = true;
+        }
+
+        private void LineChoose_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListLineTrips.ItemsSource =bl.GetAllLineTrips((int)LineChoose.SelectedItem);
+            BOLine l = bl.GetLine((int)LineChoose.SelectedItem);
+            BusLineOftrip.Text = l.BusLine+"";
+            Destination.Text = l.LastStation+" "+ bl.GetBusStation(l.LastStation).Name;
+        }
+
+        private void DeleteLineTrip_Click(object sender, RoutedEventArgs e)
+        {
+            BOLineTrip lt = (sender as Button).DataContext as BOLineTrip;
+            try
+            {
+                bl.DeleteLineTrip(lt.LineCode, lt.Start);
+                ListLineTrips.ItemsSource = bl.GetAllLineTrips((int)LineChoose.SelectedItem);  //refresh
+
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
+            }
         }
     }
 }

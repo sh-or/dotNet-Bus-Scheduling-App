@@ -335,14 +335,21 @@ namespace DS
                 new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
                 new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,08,08) },
                 new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,15,15) },
-                new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(24,15,00) },
+                new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(00,15,00) },
                 new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(09,12,00) },
                 new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
                 new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(08,00,00) },
                 new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(09,50,00) },
-                new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(24,15,00) },
+                new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,15,00) },
+                new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,10,00) },
+                new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(16,30,00) },
+                new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(17,30,00) },
                 new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(09,00,00) },
                 new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(08,00,00) },
+                new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,10,00) },
+                new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,20,00) },
+                new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,30,00) },
+                new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,15,00) },
             };
         }
 

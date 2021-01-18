@@ -407,7 +407,7 @@ namespace DL
 
         public IEnumerable<LineTrip> GetAllStationLineTrips(int _StationCode, TimeSpan _Start)
         {
-            List<LineStation> ls = DataSource.AllLineStations.FindAll(x => x.StationCode == _StationCode);
+            List<LineStation> ls = DataSource.AllLineStations.FindAll(x => x.IsExist && x.StationCode == _StationCode);
             if (ls == null)
                 throw new DOException($"Bus station {_StationCode} has no lines");
 
@@ -420,7 +420,7 @@ namespace DL
 
         public void DeleteLineTrip(int _LineCode, TimeSpan _Start)
         {
-            int n = DataSource.AllLinesTrip.FindIndex(x => x.LineCode == _LineCode &&x.Start==_Start);
+            int n = DataSource.AllLinesTrip.FindIndex(x => x.IsExist&& x.LineCode == _LineCode &&x.Start==_Start);
             if (n > -1)
                 DataSource.AllLinesTrip[n].IsExist = false; 
             else
@@ -428,7 +428,7 @@ namespace DL
         }
         public void UpdateLineTrip(LineTrip lt, TimeSpan NewStart) //lt==original!
         {
-            int n = DataSource.AllLinesTrip.FindIndex(x => x.LineCode == lt.LineCode && x.Start == lt.Start);
+            int n = DataSource.AllLinesTrip.FindIndex(x => x.IsExist &&  x.LineCode == lt.LineCode && x.Start == lt.Start);
             if (n > -1)
             {
                 lt.Start = NewStart;

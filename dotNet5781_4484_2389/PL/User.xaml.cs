@@ -110,7 +110,7 @@ namespace PL
         {
             BOBusStation st = ListBusStation.SelectedItem as BOBusStation;
             
-            Simulator s = new Simulator(bl, st, Hours.Text, Minuts.Text, Seconds.Text, int.Parse(Rate.Text));
+            Simulator s = new Simulator(bl, st, int.Parse(Hours.Text), int.Parse(Minuts.Text), int.Parse(Seconds.Text), int.Parse(Rate.Text));
             //stop BGW in closing!!
             s.ShowDialog();
         }

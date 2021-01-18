@@ -721,7 +721,18 @@ namespace BL
             return bocs;
         }
         //public IEnumerable<BOConsecutiveStations> GetSpecificConsecutiveStations(predicate<BOConsecutiveStations> p/*or code1*/) //all?of 1 station?
-        //public void UpdateConsecutiveStations(ConsecutiveStations cs);
+        public void UpdateConsecutiveStations(BOConsecutiveStations cs)
+        {
+            ConsecutiveStations tmp = new ConsecutiveStations();
+            try
+            {
+                dal.UpdateConsecutiveStations((ConsecutiveStations)Transform.trans(cs, tmp.GetType()));
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message, dex);
+            }
+        }
         #endregion
 
         #region Drive

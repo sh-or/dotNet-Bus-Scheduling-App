@@ -311,8 +311,10 @@ namespace DL
             int n = DataSource.AllConsecutiveStations.ToList().FindIndex(x => x.StationCode1 == cs.StationCode1 && x.StationCode2 == cs.StationCode2);
             if (n > -1)
             {
-                DataSource.AllConsecutiveStations.ToList().RemoveAt(n);
-                DataSource.AllConsecutiveStations.ToList().Add(cs.Clone());
+                var lst = DataSource.AllConsecutiveStations.ToList();
+                lst.RemoveAt(n);
+                lst.Add(cs.Clone());
+                DataSource.AllConsecutiveStations = lst;
             }
             else
                 throw new DOException($"Station {cs.StationCode1} and station {cs.StationCode2} are not consecutive stations");

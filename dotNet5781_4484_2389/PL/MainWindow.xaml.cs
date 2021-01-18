@@ -65,7 +65,6 @@ namespace PL
                 Password = iPassword.Text
             };
 
-            //if......checking
             try
             {
                     u = bl.GetUser(u.Name,u.Password);
@@ -84,11 +83,6 @@ namespace PL
             {
                 MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
             }
-
-
-
-            //Manage manage = new Manage(bl);
-            //manage.ShowDialog();
         }
 
         private void newUser_Click(object sender, RoutedEventArgs e)
@@ -103,7 +97,7 @@ namespace PL
                     Password = iPasswordN.Text
                 };
 
-                if(u.Name.Length<4 || u.Password.Length<8)
+                if(u.Name.Length<4 || u.Password.Length<4)
                 {
                     MessageBox.Show("ERROR!\nToo short name or password\nEdit and try again", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;

@@ -103,12 +103,6 @@ namespace PL
         }
 
 
-        private void dataGridView1_CellClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
         private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
@@ -303,10 +297,13 @@ namespace PL
             return str;
         }
 
-        private void LineStations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-            //update cs (window)
+        private void LineStations_MouseDoubleClick(object sender, MouseButtonEventArgs e) //update cs 
+        {            
+            BOLineStation ls = (sender as DataGrid).SelectedItem as BOLineStation;
+            BOLine l = ListLines.SelectedItem as BOLine;
+            UpdateCS us = new UpdateCS(bl, ls, l);
+            us.Closed += RefreshLinesAndStations;
+            us.ShowDialog();
         }
 
         private void LineStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

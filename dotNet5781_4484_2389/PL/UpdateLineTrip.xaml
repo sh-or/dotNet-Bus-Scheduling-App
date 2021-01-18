@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UpdateLineTrip" Height="450" Width="800">
+        Title="UpdateLineTrip" Height="250" Width="350">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -16,20 +16,17 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60*"/>
+            <RowDefinition Height="20*"/>
             <RowDefinition Height="35*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="35*"/>
             <RowDefinition Height="15*"/>
-            <RowDefinition Height="35*"/>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="35*"/>
-            <RowDefinition Height="70*"/>
+            <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280*"/>
             <ColumnDefinition Width="210*"/>
-            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="180*"/>
         </Grid.ColumnDefinitions>
         <Label Content="Line Code: " HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
         <Label Content="Start: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
@@ -47,8 +44,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        
-        <TextBlock x:Name="_LineCode" Grid.Column="1" Text="{Binding}" HorizontalAlignment="Center" Height="23" Grid.Row="1"  VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <TextBox x:Name="_Start" Text="00:00:00" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="120"/>
+
+        <TextBlock x:Name="_LineCode" Text="{Binding}" HorizontalAlignment="Center" Height="25" Grid.Row="1"  VerticalAlignment="Center" Width="98" FontSize="16" Margin="5.667,12.667,4.333,10.333" Grid.Column="1"/>
+        <TextBox x:Name="_Start" Text="00:00:00" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="98" Height="24" Margin="6.667,14,3.333,10.667" Grid.Column="1"/>
     </Grid>
 </Window>

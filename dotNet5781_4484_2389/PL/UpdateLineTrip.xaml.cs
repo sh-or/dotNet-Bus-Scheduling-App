@@ -34,7 +34,14 @@ namespace PL
 
         private void Updating_Click(object sender, RoutedEventArgs e)
         {
-            TimeSpan start = TimeSpan.Parse(_Start.Text);
+            TimeSpan start;
+            int n;
+            if (int.TryParse(_Start.Text, out n) || !TimeSpan.TryParse(_Start.Text, out start))
+            {
+                MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
+                return;
+            }
+
             try
             {
                 bl.UpdateLineTrip(linetrip, start);

@@ -60,13 +60,15 @@ namespace PL
         {
             while (isRun)
             {
-                Thread.Sleep(4000);
+                Thread.Sleep(1000);
                 bgw.ReportProgress(1);
             }
         }
         public void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             timer = timer.Add(runingTime);
+            if (timer.Days > 0)
+                timer = TimeSpan.Zero.Add(new TimeSpan(timer.Hours, timer.Minutes, timer.Seconds));
             hours.Text = timer.Hours.ToString();
             minuts.Text = timer.Minutes.ToString();
             seconds.Text = timer.Seconds.ToString();

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="User" Height="450" Width="600">
+        ResizeMode="NoResize"
+        Title="User" Height="450" Width="600" Icon="סמיילי.jpg">
     <Grid>
         <TabControl HorizontalAlignment="Right" Height="420" VerticalAlignment="Top" Width="600" >
             <TabItem Header="Trip Plan" HorizontalAlignment="Right" Width="80">
@@ -40,11 +41,12 @@
                             <DataGridCheckBoxColumn x:Name="Accessibility" Binding="{Binding Accessibility}" Header="Accessibility"  Width="SizeToHeader" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="StationLines" Background="Yellow" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="241" VerticalAlignment="Center" Width="180" Margin="0,38,18.333,112.333"/>
-                    <TextBox x:Name="Hours" HorizontalAlignment="Left" Height="23" Margin="396,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26" />
-                    <TextBox x:Name="Minuts" HorizontalAlignment="Left" Height="23" Margin="432,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534"/>
-                    <TextBox x:Name="Seconds" HorizontalAlignment="Left" Height="23" Margin="464,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="26"/>
-                    <TextBox x:Name="Rate" HorizontalAlignment="Left" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Height="23" Margin="534,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="40"/>
+                    <DataGrid x:Name="StationLines" Background="Yellow" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="241" VerticalAlignment="Center" Width="180" Margin="0,10,18.333,140.333"/>
+                    <TextBox x:Name="Hours" HorizontalAlignment="Left" Height="23" Margin="396,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" />
+                    <TextBox x:Name="Minuts" HorizontalAlignment="Left" Height="23" Margin="432,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534"/>
+                    <TextBox x:Name="Seconds" HorizontalAlignment="Left" Height="23" Margin="464,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26"/>
+                    <TextBox x:Name="Rate" HorizontalAlignment="Left" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Height="23" Margin="534,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <Rectangle HorizontalAlignment="Left" Height="112" Margin="390,267,0,0" Stroke="Black" VerticalAlignment="Top" Width="191"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="-6,0,-9.333,-2">
@@ -68,7 +70,7 @@
                             <DataGridTextColumn x:Name="LastStation" Binding="{Binding LastStation}" Header="Last Station" Width="80"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="LineStations"  AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="239" VerticalAlignment="Center" Width="195" Margin="0,63,15.333,89.333"/>
+                    <DataGrid x:Name="LineStations" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="239" VerticalAlignment="Center" Width="195" Margin="0,63,15.333,89.333"/>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>

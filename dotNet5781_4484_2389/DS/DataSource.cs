@@ -320,6 +320,8 @@ namespace DS
 
             AllUsers = new List<User>
             {
+                new User{ IsExist=true, Name="m", Password="m", IsManager=true}, //example
+                new User{ IsExist=true, Name="u", Password="u", IsManager=false}, //example
                 new User{ IsExist=true, Name="AAAA", Password="aaaa1111", IsManager=true},
                 new User{ IsExist=true, Name="aaaa", Password="aaaa2222", IsManager=true},
                 new User{ IsExist=true, Name="bbbb", Password="bbbb2222", IsManager=false},

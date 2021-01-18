@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddStation" Height="400" Width="600">
+        ResizeMode="NoResize" 
+        Title="AddStation" Height="400" Width="600" Icon="סמיילי.jpg">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>

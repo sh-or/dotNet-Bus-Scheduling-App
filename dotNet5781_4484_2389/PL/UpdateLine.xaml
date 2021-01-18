@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UpdateLine" Height="350" Width="500">
+        ResizeMode="NoResize" 
+        Title="UpdateLine" Height="350" Width="500" Icon="סמיילי.jpg">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

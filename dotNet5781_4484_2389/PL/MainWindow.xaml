@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        ResizeMode="NoResize" 
         Title="MainWindow" Height="350" Width="600" Icon="סמיילי.jpg">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,17 +33,16 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Label Content="Enter you details: " Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="19"/>
-        <TextBox x:Name="iName" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="iName" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="1" Width="80" MaxLength="15" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Margin="100,12.667,18,11.333"/>
         <Label Content="  Name: " Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" FontSize="18" FontFamily="Sitka Display"/>
-        <TextBox x:Name="iPassword" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBox x:Name="iPassword" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="1" Width="80" MaxLength="15" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Margin="100,12.667,18,11.333"/>
         <Label Content="  Password: " Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
-        <!--RadioButton x:Name="isManage" Content="I am a manager " Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/-->
-        <Image />
+
         <Label Content="New user? Sign in!" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="19"/>
         <Label Content="  Name: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
-        <TextBox x:Name="iNameN" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="iNameN" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="3" MaxLength="15" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="80" Margin="104,12.667,13.697,11.333"/>
         <Label Content="  Password: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
-        <TextBox x:Name="iPasswordN" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBox x:Name="iPasswordN" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="3" MaxLength="15" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="80" Margin="0,11.667,13.697,11.333" />
         <RadioButton x:Name="IsManageN" Content="I am a manager " Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
         <Label Content="WITH YOU ALONG THE WAY...:)" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Grid.ColumnSpan="3" Width="372" FontFamily="Rockwell Extra Bold" FontSize="20" Height="41" RenderTransformOrigin="0.5,0.5" Margin="41.667,7.612,36.333,9.388" Grid.Column="1">
             <Label.RenderTransform>

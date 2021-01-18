@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddStationInLine" Height="450" Width="800">
+        ResizeMode="NoResize" 
+        Title="AddStationInLine" Height="250" Width="400" Icon="סמיילי.jpg">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -15,15 +16,12 @@
             <RowDefinition Height="15*"/>
             <RowDefinition Height="45*"/>
             <RowDefinition Height="15*"/>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="45*"/>
             <RowDefinition Height="55*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280*"/>
             <ColumnDefinition Width="210*"/>
-            <ColumnDefinition Width="280*"/>
+            <ColumnDefinition Width="150*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

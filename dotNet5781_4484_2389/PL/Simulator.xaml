@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Simulator" Height="300" Width="450">
+        ResizeMode="NoResize" 
+        Title="Simulator" Height="300" Width="450" Icon="סמיילי.jpg">
     <!--Width="500" with clock at bottom:)-->
     <Grid>
         <Grid.ColumnDefinitions>

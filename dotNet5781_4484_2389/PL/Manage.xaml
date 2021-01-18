@@ -149,15 +149,28 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                    
                     <DataGrid x:Name="LineStations" AutoGeneratingColumn="LineStations_AutoGeneratingColumn" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="525,49,13,0" VerticalAlignment="Top" Width="348" MouseDoubleClick="LineStations_MouseDoubleClick">
-                        <!--DataGridTemplateColumn>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="DeleteStationInLine" Content="Delete" Click="DeleteStationInLine_Click"  ToolTip="Delete station from the line"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn-->
+                        <DataGrid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleX="-0.691"/>
+                                <RotateTransform/>
+                                <TranslateTransform X="-1.424"/>
+                            </TransformGroup>
+                        </DataGrid.RenderTransform>
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="DeleteStationInLine" Content="Delete" Click="DeleteStationInLine_Click" ToolTip="Delete station from the line"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
                     </DataGrid>
+                    
                     <Label Content="Stations in this line:" HorizontalAlignment="Left" Margin="601,18,0,0" VerticalAlignment="Top" FontSize="18" Width="215"/>
                     <Button x:Name="AddStationInLine" Content="Add station in line" Click="AddStationInLine_Click"  ToolTip="Add station to this line" Margin="645,347,122,118" />
                     <Grid.Background>
@@ -264,7 +277,7 @@
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="UpdateLineTrip" Content="Update"  ToolTip="Update details of this Line trip"/>
+                                        <Button x:Name="UpdateLineTrip" Content="Update" Click="UpdateLineTrip_Click" ToolTip="Update details of this Line trip"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

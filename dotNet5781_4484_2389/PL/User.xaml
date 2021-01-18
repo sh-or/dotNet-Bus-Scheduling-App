@@ -68,7 +68,7 @@
                             <DataGridTextColumn x:Name="LastStation" Binding="{Binding LastStation}" Header="Last Station" Width="80"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="LineStations" AutoGeneratingColumn="LineStations_AutoGeneratingColumn" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="239" VerticalAlignment="Center" Width="195" Margin="0,63,15.333,89.333"/>
+                    <DataGrid x:Name="LineStations"  AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="239" VerticalAlignment="Center" Width="195" Margin="0,63,15.333,89.333"/>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>

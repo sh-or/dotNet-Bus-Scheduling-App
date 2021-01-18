@@ -52,8 +52,13 @@ namespace PL
             ListBusStation.ItemsSource = bl.GetAllBusStations();
             ListLines.ItemsSource = bl.GetAllLines();
         }
+        private void RefreshLineTrips(object sender, EventArgs e)
+        {
+            ListLineTrips.ItemsSource = bl.GetAllLineTrips((int)LineChoose.SelectedItem);
 
-       private void UpdateBus_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void UpdateBus_Click(object sender, RoutedEventArgs e)
         {
             BOBus b = (sender as Button).DataContext as BOBus;
             UpdateBus upB = new UpdateBus(bl, b);
@@ -308,6 +313,12 @@ namespace PL
             string header = e.Column.Header.ToString();
             if (header == "Distance")
                 e.Cancel = true;
+            if (header == "BusLine")
+                e.Cancel = true;
+            if (header == "Arrive")
+                e.Cancel = true;
+            if (header == "IsExist")
+                e.Cancel = true;
         }
 
         private void LineChoose_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -331,6 +342,14 @@ namespace PL
             {
                 MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
             }
+        }
+
+        private void UpdateLineTrip_Click(object sender, RoutedEventArgs e)
+        {
+            BOLineTrip lt = (sender as Button).DataContext as BOLineTrip;
+            UpdateLineTrip upLt = new UpdateLineTrip(bl, lt);
+            upLt.Closed += RefreshLineTrips;
+            upLt.ShowDialog();
         }
     }
 }

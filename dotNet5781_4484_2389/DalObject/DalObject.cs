@@ -144,6 +144,17 @@ namespace DL
             else
                 throw new DOException($"Station number {_StationCode} was not found");
         }
+        public IEnumerable<BusStation> GetStationsOfLine(int _LineCode)
+        {
+            IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.IsExist && x.LineCode == _LineCode);
+            IEnumerable<BusStation> bsLst = (from ls in lsLst
+                                             orderby ls.StationNumberInLine
+                                             select GetBusStation(ls.StationCode).Clone());
+            if (bsLst != null)
+                return bsLst;
+            throw new DOException("No line stations were found");
+
+        }
         #endregion
 
         #region Line
@@ -187,17 +198,6 @@ namespace DL
                 return Listl;
             throw new DOException("No exist lines were found");
         }
-        public IEnumerable<BusStation> GetStationsOfLine(int _LineCode)
-        {
-            IEnumerable<LineStation> lsLst = DataSource.AllLineStations.FindAll(x => x.IsExist && x.LineCode == _LineCode);
-            IEnumerable<BusStation> bsLst = (from ls in lsLst
-                                             orderby ls.StationNumberInLine
-                                             select GetBusStation(ls.StationCode).Clone());
-            if (bsLst != null)
-                return bsLst;
-            throw new DOException("No line stations were found");
-
-        }
         public int AddLine( Line l ) 
         {
             l.Code = ConfigurationClass.LineCode;
@@ -205,13 +205,8 @@ namespace DL
             return l.Code;
         }
 
-        public void DeleteLine(int _Code) //include deleting line-stations 
+        public void DeleteLine(int _Code) 
         {
-            //IEnumerable<LineStation> lls = DataSource.AllLineStations.FindAll(x => x.LineCode == _Code);
-            //foreach (LineStation ls in lls)
-            //    DeleteLineStation(ls.LineCode, ls.StationCode);
-            //Line bl = GetLine(_Code);
-            //DataSource.AllBusStations.Remove(bs);
             int n = DataSource.AllLines.FindIndex(x => x.IsExist && x.Code == _Code);
             if(n>-1)
                 DataSource.AllLines[n].IsExist = false;

@@ -195,46 +195,97 @@ namespace DL
         }
 
         public void AddLineTrip(LineTrip lt)
-        {
-            //can add identical linetrip, rush hours..
-            DataSource.AllLinesTrip.Add(lt.Clone());
+        {//can add identical linetrip, rush hours..
+
+            XElement LineTripsRootElem = XMLTools.LoadListFromXMLElement(LineTripsPath);
+
+            XElement lt1 = (from x in LineTripsRootElem.Elements()
+                           where int.Parse(x.Element("LineCode").Value) == lt.LineCode && TimeSpan.Parse(x.Element("Start").Value) == lt.Start && bool.Parse(x.Element("IsExist").Value)
+                            select x).FirstOrDefault();
+            if (lt1 != null)
+                throw new DOException($"Line {lt.LineCode} already has trip at {lt.Start}");
+
+            XElement bus = new XElement("LineTrip",
+                               new XElement("LineCode", lt.LineCode.ToString()),
+                               new XElement("Start", lt.Start.ToString()),
+                               new XElement("IsExist", lt.IsExist.ToString()));
+
+            LineTripsRootElem.Add(bus);
+            XMLTools.SaveListToXMLElement(LineTripsRootElem, LineTripsPath);
         }
 
         public IEnumerable<LineTrip> GetAllLineTrips(int _LineCode)
         {
-            return from LineTrip x in DataSource.AllLinesTrip
-                   where x.LineCode == _LineCode && x.IsExist
-                   select x.Clone();
+            XElement LineTripsRootElem = XMLTools.LoadListFromXMLElement(LineTripsPath);
+
+            var lst = from x in LineTripsRootElem.Elements()
+                      let lt1 = new LineTrip()
+                      {
+                          LineCode = Int32.Parse(x.Element("LineCode").Value),
+                          Start = TimeSpan.Parse(x.Element("Start").Value),
+                          IsExist = bool.Parse(x.Element("IsExist").Value)
+                      }
+                      where lt1.LineCode == _LineCode && lt1.IsExist
+                      select lt1;
+            if (lst != null)
+                return lst;
+            throw new DOException("No exist Line trips were found");
         }
 
-        public IEnumerable<LineTrip> GetAllStationLineTrips(int _StationCode, TimeSpan _Start)
+        public IEnumerable<LineTrip> GetAllStationLineTrips(int _StationCode, TimeSpan _Start)  ///////
         {
+            XElement LineTripsRootElem = XMLTools.LoadListFromXMLElement(LineTripsPath);
+
             List<LineStation> ls = DataSource.AllLineStations.FindAll(x => x.IsExist && x.StationCode == _StationCode);
             if (ls == null)
                 throw new DOException($"Bus station {_StationCode} has no lines");
 
-            IEnumerable<LineTrip> lt = from LineStation t in ls
-                                       from LineTrip x in DataSource.AllLinesTrip
-                                       where x.LineCode == t.LineCode && x.Start <= _Start && x.IsExist
-                                       select x.Clone();
-            return lt;
+            var lst = from LineStation t in ls
+                      from LineTrip x in LineTripsRootElem.Elements()
+                      where x.LineCode == t.LineCode && x.Start <= _Start && x.IsExist
+                      select new LineTrip()
+                      {
+                          LineCode = Int32.Parse(x.Element("LineCode").Value),
+                          Start = TimeSpan.Parse(x.Element("Start").Value),
+                          IsExist = bool.Parse(x.Element("IsExist").Value)
+                      };
+
+            if (lst != null)
+                return lst;
+            throw new DOException($"No exist Line trips were found in station {_StationCode}");
         }
 
         public void DeleteLineTrip(int _LineCode, TimeSpan _Start)
         {
-            int n = DataSource.AllLinesTrip.FindIndex(x => x.IsExist && x.LineCode == _LineCode && x.Start == _Start);
-            if (n > -1)
-                DataSource.AllLinesTrip[n].IsExist = false;
+            XElement LineTripsRootElem = XMLTools.LoadListFromXMLElement(LineTripsPath);
+
+            XElement lt1 = (from x in LineTripsRootElem.Elements()
+                            where int.Parse(x.Element("LineCode").Value) == _LineCode && TimeSpan.Parse(x.Element("Start").Value) == _Start && bool.Parse(x.Element("IsExist").Value)
+                            select x).FirstOrDefault();
+
+            if (lt1 != null)
+            {
+                lt1.Remove();
+                XMLTools.SaveListToXMLElement(LineTripsRootElem, LineTripsPath);
+            }
             else
-                throw new DOException($"Line {_LineCode} has no trip at {_Start}");
+             throw new DOException($"Line {_LineCode} has no trip at {_Start}");
         }
+
         public void UpdateLineTrip(LineTrip lt, TimeSpan NewStart) //lt==original!
         {
-            int n = DataSource.AllLinesTrip.FindIndex(x => x.IsExist && x.LineCode == lt.LineCode && x.Start == lt.Start);
-            if (n > -1)
+            XElement LineTripsRootElem = XMLTools.LoadListFromXMLElement(LineTripsPath);
+
+            XElement lt1 = (from x in LineTripsRootElem.Elements()
+                            where int.Parse(x.Element("LineCode").Value) == _LineCode && TimeSpan.Parse(x.Element("Start").Value) == _Start && bool.Parse(x.Element("IsExist").Value)
+                            select x).FirstOrDefault();
+
+            if (lt1 != null)
             {
-                lt.Start = NewStart;
-                DataSource.AllLinesTrip[n] = lt;
+                lt1.Element("LineCode").Value = lt.LineCode.ToString();
+                lt1.Element("Start").Value = NewStart.ToString();
+                lt1.Element("IsExist").Value = lt.IsExist.ToString();
+                XMLTools.SaveListToXMLElement(LineTripsRootElem, LineTripsPath);
             }
             else
                 throw new DOException($"Line {lt.LineCode} has no trip at {lt.Start}");
@@ -258,7 +309,7 @@ namespace DL
         {
             List<BusStation> lst = XMLTools.LoadListFromXMLSerializer<BusStation>(busStationsPath);
 
-            BusStation station = lst.Find(x => x.StationCode == bs.StationCode&& x.IsExist);
+            BusStation station = lst.Find(x => x.StationCode == bs.StationCode && x.IsExist);
             if (bs != null)
             {
                 lst.Remove(station);

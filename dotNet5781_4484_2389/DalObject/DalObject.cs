@@ -30,7 +30,7 @@ namespace DL
             Bus b = DataSource.AllBuses.Find(x => x.IsExist && x.LicenseNumber == _LicenseNumber);
             if(b!=null)
                 return b.Clone();
-            throw new DOException(_LicenseNumber, $"Bus number {_LicenseNumber} was not found");
+            throw new DOException( $"Bus number {_LicenseNumber} was not found");
         }
         public void UpdateBus(Bus b)  //fix?
         {
@@ -60,7 +60,7 @@ namespace DL
         public void AddBus(Bus b /*int _LicenseNumber, DateTime _LicensingDate, double _Kilometerage, double _Fuel, StatusEnum _Status, string _Driver*/)
         {  
             if (DataSource.AllBuses.Exists(x => x.IsExist && x.LicenseNumber == b.LicenseNumber))
-                throw new DOException(b.LicenseNumber, $"Bus number {b.LicenseNumber} is already exist");
+                throw new DOException($"Bus number {b.LicenseNumber} is already exist");
             DataSource.AllBuses.Add(b.Clone());
             //Bus b = new Bus();
             //b.LicenseNumber = _LicenseNumber;          
@@ -92,19 +92,20 @@ namespace DL
             BusStation bs = DataSource.AllBusStations.Find(x => x.IsExist&& x.StationCode == _StationCode);
             if (bs!=null)
                 return bs.Clone();
-            throw new DOException(_StationCode, $"Bus station number {_StationCode} was not found");
+            throw new DOException( $"Bus station number {_StationCode} was not found");
         }
         public void UpdateStation(BusStation bs)
         {
             int n = DataSource.AllBusStations.FindIndex(x => x.StationCode == bs.StationCode);
+            if(n>-1)
             DataSource.AllBusStations[n] = bs.Clone();
-            //DataSource.AllBusStations.Remove(GetBusStation(bs.StationCode));
-            //DataSource.AllBusStations.Add(bs.Clone());
+            else
+            throw new DOException($"Bus station number {bs.StationCode} was not found");
         }
         public IEnumerable<BusStation> GetSpecificBusStations(Predicate<BusStation> p) 
         {
             var ListBS = (from BusStation bs in DataSource.AllBusStations
-                         where p(bs)
+                         where p(bs)&&bs.IsExist
                          select bs.Clone());
             if (ListBS != null)
                 return ListBS;

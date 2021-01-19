@@ -41,14 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DalXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DLAPI\DLAPI.csproj">
       <Project>{1cb30280-f50d-44db-bd7e-e5cdf72fa627}</Project>
       <Name>DLAPI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

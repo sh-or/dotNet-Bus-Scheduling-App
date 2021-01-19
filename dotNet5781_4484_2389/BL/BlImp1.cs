@@ -848,12 +848,13 @@ namespace BL
             try
             {
                 LineTrip l = dal.GetLineTrip(_LineCode, _Start);
+                Line bl = dal.GetLine(l.LineCode);
                 return new BOLineTrip()
                 {
                     LineCode = l.LineCode,
-                    BusLine = dal.GetLine(l.LineCode).BusLine,
+                    BusLine = bl.BusLine,
                     Start = l.Start,
-                    Destination = dal.GetBusStation(dal.GetLine(l.LineCode).LastStation).Name,
+                    Destination = dal.GetBusStation(bl.LastStation).Name,
                     IsExist = true
                 };
             }
@@ -868,13 +869,14 @@ namespace BL
             try
             {
                 return from LineTrip l in dal.GetAllLineTrips(_LineCode)
+                       let bl= dal.GetLine(l.LineCode)
                        orderby l.Start
                        select new BOLineTrip()
                        {
                            LineCode = l.LineCode,
-                           BusLine = dal.GetLine(l.LineCode).BusLine,
+                           BusLine = bl.BusLine,
                            Start = l.Start,
-                           Destination = dal.GetBusStation(dal.GetLine(l.LineCode).LastStation).Name,
+                           Destination = dal.GetBusStation(bl.LastStation).Name,
                            IsExist = true
                        };
 

@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<ArrayOfBusStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BusStation>
+    <StationCode>1</StationCode>
+    <Latitude>32.183921</Latitude>
+    <Longitude>34.917806</Longitude>
+    <Name>Ben Yehuda</Name>
+    <Address>Ben Yehuda 12</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>2</StationCode>
+    <Latitude>31.870034</Latitude>
+    <Longitude>34.819541</Longitude>
+    <Name>Herzel</Name>
+    <Address>Herzel 12</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>3</StationCode>
+    <Latitude>31.984553</Latitude>
+    <Longitude>34.782828</Longitude>
+    <Name>shabazi</Name>
+    <Address>shabazi 3</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>4</StationCode>
+    <Latitude>31.88855</Latitude>
+    <Longitude>34.790904</Longitude>
+    <Name>Bar Lev</Name>
+    <Address>Bar Lev 43</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>5</StationCode>
+    <Latitude>31.914255</Latitude>
+    <Longitude>34.807944</Longitude>
+    <Name>Rakefet</Name>
+    <Address>Rakefet 21</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>6</StationCode>
+    <Latitude>32.026047</Latitude>
+    <Longitude>34.807561</Longitude>
+    <Name>hagefen</Name>
+    <Address>hagefen 1</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>7</StationCode>
+    <Latitude>32.425697</Latitude>
+    <Longitude>35.033724</Longitude>
+    <Name>Kanaf</Name>
+    <Address>Kanaf 23</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>8</StationCode>
+    <Latitude>32.422627</Latitude>
+    <Longitude>34.920835</Longitude>
+    <Name>Halevy</Name>
+    <Address>Halevy 5</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>9</StationCode>
+    <Latitude>32.425167</Latitude>
+    <Longitude>35.035408</Longitude>
+    <Name>Trumpeldor</Name>
+    <Address>Trumpeldor 78</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>10</StationCode>
+    <Latitude>32.421197</Latitude>
+    <Longitude>35.040302</Longitude>
+    <Name>Kats</Name>
+    <Address>Kats 5</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>11</StationCode>
+    <Latitude>32.442103</Latitude>
+    <Longitude>35.047091</Longitude>
+    <Name>Rotshild</Name>
+    <Address>Rotshild 4</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>12</StationCode>
+    <Latitude>32.560804</Latitude>
+    <Longitude>34.961128</Longitude>
+    <Name>Hazait</Name>
+    <Address>Hazait 23</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>13</StationCode>
+    <Latitude>32.561361</Latitude>
+    <Longitude>34.958195</Longitude>
+    <Name>Hapardes</Name>
+    <Address>Hapardes 32</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>14</StationCode>
+    <Latitude>33.013069</Latitude>
+    <Longitude>35.102114</Longitude>
+    <Name>Perah</Name>
+    <Address>Perah 1</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>15</StationCode>
+    <Latitude>33.074448</Latitude>
+    <Longitude>35.295265</Longitude>
+    <Name>Hagana</Name>
+    <Address>Hagana 2</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>16</StationCode>
+    <Latitude>33.007998</Latitude>
+    <Longitude>35.270537</Longitude>
+    <Name>Dvir</Name>
+    <Address>Dvir 34</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>17</StationCode>
+    <Latitude>33.006947</Latitude>
+    <Longitude>35.281855</Longitude>
+    <Name>Ariel</Name>
+    <Address>Ariel 21</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>18</StationCode>
+    <Latitude>32.976412</Latitude>
+    <Longitude>35.504043</Longitude>
+    <Name>Hagibor</Name>
+    <Address>Hagibor 46</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>19</StationCode>
+    <Latitude>33.020204</Latitude>
+    <Longitude>35.148256</Longitude>
+    <Name>Truman</Name>
+    <Address>Truman 56</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>20</StationCode>
+    <Latitude>32.937562</Latitude>
+    <Longitude>35.361183</Longitude>
+    <Name>Karny</Name>
+    <Address>Karny 24</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>21</StationCode>
+    <Latitude>33.026994</Latitude>
+    <Longitude>34.910842</Longitude>
+    <Name>Roman</Name>
+    <Address>Roman 81</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>22</StationCode>
+    <Latitude>32.059086</Latitude>
+    <Longitude>34.708337</Longitude>
+    <Name>Hagefen</Name>
+    <Address>Hagefen 13</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>23</StationCode>
+    <Latitude>32.072615</Latitude>
+    <Longitude>34.791077</Longitude>
+    <Name>Pilon</Name>
+    <Address>Pilon 14</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>24</StationCode>
+    <Latitude>31.398358</Latitude>
+    <Longitude>34.746489</Longitude>
+    <Name>Parpar</Name>
+    <Address>Parpar 15</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>25</StationCode>
+    <Latitude>31.397747</Latitude>
+    <Longitude>34.74605</Longitude>
+    <Name>HaEtzel</Name>
+    <Address>HaEtzel 26</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>26</StationCode>
+    <Latitude>31.395101</Latitude>
+    <Longitude>34.747424</Longitude>
+    <Name>Doron</Name>
+    <Address>Doron 14</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>27</StationCode>
+    <Latitude>31.392122</Latitude>
+    <Longitude>34.74865</Longitude>
+    <Name>Armon</Name>
+    <Address>Armon 12</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>28</StationCode>
+    <Latitude>31.394065</Latitude>
+    <Longitude>34.748791</Longitude>
+    <Name>Hamigdal</Name>
+    <Address>Hamigdal 12</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>29</StationCode>
+    <Latitude>32.026119</Latitude>
+    <Longitude>34.743063</Longitude>
+    <Name>Turki</Name>
+    <Address>Turki 14</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>30</StationCode>
+    <Latitude>31.735511</Latitude>
+    <Longitude>34.749105</Longitude>
+    <Name>kanion</Name>
+    <Address>kanion 32</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>31</StationCode>
+    <Latitude>31.735434</Latitude>
+    <Longitude>34.749583</Longitude>
+    <Name>Rubi</Name>
+    <Address>Rubi 31</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>32</StationCode>
+    <Latitude>31.711082</Latitude>
+    <Longitude>34.744586</Longitude>
+    <Name>HaMelech</Name>
+    <Address>HaMelech 13</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>33</StationCode>
+    <Latitude>31.712156</Latitude>
+    <Longitude>34.739468</Longitude>
+    <Name>Donald</Name>
+    <Address>Donald 34</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>34</StationCode>
+    <Latitude>31.716725</Latitude>
+    <Longitude>34.732568</Longitude>
+    <Name>Jonathan</Name>
+    <Address>Jonathan 32</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>35</StationCode>
+    <Latitude>32.910362</Latitude>
+    <Longitude>35.299742</Longitude>
+    <Name>Dvora</Name>
+    <Address>Dvora 23</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>36</StationCode>
+    <Latitude>32.913282</Latitude>
+    <Longitude>35.301922</Longitude>
+    <Name>Mapal</Name>
+    <Address>Mapal 49</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>37</StationCode>
+    <Latitude>33.026696</Latitude>
+    <Longitude>35.250267</Longitude>
+    <Name>Kineret</Name>
+    <Address>Kineret 8</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>38</StationCode>
+    <Latitude>33.025094</Latitude>
+    <Longitude>35.252544</Longitude>
+    <Name>Anilevich</Name>
+    <Address>Anilevich 7</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>39</StationCode>
+    <Latitude>32.927907</Latitude>
+    <Longitude>35.319294</Longitude>
+    <Name>Hashomer</Name>
+    <Address>Hashomer 23</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>40</StationCode>
+    <Latitude>33.006806</Latitude>
+    <Longitude>35.259478</Longitude>
+    <Name>Hayezira</Name>
+    <Address>Hayezira 67</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>41</StationCode>
+    <Latitude>32.833388</Latitude>
+    <Longitude>35.247594</Longitude>
+    <Name>Sapir</Name>
+    <Address>Sapir 5</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>42</StationCode>
+    <Latitude>32.837056</Latitude>
+    <Longitude>35.24829</Longitude>
+    <Name>Shmork</Name>
+    <Address>Shmork 28</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>43</StationCode>
+    <Latitude>32.047463</Latitude>
+    <Longitude>34.864658</Longitude>
+    <Name>Nachum</Name>
+    <Address>Nachum 38</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>44</StationCode>
+    <Latitude>32.460728</Latitude>
+    <Longitude>35.054007</Longitude>
+    <Name>Golomb</Name>
+    <Address>Golomb 18</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>45</StationCode>
+    <Latitude>32.461191</Latitude>
+    <Longitude>35.053399</Longitude>
+    <Name>Alon</Name>
+    <Address>Alon 49</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>46</StationCode>
+    <Latitude>32.461896</Latitude>
+    <Longitude>35.053225</Longitude>
+    <Name>Shpigelman</Name>
+    <Address>Shpigelman 37</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>47</StationCode>
+    <Latitude>33.086246</Latitude>
+    <Longitude>35.225712</Longitude>
+    <Name>Hartum</Name>
+    <Address>Hartum 5</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>48</StationCode>
+    <Latitude>33.088012</Latitude>
+    <Longitude>35.224534</Longitude>
+    <Name>Hayesod</Name>
+    <Address>Hayesod 8</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>49</StationCode>
+    <Latitude>33.087206</Latitude>
+    <Longitude>35.227705</Longitude>
+    <Name>Rotem</Name>
+    <Address>Rotem 10</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>50</StationCode>
+    <Latitude>33.085835</Latitude>
+    <Longitude>35.221639</Longitude>
+    <Name>Savion</Name>
+    <Address>Savion 4</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>51</StationCode>
+    <Latitude>32.455216</Latitude>
+    <Longitude>35.055688</Longitude>
+    <Name>Agamim</Name>
+    <Address>Agamim 19</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+</ArrayOfBusStation>

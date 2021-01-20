@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ArrayOfLineTrip xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>2</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>2</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>2</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>2</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>2</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>2</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>3</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>3</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>3</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>3</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>3</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>3</LineCode>
+    <Start />
+    <IsExist>true</IsExist>
+  </LineTrip>
+</ArrayOfLineTrip>

@@ -42,7 +42,7 @@ namespace PL
             //LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
 
-
+        #region Bus
         private void RefreshBuses(object sender, EventArgs e)
         {
             ListBuses.ItemsSource = bl.GetAllBuses();
@@ -72,7 +72,8 @@ namespace PL
             addb.Closed += RefreshBuses;
             addb.ShowDialog();
         }
-
+        #endregion
+        #region BusStation
         private void UpdateStation_Click(object sender, RoutedEventArgs e)
         {
             BOBusStation bs = (sender as Button).DataContext as BOBusStation;
@@ -87,6 +88,8 @@ namespace PL
             adds.Closed += RefreshLinesAndStations;
             adds.ShowDialog();
         }
+        #endregion
+        #region Line
         private void addline_Click(object sender, RoutedEventArgs e)
         {
             AddLine addl = new AddLine(bl);
@@ -107,7 +110,7 @@ namespace PL
         {
             LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
-
+        #endregion
         private void ListBusStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;

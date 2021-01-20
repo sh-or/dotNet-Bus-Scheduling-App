@@ -15,7 +15,7 @@ namespace DL
         static readonly DalXml instance = new DalXml();
         static DalXml() { } // static c-tor
         DalXml() { } // private
-        public static  IDAL Instance { get => instance; }// for public use
+        public static DalXml Instance { get => instance; }// for public use
 
         #endregion
 

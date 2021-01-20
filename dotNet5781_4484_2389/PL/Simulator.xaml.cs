@@ -38,7 +38,10 @@ namespace PL
             bl = ibl;
             st = bst; Rate = _Rate;
             timer = new TimeSpan(_Hours, _Minuts, _Seconds);
-            rate.DataContext = _Rate;
+            rate.Text = _Rate.ToString();
+            hours.Text = timer.Hours.ToString();
+            minuts.Text = timer.Minutes.ToString();
+            seconds.Text = timer.Seconds.ToString();
             stNum.Text = st.StationCode+"  "+ st.Name;
             if (Rate < 60)
                 runingTime = new TimeSpan(0, Rate, 0);
@@ -82,8 +85,9 @@ namespace PL
         private void lineSimulation_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string header = e.Column.Header.ToString();
-            if (header == "IsExist")
+            if (header == "IsExist" || header == "StationCode" || header == "LineCode")
                 e.Cancel = true;
         }
+
     }
 }

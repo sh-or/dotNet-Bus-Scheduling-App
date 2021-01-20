@@ -301,9 +301,17 @@ namespace PL
         {            
             BOLineStation ls = (sender as DataGrid).SelectedItem as BOLineStation;
             BOLine l = ListLines.SelectedItem as BOLine;
-            UpdateCS us = new UpdateCS(bl, ls, l);
-            us.Closed += RefreshLinesAndStations;
-            us.ShowDialog();
+            int index = l.Stations.ToList().FindIndex(x => x.StationCode == ls.StationCode);
+            if (index == 0)
+            {
+                MessageBox.Show("Cannot edit first station's data");
+            }
+            else
+            {
+                UpdateCS us = new UpdateCS(bl, ls, l);
+                us.Closed += RefreshLinesAndStations;
+                us.ShowDialog();
+            }
         }
 
         private void LineStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

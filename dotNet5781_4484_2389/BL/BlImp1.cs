@@ -893,16 +893,18 @@ namespace BL
             try
             {
                 return from l in dal.GetAllStationLineTrips(_StationCode, _Start)
-                       where (l.Start + DriveTimeToStation(l.LineCode, _StationCode)) >= _Start
+                       let x= dal.GetLine(l.LineCode)
+                       let dt= DriveTimeToStation(l.LineCode, _StationCode)
+                       where (l.Start + dt) >= _Start
                        orderby l.Start
                        select new BOLineTrip()
                        {
                            LineCode=l.LineCode,
-                           //BusLine=dal.GetLine(l.LineCode).BusLine,
+                           BusLine=x.BusLine,
                            StationCode=_StationCode,
                            Start=l.Start,
-                           Arrive=l.Start + DriveTimeToStation(l.LineCode, _StationCode)- _Start,
-                           //Destination= dal.GetBusStation(dal.GetLine(l.LineCode).LastStation).Name,
+                           Arrive=l.Start + dt- _Start,
+                           Destination= dal.GetBusStation(x.LastStation).Name,
                            IsExist =true
                        };
                        //(BOLineTrip)Transform.trans(l, tmp.GetType());

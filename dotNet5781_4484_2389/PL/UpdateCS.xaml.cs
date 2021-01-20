@@ -27,20 +27,22 @@ namespace PL
         public UpdateCS(IBL ibl, BOLineStation bls, BOLine l)
         {
             bl = ibl;
-            st1 = bls.StationCode;
+            st2 = bls.StationCode;
 
             InitializeComponent();
             try
             { 
                 var lst = l.Stations.ToList();
                 int index=lst.FindIndex(x => x.StationCode == bls.StationCode);
-                if(index==0)
-                {
-                    MessageBox.Show("ERROR!  \nEdit and try again");
-                    Close();
-                }
-                st2 = lst[index - 1].StationCode;
-               _stations.Text = st1 + ", "+st2;
+                //if (index == 0)
+                //{
+                //    MessageBox.Show("Cannot edit first station's data");
+                //}
+                //else
+                //{
+                    st1 = lst[index - 1].StationCode;
+                    _stations.Text = st1 + ", " + st2;
+                //}
             }
             catch (BLException ex)
             {

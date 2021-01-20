@@ -87,6 +87,49 @@ namespace DL
                 throw new DOException($"Bus number {b.LicenseNumber} was not found");
         }
 
+        public void AddBus(Bus b)
+        {
+            XElement BusesRootElem = XMLTools.LoadListFromXMLElement(BusesPath);
+
+            XElement bus1 = (from x in BusesRootElem.Elements()
+                             where int.Parse(x.Element("LicenseNumber").Value) == b.LicenseNumber
+                             select x).FirstOrDefault();
+
+            if (bus1 != null)
+                throw new DOException($"Bus number {b.LicenseNumber} is already exist");
+
+            XElement bus = new XElement("Bus",
+                               new XElement("LicenseNumber", b.LicenseNumber.ToString()),
+                               new XElement("LicensingDate", b.LicensingDate.ToString()),
+                               new XElement("Kilometerage", b.Kilometerage.ToString()),
+                               new XElement("KmFromLastRefuel", b.KmFromLastRefuel.ToString()),
+                               new XElement("KmFromLastCare", b.KmFromLastCare.ToString()),
+                               new XElement("DateOfLastCare", b.DateOfLastCare.ToString()),
+                               new XElement("Status", b.Status.ToString()),
+                               new XElement("Driver", b.Driver),
+                               new XElement("IsExist", b.IsExist.ToString()));
+
+            BusesRootElem.Add(bus);
+
+            XMLTools.SaveListToXMLElement(BusesRootElem, BusesPath);
+        }
+
+        public void DeleteBus(int _LicenseNumber)
+        {
+            XElement BusesRootElem = XMLTools.LoadListFromXMLElement(BusesPath);
+
+            XElement bs = (from bus in BusesRootElem.Elements()
+                           where int.Parse(bus.Element("LicenseNumber").Value) == _LicenseNumber
+                           select bus).FirstOrDefault();
+
+            if (bs != null && bool.Parse(bs.Element("IsExist").Value))
+            {
+                bs.Element("IsExist").Value = false.ToString();
+                XMLTools.SaveListToXMLElement(BusesRootElem, BusesPath);
+            }
+            else
+                throw new DOException($"Bus number {_LicenseNumber} was not found");
+        }
         public IEnumerable<Bus> GetSpecificBuses(Predicate<Bus> p)
         {
             XElement BusesRootElem = XMLTools.LoadListFromXMLElement(BusesPath);
@@ -133,50 +176,6 @@ namespace DL
             if (ListBS != null)
                 return ListBS;
             throw new DOException("No buses were found");
-        }
-
-        public void AddBus(Bus b)
-        {
-            XElement BusesRootElem = XMLTools.LoadListFromXMLElement(BusesPath);
-
-            XElement bus1 = (from x in BusesRootElem.Elements()
-                             where int.Parse(x.Element("LicenseNumber").Value) == b.LicenseNumber
-                             select x).FirstOrDefault();
-
-            if (bus1 != null)
-                throw new DOException($"Bus number {b.LicenseNumber} is already exist");
-
-            XElement bus = new XElement("Bus",
-                               new XElement("LicenseNumber", b.LicenseNumber.ToString()),
-                               new XElement("LicensingDate", b.LicensingDate.ToString()),
-                               new XElement("Kilometerage", b.Kilometerage.ToString()),
-                               new XElement("KmFromLastRefuel", b.KmFromLastRefuel.ToString()),
-                               new XElement("KmFromLastCare", b.KmFromLastCare.ToString()),
-                               new XElement("DateOfLastCare", b.DateOfLastCare.ToString()),
-                               new XElement("Status", b.Status.ToString()),
-                               new XElement("Driver", b.Driver),
-                               new XElement("IsExist", b.IsExist.ToString()));
-
-            BusesRootElem.Add(bus);
-
-            XMLTools.SaveListToXMLElement(BusesRootElem, BusesPath);
-        }
-
-        public void DeleteBus(int _LicenseNumber)
-        {
-            XElement BusesRootElem = XMLTools.LoadListFromXMLElement(BusesPath);
-
-            XElement bs = (from bus in BusesRootElem.Elements()
-                           where int.Parse(bus.Element("LicenseNumber").Value) == _LicenseNumber
-                           select bus).FirstOrDefault();
-
-            if (bs != null && bool.Parse(bs.Element("IsExist").Value))
-            {
-                bs.Element("IsExist").Value = false.ToString();
-                XMLTools.SaveListToXMLElement(BusesRootElem, BusesPath);
-            }
-            else
-                throw new DOException($"Bus number {_LicenseNumber} was not found");
         }
         #endregion
 
@@ -449,8 +448,9 @@ namespace DL
         {
             List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
             return from ls in lst.FindAll(x => x.IsExist && x.StationCode == _StationCode)
-                   where GetLine(ls.LineCode).IsExist
-                   select GetLine(ls.LineCode);
+                   let x= GetLine(ls.LineCode)
+                   where x.IsExist
+                   select x;
         }
         #endregion
 
@@ -606,49 +606,92 @@ namespace DL
         #endregion
 
         #region Consecutive Stations
-
-        public void AddConsecutiveStations(ConsecutiveStations cs)
-        {
-            //List<ConsecutiveStations> lst = XMLTools.LoadListFromXMLSerializer<ConsecutiveStations>(ConsecutiveStationsPath);
-            //if (!isExistConsecutiveStations(cs.StationCode1, cs.StationCode2))
-            //    DataSource.AllConsecutiveStations.ToList().Add(cs);
-        }
         public ConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2)
         {
-            //ConsecutiveStations cs = DataSource.AllConsecutiveStations.ToList().Find(x => x.StationCode1 == _StationCode1 && x.StationCode2 == _StationCode2);
-            //if (cs != null)
-            //    return cs.Clone();
+            XElement csRootElem = XMLTools.LoadListFromXMLElement(ConsecutiveStationsPath);
+
+            ConsecutiveStations cs = (from c in csRootElem.Elements()
+                     where int.Parse(c.Element("StationCode1").Value) == _StationCode1 
+                     && int.Parse(c.Element("StationCode2").Value) == _StationCode2 
+                     select new ConsecutiveStations()
+                     {
+                         StationCode1=_StationCode1,
+                         StationCode2=_StationCode2,
+                         Distance= double.Parse(c.Element("Distance").Value),
+                         DriveTime=TimeSpan.Parse(c.Element("DriveTime").Value)
+                     }
+                    ).FirstOrDefault();
+            if (cs != null)
+                return cs;
             throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive stations");
         }
+        public void AddConsecutiveStations(ConsecutiveStations cs)
+        {
+            XElement csRootElem = XMLTools.LoadListFromXMLElement(ConsecutiveStationsPath);
 
+            XElement coSt = (from c in csRootElem.Elements()
+                             where int.Parse(c.Element("StationCode1").Value) == cs.StationCode1
+                                                  && int.Parse(c.Element("StationCode2").Value) == cs.StationCode2
+                             select c).FirstOrDefault();
+
+            if (coSt == null)
+            {
+                XElement c = new XElement("ConsecutiveStations",
+                     new XElement("StationCode1", cs.StationCode1.ToString()),
+                     new XElement("StationCode2", cs.StationCode2.ToString()),
+                     new XElement("Distance", cs.Distance.ToString()),
+                     new XElement("DriveTime", cs.DriveTime.ToString()));
+
+                csRootElem.Add(c);
+
+                XMLTools.SaveListToXMLElement(csRootElem, ConsecutiveStationsPath);
+            }
+        }
         public void UpdateConsecutiveStations(ConsecutiveStations cs)
         {
-            //int n = DataSource.AllConsecutiveStations.ToList().FindIndex(x => x.StationCode1 == cs.StationCode1 && x.StationCode2 == cs.StationCode2);
-            //if (n > -1)
-            //{
-            //    var lst = DataSource.AllConsecutiveStations.ToList();
-            //    lst.RemoveAt(n);
-            //    lst.Add(cs.Clone());
-            //    DataSource.AllConsecutiveStations = lst;
-            //}
-            //else
-            throw new DOException($"Station {cs.StationCode1} and station {cs.StationCode2} are not consecutive stations");
+            XElement csRootElem = XMLTools.LoadListFromXMLElement(ConsecutiveStationsPath);
+
+            XElement coSt = (from c in csRootElem.Elements()
+                             where int.Parse(c.Element("StationCode1").Value) == cs.StationCode1
+                                                  && int.Parse(c.Element("StationCode2").Value) == cs.StationCode2
+                             select c).FirstOrDefault();
+
+            if (coSt != null)
+            {
+                coSt.Element("Distance").Value = cs.Distance.ToString();
+                coSt.Element("DriveTime").Value = cs.DriveTime.ToString();
+
+                XMLTools.SaveListToXMLElement(csRootElem, ConsecutiveStationsPath);
+            }
+            else
+                throw new DOException($"Station {cs.StationCode1} and station {cs.StationCode2} are not consecutive stations");
         }
 
         public bool isExistConsecutiveStations(int _FirstStation, int _LastStation)
         {
-            return true;
-            //return DataSource.AllConsecutiveStations.ToList().Exists(x => x.StationCode1 == _FirstStation && x.StationCode2 == _LastStation);
+            XElement csRootElem = XMLTools.LoadListFromXMLElement(ConsecutiveStationsPath);
+
+            XElement coSt = (from c in csRootElem.Elements()
+                             where int.Parse(c.Element("StationCode1").Value) == _FirstStation
+                                                  && int.Parse(c.Element("StationCode2").Value) == _LastStation
+                             select c).FirstOrDefault();
+
+            return (coSt != null);
         }
 
         public IEnumerable<ConsecutiveStations> GetSomeConsecutiveStations(int _StationCode)
         {
-            List<ConsecutiveStations> x = new List<ConsecutiveStations>();
-            x.Add(GetConsecutiveStations(1, 2));
-            return x;
-            //return from ConsecutiveStations cs in DataSource.AllConsecutiveStations
-            //       where cs.StationCode1 == _StationCode || cs.StationCode2 == _StationCode
-            //       select cs;
+            XElement csRootElem = XMLTools.LoadListFromXMLElement(ConsecutiveStationsPath);
+
+            return from c in csRootElem.Elements()
+                   where int.Parse(c.Element("StationCode1").Value) == _StationCode
+                   select new ConsecutiveStations()
+                   {
+                       StationCode1 = _StationCode,
+                       StationCode2 = int.Parse(c.Element("StationCode2").Value),
+                       Distance = double.Parse(c.Element("Distance").Value),
+                       DriveTime = TimeSpan.Parse(c.Element("DriveTime").Value)
+                   };
         }
         #endregion
         #region reset
@@ -938,62 +981,86 @@ namespace DL
             //                    new LineStation{LineCode=4, StationCode=7, StationNumberInLine=12 , IsExist=true},
             //                    new LineStation{LineCode=5, StationCode=5, StationNumberInLine=12 , IsExist=true},
             //    #endregion
-            //                };
+            // 
+            //List < ConsecutiveStations > AllConsecutiveStations=new List<ConsecutiveStations>();
+            //foreach (Line l in GetAllLines())
+            //{
+            //    List<BusStation> lst = GetStationsOfLine(l.Code).ToList();
+            //    for (int i = 1; i < lst.Count; i++)
+            //    {
+            //        //AllConsecutiveStations.Add(new ConsecutiveStations
+            //        //{
+            //        //    StationCode1 = lst[i - 1].StationCode,
+            //        //    StationCode2 = lst[i].StationCode,
+            //        //    Distance = csDistance(lst[i - 1], lst[i]),
+            //        //    DriveTime = csDt(csDistance(lst[i - 1], lst[i]))
+            //        //});
+            //        AddConsecutiveStations(new ConsecutiveStations
+            //        {
+            //            StationCode1 = lst[i - 1].StationCode,
+            //            StationCode2 = lst[i].StationCode,
+            //            Distance = csDistance(lst[i - 1], lst[i]),
+            //            DriveTime = csDt(csDistance(lst[i - 1], lst[i]))
+            //        });
+            //    }
+            //}
 
-            //    List<ConsecutiveStations> AllConsecutiveStations = (from bs1 in AllBusStations
-            //                                                        from bs2 in AllBusStations
-            //                                                        select new ConsecutiveStations
-            //                                                        {
-            //                                                            StationCode1 = bs1.StationCode,
-            //                                                            StationCode2 = bs2.StationCode,
-            //                                                            Distance = csDistance(bs1, bs2),
-            //                                                            DriveTime = csDt(csDistance(bs1, bs2))
-            //                                                        }).ToList();
+                //List<ConsecutiveStations> AllConsecutiveStations = (from Line l in GetAllLines()
+                //                                                    from LineStation st in GetAllLineStations(l.Code)
+                //                                                    where st.StationNumberInLine!=0
+                //                                                    select new ConsecutiveStations
+                //                                                    {
+                //                                                        StationCode1 = bs1.StationCode,
+                //                                                        StationCode2 = bs2.StationCode,
+                //                                                        Distance = csDistance(bs1, bs2),
+                //                                                        DriveTime = csDt(csDistance(bs1, bs2))
+                //                                                    }).ToList();
 
-            //    var AllUsers = new List<User>
-            //                {
-            //                    new User{ IsExist=true, Name="m", Password="m", IsManager=true}, //example
-            //                    new User{ IsExist=true, Name="u", Password="u", IsManager=false}, //example
-            //                    new User{ IsExist=true, Name="AAAA", Password="aaaa1111", IsManager=true},
-            //                    new User{ IsExist=true, Name="aaaa", Password="aaaa2222", IsManager=true},
-            //                    new User{ IsExist=true, Name="bbbb", Password="bbbb2222", IsManager=false},
-            //                    new User{ IsExist=true, Name="cccc", Password="cccc3333", IsManager=false},
-            //                    new User{ IsExist=true, Name="dddd", Password="dddd4444", IsManager=false},
-            //                    new User{ IsExist=true, Name="eeee", Password="eeee5555", IsManager=false},
-            //                    new User{ IsExist=true, Name="ffff", Password="ffff6666", IsManager=false},
-            //                    new User{ IsExist=true, Name="gggg", Password="gggg7777", IsManager=false}
-            //                };
+                //    var AllUsers = new List<User>
+                //                {
+                //                    new User{ IsExist=true, Name="m", Password="m", IsManager=true}, //example
+                //                    new User{ IsExist=true, Name="u", Password="u", IsManager=false}, //example
+                //                    new User{ IsExist=true, Name="AAAA", Password="aaaa1111", IsManager=true},
+                //                    new User{ IsExist=true, Name="aaaa", Password="aaaa2222", IsManager=true},
+                //                    new User{ IsExist=true, Name="bbbb", Password="bbbb2222", IsManager=false},
+                //                    new User{ IsExist=true, Name="cccc", Password="cccc3333", IsManager=false},
+                //                    new User{ IsExist=true, Name="dddd", Password="dddd4444", IsManager=false},
+                //                    new User{ IsExist=true, Name="eeee", Password="eeee5555", IsManager=false},
+                //                    new User{ IsExist=true, Name="ffff", Password="ffff6666", IsManager=false},
+                //                    new User{ IsExist=true, Name="gggg", Password="gggg7777", IsManager=false}
+                //                };
 
-            //    var AllLinesTrip = new List<LineTrip>
-            //                {
-            //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
-            //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,08,08) },
-            //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,15,15) },
-            //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(00,15,00) },
-            //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(09,12,00) },
-            //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
-            //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(08,00,00) },
-            //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(09,50,00) },
-            //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,15,00) },
-            //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,10,00) },
-            //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(16,30,00) },
-            //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(17,30,00) },
-            //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(09,00,00) },
-            //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(08,00,00) },
-            //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,10,00) },
-            //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,20,00) },
-            //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,30,00) },
-            //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,15,00) },
-            //                };
-            //    //XMLTools.SaveListToXMLSerializer(AllBuses, BusesPath);
-            //    XMLTools.SaveListToXMLSerializer(AllLines, LinesPath);
-            //    XMLTools.SaveListToXMLSerializer(AllBusStations, BusStationsPath);
-            //    XMLTools.SaveListToXMLSerializer(AllLineStations, LineStationsPath);
-            //    XMLTools.SaveListToXMLSerializer(AllConsecutiveStations, ConsecutiveStationsPath);
-            //    XMLTools.SaveListToXMLSerializer(AllUsers, UsersPath);
-            //    XMLTools.SaveListToXMLSerializer(AllLinesTrip, LineTripsPath);
+                //    var AllLinesTrip = new List<LineTrip>
+                //                {
+                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
+                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,08,08) },
+                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,15,15) },
+                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(00,15,00) },
+                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(09,12,00) },
+                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
+                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(08,00,00) },
+                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(09,50,00) },
+                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,15,00) },
+                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,10,00) },
+                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(16,30,00) },
+                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(17,30,00) },
+                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(09,00,00) },
+                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(08,00,00) },
+                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,10,00) },
+                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,20,00) },
+                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,30,00) },
+                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,15,00) },
+                //                };
+                //    //XMLTools.SaveListToXMLSerializer(AllBuses, BusesPath);
+                //    XMLTools.SaveListToXMLSerializer(AllLines, LinesPath);
+                //    XMLTools.SaveListToXMLSerializer(AllBusStations, BusStationsPath);
+                //    XMLTools.SaveListToXMLSerializer(AllLineStations, LineStationsPath);
+                    //XMLTools.SaveListToXMLSerializer(AllConsecutiveStations, ConsecutiveStationsPath);
+                //    XMLTools.SaveListToXMLSerializer(AllUsers, UsersPath);
+                //    XMLTools.SaveListToXMLSerializer(AllLinesTrip, LineTripsPath);
 
-            }
+        }
+
         public static double csDistance(BusStation bs1, BusStation bs2)
         {
             GeoCoordinate loc1 = new GeoCoordinate(bs1.Latitude, bs1.Longitude);

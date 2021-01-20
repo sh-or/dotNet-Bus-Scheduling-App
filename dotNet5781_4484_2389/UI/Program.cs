@@ -460,7 +460,7 @@ namespace UI  //PlConsole
             //            Console.WriteLine(dex.Message);
             //        }
             //    } while (myChoice != 4);
-            bl.reset();
+            //bl.reset();
             Console.WriteLine("end\n");
         }
     }

@@ -19,17 +19,15 @@ namespace DL
         #endregion
 
         #region DS XML Files
-        string XMLConfigurationPath = @"XMLConfiguration.xml";
         string BusesPath = @"BusesXml.xml"; //XElement
         string LineTripsPath = @"LineTripsXml.xml"; //XElement
 
         string BusStationsPath = @"BusStationsXml.xml"; //XMLSerializer
         string LineStationsPath = @"LineStationsXml.xml"; //XMLSerializer
         string LinesPath = @"LinesXml.xml"; //XMLSerializer
-
-        string studInCoursesPath = @"StudentInCoureseXml.xml"; //XMLSerializer
+        string UsersPath = @"UserXml.xml"; //XMLSerializer
         #endregion
-        //configuration for running numbersss->How??
+
         #region Bus
         public Bus GetBus(int _LicenseNumber)
         {
@@ -174,7 +172,6 @@ namespace DL
                 throw new DOException($"Bus number {_LicenseNumber} was not found");
         }
         #endregion
-
         #region LineTrip
         public LineTrip GetLineTrip(int _LineCode, TimeSpan _Start)
         {
@@ -286,7 +283,6 @@ namespace DL
                 throw new DOException($"Line {lt.LineCode} has no trip at {lt.Start}");
         }
         #endregion
-
         #region Bus Station
         public BusStation GetBusStation(int _StationCode)
         {
@@ -341,7 +337,11 @@ namespace DL
         {
             List<BusStation> lst = XMLTools.LoadListFromXMLSerializer<BusStation>(BusStationsPath);
 
-            bs.StationCode = ConfigurationClass.StationCode;
+            XElement XMLRunNumber = XElement.Load(@"XMLConfiguration.xml");
+            int RunNum = int.Parse(XMLRunNumber.Element("StationCode").Value);
+            bs.StationCode = RunNum++;
+            XMLRunNumber.Element("StationCode").Value = RunNum.ToString();
+            XMLRunNumber.Save(@"XMLConfiguration.xml");
             lst.Add(bs);
          
             XMLTools.SaveListToXMLSerializer(lst, BusStationsPath);
@@ -373,7 +373,6 @@ namespace DL
             throw new DOException("No line stations were found");
         }
         #endregion
-
         #region Line
         public Line GetLine(int _Code)
         {
@@ -390,15 +389,15 @@ namespace DL
             lst[n] = l;
             XMLTools.SaveListToXMLSerializer(lst, LinesPath);
         }
-        public int AddLine(Line l) /////////////
+        public int AddLine(Line l) 
         {
-            XElement XMLConfiguration = XMLTools.LoadListFromXMLElement(XMLConfigurationPath);
-
             List<Line> lst = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
 
-            int RunNum = (from x in XMLConfiguration.Elements()
-                         select int.Parse((string)x.Attribute("LineCode"))).FirstOrDefault();
-            l.Code = RunNum;
+            XElement XMLRunNumber = XElement.Load(@"XMLConfiguration.xml");
+            int RunNum= int.Parse(XMLRunNumber.Element("LineCode").Value);
+            l.Code = RunNum++;
+            XMLRunNumber.Element("LineCode").Value = RunNum.ToString();
+            XMLRunNumber.Save(@"XMLConfiguration.xml");
             lst.Add(l);
             XMLTools.SaveListToXMLSerializer(lst, LinesPath);
             return l.Code;
@@ -431,9 +430,8 @@ namespace DL
             var Listl = from Line l in lst
                          where p(l)
                          select l;
-            //if (Listl != null) even if null..
                 return Listl;
-            //throw new DOException("No exist lines were found");
+            // even if null..
         }
         public IEnumerable<Line> GetStationLines(int _StationCode) // all the lines which cross in this station
         {
@@ -525,6 +523,75 @@ namespace DL
         }
         #endregion
 
+        #region User
+        public User GetUser(string name, string password)
+        {
+            List<User> lst = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            User u = lst.FirstOrDefault(x => x.IsExist && x.Name == name && x.Password == password);
+            if (u != null)
+                return u;
+            throw new DOException($"User name or password are wrong");
+        }
+
+        public void UpdateUser(User u)
+        {
+            List<User> lst = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            int index = lst.FindIndex(x => x.IsExist && x.Name == u.name);
+            if (index > -1)
+            {
+                lst[index] = u;
+                XMLTools.SaveListToXMLSerializer(lst, UsersPath);
+            }
+            else
+                throw new DOException($"User named {u.Name} was not found");
+        }
+
+        public IEnumerable<User> GetSpecificUsers(Predicate<User> p)
+        {
+            List<User> lst = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+
+            return from User u in lst
+                   where p(u)
+                   select u;
+        }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            List<User> lst = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            var List = from User x in lst
+                        where x.IsExist
+                        select x;
+            if (List != null)
+                return List;
+            throw new DOException("No Users were found");
+        }
+
+        public void AddUser(User u)
+        {
+            List<User> lst = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+
+            if (!lst.Exists(x => x.IsExist && x.Name == u.Name))
+            {
+                lst.Add(u);
+                XMLTools.SaveListToXMLSerializer(lst, UsersPath);
+            }
+            else
+                throw new DOException($"User named {u.Name} is already exist");
+        }
+
+        public void DeleteUser(string name)
+        {
+            List<User> lst = XMLTools.LoadListFromXMLSerializer<User>(UsersPath);
+            int index = lst.FindIndex(x => x.IsExist && x.Name == name);
+            if (index > -1)
+            {
+                lst[index].IsExist = false;
+                XMLTools.SaveListToXMLSerializer(lst, UsersPath);
+            }
+            else
+                throw new DOException($"User named {name} was not found");
+        }
+        #endregion
 
     }
 }

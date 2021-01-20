@@ -19,14 +19,14 @@ namespace DL
         #endregion
 
         #region DS XML Files
-
+        string XMLConfigurationPath = @"XMLConfiguration.xml";
         string BusesPath = @"BusesXml.xml"; //XElement
         string LineTripsPath = @"LineTripsXml.xml"; //XElement
 
         string BusStationsPath = @"BusStationsXml.xml"; //XMLSerializer
-
         string LineStationsPath = @"LineStationsXml.xml"; //XMLSerializer
         string LinesPath = @"LinesXml.xml"; //XMLSerializer
+
         string studInCoursesPath = @"StudentInCoureseXml.xml"; //XMLSerializer
         #endregion
         //configuration for running numbersss->How??
@@ -390,10 +390,15 @@ namespace DL
             lst[n] = l;
             XMLTools.SaveListToXMLSerializer(lst, LinesPath);
         }
-        public int AddLine(Line l)
+        public int AddLine(Line l) /////////////
         {
+            XElement XMLConfiguration = XMLTools.LoadListFromXMLElement(XMLConfigurationPath);
+
             List<Line> lst = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
-            l.Code = ConfigurationClass.LineCode;
+
+            int RunNum = (from x in XMLConfiguration.Elements()
+                         select int.Parse((string)x.Attribute("LineCode"))).FirstOrDefault();
+            l.Code = RunNum;
             lst.Add(l);
             XMLTools.SaveListToXMLSerializer(lst, LinesPath);
             return l.Code;
@@ -440,60 +445,83 @@ namespace DL
         #endregion
 
         #region Line Station
-        public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) //gets linestation???
+        public void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine) 
         {
+            List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+
             LineStation ls = new LineStation();
             ls.IsExist = true;
             ls.StationCode = _StationCode;
             ls.LineCode = _LineCode;
             ls.StationNumberInLine = _StationNumberInLine;
-            DataSource.AllLineStations.Add(ls);
+
+            lst.Add(ls);
+            XMLTools.SaveListToXMLSerializer(lst, LineStationsPath);
         }
         public LineStation GetLineStation(int _LineCode, int _StationCode)
         {
-            LineStation ls = DataSource.AllLineStations.Find(x => x.IsExist && (x.LineCode == _LineCode && x.StationCode == _StationCode));
-            if (ls != null)
-                return ls.Clone();
+            List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+
+            LineStation l = lst.Find(x => x.IsExist && (x.LineCode == _LineCode && x.StationCode == _StationCode));
+            if (l != null)
+                return l;
             throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
         }
         public IEnumerable<LineStation> GetAllLineStations(int _LineCode)
         {
-            return DataSource.AllLineStations.FindAll(x => x.IsExist && x.LineCode == _LineCode);
+            List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+
+            var Listls = from LineStation x in lst
+                        where x.IsExist && x.LineCode == _LineCode
+                         select x;
+
+            if (Listls != null)
+                return Listls;
+            throw new DOException("No lines were found");
         }
         public void UpdateLineStation(int _LineCode, int _StationCode, int n)//change index in +/-1
         {
+            List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+
             LineStation ls = GetLineStation(_LineCode, _StationCode);
-            //DeleteLineStation(_LineCode, _StationCode);
-            //AddLineStation(ls.LineCode, ls.StationCode, ls.StationNumberInLine + n);
-            int ind = DataSource.AllLineStations.FindIndex(x => x.LineCode == _LineCode && x.StationCode == _StationCode);
-            DataSource.AllLineStations[ind].StationNumberInLine += n;
+            int ind = lst.FindIndex(x => x.LineCode == _LineCode && x.StationCode == _StationCode);
+            lst[ind].StationNumberInLine += n;
+            XMLTools.SaveListToXMLSerializer(lst, LineStationsPath);
         }
+
         public int IsStationInLine(int _LineCode, int _StationCode) //check if exist specific line station and return the station location in the line or -1
         {
-            if (!DataSource.AllLineStations.Exists(x => x.IsExist && x.LineCode == _LineCode && x.StationCode == _StationCode))
+            List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+
+            if (!lst.Exists(x => x.IsExist && x.LineCode == _LineCode && x.StationCode == _StationCode))
                 return -1;
             LineStation ls = GetLineStation(_LineCode, _StationCode);
             return ls.StationNumberInLine;
         }
+        
         public IEnumerable<LineStation> GetSpecificLineStations(Predicate<LineStation> p)
         {
-            IEnumerable<LineStation> Listl = (from LineStation l in DataSource.AllLineStations
-                                              where l.IsExist && p(l)
-                                              select l.Clone());
-            //if (Listl != null)
+            List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+
+            var Listl = from LineStation l in lst
+                                         where l.IsExist && p(l)
+                                          select l;
             return Listl;
-            //throw new DOException("No exist lines were found");
-            //return spesific collection OR NULL!!!!!!!!!!!!!!!!!!
+            //return spesific collection OR NULL
         }
 
         public void DeleteLineStation(int _LineCode, int _StationCode)
         {
-            int n = DataSource.AllLineStations.FindIndex(x => x.StationCode == _StationCode && x.LineCode == _LineCode);
+            List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
+
+            int n = lst.FindIndex(x => x.StationCode == _StationCode && x.LineCode == _LineCode);
             if (n > -1)
-                DataSource.AllLineStations[n].IsExist = false; //.RemoveAt(n);
+            {
+                lst[n].IsExist = false;
+                XMLTools.SaveListToXMLSerializer(lst, LineStationsPath);
+            }
             else
                 throw new DOException($"Line number {_LineCode} does not cross in station {_StationCode}");
-
         }
         #endregion
 

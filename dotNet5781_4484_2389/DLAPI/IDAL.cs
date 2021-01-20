@@ -10,12 +10,7 @@ namespace DLAPI
 
     public interface IDAL
     {
-        //DateTime SetLicensingDate(int _LicenseNumber, DateTime _LicensingDate);
-        //double SetKilometerage(int _LicenseNumber, double _Kilometerage);
-        //double Fuel(int _LicenseNumber);
-        //StatusEnum Status(int _LicenseNumber);
-        //string Driver(int _LicenseNumber);
-        //bool IsExist(int _LicenseNumber);
+        void reset();
         #region Bus
         Bus GetBus(int _LicenseNumber);
         void UpdateBus(Bus b);

@@ -15,6 +15,17 @@ namespace BL
     {
         readonly IDAL dal = DalFactory.GetDal();
         public static Random r = new Random(DateTime.Now.Millisecond);
+        public void reset()
+        {
+            try
+            {
+                dal.reset();
+            }
+            catch (DOException dex)
+            {
+                throw new BLException(dex.Message, dex);
+            }
+        }
 
         #region Bus
         public BOBus GetBus(int _LicenseNumber)

@@ -13,6 +13,7 @@ namespace DL
 {
     public class DalObject  : IDAL
     {
+        public void reset() { }
         #region singelton
         class Nested
         {

@@ -10,6 +10,8 @@ namespace BlAPI
 {
    public interface IBL
     {
+        void reset();
+
         #region Bus
         BOBus GetBus(int _LicenseNumber);
         void UpdateBus(BOBus b);

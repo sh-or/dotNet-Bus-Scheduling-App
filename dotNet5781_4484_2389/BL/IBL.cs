@@ -84,5 +84,6 @@ namespace BlAPI
 
         #endregion
         TimeSpan DriveTimeToStation(int _LineCode, int _StationCode);
+        IEnumerable<BOLine> SearchRoute(int _stationCode1, int StationCode2);
     }
 }

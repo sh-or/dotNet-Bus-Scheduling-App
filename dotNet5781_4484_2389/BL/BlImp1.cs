@@ -524,6 +524,7 @@ namespace BL
                     UpdateLine(l);
                     l.Stations.ElementAt(index).Distance = 0;
                     l.Stations.ElementAt(index).DriveTime = TimeSpan.Zero;
+                    
                     dal.AddLineStation(l.Code, _StationCode, 0);
                     // UpdateLineStation(l.Stations.ElementAt(index));//change to update dal.UpdateLineStation!!create do.linestation..
                 }
@@ -968,6 +969,24 @@ namespace BL
             }
             else
                 throw new BLException($"Line {_LineCode} does not cross at station {_StationCode}");
+        }
+        public IEnumerable<BOLine> SearchRoute(int _StationCode1, int _StationCode2)
+        {
+            try
+            {
+                IEnumerable<BOLine> lst = from x in dal.GetSpecificLineStations(x => x.StationCode == _StationCode1)
+                                          from t in dal.GetSpecificLineStations(t => t.StationCode == _StationCode2 && t.LineCode==x.LineCode)
+                                          where x.StationNumberInLine < t.StationNumberInLine
+                                          select GetLine(x.LineCode);
+                //if (lst != null)
+                    return lst; //return even null
+                //else
+                //    throw new BLException($"Not found route from {_StationCode1} to {_StationCode2}!\n");
+            }
+            catch (DOException ex)
+            {
+                throw new BLException(ex.Message, ex);
+            }
         }
     }
 }

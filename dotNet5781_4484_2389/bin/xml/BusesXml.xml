@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Bus>
     <LicenseNumber>12345678</LicenseNumber>
@@ -38,15 +38,15 @@
   </Bus>
   <Bus>
     <LicenseNumber>45678901</LicenseNumber>
-    <LicensingDate>2018-12-27</LicensingDate>
+    <LicensingDate>27/12/2018 00:00:00</LicensingDate>
     <Kilometerage>600</Kilometerage>
     <Fuel>0.5</Fuel>
-    <KmFromLastRefuel>600</KmFromLastRefuel>
+    <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>600</KmFromLastCare>
-    <DateOfLastCare>2020-09-14</DateOfLastCare>
+    <DateOfLastCare>14/09/2020 00:00:00</DateOfLastCare>
     <Status>Ready</Status>
     <Driver>Dan</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>56789012</LicenseNumber>

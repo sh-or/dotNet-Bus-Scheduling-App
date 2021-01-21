@@ -35,6 +35,10 @@ namespace PL
                 ListLines.ItemsSource = bl.GetAllLines();
                 StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
                 LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
+                var AllStationsNumbers = from BOBusStation x in bl.GetAllBusStations()
+                                         select x.StationCode;
+                _StartStation.ItemsSource = AllStationsNumbers;
+                _DestinationStation.ItemsSource = AllStationsNumbers;
             }
             catch (BLException ex)
             {
@@ -74,53 +78,6 @@ namespace PL
             ListLines.ItemsSource = bl.GetAllLines();
         }
 
-        private void Exit(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void UpdateStation_Click(object sender, RoutedEventArgs e)
-        {
-            BOBusStation bs = (sender as Button).DataContext as BOBusStation;
-            UpdateStation upS = new UpdateStation(bl,bs);
-            upS.Closed += RefreshLinesAndStations;
-            upS.ShowDialog();
-        }
-
-        private void AddStation_Click(object sender, RoutedEventArgs e)
-        {
-            AddStation adds = new AddStation(bl);
-            adds.Closed += RefreshLinesAndStations;
-            adds.ShowDialog();
-        }
-        private void addline_Click(object sender, RoutedEventArgs e)
-        {
-            AddLine addl = new AddLine(bl);
-            addl.Closed += RefreshLinesAndStations;
-            addl.ShowDialog();
-        }
-
-        private void UpdateLine_Click(object sender, RoutedEventArgs e)
-        {
-            BOLine l = (sender as Button).DataContext as BOLine;
-            UpdateLine upL = new UpdateLine(bl,l);
-            upL.Closed += RefreshLinesAndStations;
-            upL.ShowDialog();
-        }
-
-        private void DeleteBusStation_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void dataGridView1_CellClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void DeleteLine_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -142,6 +99,31 @@ namespace PL
             s.ShowDialog();
         }
 
+        private void _StartStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var AllStationsNumbers = from BOBusStation x in bl.GetAllBusStations()
+                                     select x.StationCode;
+            _StartStation.ItemsSource = AllStationsNumbers;
+        }
+
+        private void _DestinationStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var AllStationsNumbers = from BOBusStation x in bl.GetAllBusStations()
+                                     select x.StationCode;
+            _DestinationStation.ItemsSource = AllStationsNumbers;
+        }
+
+        private void ListLinesRoute_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int st1 = (int)_StartStation.SelectedItem;
+            int st2 = (int)_DestinationStation.SelectedItem;
+            ListLinesRoute.ItemsSource=bl.SearchRoute(st1, st2);
+        }
     }
 }
 

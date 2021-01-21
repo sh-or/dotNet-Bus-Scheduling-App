@@ -2,21 +2,6 @@
 <ArrayOfLineTrip xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LineTrip>
     <LineCode>1</LineCode>
-    <Start>08:00:00</Start>
-    <IsExist>true</IsExist>
-  </LineTrip>
-  <LineTrip>
-    <LineCode>1</LineCode>
-    <Start>08:15:00</Start>
-    <IsExist>true</IsExist>
-  </LineTrip>
-  <LineTrip>
-    <LineCode>1</LineCode>
-    <Start>00:15:00</Start>
-    <IsExist>true</IsExist>
-  </LineTrip>
-  <LineTrip>
-    <LineCode>1</LineCode>
     <Start>09:12:00</Start>
     <IsExist>true</IsExist>
   </LineTrip>
@@ -84,5 +69,25 @@
     <LineCode>3</LineCode>
     <Start>13:15:00</Start>
     <IsExist>true</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>5</LineCode>
+    <Start>09:00:00</Start>
+    <IsExist>True</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start>08:08:00</Start>
+    <IsExist>True</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start>08:30:00</Start>
+    <IsExist>True</IsExist>
+  </LineTrip>
+  <LineTrip>
+    <LineCode>1</LineCode>
+    <Start>13:00:00</Start>
+    <IsExist>True</IsExist>
   </LineTrip>
 </ArrayOfLineTrip>

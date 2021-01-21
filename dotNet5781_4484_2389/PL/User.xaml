@@ -11,7 +11,12 @@
         <TabControl HorizontalAlignment="Right" Height="420" VerticalAlignment="Top" Width="600" >
             <TabItem Header="Trip Plan" HorizontalAlignment="Right" Width="80">
                 <Grid >
-                    <Button Content="bu" HorizontalAlignment="Center" VerticalAlignment="Center" Width="96" Height="32" />
+                    <Button Content="bu" HorizontalAlignment="Center" VerticalAlignment="Center" Width="96" Height="32" Margin="74,132,424,228" Click="Button_Click" />
+                    <Label Content="Start Station" HorizontalAlignment="Left" Margin="50,52,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Destination Station" HorizontalAlignment="Left" Margin="30,83,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="_StartStation" ItemsSource="{Binding}" SelectionChanged="_StartStation_SelectionChanged"   HorizontalAlignment="Left" Margin="146,56,0,0" VerticalAlignment="Top" Width="64"/>
+                    <ComboBox x:Name="_DestinationStation" ItemsSource="{Binding}" SelectionChanged="_DestinationStation_SelectionChanged"   HorizontalAlignment="Left" Margin="146,87,0,0" VerticalAlignment="Top" Width="64"/>
+                    <DataGrid x:Name="ListLinesRoute"  IsReadOnly="True" SelectionChanged="ListLinesRoute_SelectionChanged"  ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="279" Margin="267,27,0,0" VerticalAlignment="Top" Width="307"/>
 
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -51,8 +56,6 @@
             </TabItem>
             <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="-6,0,-9.333,-2">
                 <Grid >
-                    <Button x:Name="addline" Content="Add Line" HorizontalAlignment="Left" Margin="780,445,0,0" VerticalAlignment="Top" Width="96" Height="32" Click="addline_Click"/>
-
                     <DataGrid x:Name="ListLines" IsSynchronizedWithCurrentItem="True" SelectionChanged="ListLines_SelectionChanged" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="20,13,239.333,13.333" IsReadOnly="True" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>

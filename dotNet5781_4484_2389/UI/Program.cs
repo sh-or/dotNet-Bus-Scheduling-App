@@ -21,6 +21,10 @@ namespace UI  //PlConsole
         static void Main(string[] args)
         {
                 bl = BlFactory.GetBl();
+            bl.SearchRoute(1, 21);
+            bl.SearchRoute(37, 1);
+            bl.SearchRoute(1, 3);
+
             //    Console.WriteLine("1:bus\n2:bus station\n3:line\n");
             //    int myChoice, myChoice2;
 

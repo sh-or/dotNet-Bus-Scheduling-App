@@ -5,7 +5,7 @@
     <BusLine>10</BusLine>
     <Area>Center</Area>
     <FirstStation>1</FirstStation>
-    <LastStation>3</LastStation>
+    <LastStation>28</LastStation>
     <IsExist>true</IsExist>
   </Line>
   <Line>

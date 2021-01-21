@@ -500,7 +500,7 @@ namespace DL
             List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
 
             LineStation ls = GetLineStation(_LineCode, _StationCode);
-            int ind = lst.FindIndex(x => x.LineCode == _LineCode && x.StationCode == _StationCode);
+            int ind = lst.FindIndex(x => x.IsExist && x.LineCode == _LineCode && x.StationCode == _StationCode);
             lst[ind].StationNumberInLine += n;
             XMLTools.SaveListToXMLSerializer(lst, LineStationsPath);
         }
@@ -530,7 +530,7 @@ namespace DL
         {
             List<LineStation> lst = XMLTools.LoadListFromXMLSerializer<LineStation>(LineStationsPath);
 
-            int n = lst.FindIndex(x => x.StationCode == _StationCode && x.LineCode == _LineCode);
+            int n = lst.FindIndex(x => x.IsExist && x.StationCode == _StationCode && x.LineCode == _LineCode);
             if (n > -1)
             {
                 lst[n].IsExist = false;

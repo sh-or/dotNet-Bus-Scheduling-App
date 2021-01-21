@@ -183,7 +183,7 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>1</StationCode>
-    <StationNumberInLine>-1</StationNumberInLine>
+    <StationNumberInLine>-3</StationNumberInLine>
     <IsExist>false</IsExist>
   </LineStation>
   <LineStation>
@@ -304,7 +304,7 @@
     <LineCode>1</LineCode>
     <StationCode>8</StationCode>
     <StationNumberInLine>2</StationNumberInLine>
-    <IsExist>true</IsExist>
+    <IsExist>false</IsExist>
   </LineStation>
   <LineStation>
     <LineCode>2</LineCode>
@@ -543,8 +543,8 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>20</StationCode>
-    <StationNumberInLine>6</StationNumberInLine>
-    <IsExist>true</IsExist>
+    <StationNumberInLine>5</StationNumberInLine>
+    <IsExist>false</IsExist>
   </LineStation>
   <LineStation>
     <LineCode>2</LineCode>
@@ -603,7 +603,7 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>25</StationCode>
-    <StationNumberInLine>7</StationNumberInLine>
+    <StationNumberInLine>6</StationNumberInLine>
     <IsExist>true</IsExist>
   </LineStation>
   <LineStation>
@@ -663,8 +663,8 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>26</StationCode>
-    <StationNumberInLine>8</StationNumberInLine>
-    <IsExist>true</IsExist>
+    <StationNumberInLine>9</StationNumberInLine>
+    <IsExist>false</IsExist>
   </LineStation>
   <LineStation>
     <LineCode>2</LineCode>
@@ -723,7 +723,7 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>28</StationCode>
-    <StationNumberInLine>9</StationNumberInLine>
+    <StationNumberInLine>7</StationNumberInLine>
     <IsExist>true</IsExist>
   </LineStation>
   <LineStation>
@@ -783,8 +783,8 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>2</StationCode>
-    <StationNumberInLine>10</StationNumberInLine>
-    <IsExist>true</IsExist>
+    <StationNumberInLine>12</StationNumberInLine>
+    <IsExist>false</IsExist>
   </LineStation>
   <LineStation>
     <LineCode>2</LineCode>
@@ -843,8 +843,8 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>40</StationCode>
-    <StationNumberInLine>11</StationNumberInLine>
-    <IsExist>true</IsExist>
+    <StationNumberInLine>12</StationNumberInLine>
+    <IsExist>false</IsExist>
   </LineStation>
   <LineStation>
     <LineCode>2</LineCode>
@@ -873,7 +873,7 @@
   <LineStation>
     <LineCode>1</LineCode>
     <StationCode>3</StationCode>
-    <StationNumberInLine>11</StationNumberInLine>
+    <StationNumberInLine>13</StationNumberInLine>
     <IsExist>false</IsExist>
   </LineStation>
   <LineStation>
@@ -902,14 +902,32 @@
   </LineStation>
   <LineStation>
     <LineCode>1</LineCode>
-    <StationCode>1</StationCode>
-    <StationNumberInLine>0</StationNumberInLine>
+    <StationCode>7</StationCode>
+    <StationNumberInLine>2</StationNumberInLine>
     <IsExist>true</IsExist>
   </LineStation>
   <LineStation>
     <LineCode>1</LineCode>
-    <StationCode>3</StationCode>
-    <StationNumberInLine>12</StationNumberInLine>
+    <StationCode>5</StationCode>
+    <StationNumberInLine>1</StationNumberInLine>
+    <IsExist>false</IsExist>
+  </LineStation>
+  <LineStation>
+    <LineCode>1</LineCode>
+    <StationCode>1</StationCode>
+    <StationNumberInLine>0</StationNumberInLine>
+    <IsExist>false</IsExist>
+  </LineStation>
+  <LineStation>
+    <LineCode>1</LineCode>
+    <StationCode>1</StationCode>
+    <StationNumberInLine>-1</StationNumberInLine>
+    <IsExist>false</IsExist>
+  </LineStation>
+  <LineStation>
+    <LineCode>1</LineCode>
+    <StationCode>1</StationCode>
+    <StationNumberInLine>0</StationNumberInLine>
     <IsExist>true</IsExist>
   </LineStation>
 </ArrayOfLineStation>

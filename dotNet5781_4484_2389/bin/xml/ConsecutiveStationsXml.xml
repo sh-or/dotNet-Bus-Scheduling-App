@@ -13,6 +13,18 @@
     <DriveTime>01:24:08.6820000</DriveTime>
   </ConsecutiveStations>
   <ConsecutiveStations>
+    <StationCode1>3</StationCode1>
+    <StationCode2>40</StationCode2>
+    <Distance>93689.9685564329</Distance>
+    <DriveTime>01:24:08.6820000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>2</StationCode1>
+    <StationCode2>3</StationCode2>
+    <Distance>93689.9685564329</Distance>
+    <DriveTime>01:24:08.6820000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
     <StationCode1>8</StationCode1>
     <StationCode2>9</StationCode2>
     <Distance>15264.0395931159</Distance>
@@ -533,5 +545,41 @@
     <StationCode2>1</StationCode2>
     <Distance>31711.0749898541</Distance>
     <DriveTime>00:33:46.5700000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>7</StationCode1>
+    <StationCode2>8</StationCode2>
+    <Distance>12286.7488528718</Distance>
+    <DriveTime>00:11:53.4240000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>7</StationCode1>
+    <StationCode2>5</StationCode2>
+    <Distance>71540.6794539889</Distance>
+    <DriveTime>01:03:07.4480000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>5</StationCode1>
+    <StationCode2>8</StationCode2>
+    <Distance>80779.2440910948</Distance>
+    <DriveTime>01:33:12.4090000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>5</StationCode1>
+    <StationCode2>9</StationCode2>
+    <Distance>84090.4070408186</Distance>
+    <DriveTime>01:13:07.3260000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>7</StationCode1>
+    <StationCode2>9</StationCode2>
+    <Distance>120</Distance>
+    <DriveTime>00:30:00</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>35</StationCode1>
+    <StationCode2>25</StationCode2>
+    <Distance>204013.705040236</Distance>
+    <DriveTime>03:08:19.2210000</DriveTime>
   </ConsecutiveStations>
 </ArrayOfConsecutiveStations>

@@ -244,13 +244,19 @@ namespace DL
 
             var lst = from x in LineTripsRootElem.Elements()
                       from l in LineStationsRootElem.Elements()
-                      where bool.Parse(x.Element("IsExist").Value) && bool.Parse(l.Element("IsExist").Value)
-                         && Int32.Parse(x.Element("LineCode").Value) == _StationCode
-                         && Int32.Parse(x.Element("LineCode").Value) == Int32.Parse(l.Element("LineCode").Value)
-                         && TimeSpan.Parse(x.Element("Start").Value) <= _Start
-                      select x;
+                      let lt = new LineTrip()
+                      {
+                          LineCode = Int32.Parse(x.Element("LineCode").Value),
+                          Start = TimeSpan.Parse(x.Element("Start").Value),
+                          IsExist = bool.Parse(x.Element("IsExist").Value),
+                      }
+                      where lt.IsExist && bool.Parse(l.Element("IsExist").Value)
+                         && Int32.Parse(l.Element("StationCode").Value) == _StationCode
+                         && lt.LineCode == Int32.Parse(l.Element("LineCode").Value)
+                         && lt.Start <= _Start
+                      select lt;
             //if (lst != null) want to return even null..
-            return (IEnumerable<LineTrip>)lst;
+            return /*(IEnumerable<LineTrip>)*/lst;
             //throw new DOException($"No exist Line trips were found in station {_StationCode}");
         }
 
@@ -1005,59 +1011,62 @@ namespace DL
             //    }
             //}
 
-                //List<ConsecutiveStations> AllConsecutiveStations = (from Line l in GetAllLines()
-                //                                                    from LineStation st in GetAllLineStations(l.Code)
-                //                                                    where st.StationNumberInLine!=0
-                //                                                    select new ConsecutiveStations
-                //                                                    {
-                //                                                        StationCode1 = bs1.StationCode,
-                //                                                        StationCode2 = bs2.StationCode,
-                //                                                        Distance = csDistance(bs1, bs2),
-                //                                                        DriveTime = csDt(csDistance(bs1, bs2))
-                //                                                    }).ToList();
+            //List<ConsecutiveStations> AllConsecutiveStations = (from Line l in GetAllLines()
+            //                                                    from LineStation st in GetAllLineStations(l.Code)
+            //                                                    where st.StationNumberInLine!=0
+            //                                                    select new ConsecutiveStations
+            //                                                    {
+            //                                                        StationCode1 = bs1.StationCode,
+            //                                                        StationCode2 = bs2.StationCode,
+            //                                                        Distance = csDistance(bs1, bs2),
+            //                                                        DriveTime = csDt(csDistance(bs1, bs2))
+            //                                                    }).ToList();
 
-                //    var AllUsers = new List<User>
-                //                {
-                //                    new User{ IsExist=true, Name="m", Password="m", IsManager=true}, //example
-                //                    new User{ IsExist=true, Name="u", Password="u", IsManager=false}, //example
-                //                    new User{ IsExist=true, Name="AAAA", Password="aaaa1111", IsManager=true},
-                //                    new User{ IsExist=true, Name="aaaa", Password="aaaa2222", IsManager=true},
-                //                    new User{ IsExist=true, Name="bbbb", Password="bbbb2222", IsManager=false},
-                //                    new User{ IsExist=true, Name="cccc", Password="cccc3333", IsManager=false},
-                //                    new User{ IsExist=true, Name="dddd", Password="dddd4444", IsManager=false},
-                //                    new User{ IsExist=true, Name="eeee", Password="eeee5555", IsManager=false},
-                //                    new User{ IsExist=true, Name="ffff", Password="ffff6666", IsManager=false},
-                //                    new User{ IsExist=true, Name="gggg", Password="gggg7777", IsManager=false}
-                //                };
+            //    var AllUsers = new List<User>
+            //                {
+            //                    new User{ IsExist=true, Name="m", Password="m", IsManager=true}, //example
+            //                    new User{ IsExist=true, Name="u", Password="u", IsManager=false}, //example
+            //                    new User{ IsExist=true, Name="AAAA", Password="aaaa1111", IsManager=true},
+            //                    new User{ IsExist=true, Name="aaaa", Password="aaaa2222", IsManager=true},
+            //                    new User{ IsExist=true, Name="bbbb", Password="bbbb2222", IsManager=false},
+            //                    new User{ IsExist=true, Name="cccc", Password="cccc3333", IsManager=false},
+            //                    new User{ IsExist=true, Name="dddd", Password="dddd4444", IsManager=false},
+            //                    new User{ IsExist=true, Name="eeee", Password="eeee5555", IsManager=false},
+            //                    new User{ IsExist=true, Name="ffff", Password="ffff6666", IsManager=false},
+            //                    new User{ IsExist=true, Name="gggg", Password="gggg7777", IsManager=false}
+            //                };
 
-                //    var AllLinesTrip = new List<LineTrip>
-                //                {
-                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
-                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,08,08) },
-                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,15,15) },
-                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(00,15,00) },
-                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(09,12,00) },
-                //                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
-                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(08,00,00) },
-                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(09,50,00) },
-                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,15,00) },
-                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,10,00) },
-                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(16,30,00) },
-                //                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(17,30,00) },
-                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(09,00,00) },
-                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(08,00,00) },
-                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,10,00) },
-                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,20,00) },
-                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,30,00) },
-                //                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,15,00) },
-                //                };
-                //    //XMLTools.SaveListToXMLSerializer(AllBuses, BusesPath);
-                //    XMLTools.SaveListToXMLSerializer(AllLines, LinesPath);
-                //    XMLTools.SaveListToXMLSerializer(AllBusStations, BusStationsPath);
-                //    XMLTools.SaveListToXMLSerializer(AllLineStations, LineStationsPath);
-                    //XMLTools.SaveListToXMLSerializer(AllConsecutiveStations, ConsecutiveStationsPath);
-                //    XMLTools.SaveListToXMLSerializer(AllUsers, UsersPath);
-                //    XMLTools.SaveListToXMLSerializer(AllLinesTrip, LineTripsPath);
+            var AllLinesTrip = new List<LineTrip>
+                                {
+                                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
+                                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,08,08) },
+                                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,15,15) },
+                                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(00,15,00) },
+                                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(09,12,00) },
+                                    new LineTrip{IsExist=true, LineCode=1, Start=new TimeSpan(08,00,00) },
+                                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(08,00,00) },
+                                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(09,50,00) },
+                                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,15,00) },
+                                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(13,10,00) },
+                                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(16,30,00) },
+                                    new LineTrip{IsExist=true, LineCode=2, Start=new TimeSpan(17,30,00) },
+                                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(09,00,00) },
+                                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(08,00,00) },
+                                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,10,00) },
+                                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,20,00) },
+                                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,30,00) },
+                                    new LineTrip{IsExist=true, LineCode=3, Start=new TimeSpan(13,15,00) },
+                                };
+            foreach (LineTrip lt in AllLinesTrip)
+                UpdateLineTrip(lt,lt.Start);
+
+            //    //XMLTools.SaveListToXMLSerializer(AllBuses, BusesPath);
+            //    XMLTools.SaveListToXMLSerializer(AllLines, LinesPath);
+            //    XMLTools.SaveListToXMLSerializer(AllBusStations, BusStationsPath);
+            //    XMLTools.SaveListToXMLSerializer(AllLineStations, LineStationsPath);
+            //XMLTools.SaveListToXMLSerializer(AllConsecutiveStations, ConsecutiveStationsPath);
+            //    XMLTools.SaveListToXMLSerializer(AllUsers, UsersPath);
+            //    XMLTools.SaveListToXMLSerializer(AllLinesTrip, LineTripsPath);
 
         }
 

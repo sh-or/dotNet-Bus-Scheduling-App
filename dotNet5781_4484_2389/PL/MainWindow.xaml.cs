@@ -49,39 +49,42 @@ namespace PL
                 if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift) || Keyboard.IsKeyDown(Key.RightAlt)))
                     return; //let this key be written inside the textbox
             if (Char.IsLetter(c))
-                    return;
+                return;
 
-                //forbid signs (#,$, %, ...)
-                e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+            //forbid signs (#,$, %, ...)
+            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
         } //checking if the input contains digits/letters only
 
         private void userLogin_Click(object sender, RoutedEventArgs e)
         {
-            BOUser u = new BOUser()
-            {
-                Name = iName.Text,
-                IsExist = true,
-                Password = iPassword.Text
-            };
-
             try
             {
-                    u = bl.GetUser(u.Name,u.Password);
-                    if (u.IsManager)
-                    {
-                        Manage manage = new Manage(bl);
-                        manage.ShowDialog();
-                    }
-                    else
-                    {
-                        User userr = new User(bl);
-                        userr.ShowDialog();
-                    }
+                BOUser u = new BOUser()
+                {
+                    Name = iName.Text,
+                    IsExist = true,
+                    Password = iPassword.Text
+                };
+                u = bl.GetUser(u.Name, u.Password);
+                if (u.IsManager)
+                {
+                    Manage manage = new Manage(bl);
+                    manage.ShowDialog();
+                }
+                else
+                {
+                    User userr = new User(bl);
+                    userr.ShowDialog();
+                }
             }
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
 
@@ -96,13 +99,11 @@ namespace PL
                     IsManager = (bool)IsManageN.IsChecked,
                     Password = iPasswordN.Text
                 };
-
-                if(u.Name.Length<4 || u.Password.Length<4)
+                if (u.Name.Length < 4 || u.Password.Length < 4)
                 {
                     MessageBox.Show("ERROR!\nToo short name or password\nEdit and try again", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-
                 bl.AddUser(u);
                 if (u.IsManager)
                 {
@@ -118,6 +119,10 @@ namespace PL
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
     }

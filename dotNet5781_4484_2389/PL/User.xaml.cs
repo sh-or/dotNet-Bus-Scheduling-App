@@ -23,7 +23,7 @@ namespace PL
     {
         IBL bl;
 
-        public User(IBL ibl)
+        public User(IBL ibl) //window c-tor
         {
             bl = ibl;
             InitializeComponent();
@@ -39,6 +39,8 @@ namespace PL
                                          select x.StationCode;
                 _StartStation.ItemsSource = AllStationsNumbers;
                 _DestinationStation.ItemsSource = AllStationsNumbers;
+                _StartStation.SelectedItem=1;
+                _DestinationStation.SelectedItem=1;
             }
             catch (BLException ex)
             {
@@ -78,52 +80,79 @@ namespace PL
             ListLines.ItemsSource = bl.GetAllLines();
         }
 
-
         private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
 
+        #region Station
         private void ListBusStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
         }
-
         private void TSimulator_Click(object sender, RoutedEventArgs e)
         {
-            BOBusStation st = ListBusStation.SelectedItem as BOBusStation;
-            //checking for int.Parse(Hours.Text), int.Parse(Minuts.Text), int.Parse(Seconds.Text)!!
-            //24,60,60
-            Simulator s = new Simulator(bl, st, int.Parse(Hours.Text), int.Parse(Minuts.Text), int.Parse(Seconds.Text), int.Parse(Rate.Text));
-            //stop BGW in closing!!
-            s.ShowDialog();
-        }
+            try
+            {
+                BOBusStation st = ListBusStation.SelectedItem as BOBusStation;
+                int h = int.Parse(Hours.Text), m = int.Parse(Minuts.Text), s = int.Parse(Seconds.Text);
+                if (h > 23 || m > 59 || s > 59)
+                    MessageBox.Show("ERROR!\nWrong time format input");
+                else
+                {
+                    Simulator sml = new Simulator(bl, st, h, m, s, int.Parse(Rate.Text));
+                    //stop BGW in closing!!
+                    sml.ShowDialog();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\nMissing input\nEdit and try again");
 
+            }
+        }
         private void _StartStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var AllStationsNumbers = from BOBusStation x in bl.GetAllBusStations()
-                                     select x.StationCode;
-            _StartStation.ItemsSource = AllStationsNumbers;
+            if (_DestinationStation.SelectedItem != null)
+                refreshLinesRout();
         }
-
         private void _DestinationStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var AllStationsNumbers = from BOBusStation x in bl.GetAllBusStations()
-                                     select x.StationCode;
-            _DestinationStation.ItemsSource = AllStationsNumbers;
+            if(_StartStation.SelectedItem!=null)
+                refreshLinesRout();
         }
-
-        private void ListLinesRoute_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void refreshLinesRout()
         {
             int st1 = (int)_StartStation.SelectedItem;
             int st2 = (int)_DestinationStation.SelectedItem;
-            ListLinesRoute.ItemsSource=bl.SearchRoute(st1, st2);
+            ListLinesRoute.ItemsSource = bl.SearchRoute(st1, st2);
         }
+        private void ListLinesRoute_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListLinesRoute.SelectedItem != null)
+                LinesRoutStations.ItemsSource = (ListLinesRoute.SelectedItem as BOLine).Stations;
+            else
+                LinesRoutStations.ItemsSource = null;
+        }
+
+        private void LinesRoutStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string header = e.Column.Header.ToString();
+            if (header == "Distance")
+                e.Cancel = true;
+        }
+        private void ListLinesRoute_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string header = e.Column.Header.ToString();
+            if (header == "Code")
+                e.Cancel = true;
+            if (header == "IsExist")
+                e.Cancel = true;
+            if (header == "Stations")
+                e.Cancel = true;
+        }
+        #endregion
+
     }
 }
 

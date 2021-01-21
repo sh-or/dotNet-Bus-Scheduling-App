@@ -23,7 +23,7 @@ namespace PL
     {
         IBL bl;
         BOLine line;
-        public UpdateLine(IBL ibl,BOLine l)
+        public UpdateLine(IBL ibl, BOLine l)
         {
             bl = ibl;
             line = l;
@@ -60,26 +60,23 @@ namespace PL
 
         private void Updating_Click(object sender, RoutedEventArgs e)
         {
-            BOLine l = line;
-            l.BusLine = int.Parse(_LineNumber.Text);
-            l.Area = (AreaEnum)_Area.SelectedItem;
-            l.FirstStation = line.FirstStation;
-            l.LastStation = line.LastStation;
-            //{
-            //    BusLine = int.Parse(_LineNumber.Text),
-            //    Area=(AreaEnum)_Area.SelectedItem,
-            //    FirstStation=(int)_First.SelectedItem,
-            //    LastStation = (int)_Last.SelectedItem
-            //};
             try
             {
+                BOLine l = line;
+                l.BusLine = int.Parse(_LineNumber.Text);
+                l.Area = (AreaEnum)_Area.SelectedItem;
+                l.FirstStation = line.FirstStation;
+                l.LastStation = line.LastStation;
                 bl.UpdateLine(l);
-               // MessageBox.Show($"Line {l.BusLine} was update successfuly");
                 Close();
             }
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
     }

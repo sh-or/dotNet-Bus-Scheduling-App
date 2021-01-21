@@ -353,11 +353,11 @@ namespace DL
         {
             List<BusStation> lst = XMLTools.LoadListFromXMLSerializer<BusStation>(BusStationsPath);
 
-            XElement XMLRunNumber = XElement.Load(@"XMLConfiguration.xml");
+            XElement XMLRunNumber = XElement.Load(@"XMLruningNums.xml");
             int RunNum = int.Parse(XMLRunNumber.Element("StationCode").Value);
             bs.StationCode = RunNum++;
             XMLRunNumber.Element("StationCode").Value = RunNum.ToString();
-            XMLRunNumber.Save(@"XMLConfiguration.xml");
+            XMLRunNumber.Save(@"XMLruningNums.xml");
             lst.Add(bs);
 
             XMLTools.SaveListToXMLSerializer(lst, BusStationsPath);
@@ -410,11 +410,11 @@ namespace DL
         {
             List<Line> lst = XMLTools.LoadListFromXMLSerializer<Line>(LinesPath);
 
-            XElement XMLRunNumber = XElement.Load(@"XMLConfiguration.xml");
+            XElement XMLRunNumber = XElement.Load(@"XMLruningNums.xml");
             int RunNum = int.Parse(XMLRunNumber.Element("LineCode").Value);
             l.Code = RunNum++;
             XMLRunNumber.Element("LineCode").Value = RunNum.ToString();
-            XMLRunNumber.Save(@"XMLConfiguration.xml");
+            XMLRunNumber.Save(@"XMLruningNums.xml");
             lst.Add(l);
             XMLTools.SaveListToXMLSerializer(lst, LinesPath);
             return l.Code;

@@ -56,8 +56,8 @@
         <TextBox x:Name="_Longitude" PreviewKeyDown="TextBox_onlyDouble_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="3" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_Name" Grid.Column="1" HorizontalAlignment="Center" MaxLength="20" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_Address" Grid.Column="1" HorizontalAlignment="Center" MaxLength="20" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <Label Content="*Israel latitude borders: 34.3-35.5" Grid.Column="2" HorizontalAlignment="Left" Margin="10,11,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Label Content="*Israel lingitude borders: 31-33.3" Grid.Column="2" HorizontalAlignment="Left" Margin="12,12,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+        <Label Content="*Israel longitude borders: 34.3-35.5" Grid.Column="2" HorizontalAlignment="Left" Margin="10,11,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="*Israel latitude borders: 31-33.3" Grid.Column="2" HorizontalAlignment="Left" Margin="12,12,0,0" Grid.Row="3" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

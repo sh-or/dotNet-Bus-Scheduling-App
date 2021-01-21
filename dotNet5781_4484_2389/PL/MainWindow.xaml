@@ -32,7 +32,7 @@
                 <GradientStop Color="#FFB2ECAC" Offset="0.539"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="Enter you details: " Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="19"/>
+        <Label Content="Enter your details: " Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontFamily="Stencil" FontSize="19" Grid.ColumnSpan="3" Margin="66,0,41.667,0" Width="217"/>
         <TextBox x:Name="iName" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="1" Width="80" MaxLength="10" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Margin="100,12.667,18,11.333"/>
         <Label Content="  Name: " Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" FontSize="18" FontFamily="Sitka Display"/>
         <TextBox x:Name="iPassword" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="1" Width="80" MaxLength="10" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Margin="100,12.667,18,11.333"/>
@@ -43,7 +43,7 @@
         <TextBox x:Name="iNameN" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="3" MaxLength="10" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="80" Margin="104,12.667,13.697,11.333"/>
         <Label Content="  Password: " Grid.Column="3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
         <TextBox x:Name="iPasswordN" PreviewKeyDown="TextBox_LettersAndNumbers_PreviewKeyDown" Grid.Column="3" MaxLength="10" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Width="80" Margin="0,11.667,13.697,11.333" />
-        <RadioButton x:Name="IsManageN" Content="I am a manager " Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
+        <CheckBox x:Name="IsManageN" Content="I am a manager " Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontFamily="Sitka Display" FontSize="18"/>
         <Label Content="WITH YOU ALONG THE WAY...:)" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Center" Grid.ColumnSpan="3" Width="372" FontFamily="Rockwell Extra Bold" FontSize="20" Height="41" RenderTransformOrigin="0.5,0.5" Margin="41.667,7.612,36.333,9.388" Grid.Column="1">
             <Label.RenderTransform>
                 <TransformGroup>
@@ -73,6 +73,6 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Label Content="*Name and password at least 4 charactars" Grid.Column="2" HorizontalAlignment="Left" Height="32" Margin="36.333,34.848,0,0" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Top" Width="231" Grid.ColumnSpan="3"/>
+        <Label Content="*Name and password at least 4 charactars" Grid.Column="3" HorizontalAlignment="Left" Height="32" Margin="0.333,35.333,0,0" Grid.Row="5" Grid.RowSpan="3" VerticalAlignment="Top" Width="231" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

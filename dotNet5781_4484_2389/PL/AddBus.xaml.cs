@@ -55,33 +55,37 @@ namespace PL
 
         private void Adding_Click(object sender, RoutedEventArgs e)
         {
-            BOBus b = new BOBus()
-            {
-                IsExist=true,
-                LicenseNumber = int.Parse(_LicenseNumber.Text),
-                LicensingDate = DateTime.Parse(_LicensingDate.ToString()),
-                DateOfLastCare = DateTime.Parse(_DateCare.ToString()),
-                KmFromLastCare = int.Parse(_KmCare.Text),
-                KmFromLastRefuel = int.Parse(_KmRefuel.Text),
-                Kilometerage = int.Parse(_Kilometerage.Text),
-                Driver=_DName.Text
-            };
-            if (b.LicenseNumber < 1000000) //license number is shorter than 7 digits
-            {
-                MessageBox.Show("ERROR! The license number is too short", "", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
             try
             {
+                BOBus b = new BOBus()
+                {
+                    IsExist = true,
+                    LicenseNumber = int.Parse(_LicenseNumber.Text),
+                    LicensingDate = DateTime.Parse(_LicensingDate.ToString()),
+                    DateOfLastCare = DateTime.Parse(_DateCare.ToString()),
+                    KmFromLastCare = int.Parse(_KmCare.Text),
+                    KmFromLastRefuel = int.Parse(_KmRefuel.Text),
+                    Kilometerage = int.Parse(_Kilometerage.Text),
+                    Driver = _DName.Text
+                };
+                if (b.LicenseNumber < 1000000) //license number is shorter than 7 digits
+                {
+                    MessageBox.Show("ERROR! The license number is too short", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 bl.AddBus(b);
                 MessageBox.Show($"Bus {b.LicenseNumber} was added successfuly");
                 Close();
             }
             catch (BLException ex)
             {
-                MessageBox.Show("ERROR! "+ex.Message + "\nEdit and try again");
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
             }
-            
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
+            }
         }
     }
 }

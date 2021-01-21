@@ -14,13 +14,13 @@
   </User>
   <User>
     <Name>AAAA</Name>
-    <Password>aaaa1111</Password>
+    <Password>dotNet5781</Password>
     <IsManager>true</IsManager>
     <IsExist>true</IsExist>
   </User>
   <User>
     <Name>aaaa</Name>
-    <Password>aaaa2222</Password>
+    <Password>dotNet5781</Password>
     <IsManager>true</IsManager>
     <IsExist>true</IsExist>
   </User>
@@ -57,6 +57,24 @@
   <User>
     <Name>gggg</Name>
     <Password>gggg7777</Password>
+    <IsManager>false</IsManager>
+    <IsExist>true</IsExist>
+  </User>
+  <User>
+    <Name>Yaelush</Name>
+    <Password>1234</Password>
+    <IsManager>false</IsManager>
+    <IsExist>true</IsExist>
+  </User>
+  <User>
+    <Name>Reut</Name>
+    <Password>1234</Password>
+    <IsManager>false</IsManager>
+    <IsExist>true</IsExist>
+  </User>
+  <User>
+    <Name>425trfdcs</Name>
+    <Password>aect</Password>
     <IsManager>false</IsManager>
     <IsExist>true</IsExist>
   </User>

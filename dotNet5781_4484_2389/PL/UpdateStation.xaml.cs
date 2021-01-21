@@ -58,20 +58,25 @@ namespace PL
 
         private void Updating_Click(object sender, RoutedEventArgs e)
         {
-            BOBusStation b = st;
-            b.Latitude = double.Parse(_Latitude.Text);
-            b.Longitude = double.Parse(_Longitude.Text);
-            b.Name = _Name.Text; 
-            b.Address = _Address.Text; 
-            b.Accessibility = (bool)_Accessibility.IsChecked;
             try
             {
+                BOBusStation b = st;
+                b.Latitude = double.Parse(_Latitude.Text);
+                b.Longitude = double.Parse(_Longitude.Text);
+                b.Name = _Name.Text;
+                b.Address = _Address.Text;
+                b.Accessibility = (bool)_Accessibility.IsChecked;
+
                 bl.UpdateStation(b);
                 Close();
             }
             catch (BLException ex)
             {
                 MessageBox.Show(ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
     }

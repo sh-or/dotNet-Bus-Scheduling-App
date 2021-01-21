@@ -161,7 +161,6 @@ namespace PL
             }
         }
 
-
         private void DeleteStationInLine_Click(object sender, RoutedEventArgs e)
         {
             BOLine l = ListLines.SelectedItem as BOLine;
@@ -191,7 +190,7 @@ namespace PL
             BOBus b = (sender as Button).DataContext as BOBus;
             caring(b);
         }
-        public void caring(BOBus b) //the care(helper func for the ditails window)
+        public void caring(BOBus b) 
         {
             bgw1 = new BackgroundWorker(); //reset the care backgrounder
             bgw1.DoWork += bgw1_DoWork;
@@ -242,7 +241,7 @@ namespace PL
             BOBus b = (sender as Button).DataContext as BOBus;
             refueling(b);
         }
-        public void refueling(BOBus b) //the refuel(helper func for the ditails window)
+        public void refueling(BOBus b) 
         {
             bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
             bgw2.DoWork += bgw2_DoWork;
@@ -284,21 +283,21 @@ namespace PL
             ListBuses.ItemsSource = bl.GetAllBuses();  //to show the new Status in the list
         }
 
-        public static string bgwTimer(int i) //describe the time that left to the end of the act
-        {
-            string str;
-            if (i >= 60)
-            {
-                if (i / 60 / 10 != 0)
-                    str = i / 60 + ":";
-                else str = "0" + i / 60 + ":";
-            }
-            else str = "00:";
-            if (i % 60 < 10)
-                str += "0" + i % 60;
-            else str += i % 60;
-            return str;
-        }
+        //public static string bgwTimer(int i) //describe the time that left to the end of the act
+        //{
+        //    string str;
+        //    if (i >= 60)
+        //    {
+        //        if (i / 60 / 10 != 0)
+        //            str = i / 60 + ":";
+        //        else str = "0" + i / 60 + ":";
+        //    }
+        //    else str = "00:";
+        //    if (i % 60 < 10)
+        //        str += "0" + i % 60;
+        //    else str += i % 60;
+        //    return str;
+        //}
 
         private void LineStations_MouseDoubleClick(object sender, MouseButtonEventArgs e) //update cs 
         {            

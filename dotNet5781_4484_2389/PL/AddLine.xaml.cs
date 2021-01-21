@@ -36,7 +36,7 @@ namespace PL
             try
             {
                 IEnumerable<int> lst = from x in bl.GetAllBusStations()
-                                         select x.StationCode; //+name???
+                                         select x.StationCode; 
                 _Area.ItemsSource = Enum.GetValues(typeof(BO.AreaEnum)); 
                 _First.ItemsSource = lst;
                 _Last.ItemsSource = lst;
@@ -74,20 +74,14 @@ namespace PL
 
         private void Adding_Click(object sender, RoutedEventArgs e)
         {
-            BOLine l = new BOLine();
-            l.IsExist = true;
-            l.BusLine = int.Parse(_LineNumber.Text);
-            l.Area = (AreaEnum)_Area.SelectedItem;
-            l.FirstStation = (int)_First.SelectedItem;
-            l.LastStation = (int)_Last.SelectedItem;
-            //{
-            //    BusLine = int.Parse(_LineNumber.Text),
-            //    Area=(AreaEnum)_Area.SelectedItem,
-            //    FirstStation=(int)_First.SelectedItem,
-            //    LastStation = (int)_Last.SelectedItem
-            //};
             try
             {
+                BOLine l = new BOLine();
+                l.IsExist = true;
+                l.BusLine = int.Parse(_LineNumber.Text);
+                l.Area = (AreaEnum)_Area.SelectedItem;
+                l.FirstStation = (int)_First.SelectedItem;
+                l.LastStation = (int)_Last.SelectedItem;
                 bl.AddLine(l);
                 MessageBox.Show($"Line {l.BusLine} was added successfuly");
                 Close();
@@ -95,6 +89,10 @@ namespace PL
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
 

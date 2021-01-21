@@ -16,7 +16,7 @@ using BO;
 
 namespace PL
 {
-    
+
     /// <summary>
     /// Interaction logic for UpdateCS.xaml
     /// </summary>
@@ -31,22 +31,19 @@ namespace PL
 
             InitializeComponent();
             try
-            { 
+            {
                 var lst = l.Stations.ToList();
-                int index=lst.FindIndex(x => x.StationCode == bls.StationCode);
-                //if (index == 0)
-                //{
-                //    MessageBox.Show("Cannot edit first station's data");
-                //}
-                //else
-                //{
-                    st1 = lst[index - 1].StationCode;
-                    _stations.Text = st1 + ", " + st2;
-                //}
+                int index = lst.FindIndex(x => x.StationCode == bls.StationCode);
+                st1 = lst[index - 1].StationCode;
+                _stations.Text = st1 + ", " + st2;
             }
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
 
@@ -76,25 +73,25 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-
         private void Updating_Click(object sender, RoutedEventArgs e)
         {
             TimeSpan dTime;
             double km;
             int n;
-            if (!double.TryParse(_Distance.Text,out km) || int.TryParse(_DriveTime.Text, out n) || !TimeSpan.TryParse(_DriveTime.Text, out dTime))
-            {
-                MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
-                return;
-            }
             try
             {
+                if (!double.TryParse(_Distance.Text, out km) || int.TryParse(_DriveTime.Text, out n) || !TimeSpan.TryParse(_DriveTime.Text, out dTime))
+                {
+                    MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
+                    return;
+                }
+
                 BOConsecutiveStations cs = new BOConsecutiveStations()
                 {
                     StationCode1 = st1,
                     StationCode2 = st2,
                     Distance = km,
-                    DriveTime= dTime
+                    DriveTime = dTime
                 };
                 bl.UpdateConsecutiveStations(cs);
                 Close();
@@ -102,6 +99,10 @@ namespace PL
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
     }

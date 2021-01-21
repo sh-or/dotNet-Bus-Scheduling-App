@@ -53,12 +53,12 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-
         private void Adding_Click(object sender, RoutedEventArgs e)
-        { //enable if boxes!=null  ->?
+        { 
             try
             {
                 BOBusStation b = new BOBusStation();
+                b.IsExist = true;
                 b.Latitude = double.Parse(_Latitude.Text);
                 b.Longitude = double.Parse(_Longitude.Text);
                 b.Name = _Name.Text;
@@ -74,7 +74,7 @@ namespace PL
             }
             catch
             {
-                MessageBox.Show("INPUT ERROR", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
     }

@@ -25,7 +25,7 @@
     <Name>shabazi</Name>
     <Address>shabazi 3</Address>
     <Accessibility>true</Accessibility>
-    <IsExist>true</IsExist>
+    <IsExist>false</IsExist>
   </BusStation>
   <BusStation>
     <StationCode>4</StationCode>
@@ -313,7 +313,7 @@
     <Name>Dvora</Name>
     <Address>Dvora 23</Address>
     <Accessibility>true</Accessibility>
-    <IsExist>true</IsExist>
+    <IsExist>false</IsExist>
   </BusStation>
   <BusStation>
     <StationCode>36</StationCode>
@@ -457,6 +457,24 @@
     <Name>Agamim</Name>
     <Address>Agamim 19</Address>
     <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>52</StationCode>
+    <Latitude>33</Latitude>
+    <Longitude>35</Longitude>
+    <Name>aaa</Name>
+    <Address>aaa</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>53</StationCode>
+    <Latitude>33</Latitude>
+    <Longitude>35</Longitude>
+    <Name>bb</Name>
+    <Address>bb</Address>
+    <Accessibility>true</Accessibility>
     <IsExist>true</IsExist>
   </BusStation>
 </ArrayOfBusStation>

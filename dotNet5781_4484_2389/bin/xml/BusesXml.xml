@@ -98,15 +98,15 @@
   </Bus>
   <Bus>
     <LicenseNumber>4567890</LicenseNumber>
-    <LicensingDate>2016-10-23</LicensingDate>
+    <LicensingDate>23/10/2016 00:00:00</LicensingDate>
     <Kilometerage>2500</Kilometerage>
     <Fuel>0.0083333333333333332</Fuel>
-    <KmFromLastRefuel>1190</KmFromLastRefuel>
+    <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>1300</KmFromLastCare>
-    <DateOfLastCare>2020-07-14</DateOfLastCare>
-    <Status>NeedRefeul</Status>
+    <DateOfLastCare>14/07/2020 00:00:00</DateOfLastCare>
+    <Status>Ready</Status>
     <Driver>Ori</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>5678901</LicenseNumber>

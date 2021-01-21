@@ -29,27 +29,30 @@ namespace PL
             linetrip = lt;
             InitializeComponent();
             _LineCode.DataContext = lt.LineCode;
-            
+
         }
 
         private void Updating_Click(object sender, RoutedEventArgs e)
         {
-            TimeSpan start;
-            int n;
-            if (int.TryParse(_Start.Text, out n) || !TimeSpan.TryParse(_Start.Text, out start))
-            {
-                MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
-                return;
-            }
-
             try
             {
+                TimeSpan start;
+                int n;
+                if (int.TryParse(_Start.Text, out n) || !TimeSpan.TryParse(_Start.Text, out start))
+                {
+                    MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
+                    return;
+                }
                 bl.UpdateLineTrip(linetrip, start);
                 Close();
             }
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
     }

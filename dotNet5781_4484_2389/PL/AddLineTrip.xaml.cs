@@ -31,21 +31,20 @@ namespace PL
 
         private void AddLineTrip_Click(object sender, RoutedEventArgs e)
         {
-            TimeSpan start;
-            int n;
-            if (int.TryParse(_Start.Text, out n) || !TimeSpan.TryParse(_Start.Text, out start))
-            {
-                MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
-                return;
-            }
-
             try
             {
+                TimeSpan start;
+                int n;
+                if (int.TryParse(_Start.Text, out n) || !TimeSpan.TryParse(_Start.Text, out start))
+                {
+                    MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
+                    return;
+                }
                 BOLineTrip lt = new BOLineTrip()
                 {
-                    LineCode =int.Parse(_LineCode.Text),
+                    LineCode = int.Parse(_LineCode.Text),
                     Start = TimeSpan.Parse(_Start.Text),
-                    IsExist=true
+                    IsExist = true
                 };
                 bl.AddLineTrip(lt);
                 Close();
@@ -53,6 +52,10 @@ namespace PL
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)

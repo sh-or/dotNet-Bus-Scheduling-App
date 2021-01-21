@@ -30,7 +30,6 @@ namespace PL
             InitializeComponent();
             try
             {
-                
                 IEnumerable<int> lst = from x in bl.GetAllBusStations()
                                        select x.StationCode; //+name???
                 _StationCode.ItemsSource = lst;
@@ -67,9 +66,8 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-
         private void Adding_Click(object sender, RoutedEventArgs e)
-        { //enable if boxes!=null  ->?
+        { 
             try
             { 
                int index = int.Parse(_Index.Text);
@@ -82,6 +80,10 @@ namespace PL
             catch (BLException ex)
             {
                 MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
 

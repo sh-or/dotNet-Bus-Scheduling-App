@@ -15,16 +15,17 @@ namespace BL
     {
         readonly IDAL dal = DalFactory.GetDal();
         public static Random r = new Random(DateTime.Now.Millisecond);
+        public static string ManagePassword = "dotNet5781";
         public void reset()
         {
-            try
-            {
-                dal.reset();
-            }
-            catch (DOException dex)
-            {
-                throw new BLException(dex.Message, dex);
-            }
+            //try
+            //{
+            //    dal.reset();
+            //}
+            //catch (DOException dex)
+            //{
+            //    throw new BLException(dex.Message, dex);
+            //}
         }
 
         #region Bus
@@ -740,6 +741,8 @@ namespace BL
             User du = new User();
             try
             {
+                if (u.IsManager && u.Password != ManagePassword)
+                    throw new BLException("Wrong manage password");
                 dal.UpdateUser((User)Transform.trans(u, du.GetType()));
             }
             catch (DOException ex)
@@ -780,6 +783,8 @@ namespace BL
             User du = new User();
             try
             {
+                if (u.IsManager && u.Password != ManagePassword)
+                    throw new BLException("Wrong manage password");
                 dal.AddUser((User)Transform.trans(u, du.GetType()));
             }
             catch (DOException ex)

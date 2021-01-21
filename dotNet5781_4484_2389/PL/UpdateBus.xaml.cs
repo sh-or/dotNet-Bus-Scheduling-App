@@ -60,25 +60,29 @@ namespace PL
 
         private void Updating_Click(object sender, RoutedEventArgs e)
         {
-            BOBus b = new BOBus()
-            {
-                IsExist=true,
-                LicenseNumber = bus.LicenseNumber,
-                LicensingDate = bus.LicensingDate,
-                DateOfLastCare = DateTime.Parse(_DateCare.ToString()),
-                KmFromLastCare = int.Parse(_KmCare.Text),
-                KmFromLastRefuel = int.Parse(_KmRefuel.Text),
-                Kilometerage = int.Parse(_Kilometerage.Text),
-                Driver=_DName.Text
-            };
             try
             {
+                BOBus b = new BOBus()
+                {
+                    IsExist = true,
+                    LicenseNumber = bus.LicenseNumber,
+                    LicensingDate = bus.LicensingDate,
+                    DateOfLastCare = DateTime.Parse(_DateCare.ToString()),
+                    KmFromLastCare = int.Parse(_KmCare.Text),
+                    KmFromLastRefuel = int.Parse(_KmRefuel.Text),
+                    Kilometerage = int.Parse(_Kilometerage.Text),
+                    Driver = _DName.Text
+                };
                 bl.UpdateBus(b);
                 Close();
             }
             catch (BLException ex)
             {
                 MessageBox.Show(ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
     }

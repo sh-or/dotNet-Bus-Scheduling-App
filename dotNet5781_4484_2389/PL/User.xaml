@@ -9,14 +9,16 @@
         Title="User" Height="450" Width="600" Icon="סמיילי.jpg">
     <Grid>
         <TabControl HorizontalAlignment="Right" Height="420" VerticalAlignment="Top" Width="600" >
-            <TabItem Header="Trip Plan" HorizontalAlignment="Right" Width="80">
+            <TabItem Header="Trip Plan" HorizontalAlignment="Right" Width="80" Margin="0,0,-2,-2">
                 <Grid >
-                    <Button Content="bu" HorizontalAlignment="Center" VerticalAlignment="Center" Width="96" Height="32" Margin="74,132,424,228" Click="Button_Click" />
+                    <!--Button Content="bu" HorizontalAlignment="Center" VerticalAlignment="Center" Width="96" Height="32" Margin="74,132,424,228" Click="Button_Click" /-->
                     <Label Content="Start Station" HorizontalAlignment="Left" Margin="50,52,0,0" VerticalAlignment="Top"/>
                     <Label Content="Destination Station" HorizontalAlignment="Left" Margin="30,83,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="_StartStation" ItemsSource="{Binding}" SelectionChanged="_StartStation_SelectionChanged"   HorizontalAlignment="Left" Margin="146,56,0,0" VerticalAlignment="Top" Width="64"/>
                     <ComboBox x:Name="_DestinationStation" ItemsSource="{Binding}" SelectionChanged="_DestinationStation_SelectionChanged"   HorizontalAlignment="Left" Margin="146,87,0,0" VerticalAlignment="Top" Width="64"/>
-                    <DataGrid x:Name="ListLinesRoute"  IsReadOnly="True" SelectionChanged="ListLinesRoute_SelectionChanged"  ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="279" Margin="267,27,0,0" VerticalAlignment="Top" Width="307"/>
+                    <DataGrid x:Name="ListLinesRoute" AutoGeneratingColumn="ListLinesRoute_AutoGeneratingColumn" IsReadOnly="True" SelectionChanged="ListLinesRoute_SelectionChanged"  ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="222" Margin="30,130,0,0" VerticalAlignment="Top" Width="235"/>
+                    <Label Content="Chosen Line's Rout:" HorizontalAlignment="Left" Margin="374,34,0,0" VerticalAlignment="Top"/>
+                    <DataGrid x:Name="LinesRoutStations" AutoGeneratingColumn="LinesRoutStations_AutoGeneratingColumn" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="239" VerticalAlignment="Center" Width="251" Margin="0,63,24.333,89.333"/>
 
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -47,11 +49,15 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataGrid x:Name="StationLines" Background="Yellow" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Right" IsReadOnly="True" Height="241" VerticalAlignment="Center" Width="180" Margin="0,10,18.333,140.333"/>
-                    <TextBox x:Name="Hours" HorizontalAlignment="Left" Height="23" Margin="396,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" />
-                    <TextBox x:Name="Minuts" HorizontalAlignment="Left" Height="23" Margin="432,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534"/>
-                    <TextBox x:Name="Seconds" HorizontalAlignment="Left" Height="23" Margin="464,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26"/>
-                    <TextBox x:Name="Rate" HorizontalAlignment="Left" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Height="23" Margin="534,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
+                    <TextBox x:Name="Hours" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="396,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" />
+                    <TextBox x:Name="Minuts" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="430,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" RenderTransformOrigin="2.225,0.534"/>
+                    <TextBox x:Name="Seconds" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="464,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26"/>
+                    <TextBox x:Name="Rate" HorizontalAlignment="Left" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" Height="23" Margin="528,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="40"/>
                     <Rectangle HorizontalAlignment="Left" Height="112" Margin="390,267,0,0" Stroke="Black" VerticalAlignment="Top" Width="191"/>
+                    <Label Content="Rate(min):" HorizontalAlignment="Left" Margin="516,274,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Time to Simulate:" HorizontalAlignment="Left" Margin="390,274,0,0" VerticalAlignment="Top"/>
+                    <Label Content=":" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" Height="30" Margin="418,293,0,0"/>
+                    <Label Content=":" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" Height="30" Margin="452,293,0,0"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Lines" RenderTransformOrigin="2.656,0.532" Margin="-6,0,-9.333,-2">

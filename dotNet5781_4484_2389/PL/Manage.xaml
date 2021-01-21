@@ -253,7 +253,7 @@
                         <ColumnDefinition Width="166*"/>
                         <ColumnDefinition Width="719*"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="addlinetrip" Content="Add line trip" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="591,422,32.333,0" VerticalAlignment="Top"  Width="96" Height="32" Grid.Column="1"/>
+                    <Button x:Name="addlinetrip" Content="Add line trip" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="591,422,32.333,0" VerticalAlignment="Top"  Width="96" Height="32" Grid.Column="1" Click="addlinetrip_Click"/>
 
                     <DataGrid x:Name="ListLineTrips" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}"  Margin="260,71,88.333,179" RowDetailsVisibilityMode="VisibleWhenSelected" IsReadOnly="True" CanUserResizeRows="False" HorizontalContentAlignment="Center" HorizontalAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="371" Grid.Column="1" >
                         <DataGrid.RenderTransform>

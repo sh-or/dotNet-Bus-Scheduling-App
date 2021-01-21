@@ -360,5 +360,12 @@ namespace PL
             upLt.Closed += RefreshLineTrips;
             upLt.ShowDialog();
         }
+
+        private void addlinetrip_Click(object sender, RoutedEventArgs e)
+        {
+            AddLineTrip AddLt = new AddLineTrip(bl);
+            AddLt.Closed += RefreshLineTrips;
+            AddLt.ShowDialog();
+        }
     }
 }

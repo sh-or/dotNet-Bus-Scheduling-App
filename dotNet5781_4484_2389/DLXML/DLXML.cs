@@ -21,9 +21,6 @@ namespace DL
 
         #endregion
 
-        #region reset DS
-        
-        #endregion
         #region DS XML Files
         string BusesPath = @"BusesXml.xml"; //XElement
         string LineTripsPath = @"LineTripsXml.xml"; //XElement
@@ -47,6 +44,7 @@ namespace DL
                          LicenseNumber = Int32.Parse(bus.Element("LicenseNumber").Value),
                          LicensingDate = DateTime.Parse(bus.Element("LicensingDate").Value),
                          Kilometerage = double.Parse(bus.Element("Kilometerage").Value),
+                         Fuel = double.Parse(bus.Element("Fuel").Value),
                          KmFromLastRefuel = double.Parse(bus.Element("KmFromLastRefuel").Value),
                          KmFromLastCare = double.Parse(bus.Element("KmFromLastCare").Value),
                          DateOfLastCare = DateTime.Parse(bus.Element("DateOfLastCare").Value),
@@ -75,6 +73,7 @@ namespace DL
                 bs.Element("LicensingDate").Value = b.LicensingDate.ToString();
                 bs.Element("Kilometerage").Value = b.Kilometerage.ToString();
                 bs.Element("KmFromLastRefuel").Value = b.KmFromLastRefuel.ToString();
+                bs.Element("Fuel").Value = b.Fuel.ToString();
                 bs.Element("KmFromLastCare").Value = b.KmFromLastCare.ToString();
                 bs.Element("DateOfLastCare").Value = b.DateOfLastCare.ToString();
                 bs.Element("Status").Value = b.Status.ToString();
@@ -102,6 +101,7 @@ namespace DL
                                new XElement("LicenseNumber", b.LicenseNumber.ToString()),
                                new XElement("LicensingDate", b.LicensingDate.ToString()),
                                new XElement("Kilometerage", b.Kilometerage.ToString()),
+                               new XElement("Fuel", b.Fuel.ToString()),
                                new XElement("KmFromLastRefuel", b.KmFromLastRefuel.ToString()),
                                new XElement("KmFromLastCare", b.KmFromLastCare.ToString()),
                                new XElement("DateOfLastCare", b.DateOfLastCare.ToString()),
@@ -140,6 +140,7 @@ namespace DL
                              LicenseNumber = Int32.Parse(bus.Element("LicenseNumber").Value),
                              LicensingDate = DateTime.Parse(bus.Element("LicensingDate").Value),
                              Kilometerage = double.Parse(bus.Element("Kilometerage").Value),
+                             Fuel = double.Parse(bus.Element("Fuel").Value),
                              KmFromLastRefuel = double.Parse(bus.Element("KmFromLastRefuel").Value),
                              KmFromLastCare = double.Parse(bus.Element("KmFromLastCare").Value),
                              DateOfLastCare = DateTime.Parse(bus.Element("DateOfLastCare").Value),
@@ -164,6 +165,7 @@ namespace DL
                          {
                              LicenseNumber = Int32.Parse(bus.Element("LicenseNumber").Value),
                              LicensingDate = DateTime.Parse(bus.Element("LicensingDate").Value),
+                             Fuel = double.Parse(bus.Element("Fuel").Value),
                              Kilometerage = double.Parse(bus.Element("Kilometerage").Value),
                              KmFromLastRefuel = double.Parse(bus.Element("KmFromLastRefuel").Value),
                              KmFromLastCare = double.Parse(bus.Element("KmFromLastCare").Value),
@@ -1071,18 +1073,18 @@ namespace DL
 
         }
 
-        public static double csDistance(BusStation bs1, BusStation bs2)
+        public static double csDistance(BusStation bs1, BusStation bs2) //return distance between 2 stations
         {
             GeoCoordinate loc1 = new GeoCoordinate(bs1.Latitude, bs1.Longitude);
             GeoCoordinate loc2 = new GeoCoordinate(bs2.Latitude, bs2.Longitude);
             return loc1.GetDistanceTo(loc2) * (1 + r.NextDouble() / 2); //air-distance(in meters)*(1 to 1.5)
         }
-        public static TimeSpan csDt(double distance)
+        public static TimeSpan csDt(double distance) //return the drive time according to the given distance
         {
             return TimeSpan.FromSeconds(distance / (r.Next(50, 70) * 1 / 3.6));
         }
 
-        #endregion
+        #endregion //reset the XML files data(using one time!)
 
     }
 }

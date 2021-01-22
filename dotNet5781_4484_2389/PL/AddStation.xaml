@@ -37,7 +37,7 @@
         <Label Content="Longitude: " HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
         <Label Content="Name: " HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
         <Label Content="Address: " HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
-        <RadioButton x:Name="_Accessibility" Content="Accessibility" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="9" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+        <CheckBox x:Name="_Accessibility" Content="Accessibility" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="9" VerticalAlignment="Center" FontWeight="Bold" FontSize="16"/>
         <Button x:Name="Adding" Content="Add" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Width="75" FontFamily="Stencil" FontSize="15" Click="Adding_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">

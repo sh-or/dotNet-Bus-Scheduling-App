@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class BOLineStation
+    public class BOLineStation //details about station in line
     {
-        public int StationCode { get; set; } //linestation
-        public string Name { get; set; } //busstation
-        public double Distance { get; set; } //from consec'
-        public TimeSpan DriveTime { get; set; } //from consec'
-        
-
+        public int StationCode { get; set; } 
+        public string Name { get; set; } 
+        public double Distance { get; set; } 
+        public TimeSpan DriveTime { get; set; }      
     }
 }

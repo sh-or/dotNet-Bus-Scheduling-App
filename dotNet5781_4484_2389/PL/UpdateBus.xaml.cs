@@ -30,6 +30,11 @@ namespace PL
             InitializeComponent();
             _LicenseNumber.DataContext = b.LicenseNumber;
             _LicensingDate.SelectedDate = b.LicensingDate;
+            _DateCare.SelectedDate = b.DateOfLastCare;
+            _KmCare.Text = b.KmFromLastCare.ToString();
+            _KmRefuel.Text = b.KmFromLastRefuel.ToString();
+            _Kilometerage.Text = b.Kilometerage.ToString();
+            _DName.Text = b.Driver;
 
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)

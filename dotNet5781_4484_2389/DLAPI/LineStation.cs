@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    public class LineStation
+    public class LineStation //connect station to line that cross in it
     {
         public int LineCode { get; set; }
         public int StationCode { get; set; }

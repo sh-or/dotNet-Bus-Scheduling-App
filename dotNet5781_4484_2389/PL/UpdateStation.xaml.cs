@@ -29,6 +29,11 @@ namespace PL
             st = bst;
             InitializeComponent();
             _Code.DataContext = st.StationCode;
+            _Latitude.Text= bst.Latitude.ToString();
+            _Longitude.Text= bst.Longitude.ToString();
+            _Name.Text= bst.Name;
+            _Address.Text= bst.Address;
+            _Accessibility.IsChecked= bst.Accessibility;
         }
         private void TextBox_onlyDouble_PreviewKeyDown(object sender, KeyEventArgs e)
         {

@@ -14,15 +14,15 @@
   </Bus>
   <Bus>
     <LicenseNumber>23456789</LicenseNumber>
-    <LicensingDate>2019-01-09</LicensingDate>
-    <Kilometerage>125000</Kilometerage>
-    <Fuel>0.29166666666666669</Fuel>
-    <KmFromLastRefuel>850</KmFromLastRefuel>
-    <KmFromLastCare>19800</KmFromLastCare>
-    <DateOfLastCare>2020-09-14</DateOfLastCare>
-    <Status>NeedCare</Status>
+    <LicensingDate>09/01/2019 00:00:00</LicensingDate>
+    <Kilometerage>12</Kilometerage>
+    <Fuel>0.99</Fuel>
+    <KmFromLastRefuel>12</KmFromLastRefuel>
+    <KmFromLastCare>12</KmFromLastCare>
+    <DateOfLastCare>22/01/2021 00:00:00</DateOfLastCare>
+    <Status>Ready</Status>
     <Driver>Shlomi</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>34567890</LicenseNumber>
@@ -34,43 +34,43 @@
     <DateOfLastCare>2018-10-06</DateOfLastCare>
     <Status>NeedCare</Status>
     <Driver>Yakov</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>False</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>45678901</LicenseNumber>
-    <LicensingDate>27/12/2018 00:00:00</LicensingDate>
+    <LicensingDate>27/12/2018</LicensingDate>
     <Kilometerage>600</Kilometerage>
     <Fuel>0.5</Fuel>
     <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>600</KmFromLastCare>
-    <DateOfLastCare>14/09/2020 00:00:00</DateOfLastCare>
+    <DateOfLastCare>14/09/2020</DateOfLastCare>
     <Status>Ready</Status>
     <Driver>Dan</Driver>
     <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>56789012</LicenseNumber>
-    <LicensingDate>2019-12-27</LicensingDate>
+    <LicensingDate>27/12/2019 00:00:00</LicensingDate>
     <Kilometerage>18000</Kilometerage>
-    <Fuel>0.041666666666666664</Fuel>
-    <KmFromLastRefuel>1150</KmFromLastRefuel>
-    <KmFromLastCare>9000</KmFromLastCare>
-    <DateOfLastCare>2020-07-24</DateOfLastCare>
-    <Status>NeedRefeul</Status>
+    <Fuel>1</Fuel>
+    <KmFromLastRefuel>0</KmFromLastRefuel>
+    <KmFromLastCare>0</KmFromLastCare>
+    <DateOfLastCare>22/01/2021 12:05:25</DateOfLastCare>
+    <Status>Ready</Status>
     <Driver>Noam</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>1234567</LicenseNumber>
-    <LicensingDate>2012-04-27</LicensingDate>
+    <LicensingDate>27/04/2012 00:00:00</LicensingDate>
     <Kilometerage>25600</Kilometerage>
-    <Fuel>0.41666666666666669</Fuel>
-    <KmFromLastRefuel>700</KmFromLastRefuel>
+    <Fuel>1</Fuel>
+    <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>10777</KmFromLastCare>
-    <DateOfLastCare>2020-08-14</DateOfLastCare>
+    <DateOfLastCare>14/08/2020 00:00:00</DateOfLastCare>
     <Status>Ready</Status>
     <Driver>Yosi</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>2345678</LicenseNumber>
@@ -100,7 +100,7 @@
     <LicenseNumber>4567890</LicenseNumber>
     <LicensingDate>23/10/2016 00:00:00</LicensingDate>
     <Kilometerage>2500</Kilometerage>
-    <Fuel>0.0083333333333333332</Fuel>
+    <Fuel>1</Fuel>
     <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>1300</KmFromLastCare>
     <DateOfLastCare>14/07/2020 00:00:00</DateOfLastCare>
@@ -110,15 +110,15 @@
   </Bus>
   <Bus>
     <LicenseNumber>5678901</LicenseNumber>
-    <LicensingDate>2016-10-27</LicensingDate>
+    <LicensingDate>27/10/2016 00:00:00</LicensingDate>
     <Kilometerage>25001</Kilometerage>
-    <Fuel>0.075</Fuel>
-    <KmFromLastRefuel>1110</KmFromLastRefuel>
+    <Fuel>1</Fuel>
+    <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>1300</KmFromLastCare>
-    <DateOfLastCare>2020-07-17</DateOfLastCare>
-    <Status>NeedRefeul</Status>
+    <DateOfLastCare>17/07/2020 00:00:00</DateOfLastCare>
+    <Status>Ready</Status>
     <Driver>Itamar</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>6789012</LicenseNumber>
@@ -134,15 +134,15 @@
   </Bus>
   <Bus>
     <LicenseNumber>7890123</LicenseNumber>
-    <LicensingDate>2017-07-21</LicensingDate>
+    <LicensingDate>21/07/2017 00:00:00</LicensingDate>
     <Kilometerage>25001</Kilometerage>
-    <Fuel>0.85</Fuel>
-    <KmFromLastRefuel>180</KmFromLastRefuel>
+    <Fuel>1</Fuel>
+    <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>1300</KmFromLastCare>
-    <DateOfLastCare>2020-07-26</DateOfLastCare>
+    <DateOfLastCare>26/07/2020 00:00:00</DateOfLastCare>
     <Status>Ready</Status>
     <Driver>Yosef</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>8901234</LicenseNumber>
@@ -158,27 +158,27 @@
   </Bus>
   <Bus>
     <LicenseNumber>90123456</LicenseNumber>
-    <LicensingDate>2018-11-23</LicensingDate>
+    <LicensingDate>23/11/2018 00:00:00</LicensingDate>
     <Kilometerage>25001</Kilometerage>
-    <Fuel>0.33333333333333331</Fuel>
-    <KmFromLastRefuel>800</KmFromLastRefuel>
+    <Fuel>1</Fuel>
+    <KmFromLastRefuel>0</KmFromLastRefuel>
     <KmFromLastCare>1600</KmFromLastCare>
-    <DateOfLastCare>2020-06-13</DateOfLastCare>
+    <DateOfLastCare>13/06/2020 00:00:00</DateOfLastCare>
     <Status>Ready</Status>
     <Driver>Moshe</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>67890123</LicenseNumber>
-    <LicensingDate>2019-09-27</LicensingDate>
-    <Kilometerage>25001</Kilometerage>
-    <Fuel>0.33333333333333331</Fuel>
-    <KmFromLastRefuel>800</KmFromLastRefuel>
-    <KmFromLastCare>1300</KmFromLastCare>
-    <DateOfLastCare>2020-09-14</DateOfLastCare>
-    <Status>Ready</Status>
+    <LicensingDate>27/09/2019 00:00:00</LicensingDate>
+    <Kilometerage>2000</Kilometerage>
+    <Fuel>0.0416666666666666</Fuel>
+    <KmFromLastRefuel>1150</KmFromLastRefuel>
+    <KmFromLastCare>10</KmFromLastCare>
+    <DateOfLastCare>22/01/2021 00:00:00</DateOfLastCare>
+    <Status>NeedRefeul</Status>
     <Driver>Dan</Driver>
-    <IsExist>true</IsExist>
+    <IsExist>True</IsExist>
   </Bus>
   <Bus>
     <LicenseNumber>78901234</LicenseNumber>
@@ -251,5 +251,17 @@
     <Status>NeedRefeul</Status>
     <Driver>Michael</Driver>
     <IsExist>true</IsExist>
+  </Bus>
+  <Bus>
+    <LicenseNumber>11114444</LicenseNumber>
+    <LicensingDate>22/01/2021 00:00:00</LicensingDate>
+    <Kilometerage>11</Kilometerage>
+    <Fuel>0.990833333333333</Fuel>
+    <KmFromLastRefuel>11</KmFromLastRefuel>
+    <KmFromLastCare>11</KmFromLastCare>
+    <DateOfLastCare>22/01/2021 00:00:00</DateOfLastCare>
+    <Status>Ready</Status>
+    <Driver>sss</Driver>
+    <IsExist>True</IsExist>
   </Bus>
 </ArrayOfBus>

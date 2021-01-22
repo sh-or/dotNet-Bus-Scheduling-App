@@ -31,6 +31,8 @@ namespace PL
             _Area.ItemsSource = Enum.GetValues(typeof(BO.AreaEnum));
             _First.DataContext = l.FirstStation;
             _Last.DataContext = l.LastStation;
+            _LineNumber.Text= l.BusLine.ToString();
+            _Area.SelectedItem= l.Area;
         }
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {

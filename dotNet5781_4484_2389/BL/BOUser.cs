@@ -8,10 +8,11 @@ namespace BO
 {
     public class BOUser
     {
-        public string Name { get; set; }        //id
+        public string Name { get; set; } //id
         public string Password { get; set; } 
         public bool IsManager { get; set; }
         public bool IsExist { get; set; } //for deleting
-        public IEnumerable<BOUserDrive> Drives { get; set; }
+
+        //public IEnumerable<BOUserDrive> Drives { get; set; }
     }
 }

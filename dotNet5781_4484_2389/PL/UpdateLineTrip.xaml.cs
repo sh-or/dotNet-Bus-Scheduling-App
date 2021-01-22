@@ -29,7 +29,7 @@ namespace PL
             linetrip = lt;
             InitializeComponent();
             _LineCode.DataContext = lt.LineCode;
-
+            _Start.Text = lt.Start.ToString();
         }
 
         private void Updating_Click(object sender, RoutedEventArgs e)

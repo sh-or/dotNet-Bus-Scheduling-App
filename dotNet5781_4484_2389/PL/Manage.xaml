@@ -13,7 +13,7 @@
             <TabItem Header="Buses" HorizontalAlignment="Right" Margin="-2,0,2,-2" Width="80">
                 <Grid >
                     <Button Content="Add Bus" HorizontalAlignment="Left" Margin="802,445,0,0" VerticalAlignment="Top" Width="74" Height="32" Click="addBus" />
-                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False"  HorizontalAlignment="Center" HorizontalGridLinesBrush="Khaki"  EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" Margin="15,13,89,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="782" >
+                    <DataGrid x:Name="ListBuses" AutoGenerateColumns="False" HorizontalAlignment="Center" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" Margin="15,13,89,13" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalContentAlignment="Center" ColumnHeaderHeight="30"  RenderTransformOrigin="0.5,0.5" Width="782" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -23,6 +23,7 @@
                             </TransformGroup>
                         </DataGrid.RenderTransform>
                         <DataGrid.Columns>
+                            <!--DataGridTextColumn Foreground="Green"/-->
                             <DataGridTextColumn x:Name="LcNumColumn" Binding="{Binding LicenseNumber}" Header="License Number"  Width="90"/>
                             <DataGridTextColumn x:Name="LicensingDateColumn" Binding="{Binding LicensingDate}" Header="Licensing Date" Width="SizeToHeader"/>
                             <DataGridTextColumn x:Name="KmColumn" Binding="{Binding Kilometerage}" Header="Kilometerage" Width="80"/>
@@ -173,7 +174,8 @@
                     </DataGrid>
                     
                     <Label Content="Stations in this line:" HorizontalAlignment="Left" Margin="601,18,0,0" VerticalAlignment="Top" FontSize="18" Width="215"/>
-                    <Button x:Name="AddStationInLine" Content="Add station in line" Click="AddStationInLine_Click"  ToolTip="Add station to this line" Margin="645,347,122,118" />
+                    <Button x:Name="AddStationInLine" Content="Add station in line" Click="AddStationInLine_Click"  ToolTip="Add station to this line" Margin="645,369,122.333,96" />
+                    <Label Content="*Double click on station to edit time and distance from last station" HorizontalAlignment="Left" Margin="513,340,0,0" VerticalAlignment="Top"/>
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF6ED8F7" Offset="0"/>

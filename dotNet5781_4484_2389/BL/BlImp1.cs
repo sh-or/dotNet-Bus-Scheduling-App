@@ -56,8 +56,7 @@ namespace BL
             try
             {
                 tmp = dal.GetBus(b.LicenseNumber);
-                if(tmp.Fuel==b.Fuel)
-                    b.Fuel = 1 - b.KmFromLastRefuel / 1200;
+                b.Fuel = 1 - b.KmFromLastRefuel / 1200;
                 if((int)b.Status<5) //not in refuel/care
                 {
                     if (!((DateTime.Today.AddYears(-1)) < b.DateOfLastCare) || (b.KmFromLastCare) > 18500) //checking time/km from last care
@@ -126,6 +125,7 @@ namespace BL
                 throw new BLException($"Bus cannot drive {b.KmFromLastRefuel} Km from last refuel");
             //b.Kilometerage=Math.Max(b.Kilometerage,Math.Max(b.KmFromLastCare,b.KmFromLastRefuel));
             b.Fuel = 1 - b.KmFromLastRefuel / 1200;
+            b.Status = (BO.StatusEnum)1;
             if (!((DateTime.Today.AddYears(-1)) < b.DateOfLastCare) || (b.KmFromLastCare) > 18500) //checking time/km from last care
             {
                 b.Status = (BO.StatusEnum)2; //need care 
@@ -932,8 +932,8 @@ namespace BL
             }
             else
                 throw new BLException($"Line {_LineCode} does not cross at station {_StationCode}");
-        }
-        public IEnumerable<BOLine> SearchRoute(int _StationCode1, int _StationCode2)
+        } //return the time that take to the line to reach the asked station
+        public IEnumerable<BOLine> SearchRoute(int _StationCode1, int _StationCode2) //return all the lines that cross this stations(in order)
         {
             try
             {
@@ -950,6 +950,6 @@ namespace BL
             {
                 throw new BLException(ex.Message, ex);
             }
-        }
+        }  //
     }
 }

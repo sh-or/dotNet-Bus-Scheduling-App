@@ -36,6 +36,9 @@ namespace PL
                 int index = lst.FindIndex(x => x.StationCode == bls.StationCode);
                 st1 = lst[index - 1].StationCode;
                 _stations.Text = st1 + ", " + st2;
+                BOConsecutiveStations cs = bl.GetConsecutiveStations(st1, st2);
+                _Distance.Text = cs.Distance.ToString();
+                _DriveTime.Text = cs.DriveTime.ToString();
             }
             catch (BLException ex)
             {

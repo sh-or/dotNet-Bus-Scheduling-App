@@ -43,12 +43,6 @@ namespace BlAPI
         void DeleteLine(int _Code);
         #endregion
 
-        #region Line Station
-        //   void AddLineStation(int _LineCode, int _StationCode, int _StationNumberInLine);
-        //void UpdateLineStation(BOLineStation ls);
-        //void DeleteLineStation(int _LineCode, int _StationCode);
-        #endregion
-
         #region Consecutive Stations
         void AddConsecutiveStations(int _StationCode1, int _StationCode2);
         BOConsecutiveStations GetConsecutiveStations(int _StationCode1, int _StationCode2);
@@ -56,14 +50,15 @@ namespace BlAPI
         #endregion
 
         #region Drive
-        void AddDrive(int _StartStation, int _DestinationStation);
+        //we didnt use Drive, but it can use for program expanding
+
+        //void AddDrive(int _StartStation, int _DestinationStation);
         //void UpdateDrive(BODrive d);
         //BODrive GetDrive(BODrive d);
         //void DeleteDrive(int _StartStation, int _DestinationStation);
         #endregion
 
         #region User
-        //bool IsUser(BOUser u);
         BOUser GetUser(string name, string password);
         void UpdateUser(BOUser u);
         //IEnumerable<BOUser> GetSpecificUsers(Predicate<BOUser> p);
@@ -72,7 +67,6 @@ namespace BlAPI
         void DeleteUser(string name);
 
         #endregion
-
 
         #region LineTrip
         void AddLineTrip(BOLineTrip lt);
@@ -83,7 +77,7 @@ namespace BlAPI
         void UpdateLineTrip(BOLineTrip lt, TimeSpan NewStart); //lt=original
 
         #endregion
-        TimeSpan DriveTimeToStation(int _LineCode, int _StationCode);
-        IEnumerable<BOLine> SearchRoute(int _stationCode1, int StationCode2);
+        TimeSpan DriveTimeToStation(int _LineCode, int _StationCode);  //return the time that take to the line to reach the asked station
+        IEnumerable<BOLine> SearchRoute(int _stationCode1, int StationCode2);  //return all the lines that cross this stations(in order)
     }
 }

@@ -46,10 +46,9 @@ namespace DLAPI
         IEnumerable<LineStation> GetAllLineStations(int _LineCode);
         void UpdateLineStation(int _LineCode, int _StationCode, int n); //change index in +/-1
         int IsStationInLine(int _LineCode, int _StationCode); //check if exist specific linestation and return the station location in the line or -1
-        IEnumerable<LineStation> GetSpecificLineStations(Predicate<LineStation> p /*condition*/);
+        IEnumerable<LineStation> GetSpecificLineStations(Predicate<LineStation> p);
         void DeleteLineStation(int _LineCode, int _StationCode);
-        //void DeleteStationLineStations(int _StationCode);
-        //void DeleteLineLineStations(int _LineCode);
+
         #endregion
 
         #region ConsecutiveStations
@@ -58,8 +57,6 @@ namespace DLAPI
         void UpdateConsecutiveStations(ConsecutiveStations cs);
         bool isExistConsecutiveStations(int _FirstStation, int _LastStation);
         IEnumerable<ConsecutiveStations> GetSomeConsecutiveStations(int _StationCode);
-        //? void DeleteConsecutiveStations();
-        // double GetDistance();
         #endregion
 
         #region User
@@ -69,7 +66,6 @@ namespace DLAPI
         IEnumerable<User> GetAllUsers();
         void AddUser(User u);
         void DeleteUser(string name);
-        //bool IsUser(User u);
         #endregion
 
         #region LineTrip

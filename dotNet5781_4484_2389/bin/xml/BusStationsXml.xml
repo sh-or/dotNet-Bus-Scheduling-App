@@ -1,15 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfBusStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <BusStation>
-    <StationCode>4</StationCode>
-    <Latitude>31.88855</Latitude>
-    <Longitude>34.790904</Longitude>
-    <Name>Bar Lev</Name>
-    <Address>Bar Lev 43</Address>
-    <Accessibility>true</Accessibility>
-    <IsExist>true</IsExist>
-  </BusStation>
-  <BusStation>
     <StationCode>5</StationCode>
     <Latitude>31.914255</Latitude>
     <Longitude>34.807944</Longitude>
@@ -475,6 +466,15 @@
     <Name>Hayezira</Name>
     <Address>Hayezira 67</Address>
     <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>4</StationCode>
+    <Latitude>31.88855</Latitude>
+    <Longitude>34.790904</Longitude>
+    <Name>Bar Lev</Name>
+    <Address>Bar Lev 43</Address>
+    <Accessibility>true</Accessibility>
     <IsExist>true</IsExist>
   </BusStation>
 </ArrayOfBusStation>

@@ -48,7 +48,7 @@
             </Button.Style>
         </Button>
         <TextBlock x:Name="_LineCode" Text="{Binding}" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <ComboBox x:Name="_StationCode" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="120" SelectionChanged="_StationCode_SelectionChanged"/>
+        <ComboBox x:Name="_StationCode" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="120" />
         <TextBox x:Name="_Index" Grid.Column="1" PreviewKeyDown="TextBox_OnlyNumbers_PreviewKeyDown" HorizontalAlignment="Center" MaxLength="20" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
     </Grid>
 </Window>

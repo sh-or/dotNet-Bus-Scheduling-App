@@ -35,6 +35,31 @@ namespace PL
             _Address.Text= bst.Address;
             _Accessibility.IsChecked= bst.Accessibility;
         }
+
+        private void Updating_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BOBusStation b = st;
+                b.Latitude = double.Parse(_Latitude.Text);
+                b.Longitude = double.Parse(_Longitude.Text);
+                b.Name = _Name.Text;
+                b.Address = _Address.Text;
+                b.Accessibility = (bool)_Accessibility.IsChecked;
+
+                bl.UpdateStation(b);
+                Close();
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show(ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
+            }
+        }
+            
         private void TextBox_onlyDouble_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -61,28 +86,5 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        private void Updating_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                BOBusStation b = st;
-                b.Latitude = double.Parse(_Latitude.Text);
-                b.Longitude = double.Parse(_Longitude.Text);
-                b.Name = _Name.Text;
-                b.Address = _Address.Text;
-                b.Accessibility = (bool)_Accessibility.IsChecked;
-
-                bl.UpdateStation(b);
-                Close();
-            }
-            catch (BLException ex)
-            {
-                MessageBox.Show(ex.Message + "\nEdit and try again");
-            }
-            catch
-            {
-                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
-            }
-        }
     }
 }

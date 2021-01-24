@@ -28,7 +28,6 @@ namespace PL
         {
             bl = ibl;
             st2 = bls.StationCode;
-
             InitializeComponent();
             try
             {
@@ -39,6 +38,39 @@ namespace PL
                 BOConsecutiveStations cs = bl.GetConsecutiveStations(st1, st2);
                 _Distance.Text = cs.Distance.ToString();
                 _DriveTime.Text = cs.DriveTime.ToString();
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
+            }
+        }
+
+
+        private void Updating_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSpan dTime;
+            double km;
+            int n;
+            try
+            {
+                if (!double.TryParse(_Distance.Text, out km) || int.TryParse(_DriveTime.Text, out n) || !TimeSpan.TryParse(_DriveTime.Text, out dTime))
+                {
+                    MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
+                    return;
+                }
+                BOConsecutiveStations cs = new BOConsecutiveStations()
+                {
+                    StationCode1 = st1,
+                    StationCode2 = st2,
+                    Distance = km,
+                    DriveTime = dTime
+                };
+                bl.UpdateConsecutiveStations(cs);
+                Close();
             }
             catch (BLException ex)
             {
@@ -76,37 +108,5 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        private void Updating_Click(object sender, RoutedEventArgs e)
-        {
-            TimeSpan dTime;
-            double km;
-            int n;
-            try
-            {
-                if (!double.TryParse(_Distance.Text, out km) || int.TryParse(_DriveTime.Text, out n) || !TimeSpan.TryParse(_DriveTime.Text, out dTime))
-                {
-                    MessageBox.Show("ERROR! \nWrong input format" + "\nEdit and try again");
-                    return;
-                }
-
-                BOConsecutiveStations cs = new BOConsecutiveStations()
-                {
-                    StationCode1 = st1,
-                    StationCode2 = st2,
-                    Distance = km,
-                    DriveTime = dTime
-                };
-                bl.UpdateConsecutiveStations(cs);
-                Close();
-            }
-            catch (BLException ex)
-            {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
-            }
-            catch
-            {
-                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
-            }
-        }
     }
 }

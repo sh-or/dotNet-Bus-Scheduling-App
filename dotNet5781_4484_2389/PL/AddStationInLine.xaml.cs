@@ -31,7 +31,7 @@ namespace PL
             try
             {
                 IEnumerable<int> lst = from x in bl.GetAllBusStations()
-                                       select x.StationCode; //+name???
+                                       select x.StationCode;
                 _StationCode.ItemsSource = lst;
                 _LineCode.DataContext = l.Code;
             }
@@ -40,6 +40,28 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void Adding_Click(object sender, RoutedEventArgs e)
+        { 
+            try
+            { 
+               int index = int.Parse(_Index.Text);
+               int StationCode = (int)_StationCode.SelectedItem;
+                bl.AddStationInLine(l, StationCode, index);
+                MessageBox.Show($"Station {StationCode} was added successfuly");
+                Close();
+            }
+
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
+            }
+        }
+
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -66,30 +88,5 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        private void Adding_Click(object sender, RoutedEventArgs e)
-        { 
-            try
-            { 
-               int index = int.Parse(_Index.Text);
-               int StationCode = (int)_StationCode.SelectedItem;
-                bl.AddStationInLine(l, StationCode, index);
-                MessageBox.Show($"Station {StationCode} was added successfuly");
-                Close();
-            }
-
-            catch (BLException ex)
-            {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
-            }
-            catch
-            {
-                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
-            }
-        }
-
-        private void _StationCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

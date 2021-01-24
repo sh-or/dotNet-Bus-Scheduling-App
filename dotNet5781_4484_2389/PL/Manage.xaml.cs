@@ -37,16 +37,8 @@ namespace PL
                                   select l.Code;
             LineChoose.ItemsSource = AllLinesNumbers;
             ListLineTrips.ItemsSource = bl.GetAllLineTrips((int)LineChoose.SelectedItem);
-
-            //StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
-            //LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
 
-        #region Bus
-        private void RefreshBuses(object sender, EventArgs e)
-        {
-            ListBuses.ItemsSource = bl.GetAllBuses();
-        }
         private void RefreshLinesAndStations(object sender, EventArgs e)
         {
             ListBusStation.ItemsSource = bl.GetAllBusStations();
@@ -56,6 +48,12 @@ namespace PL
         {
             ListLineTrips.ItemsSource = bl.GetAllLineTrips((int)LineChoose.SelectedItem);
 
+        }
+
+        #region Bus
+        private void RefreshBuses(object sender, EventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses();
         }
 
         private void UpdateBus_Click(object sender, RoutedEventArgs e)
@@ -72,7 +70,113 @@ namespace PL
             addb.Closed += RefreshBuses;
             addb.ShowDialog();
         }
+       
+        private void DeleteBus_Click(object sender, RoutedEventArgs e)
+        {
+            BOBus b = (sender as Button).DataContext as BOBus;
+            try
+            {
+                bl.DeleteBus(b.LicenseNumber);
+                ListBuses.ItemsSource = bl.GetAllBuses();  //refresh
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
+            }
+        }
+
+        public void GoCare_Click(object sender, RoutedEventArgs e) //going to care
+        {
+            BOBus b = (sender as Button).DataContext as BOBus;
+            caring(b);
+        }
+        public void caring(BOBus b)
+        {
+            bgw1 = new BackgroundWorker(); //reset the care backgrounder
+            bgw1.DoWork += bgw1_DoWork;
+            bgw1.ProgressChanged += bgw1_ProgressChanged;
+            bgw1.RunWorkerCompleted += bgw1_RunWorkerCompleted;
+            bgw1.WorkerReportsProgress = true;
+            bgw1.RunWorkerAsync(b); //send the current bus to care
+        }
+        public void bgw1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BOBus b = (BOBus)e.Argument; //get current bus
+            b.Status = (StatusEnum)5; //="InCare"
+            bl.UpdateBus(b);
+            //b.isAvailable = false; //not available
+            for (int i = 144; i > 0; i--)
+            {
+                System.Threading.Thread.Sleep(1000); //wait 24 hours of care
+                bgw1.ReportProgress(5); //present changes
+            }
+
+            //update the changes from the ride: (after the ride)
+            b.DateOfLastCare = DateTime.Now;
+            b.KmFromLastCare = 0;
+            b.Status = (StatusEnum)1; //= Ready  (if not-will go to refuel...)
+            if (b.KmFromLastRefuel > 1000) //checking fuel
+            //bgw2.RunWorkerAsync(b); //send the current bus to refuel
+            {
+                b.Fuel = 1;
+                b.KmFromLastRefuel = 0;
+            }
+            bl.UpdateBus(b);
+        }
+        public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses(); //to show the new Status in the list
+        }
+        public void bgw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses(); //to show the new Status in the list
+        }
+
+        public void GoRefuel_Click(object sender, RoutedEventArgs e) //going to refuel
+        {
+            BOBus b = (sender as Button).DataContext as BOBus;
+            refueling(b);
+        }
+        public void refueling(BOBus b)
+        {
+            bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
+            bgw2.DoWork += bgw2_DoWork;
+            bgw2.ProgressChanged += bgw2_ProgressChanged;
+            bgw2.RunWorkerCompleted += bgw2_RunWorkerCompleted;
+            bgw2.WorkerReportsProgress = true;
+            bgw2.RunWorkerAsync(b); //send the current bus to refuel
+        }
+        public void bgw2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BOBus b = (BOBus)e.Argument; //get current bus
+            b.Status = (StatusEnum)6; //="InRefuel"
+            bl.UpdateBus(b);
+            //b.isAvailable = false; //not available
+            double tmp = b.Fuel;
+            for (int i = 12; i > 0; i--)
+            {
+                System.Threading.Thread.Sleep(1000); //wait 2 hours of refuel
+                b.Fuel += (1 - tmp) / 12.0;
+                bl.UpdateBus(b);
+                bgw2.ReportProgress(1); //present changes
+            }
+            //update the changes: (after refuel)
+            b.KmFromLastRefuel = 0;
+            b.Fuel = 1;
+            b.Status = (StatusEnum)1; //= Ready 
+            bl.UpdateBus(b);
+
+        }
+        public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses();  //to show the new Status in the list
+        }
+        public void bgw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ListBuses.ItemsSource = bl.GetAllBuses();  //to show the new Status in the list
+        }
         #endregion
+
         #region BusStation
         private void UpdateStation_Click(object sender, RoutedEventArgs e)
         {
@@ -88,7 +192,26 @@ namespace PL
             adds.Closed += RefreshLinesAndStations;
             adds.ShowDialog();
         }
+        private void DeleteBusStation_Click(object sender, RoutedEventArgs e)
+        {
+            BOBusStation bs = (sender as Button).DataContext as BOBusStation;
+            try
+            {
+                bl.DeleteBusStation(bs.StationCode);
+                ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
+                ListLines.ItemsSource = bl.GetAllLines();  //refresh
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
+            }
+        }
+        private void ListBusStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
+        }
         #endregion
+
         #region Line
         private void addline_Click(object sender, RoutedEventArgs e)
         {
@@ -110,41 +233,6 @@ namespace PL
         {
             LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
         }
-        #endregion
-        private void ListBusStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
-        }
-
-        private void DeleteBus_Click(object sender, RoutedEventArgs e)
-        {
-            BOBus b = (sender as Button).DataContext as BOBus;
-            try
-            {
-                bl.DeleteBus(b.LicenseNumber);
-                ListBuses.ItemsSource = bl.GetAllBuses();  //refresh
-            }
-            catch (BLException ex)
-            {
-                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
-            }
-        }
-
-        private void DeleteBusStation_Click(object sender, RoutedEventArgs e)
-        {
-            BOBusStation bs = (sender as Button).DataContext as BOBusStation;
-            try
-            {
-                bl.DeleteBusStation(bs.StationCode);
-                ListBusStation.ItemsSource = bl.GetAllBusStations();  //refresh
-                ListLines.ItemsSource = bl.GetAllLines();  //refresh
-            }
-            catch (BLException ex)
-            {
-                MessageBox.Show("ERROR!\n" + ex.Message + "\nEdit and try again");
-            }
-        }
-
 
         private void DeleteLine_Click(object sender, RoutedEventArgs e)
         {
@@ -185,120 +273,6 @@ namespace PL
             addsl.ShowDialog();
         }
 
-        public void GoCare_Click(object sender, RoutedEventArgs e) //going to care
-        {
-            BOBus b = (sender as Button).DataContext as BOBus;
-            caring(b);
-        }
-        public void caring(BOBus b) 
-        {
-            bgw1 = new BackgroundWorker(); //reset the care backgrounder
-            bgw1.DoWork += bgw1_DoWork;
-            bgw1.ProgressChanged += bgw1_ProgressChanged;
-            bgw1.RunWorkerCompleted += bgw1_RunWorkerCompleted;
-            bgw1.WorkerReportsProgress = true;
-            bgw1.RunWorkerAsync(b); //send the current bus to care
-        }
-        public void bgw1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BOBus b = (BOBus)e.Argument; //get current bus
-            b.Status = (StatusEnum)5; //="InCare"
-            bl.UpdateBus(b);
-            //button not enable?
-            //b.isAvailable = false; //not available
-            for (int i = 144; i > 0; i--)
-            {
-                //b.timerAct = "Coming back in " + bgwTimer(i);
-                System.Threading.Thread.Sleep(1000); //wait 24 hours of care
-                bgw1.ReportProgress(5); //present changes
-            }
-
-            //update the changes from the ride: (after the ride)
-            b.DateOfLastCare = DateTime.Now;
-            b.KmFromLastCare = 0;
-            b.Status =(StatusEnum)1; //= Ready  (if not-will go to refuel...)
-            //b.isAvailable = true; //available
-            //b.timerAct = "";
-            if (b.KmFromLastRefuel > 1000) //checking fuel
-            //bgw2.RunWorkerAsync(b); //send the current bus to refuel
-            {
-                b.Fuel = 1;
-                b.KmFromLastRefuel = 0;
-            }
-            bl.UpdateBus(b);
-        }
-        public void bgw1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            ListBuses.ItemsSource = bl.GetAllBuses(); //to show the new Status in the list
-        }
-        public void bgw1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ListBuses.ItemsSource = bl.GetAllBuses(); //to show the new Status in the list
-        }
-
-        public void GoRefuel_Click(object sender, RoutedEventArgs e) //going to refuel
-        {
-            BOBus b = (sender as Button).DataContext as BOBus;
-            refueling(b);
-        }
-        public void refueling(BOBus b) 
-        {
-            bgw2 = new BackgroundWorker(); //reset the refuel backgrounder
-            bgw2.DoWork += bgw2_DoWork;
-            bgw2.ProgressChanged += bgw2_ProgressChanged;
-            bgw2.RunWorkerCompleted += bgw2_RunWorkerCompleted;
-            bgw2.WorkerReportsProgress = true;
-            bgw2.RunWorkerAsync(b); //send the current bus to refuel
-        }
-        public void bgw2_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BOBus b = (BOBus)e.Argument; //get current bus
-            b.Status = (StatusEnum)6; //="InRefuel"
-            bl.UpdateBus(b);
-            //button not enable?
-            //b.isAvailable = false; //not available
-            double tmp = b.Fuel;
-            for (int i = 12; i > 0; i--)
-            {
-                //b.timerAct = "Coming back in " + bgwTimer(i);
-                System.Threading.Thread.Sleep(1000); //wait 2 hours of refuel
-                b.Fuel += (1 - tmp) / 12.0;
-                bl.UpdateBus(b);
-                bgw2.ReportProgress(1); //present changes
-            }
-            //update the changes: (after refuel)
-            b.KmFromLastRefuel = 0;
-            b.Fuel = 1;
-            b.Status = (StatusEnum)1; //= Ready 
-            bl.UpdateBus(b);
-            //b.isAvailable = true; //available
-            //b.timerAct = "";
-        }
-        public void bgw2_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            ListBuses.ItemsSource = bl.GetAllBuses();  //to show the new Status in the list
-        }
-        public void bgw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            ListBuses.ItemsSource = bl.GetAllBuses();  //to show the new Status in the list
-        }
-
-        //public static string bgwTimer(int i) //describe the time that left to the end of the act
-        //{
-        //    string str;
-        //    if (i >= 60)
-        //    {
-        //        if (i / 60 / 10 != 0)
-        //            str = i / 60 + ":";
-        //        else str = "0" + i / 60 + ":";
-        //    }
-        //    else str = "00:";
-        //    if (i % 60 < 10)
-        //        str += "0" + i % 60;
-        //    else str += i % 60;
-        //    return str;
-        //}
-
         private void LineStations_MouseDoubleClick(object sender, MouseButtonEventArgs e) //update cs 
         {            
             BOLineStation ls = (sender as DataGrid).SelectedItem as BOLineStation;
@@ -328,7 +302,9 @@ namespace PL
             if (header == "IsExist")
                 e.Cancel = true;
         }
+        #endregion
 
+        #region Line Trip
         private void LineChoose_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListLineTrips.ItemsSource =bl.GetAllLineTrips((int)LineChoose.SelectedItem);
@@ -366,5 +342,6 @@ namespace PL
             AddLt.Closed += RefreshLineTrips;
             AddLt.ShowDialog();
         }
+        #endregion
     }
 }

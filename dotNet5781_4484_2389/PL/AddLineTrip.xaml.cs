@@ -58,6 +58,7 @@ namespace PL
                 MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
             }
         }
+       
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -83,6 +84,5 @@ namespace PL
             e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
             return;
         } //checking if the input contains digits only
-
     }
 }

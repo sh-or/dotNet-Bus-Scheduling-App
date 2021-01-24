@@ -34,6 +34,29 @@ namespace PL
             _LineNumber.Text= l.BusLine.ToString();
             _Area.SelectedItem= l.Area;
         }
+
+        private void Updating_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BOLine l = line;
+                l.BusLine = int.Parse(_LineNumber.Text);
+                l.Area = (AreaEnum)_Area.SelectedItem;
+                l.FirstStation = line.FirstStation;
+                l.LastStation = line.LastStation;
+                bl.UpdateLine(l);
+                Close();
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
+            }
+        }
+
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -60,26 +83,5 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        private void Updating_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                BOLine l = line;
-                l.BusLine = int.Parse(_LineNumber.Text);
-                l.Area = (AreaEnum)_Area.SelectedItem;
-                l.FirstStation = line.FirstStation;
-                l.LastStation = line.LastStation;
-                bl.UpdateLine(l);
-                Close();
-            }
-            catch (BLException ex)
-            {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
-            }
-            catch
-            {
-                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
-            }
-        }
     }
 }

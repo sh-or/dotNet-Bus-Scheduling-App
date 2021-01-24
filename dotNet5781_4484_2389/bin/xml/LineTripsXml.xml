@@ -90,4 +90,9 @@
     <Start>13:00:00</Start>
     <IsExist>True</IsExist>
   </LineTrip>
+  <LineTrip>
+    <LineCode>3</LineCode>
+    <Start>00:00:00</Start>
+    <IsExist>True</IsExist>
+  </LineTrip>
 </ArrayOfLineTrip>

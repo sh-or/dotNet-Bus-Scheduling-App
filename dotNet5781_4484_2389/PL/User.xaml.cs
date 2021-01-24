@@ -153,6 +153,12 @@ namespace PL
         }
         #endregion
 
+        private void LineStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string header = e.Column.Header.ToString();
+            if (header == "Distance")
+                e.Cancel = true;
+        }
     }
 }
 

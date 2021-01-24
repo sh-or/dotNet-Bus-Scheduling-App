@@ -29,7 +29,7 @@ namespace DL
         string LineStationsPath = @"LineStationsXml.xml"; //XMLSerializer
         string LinesPath = @"LinesXml.xml"; //XMLSerializer
         string UsersPath = @"UserXml.xml"; //XMLSerializer
-        string ConsecutiveStationsPath = @"ConsecutiveStationsXml.xml"; //XMLSerializer
+        string ConsecutiveStationsPath = @"ConsecutiveStationsXml.xml"; //XElement
         #endregion
 
         #region Bus
@@ -685,6 +685,24 @@ namespace DL
                              select c).FirstOrDefault();
 
             return (coSt != null);
+        }
+
+        public void DeleteConsecutiveStations(int _StationCode1, int _StationCode2)
+        {
+            XElement csRootElem = XMLTools.LoadListFromXMLElement(ConsecutiveStationsPath);
+
+            XElement cs = (from c in csRootElem.Elements()
+                           where int.Parse(c.Element("StationCode1").Value) == _StationCode1
+                           && int.Parse(c.Element("StationCode2").Value) == _StationCode2
+                           select c).FirstOrDefault();
+
+            if (cs != null)
+            {
+                cs.Remove();
+                XMLTools.SaveListToXMLElement(csRootElem, ConsecutiveStationsPath);
+            }
+            else
+                throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive");
         }
 
         public IEnumerable<ConsecutiveStations> GetSomeConsecutiveStations(int _StationCode)

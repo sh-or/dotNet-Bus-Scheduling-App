@@ -246,7 +246,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataGrid x:Name="StationLines" AutoGenerateColumns="True" EnableRowVirtualization="True" ItemsSource="{Binding}" IsReadOnly="True" HorizontalAlignment="Center" Height="293" Margin="596,74,14,0" VerticalAlignment="Top" Width="276"/>
-                    <Label Content="Lines cross this station:" HorizontalAlignment="Left" Margin="675,43,0,0" VerticalAlignment="Top" Width="110"/>
+                    <Label Content="Lines cross this station:" HorizontalAlignment="Left" Margin="675,43,0,0" VerticalAlignment="Top" Width="144"/>
                 </Grid>
             </TabItem>
 
@@ -286,8 +286,8 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBlock x:Name="BusLineOftrip" DataContext="{Binding}" Grid.Column="1" HorizontalAlignment="Left" Margin="27,162,0,304" />
-                    <TextBlock x:Name="Destination" DataContext="{Binding}" Grid.Column="1"  HorizontalAlignment="Left" Margin="27,206,0,254"/>
+                    <TextBlock x:Name="BusLineOftrip" DataContext="{Binding}" FontSize="18" Grid.Column="1" HorizontalAlignment="Left" Margin="9,156,0,310" FontFamily="Segoe UI Black" FontWeight="Bold" />
+                    <TextBlock x:Name="Destination" DataContext="{Binding}" FontSize="18" Grid.Column="1"  HorizontalAlignment="Left" Margin="9,204,0,256" FontFamily="Segoe UI Black" FontWeight="Bold"/>
 
                     <ComboBox x:Name="LineChoose" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Code}" SelectionChanged="LineChoose_SelectionChanged"  HorizontalAlignment="Left" Margin="116,83,0,0" VerticalAlignment="Top" Width="121" Height="36" Grid.ColumnSpan="2"/>
                     <Label Content="Bus line: " HorizontalAlignment="Right" Margin="73,152,0,0" VerticalAlignment="Top" FontSize="18"/>

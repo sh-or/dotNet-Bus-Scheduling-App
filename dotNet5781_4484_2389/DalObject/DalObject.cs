@@ -283,9 +283,21 @@ namespace DL
                    where cs.StationCode1 == _StationCode || cs.StationCode2 == _StationCode
                    select cs;
         }
-        #endregion
+        public void DeleteConsecutiveStations(int _StationCode1, int _StationCode2)
+        {
+            List<ConsecutiveStations> lst = DataSource.AllConsecutiveStations.ToList();
+            int n = lst.FindIndex(x => x.StationCode1 == _StationCode1 && x.StationCode2 == _StationCode2);
+            if (n > -1)
+            {
+                lst.RemoveAt(n);
+                DataSource.AllConsecutiveStations = lst;
+            }
+            else
+                throw new DOException($"Station {_StationCode1} and station {_StationCode2} are not consecutive");
+        }
+            #endregion
 
-        #region User
+            #region User
         public User GetUser(string name, string password)
         {
             User u = DataSource.AllUsers.FirstOrDefault(x => x.IsExist && x.Name == name && x.Password == password);

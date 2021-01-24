@@ -1,33 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfBusStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <BusStation>
-    <StationCode>1</StationCode>
-    <Latitude>32.183921</Latitude>
-    <Longitude>34.917806</Longitude>
-    <Name>Ben Yehuda</Name>
-    <Address>Ben Yehuda 12</Address>
-    <Accessibility>true</Accessibility>
-    <IsExist>true</IsExist>
-  </BusStation>
-  <BusStation>
-    <StationCode>2</StationCode>
-    <Latitude>31.870034</Latitude>
-    <Longitude>34.819541</Longitude>
-    <Name>Herzel</Name>
-    <Address>Herzel 12</Address>
-    <Accessibility>true</Accessibility>
-    <IsExist>true</IsExist>
-  </BusStation>
-  <BusStation>
-    <StationCode>3</StationCode>
-    <Latitude>31.984553</Latitude>
-    <Longitude>34.782828</Longitude>
-    <Name>shabazi</Name>
-    <Address>shabazi 3</Address>
-    <Accessibility>true</Accessibility>
-    <IsExist>false</IsExist>
-  </BusStation>
-  <BusStation>
     <StationCode>4</StationCode>
     <Latitude>31.88855</Latitude>
     <Longitude>34.790904</Longitude>
@@ -313,7 +286,7 @@
     <Name>Dvora</Name>
     <Address>Dvora 23</Address>
     <Accessibility>true</Accessibility>
-    <IsExist>false</IsExist>
+    <IsExist>true</IsExist>
   </BusStation>
   <BusStation>
     <StationCode>36</StationCode>
@@ -348,15 +321,6 @@
     <Longitude>35.319294</Longitude>
     <Name>Hashomer</Name>
     <Address>Hashomer 23</Address>
-    <Accessibility>true</Accessibility>
-    <IsExist>true</IsExist>
-  </BusStation>
-  <BusStation>
-    <StationCode>40</StationCode>
-    <Latitude>33.006806</Latitude>
-    <Longitude>35.259478</Longitude>
-    <Name>Hayezira</Name>
-    <Address>Hayezira 67</Address>
     <Accessibility>true</Accessibility>
     <IsExist>true</IsExist>
   </BusStation>
@@ -469,12 +433,48 @@
     <IsExist>true</IsExist>
   </BusStation>
   <BusStation>
+    <StationCode>2</StationCode>
+    <Latitude>31.870034</Latitude>
+    <Longitude>34.819541</Longitude>
+    <Name>Herzel</Name>
+    <Address>Herzel 12</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>3</StationCode>
+    <Latitude>31.984553</Latitude>
+    <Longitude>34.782828</Longitude>
+    <Name>shabazi</Name>
+    <Address>shabazi 3</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
     <StationCode>53</StationCode>
     <Latitude>33</Latitude>
     <Longitude>35</Longitude>
     <Name>bb</Name>
     <Address>bb</Address>
+    <Accessibility>false</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>1</StationCode>
+    <Latitude>32.183921</Latitude>
+    <Longitude>35.2</Longitude>
+    <Name>Ben Yehuda</Name>
+    <Address>Ben Yehuda 12</Address>
     <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
+  <BusStation>
+    <StationCode>40</StationCode>
+    <Latitude>33.006806</Latitude>
+    <Longitude>35.259478</Longitude>
+    <Name>Hayezira</Name>
+    <Address>Hayezira 67</Address>
+    <Accessibility>false</Accessibility>
     <IsExist>true</IsExist>
   </BusStation>
 </ArrayOfBusStation>

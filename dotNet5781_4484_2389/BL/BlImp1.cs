@@ -320,7 +320,10 @@ namespace BL
                         throw new BLException($"Cannot delete station {_StationCode}!\n" +
                             "Line(s) " + str + "cannot stay with less than 2 stations");
                 }
-                dal.DeleteBusStation(_StationCode);
+                IEnumerable<ConsecutiveStations> cs = dal.GetSomeConsecutiveStations( _StationCode).ToList();
+                if (cs != null)
+                    foreach (ConsecutiveStations c in cs)
+                        dal.DeleteConsecutiveStations(c.StationCode1, c.StationCode2);
                 }
             catch (DOException dex)
             {
@@ -808,9 +811,21 @@ namespace BL
             BOLineTrip tmp = new BOLineTrip();
             try
             {
+                //An option to use grouping, but it wasnt necessary in this case..
+                //var lst = from LineTrip l in dal.GetAllLineTrips(_LineCode)
+                //          let bl = dal.GetLine(l.LineCode)
+                //          orderby l.Start
+                //          group new BOLineTrip()
+                //          {
+                //              LineCode = l.LineCode,
+                //              BusLine = bl.BusLine,
+                //              Start = l.Start,
+                //              Destination = dal.GetBusStation(bl.LastStation).Name,
+                //              IsExist = true
+                //          } by bl.Area;
+                //return (IEnumerable<BOLineTrip>)lst;
                 return from LineTrip l in dal.GetAllLineTrips(_LineCode)
-                       let bl= dal.GetLine(l.LineCode)
-                       //group l by bl.Area into g
+                       let bl = dal.GetLine(l.LineCode)
                        orderby l.Start
                        select new BOLineTrip()
                        {
@@ -819,6 +834,7 @@ namespace BL
                            Start = l.Start,
                            Destination = dal.GetBusStation(bl.LastStation).Name,
                            IsExist = true
+                           //       };
                        };
             }
             catch (DOException ex)

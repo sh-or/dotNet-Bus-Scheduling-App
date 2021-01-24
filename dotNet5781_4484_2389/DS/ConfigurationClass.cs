@@ -17,7 +17,7 @@ namespace DS
         static int driveCode = 1; //for bus in drive
         public static int DriveCode => driveCode++;
 
-        static int userDriveCode = 1;
-        public static int UserDriveCode => driveCode++;
+        //static int userDriveCode = 1;
+        //public static int UserDriveCode => driveCode++;
     }
 }

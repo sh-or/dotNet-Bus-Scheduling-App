@@ -60,7 +60,7 @@
         <TextBox x:Name="_Longitude" PreviewKeyDown="TextBox_onlyDouble_PreviewKeyDown" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="5" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_Name" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="7" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
         <TextBox x:Name="_Address" Grid.Column="1" HorizontalAlignment="Center" Height="23" Grid.Row="9" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" FontSize="16"/>
-        <Label Content="*Israel longitude borders: 34.3-35.5" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="3" VerticalAlignment="Top"/>
-        <Label Content="*Israel latitude borders: 31-33.3" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="5" VerticalAlignment="Top"/>
+        <Label Content="*Israel longitude borders: 34.3-35.5" HorizontalAlignment="Left"  Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="135,33.667,0,0" Grid.RowSpan="3"/>
+        <Label Content="*Israel latitude borders: 31-33.3" HorizontalAlignment="Left"  Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="139,28,0,0" Grid.RowSpan="2"/>
     </Grid>
 </Window>

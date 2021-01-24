@@ -27,11 +27,9 @@ namespace PL
         {
             bl = ibl;
             InitializeComponent();
-            //IEnumerable<BOBusStation> busStations = bl.GetAllBusStations();
             try
             {
                 ListBusStation.ItemsSource = bl.GetAllBusStations();
-                //IEnumerable<BOLine> line = bl.GetAllLines();
                 ListLines.ItemsSource = bl.GetAllLines();
                 StationLines.ItemsSource = (ListBusStation.SelectedItem as BOBusStation).Lines;
                 LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
@@ -80,11 +78,6 @@ namespace PL
             ListLines.ItemsSource = bl.GetAllLines();
         }
 
-        private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
-        }
-
         #region Station
         private void ListBusStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -101,7 +94,6 @@ namespace PL
                 else
                 {
                     Simulator sml = new Simulator(bl, st, h, m, s, int.Parse(Rate.Text));
-                    //stop BGW in closing!!
                     sml.ShowDialog();
                 }
             }
@@ -111,22 +103,29 @@ namespace PL
 
             }
         }
+
+        #endregion
+        
+        #region Rout
         private void _StartStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_DestinationStation.SelectedItem != null)
                 refreshLinesRout();
         }
+        
         private void _DestinationStation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(_StartStation.SelectedItem!=null)
                 refreshLinesRout();
         }
+        
         private void refreshLinesRout()
         {
             int st1 = (int)_StartStation.SelectedItem;
             int st2 = (int)_DestinationStation.SelectedItem;
             ListLinesRoute.ItemsSource = bl.SearchRoute(st1, st2);
         }
+        
         private void ListLinesRoute_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListLinesRoute.SelectedItem != null)
@@ -134,13 +133,14 @@ namespace PL
             else
                 LinesRoutStations.ItemsSource = null;
         }
-
+        
         private void LinesRoutStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string header = e.Column.Header.ToString();
             if (header == "Distance")
                 e.Cancel = true;
         }
+        
         private void ListLinesRoute_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string header = e.Column.Header.ToString();
@@ -153,12 +153,19 @@ namespace PL
         }
         #endregion
 
+        #region Lines
+        private void ListLines_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LineStations.ItemsSource = (ListLines.SelectedItem as BOLine).Stations;
+        }
+
         private void LineStations_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string header = e.Column.Header.ToString();
             if (header == "Distance")
                 e.Cancel = true;
         }
+        #endregion
     }
 }
 

@@ -22,13 +22,7 @@ namespace PL
     public partial class AddLine : Window
     {
         IBL bl;
-        //public IEnumerable<string> getAllRegions()
-        //{
-        //    return Enum.GetValues(typeof(BO.AreaEnum))
-        //          .Cast<BO.AreaEnum>()
-        //         .Select(v => v.ToString())
-        //         .ToList();
-        //}
+      
         public AddLine(IBL ibl)
         {
             bl = ibl;
@@ -46,6 +40,31 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void Adding_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BOLine l = new BOLine();
+                l.IsExist = true;
+                l.BusLine = int.Parse(_LineNumber.Text);
+                l.Area = (AreaEnum)_Area.SelectedItem;
+                l.FirstStation = (int)_First.SelectedItem;
+                l.LastStation = (int)_Last.SelectedItem;
+                bl.AddLine(l);
+                MessageBox.Show($"Line {l.BusLine} was added successfuly");
+                Close();
+            }
+            catch (BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
+            }
+        }
+
         private void TextBox_OnlyNumbers_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -72,33 +91,5 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        private void Adding_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                BOLine l = new BOLine();
-                l.IsExist = true;
-                l.BusLine = int.Parse(_LineNumber.Text);
-                l.Area = (AreaEnum)_Area.SelectedItem;
-                l.FirstStation = (int)_First.SelectedItem;
-                l.LastStation = (int)_Last.SelectedItem;
-                bl.AddLine(l);
-                MessageBox.Show($"Line {l.BusLine} was added successfuly");
-                Close();
-            }
-            catch (BLException ex)
-            {
-                MessageBox.Show("ERROR! " + ex.Message + "\nEdit and try again");
-            }
-            catch
-            {
-                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
-            }
-        }
-
-        private void _First_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

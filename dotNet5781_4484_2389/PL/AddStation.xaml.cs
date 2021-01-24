@@ -27,6 +27,32 @@ namespace PL
             bl = ibl;
             InitializeComponent();
         }
+
+        private void Adding_Click(object sender, RoutedEventArgs e)
+        { 
+            try
+            {
+                BOBusStation b = new BOBusStation();
+                b.IsExist = true;
+                b.Latitude = double.Parse(_Latitude.Text);
+                b.Longitude = double.Parse(_Longitude.Text);
+                b.Name = _Name.Text;
+                b.Address = _Address.Text; 
+                b.Accessibility = (bool)_Accessibility.IsChecked;
+                bl.AddBusStation(b);
+                MessageBox.Show($"Station {b.Name} was added successfuly");
+                Close();
+            }
+            catch(BLException ex)
+            {
+                MessageBox.Show("ERROR! " + ex.Message+"\nEdit and try again");
+            }
+            catch
+            {
+                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
+            }
+        }
+
         private void TextBox_onlyDouble_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             TextBox text = sender as TextBox;
@@ -53,29 +79,5 @@ namespace PL
             return;
         } //checking if the input contains digits only
 
-        private void Adding_Click(object sender, RoutedEventArgs e)
-        { 
-            try
-            {
-                BOBusStation b = new BOBusStation();
-                b.IsExist = true;
-                b.Latitude = double.Parse(_Latitude.Text);
-                b.Longitude = double.Parse(_Longitude.Text);
-                b.Name = _Name.Text;
-                b.Address = _Address.Text; 
-                b.Accessibility = (bool)_Accessibility.IsChecked;
-                bl.AddBusStation(b);
-                MessageBox.Show($"Station {b.Name} was added successfuly");
-                Close();
-            }
-            catch(BLException ex)
-            {
-                MessageBox.Show("ERROR! " + ex.Message+"\nEdit and try again");
-            }
-            catch
-            {
-                MessageBox.Show("ERROR!\n" + "Missing input" + "\nEdit and try again");
-            }
-        }
     }
 }

@@ -27,11 +27,11 @@ namespace PL
         public static BackgroundWorker bgw;  // BackgroundWorker 
         public IBL bl;
         public BOBusStation st;
-        //public int Hours, Minuts, Seconds;
         public int Rate;
         public TimeSpan timer;
         public bool isRun = true;
         public TimeSpan runingTime; //the progress time in 1 sec
+
         public Simulator(IBL ibl, BOBusStation bst, int _Hours, int _Minuts, int _Seconds, int _Rate)
         {
             InitializeComponent();

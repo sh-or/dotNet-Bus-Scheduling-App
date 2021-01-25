@@ -56,7 +56,8 @@ namespace BL
             try
             {
                 tmp = dal.GetBus(b.LicenseNumber);
-                b.Fuel = 1 - b.KmFromLastRefuel / 1200;
+                if(b.Fuel==0)
+                    b.Fuel = 1 - b.KmFromLastRefuel / 1200;
                 if((int)b.Status<5) //not in refuel/care
                 {
                     if (!((DateTime.Today.AddYears(-1)) < b.DateOfLastCare) || (b.KmFromLastCare) > 18500) //checking time/km from last care

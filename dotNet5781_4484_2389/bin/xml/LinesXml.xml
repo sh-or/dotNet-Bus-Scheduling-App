@@ -76,8 +76,8 @@
     <Code>10</Code>
     <BusLine>464</BusLine>
     <Area>South</Area>
-    <FirstStation>9</FirstStation>
-    <LastStation>4</LastStation>
+    <FirstStation>7</FirstStation>
+    <LastStation>13</LastStation>
     <IsExist>true</IsExist>
   </Line>
   <Line>
@@ -102,7 +102,7 @@
     <Area>North</Area>
     <FirstStation>6</FirstStation>
     <LastStation>7</LastStation>
-    <IsExist>true</IsExist>
+    <IsExist>false</IsExist>
   </Line>
   <Line>
     <Code>14</Code>
@@ -206,6 +206,14 @@
     <Area>Center</Area>
     <FirstStation>2</FirstStation>
     <LastStation>1</LastStation>
+    <IsExist>true</IsExist>
+  </Line>
+  <Line>
+    <Code>27</Code>
+    <BusLine>78</BusLine>
+    <Area>South</Area>
+    <FirstStation>5</FirstStation>
+    <LastStation>13</LastStation>
     <IsExist>true</IsExist>
   </Line>
 </ArrayOfLine>

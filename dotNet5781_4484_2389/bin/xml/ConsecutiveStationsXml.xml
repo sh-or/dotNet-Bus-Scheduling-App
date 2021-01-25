@@ -139,12 +139,6 @@
     <DriveTime>00:18:54.3870000</DriveTime>
   </ConsecutiveStations>
   <ConsecutiveStations>
-    <StationCode1>11</StationCode1>
-    <StationCode2>32</StationCode2>
-    <Distance>118677.792278095</Distance>
-    <DriveTime>02:14:43.5980000</DriveTime>
-  </ConsecutiveStations>
-  <ConsecutiveStations>
     <StationCode1>32</StationCode1>
     <StationCode2>33</StationCode2>
     <Distance>595.339503472077</Distance>
@@ -345,8 +339,8 @@
   <ConsecutiveStations>
     <StationCode1>22</StationCode1>
     <StationCode2>27</StationCode2>
-    <Distance>87583.4932563292</Distance>
-    <DriveTime>02:10:31.7520000</DriveTime>
+    <Distance>123.4932563292</Distance>
+    <DriveTime>00:10:31.7520000</DriveTime>
   </ConsecutiveStations>
   <ConsecutiveStations>
     <StationCode1>27</StationCode1>
@@ -635,5 +629,23 @@
     <StationCode2>9</StationCode2>
     <Distance>4946.53022619879</Distance>
     <DriveTime>00:04:33.9620000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>8</StationCode1>
+    <StationCode2>32</StationCode2>
+    <Distance>120511.962738177</Distance>
+    <DriveTime>01:51:14.5090000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>4</StationCode1>
+    <StationCode2>13</StationCode2>
+    <Distance>114606.163717779</Distance>
+    <DriveTime>02:12:14.2730000</DriveTime>
+  </ConsecutiveStations>
+  <ConsecutiveStations>
+    <StationCode1>5</StationCode1>
+    <StationCode2>13</StationCode2>
+    <Distance>86338.6787849978</Distance>
+    <DriveTime>01:37:44.5140000</DriveTime>
   </ConsecutiveStations>
 </ArrayOfConsecutiveStations>

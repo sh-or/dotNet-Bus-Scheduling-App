@@ -116,7 +116,6 @@ namespace PL
             b.KmFromLastCare = 0;
             b.Status = (StatusEnum)1; //= Ready  (if not-will go to refuel...)
             if (b.KmFromLastRefuel > 1000) //checking fuel
-            //bgw2.RunWorkerAsync(b); //send the current bus to refuel
             {
                 b.Fuel = 1;
                 b.KmFromLastRefuel = 0;

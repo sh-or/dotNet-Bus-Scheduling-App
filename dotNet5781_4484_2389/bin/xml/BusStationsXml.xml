@@ -477,4 +477,13 @@
     <Accessibility>true</Accessibility>
     <IsExist>true</IsExist>
   </BusStation>
+  <BusStation>
+    <StationCode>54</StationCode>
+    <Latitude>32</Latitude>
+    <Longitude>34.8</Longitude>
+    <Name>aaa</Name>
+    <Address>ccc</Address>
+    <Accessibility>true</Accessibility>
+    <IsExist>true</IsExist>
+  </BusStation>
 </ArrayOfBusStation>
